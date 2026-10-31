@@ -1,0 +1,79 @@
+' SNACKI.G1M：从 G1M 原件解码成文字（指令名照卡西欧的写法；◢ = 显示后暂停，→ = 赋值，⇒ = 条件成立就做；卡西欧自己的特殊字符换成了长得像的 Unicode：▤◀▶ = 反白的 = < >，※ = 花纹块，⏨ = 10 的乘方）
+' 共 1 个程序：SNACKI
+
+'==== Prog "SNACKI" ====
+"SPEED 1 To 10"?→S
+'=====INIT==========
+ClrText
+148→Dim List 1
+Fill(0,List 1)
+{21,7}→Dim Mat A
+Fill(0,Mat A)
+2→X
+1→Y
+2→L
+1→P
+1×8+1→List 1[1]
+RanInt#(2,20)→M
+RanInt#(2,6)→N
+27→R
+27→Z
+If S≤10
+Then Int (80÷S)→S
+Else 1→S
+IfEnd
+Locate 1,1,"○"
+Locate 2,1,"●"
+Locate M,N,"¥"
+'=====MAIN LOOP=====
+While 1
+'=====DELAY&KEY=====
+For 1→I To S
+GetKey→T
+T=64⇒28→T
+T=62⇒37→T
+T=73⇒38→T
+T=53⇒27→T
+(T=28) And (Z≠37)⇒T→R
+(T=37) And (Z≠28)⇒T→R
+(T=38) And (Z≠27)⇒T→R
+(T=27) And (Z≠38)⇒T→R
+Next
+R→Z
+'Mat B[X,Y]→Z
+'=====MOVE==========
+MOD(P,148)+1→P
+Locate X,Y,"○"
+1→Mat A[X,Y]
+8X+Y→List 1[P]
+Z=28⇒Y-1→Y
+Z=37⇒Y+1→Y
+Z=38⇒X-1→X
+Z=27⇒X+1→X
+'=====EAT==========
+If X=M And Y=N
+Then 
+RanInt#(2,20)→M
+RanInt#(2,6)→N
+L+1→L
+0→List 1[MOD(P-L,148)+1]
+IfEnd
+List 1[MOD(P-L,148)+1]→T
+T≠0⇒0→Mat A[Int (T÷8),MOD(T-1,8)+1]
+'=====DIE===========
+X>21⇒Goto O
+X<1⇒Goto O
+Y>7⇒Goto O
+Y<1⇒Goto O
+Mat A[X,Y]=1⇒Goto O
+'=====DISPLAY=======
+T≠0⇒Locate Int (T÷8),MOD(T-1,8)+1," "
+Locate X,Y,"●"
+Locate M,N,"¥"
+WhileEnd
+'=====END===========
+Lbl O
+{3838}→List 1
+Locate 7,4,"GAME OVER"
+Locate 8,5,"SCORE:   "
+Locate 15,5,L-1

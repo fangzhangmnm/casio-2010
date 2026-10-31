@@ -1,0 +1,12 @@
+//------------------------------------------------------------------
+// Addin-Application header control file, created with the CASIO SDK
+//------------------------------------------------------------------
+[OUTPUT]     : "CHINESEI.G1A"
+[BINDATA]    : "FXADDINror.bin"
+[DISPNAME]   : "ChineseI"
+[APPNAME]    : "@CHINESE"
+[VERSION]    : "01.00.0000"
+[APL_ICON]   : "MainIcon.bmp"
+[MODULE_NUM] : 0
+[MOD1_TITLE] : "ChineseI"
+[MOD1_ICON]  : "eActivityIcon.bmp"

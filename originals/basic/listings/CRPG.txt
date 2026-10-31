@@ -1,0 +1,202 @@
+' CRPG.G1M：从 G1M 原件解码成文字（指令名照卡西欧的写法；◢ = 显示后暂停，→ = 赋值，⇒ = 条件成立就做；卡西欧自己的特殊字符换成了长得像的 Unicode：▤◀▶ = 反白的 = < >，※ = 花纹块，⏨ = 10 的乘方）
+' 共 8 个程序：AAAAAAAA, CRPG, DDDDDDDD, ÷CHURT, ÷DISPLAY, ÷EHURT, ÷SCARD, ÷UCARD
+
+'==== Prog "AAAAAAAA" ====
+While 1
+Cls
+'RclPict 1
+DrawStat
+0→Z
+For 1→B To 30
+GetKey→r
+r≠0⇒r→Z
+Next
+Z=27⇒List 1+3→List 1
+Z=38⇒List 1-6→List 1
+WhileEnd
+
+'==== Prog "CRPG" ====
+{2,3}→Dim Mat C
+{2,3}→Dim Mat E
+5→Mat C[2,1]
+5→Mat E[2,1]
+For 1→X To 4
+RanInt#(1,3)→Y
+Mat C[1,Y]+1→Mat C[1,Y]
+RanInt#(1,3)→Y
+Mat E[1,Y]+1→Mat E[1,Y]
+Next
+While 1
+"Your Turn"◢1→K
+"You got 2 CARDS"◢RanInt#(1,3)→Y
+Mat C[1,Y]+1→Mat C[1,Y]
+RanInt#(1,3)→Y
+Mat C[1,Y]+1→Mat C[1,Y]
+Lbl 0
+Prog "÷DISPLAY"
+Menu "END?","No",1,"Yes",2
+Lbl 1
+Prog "÷SCARD"
+Prog "÷UCARD"
+Goto 0
+Lbl 2
+0→Y
+For 1→X To 3
+Y+Mat C[1,X]→Y
+Next
+If Y>Mat C[2,1]
+Then 
+"Opps,You should throwsome CARDS"◢Prog "÷SCARD"
+C=0⇒Goto 2
+If (Mat C[1,C]>0)
+Then 
+Mat C[1,C]-1→Mat C[1,C]
+IfEnd
+IfEnd
+0→Y
+For 1→X To 3
+Y+Mat C[1,X]→Y
+Next
+Y>Mat C[2,1]⇒Goto 2
+
+
+
+
+"ZZM's Turn"◢"ZZM got 2 CARDS"◢RanInt#(1,3)→Y
+Mat E[1,Y]+1→Mat E[1,Y]
+RanInt#(1,3)→Y
+Mat E[1,Y]+1→Mat E[1,Y]
+If (Mat E[1,1]>0) And (RanInt#(1,2)=1)
+Then 
+"ZZM used a KILL"◢Mat E[1,1]-1→Mat E[1,1]
+If Mat C[1,2]>0
+Then "You used a MISS"◢Mat C[1,2]-1→Mat C[1,2]
+Else Prog "÷CHURT"
+IfEnd
+IfEnd
+Lbl 3
+0→Y
+For 1→X To 3
+Y+Mat E[1,X]→Y
+Next
+If Y>Mat E[2,1]
+Then 
+For 1→Z To 3
+If (Mat E[1,Z]>0) And (RanInt#(1,2)=1)
+Then 
+Mat E[1,Z]-1→Mat E[1,Z]
+"ZZM threw a CARD"◢Goto 3
+IfEnd
+Next
+IfEnd
+0→Y
+For 1→X To 3
+Y+Mat E[1,X]→Y
+Next
+Y>Mat E[2,1]⇒Goto 3
+WhileEnd
+
+'==== Prog "DDDDDDDD" ====
+0→A~Z
+Cls:ClrText:ClrGraph:ClrList :BG-None:FuncOff
+ViewWindow -63,63,0,31,-31,0
+S-WindMan
+Plot ◢X→List 1[1]
+Y→List 2[1]
+1→r
+While 1
+Plot ◢r+1→r
+X→List 1[r]
+Y→List 2[r]
+Line
+F-Line List 1[r-1],MOD(List 2[r-1],31)-31,X,MOD(Y,31)-31
+WhileEnd
+
+'==== Prog "÷CHURT" ====
+"You lost a HP"◢Mat C[2,1]-1→Mat C[2,1]
+If Mat C[2,1]≤0
+Then 
+If Mat C[1,3]>0
+Then 
+Mat C[1,3]-1→Mat C[1,3]
+Mat C[2,1]+1→Mat C[2,1]
+"You used a HEAL"◢Else 
+"You LOST???"◢Stop
+IfEnd
+IfEnd
+
+'==== Prog "÷DISPLAY" ====
+ClrText
+"+Kill of 3 Kingdoms=+‖Your HP:           ‖‖ZZM's HP:          ‖+===================+"
+Locate 10,2,Mat C[2,1]
+Locate 11,3,Mat E[2,1]
+""◢
+
+'==== Prog "÷EHURT" ====
+"ZZM lost a HP"◢Mat E[2,1]-1→Mat E[2,1]
+If Mat E[2,1]≤0
+Then 
+If Mat E[1,3]>0
+Then 
+Mat E[1,3]-1→Mat E[1,3]
+Mat E[2,1]+1→Mat E[2,1]
+"ZZM used a HEAL"◢Else 
+"You W.I.N!"◢Stop
+IfEnd
+IfEnd
+
+'==== Prog "÷SCARD" ====
+Lbl 0
+0→C
+"Kill×"+StrMid("0123456789",Mat C[1,1]+1,1)→Str 1
+"Miss×"+StrMid("0123456789",Mat C[1,2]+1,1)→Str 2
+"Heal×"+StrMid("0123456789",Mat C[1,3]+1,1)→Str 3
+Menu "Select Your Card",Str 1,1,Str 2,2,Str 3,3,"Return",9
+Lbl 1
+1→C
+Goto 9
+Lbl 2
+2→C
+Goto 9
+Lbl 3
+3→C
+Goto 9
+Lbl 9
+C=0⇒Return
+Mat C[1,C]≤0⇒Goto 0
+C
+
+'==== Prog "÷UCARD" ====
+C=1⇒Goto 1
+C=2⇒Goto 2
+C=3⇒Goto 3
+Return
+Lbl 1
+Mat C[1,1]<1⇒Return
+'KILL
+If K=0
+Then 
+"You can't kill again"◢Return
+IfEnd
+"You used a KILL"◢Mat C[1,1]-1→Mat C[1,1]
+0→K
+If Mat E[1,2]>0
+Then "ZZM used a MISS"◢Mat E[1,2]-1→Mat E[1,2]
+Else Prog "÷EHURT"
+IfEnd
+Return
+Lbl 2
+Mat C[1,2]<1⇒Return
+'MISS
+Return
+Return
+Lbl 3
+Mat C[1,3]<1⇒Return
+If Mat C[2,1]≥5
+Then 
+"Your HP is full"◢Return
+IfEnd
+'HEAL
+"You used a HEAL"◢"You get a HP"◢Mat C[1,3]-1→Mat C[1,3]
+Mat C[2,1]+1→Mat C[2,1]
+Return

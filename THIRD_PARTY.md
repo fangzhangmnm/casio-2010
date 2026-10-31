@@ -6,6 +6,8 @@
 
 - **卡西欧字形**：CASIO《fx-9860G SDK Character Set》（2007）逐点采样的大字体和小字体。CASIO 是卡西欧计算机株式会社的商标，这个页面和卡西欧没有关系。
 - **HZK12.df**：魔塔用的 12×12 中文点阵字库（UCDOS 年代流传的 HZK12 格式），2012 年和魔塔一起发在 cnCalc 7735 帖，原作者不明。
+- **diameter（cnCalc 计算器论坛）的东西**：`originals/visualfx/` 里的 `fxchslib.c` / `fxchslib.h` 和 `SDCard/chs8.hzk` / `chs12.hzk` / `chs16.hzk` 是他的 fxChsLib 中文库（2012-08-19，文件头署名 Anderain Lovelace）；`originals/chinese-input/` 是在他的 SimSpell v1.0 上改的（源码里写着致谢），`pinyin.h` / `SDCard/pinyin.py` 应来自 SimSpell。版权归原作者。
+- **HZK12.df**（`originals/magtower/`、`originals/chinese-input/SDCard/`）：UCDOS 年代流传的 12×12 点阵字库，原作者不明。
 - **Revolution-FX**（http://revolution-fx.sourceforge.net/ ）：Doodle Jump 和 3D 引擎当年用的库；网页里只照它的函数名重写了用到的几个，不含原库代码。
 - **网友原话**：卡片里引了 cnCalc 计算器论坛几位网友当年的回帖（9750GII、81100118、diameter、NAT），版权归原作者。
 - **Emscripten** 编出来的运行时，和编进 WebAssembly 的 **musl libc** 片段，许可全文如下。
