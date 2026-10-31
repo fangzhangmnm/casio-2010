@@ -33,7 +33,7 @@ GWHBOB 2010–2013 年在卡西欧 fx-9750GII（刷 9860 系统）上写的游�
   - `build_g1a.py`：把 C 源码编成 WebAssembly；`build.py`：把一切填进 `shell.html`，产出 `index.html`。
   - `casio-font.json` / `casio-font-small.json`：从卡西欧 SDK 字符码表采的大字 / 小字。
 - `tools/g1m_listing.py`：G1M 原件解码成文字清单。
-- `ai-docs/`：2026 年的设计文档，先读 `ai-docs/20261031-emulator-design.md`；3D 引擎当年的算法（伪代码层次）在 `ai-docs/20261031-3d-engine-algorithm.md`。
+- `ai-docs/`：2026 年的设计文档，先读 `ai-docs/20261031-emulator-design.md`；3D 引擎当年的算法（伪代码层次）在 `ai-docs/20261031-3d-engine-algorithm.md`，往下做的研究题在 `ai-docs/20261031-3d-engine-research-ledger.md`。
 - `wishlist.md`：还没做的。
 
 ## 怎么编
