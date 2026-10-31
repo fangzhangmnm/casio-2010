@@ -1007,7 +1007,7 @@ lcd.addEventListener("pointercancel", e => { const t = gameTouches.get(e.pointer
 const APPLE_TOUCH = /iP(hone|ad|od)/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
 const device = document.getElementById("device"), fsBtn = document.getElementById("fs"), pauseBtn = document.getElementById("pauseBtn"), helpDlg = document.getElementById("help");
 pauseBtn.addEventListener("click", togglePause);
-function goHome() { location.href = "../index.html"; } // 单个游戏的网页在 play/ 下，合集页在上一层
+function goHome() { location.href = "../"; } // 单个游戏的网页在 play/ 下，合集页在上一层。只写文件夹不写 index.html：TinyLili 把「…/index.html」一律 301 到站点根 /（user 10-31「主页不是tinylili而是我们的主页」）
 const homeBtn = document.getElementById("homeBtn"); homeBtn.hidden = !(AUTORUN >= 0); homeBtn.addEventListener("click", goHome);
 document.getElementById("helpBtn").addEventListener("click", openHelp);
 document.getElementById("helpClose").addEventListener("click", () => helpDlg.close());

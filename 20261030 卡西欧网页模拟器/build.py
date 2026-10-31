@@ -246,7 +246,7 @@ ADDINS = [{
         '掉出屏幕下边就结束；按 EXIT 也结束。结束后按任意键（真机上这一步会重启计算器，这里回列表）。'],
     'controls': {'run': {
         'title': 'Doodle Jump',
-        'text': '屏幕是竖着的。左右移动用计算器的 ↑ ↓ 键（计算器转过来之后它们就在左右）。触屏：按住屏幕左半边往左、右半边往右。想用重力感应玩豪华加强版。EXIT 结束；结束后按任意键回列表。',
+        'text': '屏幕是竖着的。左右移动用计算器的 ↑ ↓ 键（计算器转过来之后它们就在左右）。触屏：按住屏幕左半边往左、右半边往右。想用重力感应玩 Doodle Jump 2026。EXIT 结束；结束后按任意键回列表。',
         'pc': '电脑：← → 或 A / D。',
         'keys': [[[28], '左'], [[37], '右'], [[47], '结束']]}},
     'bind': {'keyboard': {'ArrowLeft': 28, 'ArrowRight': 37, 'KeyA': 28, 'KeyD': 37},
@@ -254,7 +254,7 @@ ADDINS = [{
              },  # 原样版不接重力感应（user 10-31「doodle原版不要重力了」）；2026 版才有  # 重力感应：往左倾 = 按住左键（user 10-31「当然应该接ios的重力传感器」）
     'fls0': {}, 'source': ['Doodle.c'],
 }, {
-    'kind': 'g1a', 'addin': 'DOODLE2026', 'entry': 'DOODLE 2026', 'file': 'DOODLE.G1A（豪华加强版）', 'dir': '20261031 Doodle Jump 2026', 'title': 'Doodle Jump（豪华加强版）', 'date': '2013-07-23',
+    'kind': 'g1a', 'addin': 'DOODLE2026', 'entry': 'DOODLE 2026', 'file': 'DOODLE.G1A（2026）', 'dir': '20261031 Doodle Jump 2026', 'title': 'Doodle Jump 2026', 'date': '2013-07-23',
     'portrait': True, 'ghost': 0, 'fullscreen': True,  # 开始画面点第一下就进全屏（user 10-31「然后进去就是可以直接全屏的」）
     'about': '以上面原样版的源码为底重写了几处，不是默认版本。'
              '一、跟屏幕刷新走、按经过的时间算位移（锁帧算 dt）：原样版是 25 毫秒一跳，40 帧的画面放在 60 帧的屏幕上一步长一步短，这一版不会。'
@@ -319,7 +319,7 @@ ADDINS = [{
 }]
 
 # 魔塔 2026 版（考古家规（见 CLAUDE.md）：原样版是默认，2026 版另算、不当默认，两个版本共用一份存档；user 10-31「2026版就是修复版，没必要做三个版本」）
-ADDINS.insert(1, {**ADDINS[0], 'addin': 'MAGTOWER2026', 'entry': 'MAGTOWER 2026', 'file': 'MAGTOWER.G1A（豪华加强版）', 'title': '魔塔（豪华加强版）',
+ADDINS.insert(1, {**ADDINS[0], 'addin': 'MAGTOWER2026', 'entry': 'MAGTOWER 2026', 'file': 'MAGTOWER.G1A（2026）', 'title': '魔塔 2026',
     'about': '现在和上面的原样版是同一份 08-07 源码，只补回当年转换图块时丢掉的 103 个字节（53 个图块里缺的点），别的一个字没动。'
              '缺点的原因：当年用自己写的 VB 小工具 MapEdit 把图片转成 C 数组，那一行是 "0x" & Format(Hex(b), "00")；'
              'Hex 给的是字符串，Format 想把它当数字，VB 却把 "1A"–"9A" 读成了凌晨 1–9 点（"2A" = 2 AM），格式化出来是 "00"，'
@@ -365,9 +365,9 @@ BRIEF = {'SNACKI.G1M': '贪吃蛇：吃到点就变长，撞墙或撞到自己�
          'MINE.G1M': '扫雷：开局输入雷数（作者建议 20~40），雷区 21 × 7；挖到空白会把周围一片翻开。',
          'MINEA.G1M': '扫雷（9750 版）：和 9860 版同一个程序，没翻开的格子用没刷机的 9750 也能显示的字符。',
          'MAGTOWER': '魔塔：经典的数值迷宫 RPG，打怪、捡钥匙开门、一层层往上爬；能存档。',
-         'MAGTOWER2026': '魔塔豪华加强版：和原样版同一份源码，补回当年转换图块时丢掉的点；和原样版共用存档。',
+         'MAGTOWER2026': '魔塔 2026：和原样版同一份源码，补回当年转换图块时丢掉的点；和原样版共用存档。',
          'DOODLE': 'Doodle Jump：一直往上跳，落到平台上自动弹起，越爬越高，掉下去就结束。计算器要竖着拿。',
-         'DOODLE2026': 'Doodle Jump 豪华加强版：锁帧更顺、重力感应按倾角比例、触屏、每局关卡不一样。',
+         'DOODLE2026': 'Doodle Jump 2026：锁帧更顺、重力感应按倾角比例、触屏、每局关卡不一样。',
          'ENGINE3D': '3D 引擎：2012 年寒假前的演示版，没有目标，在一个小场景里走走看看。'}
 for p in progs: p['brief'] = BRIEF[p.get('addin') or p['file']]
 font = json.load(open(os.path.join(here, 'casio-font.json'), encoding='utf-8'))
@@ -389,8 +389,8 @@ print('index.html', len(html.encode()), 'bytes,', len(progs), 'files')
 PAGES = [('snake', 'SnackI 贪吃蛇', 'SNACKI.G1M'), ('21', '21 点', '21.G1M'), ('sanguosha', '三国杀简版', 'CRPG.G1M'),
          ('td', '塔防 1.1', 'TDGAME11.G1M'), ('td-1.0', '塔防 1.0', 'TDGAME.G1M'),
          ('mine', '扫雷（9860 版）', 'MINE.G1M'), ('mine-9750', '扫雷（9750 版）', 'MINEA.G1M'),
-         ('doodle', 'Doodle Jump', 'DOODLE'), ('doodle-2026', 'Doodle Jump 豪华加强版', 'DOODLE2026'),
-         ('3d', '3D 引擎', 'ENGINE3D'), ('magtower', '魔塔', 'MAGTOWER'), ('magtower-2026', '魔塔 豪华加强版', 'MAGTOWER2026')]
+         ('doodle', 'Doodle Jump', 'DOODLE'), ('doodle-2026', 'Doodle Jump 2026', 'DOODLE2026'),
+         ('3d', '3D 引擎', 'ENGINE3D'), ('magtower', '魔塔', 'MAGTOWER'), ('magtower-2026', '魔塔 2026', 'MAGTOWER2026')]
 by_key = {key(p): p for p in progs}
 os.makedirs(os.path.join(here, 'play'), exist_ok=True)
 for slug, title, k in PAGES:
@@ -414,7 +414,7 @@ HALLS = [('snake', '20100829 贪吃蛇', '贪吃蛇'), ('21', '20100829 21点', 
 HALL_SRC = {h: slug for slug, h, _ in HALLS}
 tree = lambda hall: f"src/{HALL_SRC[hall]}.html" if hall in HALL_SRC else None   # 历史作品 = 化石页；2026 版不放
 SECTIONS = [
-    ('豪华加强版', [('2026-10-31', '魔塔 豪华加强版', 'magtower-2026', '20261031 魔塔 2026'), ('2026-10-31', 'Doodle Jump 豪华加强版', 'doodle-2026', '20261031 Doodle Jump 2026')]),   # 作者 10-31 定名「豪华加强版」：没有语义、纯谜语人，往里放什么都行   # 放最上（作者 10-31「豪华重制版放上面，historical放下面」）
+    ('豪华加强版', [('2026-10-31', '魔塔 2026', 'magtower-2026', '20261031 魔塔 2026'), ('2026-10-31', 'Doodle Jump 2026', 'doodle-2026', '20261031 Doodle Jump 2026')]),   # 作者 10-31 定名「豪华加强版」：没有语义、纯谜语人，往里放什么都行   # 放最上（作者 10-31「豪华重制版放上面，historical放下面」）
     ('能玩的', [('2010-08-29', '贪吃蛇', 'snake', '20100829 贪吃蛇'), ('2010-08-29', '21点', '21', '20100829 21点'),
                ('2010-09-18', '三国杀简版', 'sanguosha', '20100918 三国杀简版'), ('2010-10-22', '塔防 1.0', 'td-1.0', '20101022 塔防'),
                ('2010-10-24', '塔防 1.1', 'td', '20101022 塔防'), ('2012-02-03', '3D引擎', '3d', '20111111 3D 引擎'),
@@ -492,7 +492,7 @@ for slug, hall, name in HALLS:
     plays = ''.join(f'<a href="../play/{ps}.html">▶ 玩 {H.escape(t)}</a><a href="../play/{ps}.html?calc">计算器</a>' for ps, t in PLAY_OF.get(hall, []))
     page_html = (f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
                  f'<title>{H.escape(name)} · 化石</title><style>{SRC_CSS}</style></head><body><main>'
-                 f'<p class="top"><a href="../index.html">← GWHBOB的计算器程序</a>{plays}</p><h1>{H.escape(name)} · 化石</h1>{label(hall)}'
+                 f'<p class="top"><a href="../">← GWHBOB的计算器程序</a>{plays}</p><h1>{H.escape(name)} · 化石</h1>{label(hall)}'
                  f'<h2>原件</h2><p>当年的字节，一个没改；点文件名下载。时间是文件里存的原始修改时间（北京时间），「—」是论坛附件、看出处里的帖子日期。</p>'
                  f'<div class="wrap"><table><tr><th>文件</th><th>字节</th><th>原始时间</th><th>sha256 前 16 位</th><th>出处</th></tr>{rows}</table></div>'
                  + (f'<h2>代码</h2><p>当年是 GBK 编码，这里解出来显示。</p>{codes}' if codes else '')
