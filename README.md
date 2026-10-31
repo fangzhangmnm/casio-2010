@@ -24,7 +24,7 @@ GWHBOB 2010–2013 年在卡西欧 fx-9750GII（刷 9860 系统）上写的游�
   - `visualfx/`：VisualFX 界面库和测试程序（2013-02），用了 diameter 的 fxChsLib 中文库。
   - `df/`：东方风格弹幕游戏的骨架（2013-04），带几张 16×16 角色小像。
   - `chinese-input/`：拼音输入法（2012-08），在 diameter 的 SimSpell 上改的。
-- `2026/`：2026 年的版本。
+- `2026/`：2026 年的版本。`2026/research/` 是 3D 引擎科研用的测算脚本（电脑上跑，见里面的 README）。
   - `doodle/Doodle2026.c`：Doodle Jump 2026 版。
   - `magtower/`：魔塔 2026 版的图块补丁（`fix-mapedit-hex.json`）和生成它的 `make_fix.py`；`make_ora.py` 把图块总表打包成 .ora 给 WeebPaint 改。
 - `emulator/`：网页模拟器（2026 年写的）。
