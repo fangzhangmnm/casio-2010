@@ -68,7 +68,9 @@
   #device:not(.fs) { background: #27306b; border-radius: 22px; padding: 10px 10px 8px; }
   #device:not(.fs) .bezel { background: #1b2250; }
   #device:not(.fs) > .row button { background: #3a4384; }
-  #device:not(.fs) > .row #infoBtn { background: var(--exe); }
+  #device:not(.fs) > .row #infoBtn, #device:not(.fs) > .row #helpBtn { background: var(--exe); }
+  #device.paused .bezel { position: relative; }
+  #device.paused .bezel::after { content: "暂停"; position: absolute; inset: 0; display: grid; place-items: center; font: 600 22px/1 system-ui, -apple-system, "PingFang SC", sans-serif; color: #fff; background: rgba(0, 0, 0, .45); border-radius: inherit; pointer-events: none; }
   .kb button, .kb .fk button, .kb .kr6 button, .kb .kmid > button { background: #1c2453; color: #f1f1ee; box-shadow: 0 2px 0 rgba(0, 0, 0, .35); }
   .kb .fk button { background: #c6cad3; color: #262b42; border-radius: 45% / 38%; }
   .kb .kr5 button { background: #f3f3ef; color: #1b1b1b; }
@@ -100,6 +102,7 @@
   .vpadx button { border-radius: 14px; } .vpadx .u { grid-area: 1 / 2; } .vpadx .l { grid-area: 2 / 1; } .vpadx .r { grid-area: 2 / 3; } .vpadx .d { grid-area: 3 / 2; }
   .vbtn { width: 74px; height: 74px; border-radius: 50%; font-size: 14px; }
   .vbtn.big { width: 88px; height: 88px; background: var(--exe); }
+  @media (max-height: 700px) { .vbtn { width: 58px; height: 58px; font-size: 13px; } .vbtn.big { width: 70px; height: 70px; } .vright { gap: 8px; } .vpadx { grid-template-columns: repeat(3, 54px); grid-template-rows: repeat(3, 54px); } } /* iPhone SE 2：魔塔右边五颗键原来最下面那颗被切掉 */
   .vnum button { min-height: 46px; }
   #vpad button[data-key] .cap { font-size: 10px; }
   /* 自己处理触屏的游戏（没有虚拟键）：全屏时屏幕占满剩下的地方 */
@@ -121,7 +124,9 @@
     border: 1px solid var(--line); background: var(--card); color: var(--ink); text-transform: uppercase; }
   .strin button { min-height: 44px; padding: 0 18px; background: var(--exe); touch-action: manipulation; }
   /* 说明弹窗：手机上是一张从下往上的长单子，iPad 上居中；一次只显示一个游戏的卡片 */
-  dialog#info { border: 0; padding: 0; width: min(560px, 100vw); max-height: 92svh; border-radius: 16px; background: var(--page); color: var(--ink); }
+  dialog#help .dlghead b { flex: 1; align-self: center; font-size: 16px; }
+  dialog#help .dlgbody p { margin: 8px 0; }
+  dialog#info, dialog#help { border: 0; padding: 0; width: min(560px, 100vw); max-height: 92svh; border-radius: 16px; background: var(--page); color: var(--ink); }
   dialog#info::backdrop { background: rgba(0, 0, 0, .45); }
   .dlghead { position: sticky; top: 0; z-index: 1; display: flex; gap: 8px; padding: 10px 12px; background: var(--page); border-bottom: 1px solid var(--line); }
   .dlghead select { flex: 1; min-width: 0; font: 16px/1.2 system-ui, -apple-system, "PingFang SC", sans-serif; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
@@ -182,15 +187,24 @@
     <div class="kr5 num"><button data-key="74">7<span class="cap"></span></button><button data-key="64">8<span class="cap"></span></button><button data-key="54">9<span class="cap"></span></button><button class="red" data-key="44">DEL<span class="cap"></span></button><button class="red" data-key="34">AC/ON<span class="cap"></span></button><button data-key="73">4<span class="cap"></span></button><button data-key="63">5<span class="cap"></span></button><button data-key="53">6<span class="cap"></span></button><button data-key="43">×<span class="cap"></span></button><button data-key="33">÷<span class="cap"></span></button><button data-key="72">1<span class="cap"></span></button><button data-key="62">2<span class="cap"></span></button><button data-key="52">3<span class="cap"></span></button><button data-key="42">+<span class="cap"></span></button><button data-key="32">−<span class="cap"></span></button><button data-key="71">0<span class="cap"></span></button><button data-key="61">.<span class="cap"></span></button><button data-key="51">EXP<span class="cap"></span></button><button data-key="41">(−)<span class="cap"></span></button><button class="exe" data-key="31">EXE<span class="cap"></span></button></div>
   </div>
   <div class="row">
+    <button id="homeBtn" hidden>主页</button>
     <button id="rate">速度 ×1</button>
     <button id="tilt" hidden>重力感应：关</button>
     <button id="fs">全屏</button>
-    <button id="infoBtn">说明</button>
+    <button id="infoBtn" hidden>说明</button>
+    <button id="helpBtn">帮助</button>
+    <button id="pauseBtn">暂停</button>
   </div>
   <div id="vpad" hidden><div class="vtop"></div><div class="vleft"></div><div class="vright"></div><div class="vnum"></div></div>
   </div>
   <!-- 说明弹窗（user 10-31「下面的网页做一个弹窗好了，然后各个游戏简介之类的网页你整理一下，不要一个很长的网页」）：
        主页面只剩计算器；这里一次只看一个游戏，顶上下拉换游戏 -->
+  <!-- 帮助（作者 10-31「全屏版需要有一个html的帮助按钮显示键位和简单简介……第一次进去的时候弹，以及弹窗的时候游戏记得暂停」） -->
+  <dialog id="help" aria-label="帮助">
+    <div class="dlghead"><b id="helpTitle"></b><button id="helpMore">更多说明</button><button id="helpClose">继续</button></div>
+    <div class="dlgbody"><p id="helpBrief"></p><p><b>怎么玩：</b><span id="helpKeys"></span></p><p class="pc" id="helpPc"></p>
+      <p class="pc">键帽下面的黄字 = 这一刻按它会怎样。弹窗开着的时候游戏暂停；也可以随时按「暂停」。</p></div>
+  </dialog>
   <dialog id="info" aria-label="说明">
     <div class="dlghead"><select id="infoPick" aria-label="看哪个游戏"></select><button id="infoClose">关闭</button></div>
     <div class="dlgbody">
@@ -824,6 +838,7 @@ function currentKey() {
   return 0;
 }
 function press(code) {
+  if (paused) return;
   held.set(code, ++seq); latch = { code, until: performance.now() + MIN_HOLD };
   if (mode === "menu") {
     if (code === 28) { menuSel = (menuSel + ENTRIES.length - 1) % ENTRIES.length; menuFit(); }
@@ -944,7 +959,7 @@ lcd.addEventListener("pointerdown", e => {
     const r = lcd.getBoundingClientRect(); const code = e.clientX - r.left < r.width / 2 ? t.left : t.right;
     press(code); swipe = { hold: code }; return;
   }
-  swipe = { x: e.clientX, y: e.clientY, moved: false, t: performance.now() };
+  swipe = { x: e.clientX, y: e.clientY, moved: false, t: performance.now(), right: e.button === 2 };
 });
 lcd.addEventListener("pointermove", e => {
   if (isGameTouch()) { const t = gameTouches.get(e.pointerId); if (t) Object.assign(t, lcdPoint(e)); return; }
@@ -962,6 +977,7 @@ lcd.addEventListener("pointermove", e => {
 lcd.addEventListener("pointerup", e => {
   if (isGameTouch()) { const t = gameTouches.get(e.pointerId); if (t) t.up = true; firstGesture(); return; }
   if (swipe && swipe.menu) {
+    if (!swipe.moved && mode === "menu" && AUTORUN >= 0) { run(AUTORUN); swipe = null; return; } // 停机画面：点哪里都是再来一局
     if (!swipe.moved && mode === "menu") {
       const row = Math.floor(lcdPoint(e).y / 8), ix = menuTop + row - 2;
       if (row >= 2 && row < 2 + MENU_ROWS && ix < ENTRIES.length) { if (ix === menuSel) run(ix); else menuSel = ix; }
@@ -975,18 +991,26 @@ lcd.addEventListener("pointerup", e => {
     swipe = null; return;
   }
   if (swipe && !swipe.moved) {
-    if (mode === "run" && bindOf().touch && bindOf().touch.mode === "cell") tapCell(e, performance.now() - swipe.t >= LONG_MS);
+    if (mode === "run" && bindOf().touch && bindOf().touch.mode === "cell") tapCell(e, swipe.right || performance.now() - swipe.t >= LONG_MS); // 电脑上右键 = 长按（扫雷插旗；user 10-31「扫雷的右键没接住」）
     else if (mode !== "run" && mode !== "input") { press(31); release(31); }
   }
   swipe = null;
 });
+lcd.addEventListener("contextmenu", e => e.preventDefault()); // 液晶上右键不弹浏览器菜单
 lcd.addEventListener("pointercancel", e => { const t = gameTouches.get(e.pointerId); if (t) t.up = true; if (swipe && swipe.hold) release(swipe.hold); swipe = null; });
 // 全屏开关：整台计算器铺满；浏览器支持就顺便真全屏（藏起地址栏），不支持（iPhone）就只铺满页面
 // iPad / iPhone 上的浏览器（Safari、Edge 都是 WebKit）不进真全屏：真全屏时手指往下一拖就退出，是苹果故意的（防钓鱼），网页拦不住
 // （WebKit bug 264215：preventDefault 也不行）。贪吃蛇、3D 引擎滑屏、列表拖动都会碰到（user 10-31「贪吃蛇全屏的时候滑屏幕会退出全屏」），
 // 所以这些设备上只铺满浏览器窗口；想连地址栏也藏起来 = 添加到主屏幕再打开。
 const APPLE_TOUCH = /iP(hone|ad|od)/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
-const device = document.getElementById("device"), fsBtn = document.getElementById("fs");
+const device = document.getElementById("device"), fsBtn = document.getElementById("fs"), pauseBtn = document.getElementById("pauseBtn"), helpDlg = document.getElementById("help");
+pauseBtn.addEventListener("click", togglePause);
+function goHome() { location.href = "../index.html"; } // 单个游戏的网页在 play/ 下，合集页在上一层
+const homeBtn = document.getElementById("homeBtn"); homeBtn.hidden = !(AUTORUN >= 0); homeBtn.addEventListener("click", goHome);
+document.getElementById("helpBtn").addEventListener("click", openHelp);
+document.getElementById("helpClose").addEventListener("click", () => helpDlg.close());
+document.getElementById("helpMore").addEventListener("click", () => { helpDlg.close(); document.getElementById("infoBtn").click(); });
+helpDlg.addEventListener("close", () => setPause("help", false));
 function setFs(on) {
   device.classList.toggle("fs", on); applyTurn(); document.body.style.overflow = on ? "hidden" : ""; fsBtn.textContent = on ? "退出全屏" : "全屏";
   const el = document.documentElement, fsEl = document.fullscreenElement || document.webkitFullscreenElement;
@@ -1018,9 +1042,11 @@ function renderVpad(caps) {
   for (const el of [top, left, right, num]) el.replaceChildren();
   const t = bindOf().touch || {};
   // 顶上一条：退出全屏、回列表、（要的话）重力感应
-  top.append(vproxy(AUTORUN >= 0 ? "计算器模式" : "退出全屏", () => setFs(false)));
-  if (AUTORUN >= 0) top.append(vproxy("重新开始", () => run(AUTORUN))); // 单个游戏的网页没有列表可回（作者「没必要要那个计算器内部导航」）
+  if (AUTORUN >= 0) top.append(vproxy("主页", goHome)); // 作者 10-31「网页应该有回到主网页的功能」
+  top.append(vproxy(AUTORUN >= 0 ? "计算器" : "退出全屏", () => setFs(false)));
+  if (AUTORUN >= 0) top.append(vproxy("重来", () => run(AUTORUN))); // 单个游戏的网页没有列表可回（作者「没必要要那个计算器内部导航」）
   else if (mode !== "menu") top.append(vproxy("回列表", () => { if (addin) stopAddin(null); else toMenu(); }));
+  top.append(vproxy("帮助", openHelp), vproxy(pauseWhy.has("user") ? "继续" : "暂停", togglePause));
   if (mode === "addin" && (bindOf().tilt || bindOf().sensor)) top.append(vproxy(tiltOn ? "重力感应：开" : "重力感应：关", () => tiltBtn.click()));
   device.classList.toggle("bare", t.mode === "game");
   if (t.mode === "game") return; // 自己处理触屏的（Doodle 2026）：只留顶栏，屏幕尽量放大
@@ -1071,13 +1097,34 @@ function flushRemovals() {
   pendingRemove.clear(); updateSaveInfo();
 }
 
+// ---------- 暂停（作者 10-31「弹窗的时候游戏记得暂停。然后也应该有暂停的控制键 这个计算器版也可以跟上」）----------
+// 原因集合：自己按的暂停、帮助弹窗、说明弹窗，任一成立就暂停；暂停时计算器时间不走、Add-in 的 Sleep / 帧节拍扣住、BASIC 不跑、按键不收。
+const pauseWhy = new Set(), resumeQ = []; let paused = false;
+const gate = f => (paused ? resumeQ.push(f) : f());
+function setPause(why, on) {
+  if (on) pauseWhy.add(why); else pauseWhy.delete(why);
+  const p = pauseWhy.size > 0;
+  if (p !== paused) {
+    if (p) { vclock(); paused = true; }
+    else { paused = false; vlast = performance.now(); last = performance.now(); for (const f of resumeQ.splice(0)) f(); }
+  }
+  device.classList.toggle("paused", paused); pauseBtn.textContent = pauseWhy.has("user") ? "继续" : "暂停"; shownPhase = "";
+}
+function togglePause() { setPause("user", !pauseWhy.has("user")); }
+function openHelp() {
+  const e = current || ENTRIES[menuSel]; if (!e) return; const c = controlsFor();
+  document.getElementById("helpTitle").textContent = e.prog.title;
+  document.getElementById("helpBrief").textContent = e.prog.brief || "";
+  document.getElementById("helpKeys").textContent = c.text; document.getElementById("helpPc").textContent = c.pc;
+  setPause("help", true); helpDlg.showModal();
+}
 let addin = null, vnow = 0, vlast = 0;
-function vclock() { const t = performance.now(); vnow += (t - vlast) * RATES[rateIx]; vlast = t; return vnow; } // 计算器上的时间：按速度倍率走
+function vclock() { const t = performance.now(); if (!paused) vnow += (t - vlast) * RATES[rateIx]; vlast = t; return vnow; } // 计算器上的时间：按速度倍率走
 function addinHost(a) { // 传给 WebAssembly 模块的 Module.fx*（fxsdk.c 顶上那组 EM_JS 调的就是这些）
   const alive = () => addin === a && !a.dead;
   return {
     fxNow: vclock,
-    fxSleep: (ms, wake) => setTimeout(() => { if (!alive()) return; if (pendingRemove.size) flushRemovals(); wake(); }, ms / RATES[rateIx]),
+    fxSleep: (ms, wake) => setTimeout(() => { if (!alive()) return; if (pendingRemove.size) flushRemovals(); gate(wake); }, ms / RATES[rateIx]),
     fxShow: bytes => a.fb.set(bytes),
     // 按键：held = 正按着；pending = 按过、程序还没看到（点得太快也不丢）；queue = 给 GetKey 的按键事件
     fxKeyDown: m => { if (a.held.has(m) || a.pending.has(m)) { a.pending.delete(m); return true; } return false; },
@@ -1088,7 +1135,7 @@ function addinHost(a) { // 传给 WebAssembly 模块的 Module.fx*（fxsdk.c 顶
     fxContrast: c => { a.contrast = c; },
     fxFrameMs: a.e.prog.frameMs || 0, // 3D 引擎：每帧至少多少毫秒（计算器上的时间，速度倍率另乘）
     // 2026 扩展（fx2026.h）：跟屏幕刷新走的节拍、全量传感器、调手感的参数
-    fxNextFrame: wake => requestAnimationFrame(() => { if (!alive()) return; if (pendingRemove.size) flushRemovals(); wake(); }),
+    fxNextFrame: wake => requestAnimationFrame(() => { if (!alive()) return; if (pendingRemove.size) flushRemovals(); gate(wake); }),
     fxSensor: view => sensorFill(view),
     fxTouch: (view, max) => touchFill(view, max),
     fxParam: (id, def) => { const v = paramsOf(a.e.prog)[id]; return Number.isFinite(v) ? Math.round(v) : def; },
@@ -1207,6 +1254,7 @@ function addinPress(code) {
 const LINES_PER_SEC = 600; // 估算，没对过真机
 let credit = 0;
 function runFor(dt) {
+  if (paused) return;
   if (mode !== "run") { credit = 0; return; }
   const r = LINES_PER_SEC * RATES[rateIx];
   credit = Math.min(credit + dt * r, 0.1 * r);
@@ -1233,6 +1281,12 @@ function compose(t) {
   if (mode === "addin") { // 显存一行 16 字节、高位在左：第 i 个点在第 i>>3 字节
     if (addin) for (let i = 0; i < W * H; i++) target[i] = (addin.fb[i >> 3] >> (7 - (i & 7))) & 1;
     return;
+  }
+  if (mode === "menu" && AUTORUN >= 0) { // 单个游戏的网页：程序停了不回列表，停在这一屏（像真机跑完显示 Done），EXE / 点屏幕 = 再来一局
+    clrText(); const e = ENTRIES[AUTORUN];
+    putCodes(0, 0, codesOf((e.prog.kind === "g1a" ? e.prog.file.split("（")[0] : 'Prog "' + e.sub.name + '"').replace(/[^\x20-\x7e]/g, "_")));
+    putCodes(17, 2, codesOf("Done")); putCodes(0, 5, codesOf("[EXE]:Play again"));
+    drawText(t); return;
   }
   if (mode === "menu") {
     clrText(); putCodes(0, 0, codesOf("Program List"));
@@ -1351,6 +1405,7 @@ function overlayFor(cw, ch) { // 每个格子右边、下边留 0.7 像素的缝
 // ---------- 按键说明：每个程序按阶段（输入 / 进行中 / 结束）给每个键写用途 ----------
 // 程序的说明写在 build.py 的 controls 里：{input|run|done: {title, text, pc, keys: [[[键码...], "用途"], ...]}}
 const DIGIT_KEYS = [74, 64, 54, 73, 63, 53, 72, 62, 52, 71];
+const STOP_CONTROLS = { title: "停了", text: "EXE 或点屏幕再来一局；随时也可以按「重来」。回合集页按「主页」。", pc: "电脑：Enter。", keys: [[[31], "再来"]] };
 const MENU_CONTROLS = { title: "PROGRAM 列表", text: "↑↓ 选程序，EXE 运行。下面的卡片里也能直接点「运行」。", pc: "电脑：↑↓、Enter。",
   keys: [[[28], "选"], [[37], "选"], [[31], "运行"]] };
 const ERROR_CONTROLS = { title: "出错了", text: "这个壳还没实现这个程序用到的某条指令（屏幕下方写了是第几行）。EXE 重来，EXIT 回列表。", pc: "电脑：Enter / Esc。",
@@ -1360,7 +1415,7 @@ const DEFAULT_RUN = { title: "运行中", text: "", pc: "", keys: [[[28], ""], [
 const DEFAULT_DONE = { title: "程序结束", text: "EXE 再来一次，EXIT 回列表。", pc: "电脑：Enter / Esc。", keys: [[[31], "再来"]] };
 let shownPhase = "";
 function controlsFor() {
-  if (mode === "menu") return MENU_CONTROLS;
+  if (mode === "menu") return AUTORUN >= 0 ? STOP_CONTROLS : MENU_CONTROLS;
   if (mode === "error") return ERROR_CONTROLS;
   const c = (current && current.prog.controls) || {};
   if (mode === "input") return (input && input.kind === "str" && c.inputStr) || c.input || DEFAULT_INPUT;
@@ -1409,7 +1464,7 @@ function applyControls() {
 const st1 = document.getElementById("st1"), st2 = document.getElementById("st2");
 function status() {
   applyControls();
-  st1.textContent = mode === "menu" ? "↑↓ 选程序 · EXE 运行" : mode === "input" ? "输入数字后按 EXE" : mode === "done" ? "程序结束 · EXE 再来 · EXIT 回列表"
+  st1.textContent = mode === "menu" ? (AUTORUN >= 0 ? "停了 · EXE 再来一局" : "↑↓ 选程序 · EXE 运行") : mode === "input" ? "输入数字后按 EXE" : mode === "done" ? (AUTORUN >= 0 ? "程序结束 · EXE 再来一局" : "程序结束 · EXE 再来 · EXIT 回列表")
     : mode === "error" ? (errLine ? `第 ${errLine} 行 · ` : "") + errMsg
     : mode === "addin" ? (AUTORUN >= 0 ? "运行中 · MENU 停止" : "运行中 · MENU 回列表") + (storageErr ? " · " + storageErr : "") : "运行中" + (noopNote ? " · " + noopNote : "");
   st2.textContent = !current ? "PRGM" : current.prog.kind === "g1a" ? current.prog.file : `Prog "${current.sub.name}"`;
@@ -1524,11 +1579,13 @@ document.getElementById("infoBtn").addEventListener("click", () => {
 infoPick.addEventListener("change", () => { infoIx = +infoPick.value; showInfo(); });
 document.getElementById("infoClose").addEventListener("click", () => info.close());
 info.addEventListener("click", e => { if (e.target === info) info.close(); }); // 点弹窗外面关掉
-info.addEventListener("close", () => { infoIx = null; shownPhase = ""; });
+info.addEventListener("close", () => { infoIx = null; shownPhase = ""; setPause("info", false); });
+document.getElementById("infoBtn").addEventListener("click", () => setPause("info", true));
 toMenu(); updateSaveInfo(); fitDevice();
 if (AUTORUN >= 0 && AUTORUN < ENTRIES.length) run(AUTORUN);
 if (START_FS && !new URLSearchParams(location.search).has("calc")) setFs(true);
 if (location.hash === "#info") document.getElementById("infoBtn").click(); // 合集页的「介绍」= 进游戏的同时弹出说明
+else if (AUTORUN >= 0 && current) { const k = "casio-help-seen:" + (current.prog.addin || current.prog.file); let seen = false; try { seen = !!localStorage.getItem(k); localStorage.setItem(k, "1"); } catch (e) {} if (!seen) openHelp(); } // 浏览器记着：每个游戏第一次打开弹一次帮助
 requestAnimationFrame(frame);
 window.__calc = { get mode() { return mode; }, get screen() { return screen; }, get target() { return target; }, get pick() { return pick; }, get vars() { return vars; }, get mats() { return mats; }, get text() { return text.map(r => r.map(c => (c < 128 ? String.fromCharCode(c) : "#")).join("")); }, press, release, run, get errMsg() { return errMsg; }, entries: ENTRIES.map(e => e.sub.name),
   get fb() { return addin ? addin.fb : null; }, get storageErr() { return storageErr; }, files: () => [...fls0.keys()] };

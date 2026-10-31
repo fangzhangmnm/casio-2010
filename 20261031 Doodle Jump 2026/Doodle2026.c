@@ -9,8 +9,10 @@
  *   3. 随机数初始化（原帖 2011-04-17 GWHBOB：「我错了，一是随机数木有初始化」）：每局关卡不一样。
  *   4. 手感参数在页面上调（Param_Get），默认值就是上面这些。
  *   5. 开始画面 + 触屏（user 10-31「一开始进去的时候有一个开始画面，我之后慢慢优化，这时候你可以授权重力感应，这时候你把触屏支持给做出来」）：
- *      点屏幕开始（网页在这一下里申请重力感应权限、进全屏）；左上角 X 回列表；没开重力感应时按住左半边 / 右半边转向；结束后点屏幕再来。
- *      触屏是立即模式（Touch_Hit 吃掉用过的手指）：先问 X 按钮，再问左右半边，一根手指不会同时算两样。
+ *      点屏幕开始（网页在这一下里申请重力感应权限、进全屏）；结束后点屏幕再来。EXIT 回列表。
+ *      左上角原先有个 X 按钮回列表，user 10-31「doodle豪华版不要那个叉叉」去掉了（网页顶栏有主页 / 重来）。
+ *   6. 跟手（user 10-31「跟着鼠标是到鼠标的coordinate就停，先试一下简单的二值控制」「惯性应该还是要有的，所以我才说先二值控制，之后再尝试比例和pid」）：
+ *      没开重力感应时按住屏幕（电脑上按住鼠标），小人往手指那一列追；取代 10-31 早些的「按住左半边 / 右半边转向」。
  * 画图（图案、DispScore / DispDoodle / DispPlat）、平台生成、难度、结束流程照原版一字不改。 */
 #include "fxlib.h"
 #include "stdlib.h"
@@ -27,6 +29,8 @@
 #define P_JUMP      3   /* 起跳速度，像素/秒 */
 #define P_GRAV      4   /* 重力，像素/秒² */
 #define P_DEADZONE  5   /* 倾角死区，0.01°（这个角度以内算不倾） */
+#define P_FOLLOW_ACC  8 /* 跟手的加速度，像素/秒²（默认 800，和键盘一样，但分开调） */
+#define P_FOLLOW_VMAX 9 /* 跟手的最快速度，像素/秒（默认 80 = 原版最快） */
 
 const char pict_doodle[12][12]={
 {5,5,5,5,5,5,1,1,1,1,5,5},
@@ -206,8 +210,9 @@ void CheckPlate()
 		DoodleVY=Jump;
 	}
 }
-/* 横向：开了重力感应就按倾角给速度（30° = 最高速度，中间按比例）；没开就照原版用 ↑ ↓ 键（或按住屏幕左右半边）加速、松开就停 */
-void MoveDoodle(float dt, int touchLeft, int touchRight)
+/* 横向：开了重力感应就按倾角给速度（15° = 原版最快，中间按比例）；按着屏幕就往手指那一列追（follow = 有没有手指，tx = 手指的横坐标）；
+ * 都没有就照原版用 ↑ ↓ 键加速、松开就停 */
+void MoveDoodle(float dt, int follow, int tx)
 {
 	SENSOR_DATA s;
 	if(Sensor_Read(&s)==0){
@@ -222,11 +227,19 @@ void MoveDoodle(float dt, int touchLeft, int touchRight)
 		DoodleVX = VxMax * (float)lr / (float)(full-dead);
 		if(DoodleVX>VxMax*cap/100.0f)DoodleVX=VxMax*cap/100.0f;
 		if(DoodleVX<-VxMax*cap/100.0f)DoodleVX=-VxMax*cap/100.0f;
+	}else if(follow && !IsKeyDown(KEY_CTRL_UP) && !IsKeyDown(KEY_CTRL_DOWN)){
+		/* 二值控制：速度是状态（有惯性），控制量是加速度，只取两个值——手指在右 = 全力往右加速，在左 = 全力往左。
+		 * 没有阻尼，所以会在手指两边来回晃，最多晃 ±(最快速度² / 2 / 加速度)，默认 ±4 像素、一个来回约 0.4 秒。下一步试比例 / PID。
+		 * 手指一抬就回到下面原版的规矩：没按键 = 立刻停。 */
+		float a=Param_Get(P_FOLLOW_ACC,800), vmax=Param_Get(P_FOLLOW_VMAX,80);
+		DoodleVX += (tx>=DoodleX ? a : -a)*dt;
+		if(DoodleVX>vmax)DoodleVX=vmax;
+		if(DoodleVX<-vmax)DoodleVX=-vmax;
 	}else{
-		if(IsKeyDown(KEY_CTRL_UP)||touchLeft){
+		if(IsKeyDown(KEY_CTRL_UP)){
 			if(DoodleVX-Acc*dt>=-VxMax)DoodleVX=DoodleVX-Acc*dt;
 		}else{if(DoodleVX<0)DoodleVX=0;}
-		if(IsKeyDown(KEY_CTRL_DOWN)||touchRight){
+		if(IsKeyDown(KEY_CTRL_DOWN)){
 			if(DoodleVX+Acc*dt<=VxMax)DoodleVX=DoodleVX+Acc*dt;
 		}else{if(DoodleVX>0)DoodleVX=0;}
 	}
@@ -304,17 +317,20 @@ int TextRotWidth(const char *s) /* 先量一下再居中：写到角落、量完
 	Bdisp_AreaClr_VRAM(&box);
 	return w;
 }
-void TextRotCenter(int gy, const char *s) { int w = TextRotWidth(s), gx = (64 - w) / 2; if (gx < 8) gx = 8; TextRot(gx, gy, s); }
-/* 左上角（玩家视角）的 X 按钮：液晶 x 117–127、y 0–10 */
-#define EXIT_X1 114
-#define EXIT_Y2 13
-void DrawExitButton()
+/* 跟手的手指：还没被吃掉、按着的第一根（电脑上按住鼠标也算一根），吃掉它，*tx = 它在玩家视角的横坐标（= 液晶 y）。没有返回 0。 */
+int TouchFollow(int *tx)
 {
-	int i;
-	for (i = 0; i <= 10; i++) { Bdisp_SetPoint_VRAM(117, i, 1); Bdisp_SetPoint_VRAM(127, i, 1); Bdisp_SetPoint_VRAM(117 + i, 0, 1); Bdisp_SetPoint_VRAM(117 + i, 10, 1); }
-	for (i = 2; i <= 8; i++) { Bdisp_SetPoint_VRAM(117 + i, i, 1); Bdisp_SetPoint_VRAM(127 - i, i, 1); }
+	TOUCH_POINT p[TOUCH_MAX];
+	int i, n = Touch_Read(p, TOUCH_MAX);
+	for (i = 0; i < n; i++) if (!p[i].used && (p[i].state & (TOUCH_DOWN | TOUCH_HELD))) {
+		Touch_Hit(p[i].x, p[i].y, p[i].x, p[i].y, TOUCH_DOWN | TOUCH_HELD);
+		*tx = p[i].y;
+		return 1;
+	}
+	return 0;
 }
-int ExitPressed() { return Touch_Hit(EXIT_X1, 0, 127, EXIT_Y2, TOUCH_DOWN) || IsKeyDown(KEY_CTRL_EXIT); }
+void TextRotCenter(int gy, const char *s) { int w = TextRotWidth(s), gx = (64 - w) / 2; if (gx < 8) gx = 8; TextRot(gx, gy, s); }
+int ExitPressed() { return IsKeyDown(KEY_CTRL_EXIT); }
 void WaitKeysUp() { while (IsKeyDown(KEY_CTRL_EXE) || IsKeyDown(KEY_CTRL_EXIT)) Frame_Wait(); }
 
 /* 开始画面（user 以后自己改）：返回 0 = 开始，-1 = 回列表 */
@@ -334,7 +350,6 @@ int TitleScreen()
 		TextRotCenter(18, "TILT TO MOVE");
 		Bdisp_DrawLineVRAM(38, 20, 38, 44);                                         /* 小人脚下的平台 */
 		DispDoodle(32, (int)y, 1);
-		DrawExitButton();
 		Bdisp_PutDisp_DD();
 		if (ExitPressed()) return -1;
 		if (Touch_Hit(0, 0, 127, 63, TOUCH_DOWN) || IsKeyDown(KEY_CTRL_EXE)) return 0;
@@ -344,26 +359,24 @@ int TitleScreen()
 int Play()
 {
 	float dt;
-	int left, right;
+	int follow, tx = 0;
 	Init();
 	WaitKeysUp();
 	Frame_Wait();
 	while (1) {
 		dt = Frame_Wait() / 1000000.0f;
 		ReadParams();
-		if (ExitPressed()) return -1;                                               /* 先问按钮，吃掉那根手指 */
-		left = Touch_Hit(0, 0, 127, 31, TOUCH_DOWN | TOUCH_HELD);                   /* 再问左右半边 */
-		right = Touch_Hit(0, 32, 127, 63, TOUCH_DOWN | TOUCH_HELD);
+		if (ExitPressed()) return -1;
+		follow = TouchFollow(&tx);                                                  /* 按着的手指 = 跟手的目标 */
 		Bdisp_AllClr_VRAM();
 		MovePlate(dt);
-		MoveDoodle(dt, left, right);
+		MoveDoodle(dt, follow, tx);
 		CheckPlate();
 		NewPlate();
 		LevelSet();
 		DispPlat();
 		DispDoodle(DoodleX, DoodleY, DoodleTurn);
 		DispScore();
-		DrawExitButton();
 		Bdisp_PutDisp_DD();
 		if (DoodleY < -12) return 0;
 	}
@@ -382,7 +395,6 @@ int GameOver()
 		TextRotCenter(90, "GAME OVER");
 		TextRotCenter(78, buf);
 		TextRotCenter(26, "TAP TO RETRY");
-		DrawExitButton();
 		Bdisp_PutDisp_DD();
 		if (ExitPressed()) return -1;
 		if (t > 0.5f && (Touch_Hit(0, 0, 127, 63, TOUCH_DOWN) || IsKeyDown(KEY_CTRL_EXE))) return 0;   /* 半秒内的点按不算，免得手指还没抬就重开 */

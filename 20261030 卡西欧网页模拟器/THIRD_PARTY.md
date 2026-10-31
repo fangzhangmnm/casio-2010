@@ -10,6 +10,7 @@
 - **Revolution-FX**（http://revolution-fx.sourceforge.net/ ）：Doodle Jump 和 3D 引擎当年用的库；网页里只照它的函数名重写了用到的几个，不含原库代码。
 - **网友原话**：卡片里引了 cnCalc 计算器论坛几位网友当年的回帖（9750GII、81100118、diameter、NAT），版权归原作者。
 - **BIDE**（Zezombye，GPL-3.0，https://github.com/Zezombye/BIDE ）：`tools/g1m_listing.py` 运行时读它的指令表 `opcodes.txt` 来解码 G1M，表本身不在本仓。
+- **GitHub 标记**：合集页页脚链到 GitHub 的那个图标是 Primer Octicons 的 `mark-github`（GitHub Inc.，MIT 许可，https://github.com/primer/octicons ），原样未改。
 - **Emscripten** 编出来的运行时，和编进 WebAssembly 的 **musl libc** 片段，许可全文如下。
 
 ## Emscripten

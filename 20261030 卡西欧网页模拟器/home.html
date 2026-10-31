@@ -19,7 +19,15 @@
   a { display: inline-block; padding: 2px 4px; border-radius: 2px; }
   a:hover, a:focus-visible { background: var(--ink); outline: none; }
   a:hover canvas, a:focus-visible canvas { filter: invert(1) sepia(.15); }
-  .play { flex: 0 1 auto; }
+  /* 每一行像列表项（user 10-31「中间这一段应该鼠标也能识别，做出Listview的感觉来」）：名字到图标之间的空白也是「玩」，
+     鼠标移上去整行反白；指到行里的小图标时只有那个图标翻回来，表示点的是它 */
+  .play { flex: 1 1 auto; align-self: stretch; display: flex; align-items: center; }
+  .row.live { border-radius: 2px; cursor: pointer; }
+  .row.live:hover, .row.live:focus-within { background: var(--ink); }
+  .row.live:hover canvas, .row.live:focus-within canvas { filter: invert(1) sepia(.15); }
+  .row.live .play:hover, .row.live .play:focus-visible { background: none; }
+  .row.live .ic:hover, .row.live .ic:focus-visible { background: var(--lcd); }
+  .row.live .ic:hover canvas, .row.live .ic:focus-visible canvas { filter: none; }
   .more { display: flex; gap: calc(4px * var(--s)); margin-left: auto; }   /* 源码 + 介绍绑在一起靠右，放不下整组换行 */
   .foot { margin-top: calc(10px * var(--s)); font: 14px/1.6 system-ui, -apple-system, "PingFang SC", sans-serif; opacity: .8; }
   .foot a { color: var(--ink); padding: 0; } .foot a:hover { background: none; text-decoration: underline; }
@@ -70,15 +78,18 @@ for (const sec of D.sections) {
   m.append(el("div", "sec", [lcd(sec.name)]));
   for (const r of sec.rows) {
     const more = []; if (r.play) more.push(iconLink(r.play + "?calc", "calc")); if (r.src) more.push(iconLink(r.src, "fossil")); if (r.play) more.push(iconLink(r.play + "#info", "info"));
-    const kids = [r.play ? link(r.play, r.date + " " + r.name, "play") : el("span", "play", [lcd(r.date + " " + r.name)]), el("span", "more", more)];
-    m.append(el("div", "row", kids));
+    const main = r.play || r.src;   // 整行点下去：能玩就玩，没有能玩的就看化石
+    const kids = [main ? link(main, r.date + " " + r.name, "play") : el("span", "play", [lcd(r.date + " " + r.name)]), el("span", "more", more)];
+    m.append(el("div", main ? "row live" : "row", kids));
   }
 }
 const f = document.createElement("div"); f.className = "foot";
-const legend = el("p", "", ["点名字全屏玩。"]);
+const legend = el("p", "", ["点一行就全屏玩（还不能玩的，点进去看化石）。"]);
 for (const [n, t] of [["calc", "用整台计算器的样子打开"], ["fossil", "化石：当年的原件，一个字节没改"], ["info", "介绍"]]) legend.append(icon(n), t);
 const credit = document.createElement("p");
-credit.innerHTML = '程序当年发在 cnCalc 计算器论坛。整个展馆在 <a href="' + D.repo + '">GitHub</a>，别人的东西和许可见其中的 THIRD_PARTY.md。网页壳和模拟器由 Claude（Anthropic）在 2026 年写。';
+// GitHub 用它自己的标记（Primer Octicons mark-github，MIT 许可，原样不改）；作者 10-31「gh的话能用gh的图标吗」。除了 GitHub，站内都是相对网址
+const GH = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" style="vertical-align:-3px;margin-right:4px"><path fill="#222620" d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"/></svg>';
+credit.innerHTML = '程序当年发在 cnCalc 计算器论坛。整个展馆在 <a href="' + D.repo + '">' + GH + 'GitHub</a>，别人的东西和许可见其中的 THIRD_PARTY.md。网页壳和模拟器由 Claude（Anthropic）在 2026 年写。';
 f.append(legend, credit); m.append(f);
 </script>
 </body>
