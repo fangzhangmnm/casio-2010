@@ -246,7 +246,7 @@ ADDINS = [{
         '掉出屏幕下边就结束；按 EXIT 也结束。结束后按任意键（真机上这一步会重启计算器，这里回列表）。'],
     'controls': {'run': {
         'title': 'Doodle Jump',
-        'text': '屏幕是竖着的。左右移动用计算器的 ↑ ↓ 键（计算器转过来之后它们就在左右）。触屏：按住屏幕左半边往左、右半边往右。想用重力感应玩 2026 版。EXIT 结束；结束后按任意键回列表。',
+        'text': '屏幕是竖着的。左右移动用计算器的 ↑ ↓ 键（计算器转过来之后它们就在左右）。触屏：按住屏幕左半边往左、右半边往右。想用重力感应玩豪华加强版。EXIT 结束；结束后按任意键回列表。',
         'pc': '电脑：← → 或 A / D。',
         'keys': [[[28], '左'], [[37], '右'], [[47], '结束']]}},
     'bind': {'keyboard': {'ArrowLeft': 28, 'ArrowRight': 37, 'KeyA': 28, 'KeyD': 37},
@@ -254,7 +254,7 @@ ADDINS = [{
              },  # 原样版不接重力感应（user 10-31「doodle原版不要重力了」）；2026 版才有  # 重力感应：往左倾 = 按住左键（user 10-31「当然应该接ios的重力传感器」）
     'fls0': {}, 'source': ['Doodle.c'],
 }, {
-    'kind': 'g1a', 'addin': 'DOODLE2026', 'entry': 'DOODLE 2026', 'file': 'DOODLE.G1A（2026 版）', 'dir': '20261031 Doodle Jump 2026', 'title': 'Doodle Jump（2026 版）', 'date': '2013-07-23',
+    'kind': 'g1a', 'addin': 'DOODLE2026', 'entry': 'DOODLE 2026', 'file': 'DOODLE.G1A（豪华加强版）', 'dir': '20261031 Doodle Jump 2026', 'title': 'Doodle Jump（豪华加强版）', 'date': '2013-07-23',
     'portrait': True, 'ghost': 0, 'fullscreen': True,  # 开始画面点第一下就进全屏（user 10-31「然后进去就是可以直接全屏的」）
     'about': '以上面原样版的源码为底重写了几处，不是默认版本。'
              '一、跟屏幕刷新走、按经过的时间算位移（锁帧算 dt）：原样版是 25 毫秒一跳，40 帧的画面放在 60 帧的屏幕上一步长一步短，这一版不会。'
@@ -285,7 +285,7 @@ ADDINS = [{
         {'id': 2, 'name': '键盘横向加速度', 'unit': '像素/秒²', 'def': 800},
         {'id': 3, 'name': '起跳速度', 'unit': '像素/秒', 'def': 220},
         {'id': 4, 'name': '重力', 'unit': '像素/秒²', 'def': 320}],
-    'fls0': {}, 'source': ['Doodle2026.c'], 'sourceNote': '2026 版，以当年的 Doodle.c 为底',
+    'fls0': {}, 'source': ['Doodle2026.c'], 'sourceNote': '豪华加强版，以当年的 Doodle.c 为底',
 }, {
     'kind': 'g1a', 'addin': 'ENGINE3D', 'entry': '3DENGINE', 'file': '3DENGINE.G1A', 'dir': '20111111 3D 引擎/originals', 'title': '3D 引擎（寒假前的初赛版）', 'date': '2012-02-03',
     'frameMs': 110,  # 论文 4.2.2「普通测试」原生 29.5 MHz 下 9.1 帧/秒 → 每帧 110 毫秒；×2 = 论文演示用的 2 倍超频
@@ -315,8 +315,8 @@ ADDINS = [{
     'fls0': {}, 'source': ['3DEngine.c', 'Textures.h', 'Maps.h', 'Public.h', 'Painter.h', 'DataStruct.h', 'PainterSort.h', 'Game_Script.h'],  # 按 include 的顺序；引擎本体在 .h 里
 }]
 
-# 魔塔 2026 版（考古家规（见 CLAUDE.md）：原样版是默认，2026 版 = 修复版另算、不当默认，两个版本共用一份存档；user 10-31「2026版就是修复版，没必要做三个版本」）
-ADDINS.insert(1, {**ADDINS[0], 'addin': 'MAGTOWER2026', 'entry': 'MAGTOWER 2026', 'file': 'MAGTOWER.G1A（2026 版）', 'title': '魔塔（2026 版）',
+# 魔塔 2026 版（考古家规（见 CLAUDE.md）：原样版是默认，2026 版另算、不当默认，两个版本共用一份存档；user 10-31「2026版就是修复版，没必要做三个版本」）
+ADDINS.insert(1, {**ADDINS[0], 'addin': 'MAGTOWER2026', 'entry': 'MAGTOWER 2026', 'file': 'MAGTOWER.G1A（豪华加强版）', 'title': '魔塔（豪华加强版）',
     'about': '现在和上面的原样版是同一份 08-07 源码，只补回当年转换图块时丢掉的 103 个字节（53 个图块里缺的点），别的一个字没动。'
              '缺点的原因：当年用自己写的 VB 小工具 MapEdit 把图片转成 C 数组，那一行是 "0x" & Format(Hex(b), "00")；'
              'Hex 给的是字符串，Format 想把它当数字，VB 却把 "1A"–"9A" 读成了凌晨 1–9 点（"2A" = 2 AM），格式化出来是 "00"，'
@@ -372,8 +372,8 @@ print('index.html', len(html.encode()), 'bytes,', len(progs), 'files')
 PAGES = [('snake', 'SnackI 贪吃蛇', 'SNACKI.G1M'), ('21', '21 点', '21.G1M'), ('sanguosha', '三国杀简版', 'CRPG.G1M'),
          ('td', '塔防 1.1', 'TDGAME11.G1M'), ('td-1.0', '塔防 1.0', 'TDGAME.G1M'),
          ('mine', '扫雷（9860 版）', 'MINE.G1M'), ('mine-9750', '扫雷（9750 版）', 'MINEA.G1M'),
-         ('doodle', 'Doodle Jump', 'DOODLE'), ('doodle-2026', 'Doodle Jump 2026', 'DOODLE2026'),
-         ('3d', '3D 引擎', 'ENGINE3D'), ('magtower', '魔塔', 'MAGTOWER'), ('magtower-2026', '魔塔 2026', 'MAGTOWER2026')]
+         ('doodle', 'Doodle Jump', 'DOODLE'), ('doodle-2026', 'Doodle Jump 豪华加强版', 'DOODLE2026'),
+         ('3d', '3D 引擎', 'ENGINE3D'), ('magtower', '魔塔', 'MAGTOWER'), ('magtower-2026', '魔塔 豪华加强版', 'MAGTOWER2026')]
 by_key = {key(p): p for p in progs}
 os.makedirs(os.path.join(here, 'play'), exist_ok=True)
 for slug, title, k in PAGES:
@@ -402,14 +402,15 @@ SECTIONS = [
                ('2010-10-24', '塔防 1.1', 'td', '20101022 塔防'), ('2012-02-03', '3D引擎', '3d', '20111111 3D 引擎'),
                ('2012-06-29', '扫雷 9860版', 'mine', '20120629 扫雷'), ('2012-06-29', '扫雷 9750版', 'mine-9750', '20120629 扫雷'),
                ('2012-08-07', '魔塔', 'magtower', '20120703 魔塔'), ('2013-07-23', 'Doodle Jump', 'doodle', '20110415 Doodle Jump')]),
-    ('2026 修复版', [('2026-10-31', '魔塔 2026版', 'magtower-2026', '20261031 魔塔 2026'), ('2026-10-31', 'Doodle Jump 2026版', 'doodle-2026', '20261031 Doodle Jump 2026')]),
+    ('豪华加强版', [('2026-10-31', '魔塔 豪华加强版', 'magtower-2026', '20261031 魔塔 2026'), ('2026-10-31', 'Doodle Jump 豪华加强版', 'doodle-2026', '20261031 Doodle Jump 2026')]),   # 作者 10-31 定名「豪华加强版」：没有语义、纯谜语人，往里放什么都行
     ('还没复活（只有化石）', [('2012-08-13', '拼音输入法', None, '20120813 拼音输入法'), ('2013-02-12', 'Ogame', None, '20130212 Ogame'),
                      ('2013-02-14', 'VisualFX', None, '20130214 VisualFX'), ('2013-04-11', '弹幕骨架', None, '20130411 弹幕骨架')]),
 ]
 assert all(slug in {p[0] for p in PAGES} for _, rows in SECTIONS for _, _, slug, _ in rows if slug)
 home = {'title': 'GWHBOB 的计算器程序', 'sub': 'fx-9750GII  2010-2013', 'repo': REPO,
         'sections': [{'name': n, 'rows': [{'date': d, 'name': t, 'play': (f'play/{slug}.html' if slug else None), 'src': tree(h)} for d, t, slug, h in rows]} for n, rows in SECTIONS]}
-texts = [home['title'], home['sub'], '化石', '介绍', '计算器'] + [s['name'] for s in home['sections']] + [r['date'] + ' ' + r['name'] for s in home['sections'] for r in s['rows']]
+# 计算器 / 化石 / 介绍改成像素小图标，不再用液晶字
+texts = [home['title'], home['sub']] + [s['name'] for s in home['sections']] + [r['date'] + ' ' + r['name'] for s in home['sections'] for r in s['rows']]
 hzk = open(os.path.join(root, '20120703 魔塔', 'originals', 'HZK12.df'), 'rb').read()
 cjk = {}
 for ch in sorted({c for t in texts for c in t if ord(c) > 127}):

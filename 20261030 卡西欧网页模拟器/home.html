@@ -21,9 +21,9 @@
   a:hover canvas, a:focus-visible canvas { filter: invert(1) sepia(.15); }
   .play { flex: 0 1 auto; }
   .more { display: flex; gap: calc(4px * var(--s)); margin-left: auto; }   /* 源码 + 介绍绑在一起靠右，放不下整组换行 */
-  @media (max-width: 600px) { .more { flex-basis: 100%; justify-content: flex-end; } }   /* 手机：一律放第二行，整齐 */
   .foot { margin-top: calc(10px * var(--s)); font: 14px/1.6 system-ui, -apple-system, "PingFang SC", sans-serif; opacity: .8; }
   .foot a { color: var(--ink); padding: 0; } .foot a:hover { background: none; text-decoration: underline; }
+  .foot canvas { display: inline-block; height: 1.3em; vertical-align: -0.25em; margin: 0 2px 0 8px; }
 </style>
 </head>
 <body>
@@ -49,6 +49,19 @@ function lcd(text) {                                   // 一行字画成 1-bit 
   }
   g.putImageData(img, 0, 0); c.setAttribute("role", "img"); c.setAttribute("aria-label", text); return c;
 }
+// 12×12 的像素小图标（作者 10-31「计算器太占空间了，源码介绍计算器都做成像素小图标配tooltip行吗」）
+const ICONS = {
+  calc: [".XXXXXXXXXX.", ".X........X.", ".X.XXXXXX.X.", ".X.X....X.X.", ".X.XXXXXX.X.", ".X........X.", ".X.XX..XX.X.", ".X........X.", ".X.XX..XX.X.", ".X........X.", ".XXXXXXXXXX.", "............"],
+  fossil: [".XXXXXXX....", ".X.....XX...", ".X.....X.X..", ".X.....XXXX.", ".X........X.", ".X.XXXXX..X.", ".X........X.", ".X.XXXXXX.X.", ".X........X.", ".X.XXXX...X.", ".X........X.", ".XXXXXXXXXX."],
+  info: ["...XXXXXX...", "..X......X..", ".X...XX...X.", "X....XX....X", "X..........X", "X...XXX....X", "X....XX....X", "X....XX....X", "X....XX....X", ".X..XXXX..X.", "..X......X..", "...XXXXXX..."],
+};
+const TIPS = { calc: "用计算器模式打开", fossil: "化石：当年的原件", info: "介绍" };
+function icon(name) {
+  const c = document.createElement("canvas"); c.width = 12; c.height = 12; const g = c.getContext("2d"); g.fillStyle = "#222620";
+  ICONS[name].forEach((row, y) => [...row].forEach((ch, x) => { if (ch === "X") g.fillRect(x, y, 1, 1); }));
+  c.setAttribute("aria-hidden", "true"); return c;
+}
+const iconLink = (href, name) => { const a = el("a", "ic", [icon(name)]); a.href = href; a.title = TIPS[name]; a.setAttribute("aria-label", TIPS[name]); return a; };
 const m = document.getElementById("m");
 const el = (tag, cls, kids) => { const e = document.createElement(tag); if (cls) e.className = cls; for (const k of kids) e.append(k); return e; };
 const link = (href, text, cls) => { const a = el("a", cls, [lcd(text)]); a.href = href; a.setAttribute("aria-label", text); return a; };
@@ -56,14 +69,17 @@ m.append(el("div", "head", [lcd(D.title)]), el("div", "", [lcd(D.sub)]));
 for (const sec of D.sections) {
   m.append(el("div", "sec", [lcd(sec.name)]));
   for (const r of sec.rows) {
-    const more = []; if (r.play) more.push(link(r.play + "?calc", "计算器")); if (r.src) more.push(link(r.src, "化石")); if (r.play) more.push(link(r.play + "#info", "介绍"));
+    const more = []; if (r.play) more.push(iconLink(r.play + "?calc", "calc")); if (r.src) more.push(iconLink(r.src, "fossil")); if (r.play) more.push(iconLink(r.play + "#info", "info"));
     const kids = [r.play ? link(r.play, r.date + " " + r.name, "play") : el("span", "play", [lcd(r.date + " " + r.name)]), el("span", "more", more)];
     m.append(el("div", "row", kids));
   }
 }
 const f = document.createElement("div"); f.className = "foot";
-f.innerHTML = '程序当年发在 cnCalc 计算器论坛。点名字全屏玩；「计算器」用整台计算器的样子打开；「化石」是当年的原件，一个字节没改。整个展馆在 <a href="' + D.repo + '">GitHub</a>，别人的东西和许可见其中的 THIRD_PARTY.md。网页壳和模拟器由 Claude（Anthropic）在 2026 年写。';
-m.append(f);
+const legend = el("p", "", ["点名字全屏玩。"]);
+for (const [n, t] of [["calc", "用整台计算器的样子打开"], ["fossil", "化石：当年的原件，一个字节没改"], ["info", "介绍"]]) legend.append(icon(n), t);
+const credit = document.createElement("p");
+credit.innerHTML = '程序当年发在 cnCalc 计算器论坛。整个展馆在 <a href="' + D.repo + '">GitHub</a>，别人的东西和许可见其中的 THIRD_PARTY.md。网页壳和模拟器由 Claude（Anthropic）在 2026 年写。';
+f.append(legend, credit); m.append(f);
 </script>
 </body>
 </html>

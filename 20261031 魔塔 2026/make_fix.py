@@ -1,4 +1,4 @@
-# created 20261031 by Claude Opus 5.5 — 魔塔修复版的图块补丁：只补当年 MapEdit 转换时丢掉的字节。
+# created 20261031 by Claude Opus 5.5 — 魔塔 2026 版的图块补丁：只补当年 MapEdit 转换时丢掉的字节。
 # 当年 MapEdit.frm 的 OutputPicture 用 "0x" & Format(Hex(b), "00") 写十六进制；VB 把 "1A"–"9A" 当成凌晨 1–9 点读，
 # 格式化成 "00"，这 9 种值全变成了 0x00（53 个图块、103 个字节）。这里照 MapEdit 同一套算法（pid 0–159，第 pid÷32 行、
 # 第 pid%32 列，格距 17，每行 2 字节高位在左）从原图重算，只挑「原样是 0x00、原图是 0x1A–0x9A」的字节写进 fix-mapedit-hex.json；

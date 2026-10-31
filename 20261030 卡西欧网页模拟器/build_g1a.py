@@ -16,7 +16,7 @@ ADDINS = [
     # rename：当年自己写的函数和 C 库里的同名（魔塔的 getpid = 取图块编号），编译时改个名，源码不动
     {'name': 'MAGTOWER', 'dir': '20120703 魔塔/originals/src', 'sources': ['MagTower.c'],
      'rename': ['getpid', 'pause', 'clock', 'log10']},
-    # 2026 版（考古家规（见 CLAUDE.md）：原样版是默认，2026 版 = 修复版另算；user 10-31「2026版就是修复版，没必要做三个版本」）：
+    # 2026 版（考古家规（见 CLAUDE.md）：原样版是默认，2026 版另算；user 10-31「2026版就是修复版，没必要做三个版本」）：
     # 现在 = 同一份源码，只把 pictures.h 里当年 MapEdit 转换丢掉的 103 个字节补回来；以后 user 在 WeebPaint 里优化的图块也进这一版
     {'name': 'MAGTOWER2026', 'dir': '20120703 魔塔/originals/src', 'sources': ['MagTower.c'],
      'rename': ['getpid', 'pause', 'clock', 'log10'], 'patch': {'pictures.h': '20261031 魔塔 2026/fix-mapedit-hex.json'}},
