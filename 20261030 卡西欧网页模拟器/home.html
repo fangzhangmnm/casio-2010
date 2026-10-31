@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GWHBOB</title>
+<!-- created 20261031 by Claude Opus 5.5 — 合集页：1-bit 液晶风格（作者 10-31「你要是觉得无聊的话可以把合集页做成计算器1bit液晶风格的」）。
+     英文数字用卡西欧 5×7 点阵字，中文用魔塔那份 HZK12 12×12 字库（build.py 只带页面上用到的字）；排版照魔塔 printf12：中文宽 12、英文宽 6 往下 3 行、中文后接英文多空 1 列。
+     每个展位三样：游戏（点名字，第一位）、源码、介绍（作者「一个能玩的游戏，一个源码，一个你写的啰啰嗦嗦的介绍，每个展位三个东西就行了，游戏能玩是第一位的」）。 -->
+<style>
+  :root { --lcd: #c8ceba; --ink: #222620; --s: 2; }
+  @media (min-width: 700px) { :root { --s: 3; } }
+  html, body { margin: 0; background: var(--lcd); color: var(--ink); }
+  main { max-width: 680px; margin: 0 auto; padding: 16px; }
+  canvas { display: block; height: calc(12px * var(--s)); image-rendering: pixelated; image-rendering: crisp-edges; }
+  .head canvas { height: calc(12px * var(--s) * 1.5); margin-bottom: 4px; }
+  .sec { margin: calc(8px * var(--s)) 0 calc(3px * var(--s)); opacity: .75; }
+  .row { display: flex; align-items: center; gap: calc(6px * var(--s)); flex-wrap: wrap; padding: 2px 0; }
+  a { display: inline-block; padding: 2px 4px; border-radius: 2px; }
+  a:hover, a:focus-visible { background: var(--ink); outline: none; }
+  a:hover canvas, a:focus-visible canvas { filter: invert(1) sepia(.15); }
+  .play { flex: 0 1 auto; }
+  .more { display: flex; gap: calc(4px * var(--s)); margin-left: auto; }   /* 源码 + 介绍绑在一起靠右，放不下整组换行 */
+  @media (max-width: 600px) { .more { flex-basis: 100%; justify-content: flex-end; } }   /* 手机：一律放第二行，整齐 */
+  .foot { margin-top: calc(10px * var(--s)); font: 14px/1.6 system-ui, -apple-system, "PingFang SC", sans-serif; opacity: .8; }
+  .foot a { color: var(--ink); padding: 0; } .foot a:hover { background: none; text-decoration: underline; }
+</style>
+</head>
+<body>
+<main id="m"></main>
+<script>
+const D = %%HOME_DATA%%;
+const ASC = new Map(Object.entries(D.ascii).map(([k, v]) => [parseInt(k, 16), parseInt(v, 16).toString(2).padStart(35, "0")]));
+const CJK = new Map(Object.entries(D.cjk));
+function lcd(text) {                                   // 一行字画成 1-bit 小图（1 像素 = 计算器的 1 点）
+  const glyphs = []; let x = 0, prev = "";
+  for (const ch of text) {
+    if (CJK.has(ch)) { glyphs.push([x, ch]); x += 12; prev = "c"; }
+    else { if (prev === "c") x += 1; glyphs.push([x, ch]); x += 6; prev = "a"; }
+  }
+  const c = document.createElement("canvas"); c.width = Math.max(1, x); c.height = 12;
+  const g = c.getContext("2d"), img = g.createImageData(c.width, 12), ink = [34, 38, 32, 255];
+  const set = (px, py) => { const i = (py * c.width + px) * 4; img.data.set(ink, i); };
+  for (const [gx, ch] of glyphs) {
+    if (CJK.has(ch)) { const h = CJK.get(ch);
+      for (let r = 0; r < 12; r++) { const bits = parseInt(h.slice(r * 4, r * 4 + 4), 16); for (let k = 0; k < 12; k++) if (bits & (0x8000 >> k)) set(gx + k, r); } }
+    else { const b = ASC.get(ch.charCodeAt(0)); if (!b) continue;
+      for (let r = 0; r < 7; r++) for (let k = 0; k < 5; k++) if (b[r * 5 + k] === "1") set(gx + 1 + k, r + 3); }
+  }
+  g.putImageData(img, 0, 0); c.setAttribute("role", "img"); c.setAttribute("aria-label", text); return c;
+}
+const m = document.getElementById("m");
+const el = (tag, cls, kids) => { const e = document.createElement(tag); if (cls) e.className = cls; for (const k of kids) e.append(k); return e; };
+const link = (href, text, cls) => { const a = el("a", cls, [lcd(text)]); a.href = href; a.setAttribute("aria-label", text); return a; };
+m.append(el("div", "head", [lcd(D.title)]), el("div", "", [lcd(D.sub)]));
+for (const sec of D.sections) {
+  m.append(el("div", "sec", [lcd(sec.name)]));
+  for (const r of sec.rows) {
+    const kids = r.play ? [link(r.play, r.date + " " + r.name, "play"), el("span", "more", [link(r.src, "源码"), link(r.play + "#info", "介绍")])] : [el("span", "play", [lcd(r.date + " " + r.name)]), el("span", "more", [link(r.src, "源码")])];
+    m.append(el("div", "row", kids));
+  }
+}
+const f = document.createElement("div"); f.className = "foot";
+f.innerHTML = '程序当年发在 cnCalc 计算器论坛。源码、原件和出处在 <a href="' + D.repo + '">GitHub</a>，别人的东西和许可见其中的 THIRD_PARTY.md。网页壳和模拟器由 Claude（Anthropic）在 2026 年写。';
+m.append(f);
+</script>
+</body>
+</html>

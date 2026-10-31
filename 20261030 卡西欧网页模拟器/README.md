@@ -17,4 +17,4 @@ python3 -I build.py
 python3 -I tools/g1m_listing.py <BIDE 的 opcodes.txt>
 ```
 
-`index.html` 是产物：迭代时推私有预览（命令在家族约定里）；作者说「发」时拷进 `../20261031 casio-2010 宣发/` 再推 GitHub。
+产物：`index.html` = 所有程序在一台计算器里（迭代时推私有预览，命令在家族约定里）；`play/<短名>.html` = 每个游戏一页、打开就玩（作者 10-31「不同游戏每个一个网页……每个网页都优先是点开能玩」）；`site/index.html` = 1-bit 液晶风格的合集页（每个展位：游戏、源码、介绍；模板 `home.html`）。三样都由 `build.py` 出；作者说「发」时拷进 `../20261031 casio-2010 宣发/` 再推 GitHub。

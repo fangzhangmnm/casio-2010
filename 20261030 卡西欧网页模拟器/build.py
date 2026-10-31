@@ -354,9 +354,66 @@ for a in ADDINS:
                   'fls0': {n: base64.b64encode(open(os.path.join(root, f), 'rb').read()).decode() for n, f in a['fls0'].items()},
                   'source': {n: src_text(os.path.join(d, n)) for n in a['source']}})
 font = json.load(open(os.path.join(here, 'casio-font.json'), encoding='utf-8'))
-html = open(os.path.join(here, 'shell.html'), encoding='utf-8').read()
-html = html.replace('%%ADDINS_JS%%', '\n'.join(addin_js))
-html = html.replace('%%FONT_SMALL%%', open(os.path.join(here, 'casio-font-small.json'), encoding='utf-8').read())
-html = html.replace('%%FONT%%', json.dumps(font, ensure_ascii=False, separators=(',', ':'))).replace('%%PROGRAMS%%', json.dumps(progs, ensure_ascii=False))
+shell = open(os.path.join(here, 'shell.html'), encoding='utf-8').read()
+small = open(os.path.join(here, 'casio-font-small.json'), encoding='utf-8').read()
+font_js = json.dumps(font, ensure_ascii=False, separators=(',', ':'))
+key = lambda p: p.get('addin') or p['file']
+def page(members, autorun, title):  # 一页只带这几个程序和它们的 wasm
+    sub = [p for p in progs if key(p) in members]
+    js = [j for a, j in zip(ADDINS, addin_js) if a['addin'] in members]
+    h = shell.replace('%%ADDINS_JS%%', '\n'.join(js)).replace('%%FONT_SMALL%%', small).replace('%%AUTORUN%%', str(autorun))
+    h = h.replace('%%FONT%%', font_js).replace('%%PROGRAMS%%', json.dumps(sub, ensure_ascii=False))
+    return h.replace('<title>GWHBOB</title>', f'<title>{title}</title>') if title else h
+html = page({key(p) for p in progs}, -1, None)
 open(os.path.join(here, 'index.html'), 'w', encoding='utf-8').write(html)
 print('index.html', len(html.encode()), 'bytes,', len(progs), 'files')
+# 每个游戏一个网页，打开就玩（作者 10-31「我建议是不同游戏每个一个网页？这样我可以分享单个游戏。然后每个网页都优先是点开能玩」
+# 「我觉得没必要要那个计算器内部导航，反而麻烦」）：一页一个程序，网址用短英文名好分享；原样版和 2026 版各一页。
+PAGES = [('snake', 'SnackI 贪吃蛇', 'SNACKI.G1M'), ('21', '21 点', '21.G1M'), ('sanguosha', '三国杀简版', 'CRPG.G1M'),
+         ('td', '塔防 1.1', 'TDGAME11.G1M'), ('td-1.0', '塔防 1.0', 'TDGAME.G1M'),
+         ('mine', '扫雷（9860 版）', 'MINE.G1M'), ('mine-9750', '扫雷（9750 版）', 'MINEA.G1M'),
+         ('doodle', 'Doodle Jump', 'DOODLE'), ('doodle-2026', 'Doodle Jump 2026', 'DOODLE2026'),
+         ('3d', '3D 引擎', 'ENGINE3D'), ('magtower', '魔塔', 'MAGTOWER'), ('magtower-2026', '魔塔 2026', 'MAGTOWER2026')]
+by_key = {key(p): p for p in progs}
+os.makedirs(os.path.join(here, 'play'), exist_ok=True)
+for slug, title, k in PAGES:
+    p = dict(by_key[k])
+    if k == 'MAGTOWER2026': p['fls0'] = by_key['MAGTOWER']['fls0']   # 合集页里字库是原样版带进存储内存的；单独一页要自己带
+    js = [j for a, j in zip(ADDINS, addin_js) if a['addin'] == k]
+    h = shell.replace('%%ADDINS_JS%%', '\n'.join(js)).replace('%%FONT_SMALL%%', small).replace('%%AUTORUN%%', '0')
+    h = h.replace('%%FONT%%', font_js).replace('%%PROGRAMS%%', json.dumps([p], ensure_ascii=False)).replace('<title>GWHBOB</title>', f'<title>{title}</title>')
+    open(os.path.join(here, 'play', slug + '.html'), 'w', encoding='utf-8').write(h)
+    print(f'play/{slug}.html', len(h.encode()), 'bytes')
+
+# 合集页（home.html → 宣发仓的 index.html）：1-bit 液晶风格，每个展位 = 游戏 + 源码 + 介绍。中文只带页面上用到的字（HZK12 子集）。
+REPO = 'https://github.com/fangzhangmnm/casio-2010'
+from urllib.parse import quote
+tree = lambda hall: f"{REPO}/tree/main/{quote(hall)}"
+SECTIONS = [
+    ('能玩的', [('2010-08-29', '贪吃蛇', 'snake', '20100829 贪吃蛇'), ('2010-08-29', '21点', '21', '20100829 21点'),
+               ('2010-09-18', '三国杀简版', 'sanguosha', '20100918 三国杀简版'), ('2010-10-22', '塔防 1.0', 'td-1.0', '20101022 塔防'),
+               ('2010-10-24', '塔防 1.1', 'td', '20101022 塔防'), ('2012-02-03', '3D引擎', '3d', '20111111 3D 引擎'),
+               ('2012-06-29', '扫雷 9860版', 'mine', '20120629 扫雷'), ('2012-06-29', '扫雷 9750版', 'mine-9750', '20120629 扫雷'),
+               ('2012-08-07', '魔塔', 'magtower', '20120703 魔塔'), ('2013-07-23', 'Doodle Jump', 'doodle', '20110415 Doodle Jump')]),
+    ('2026 修复版', [('2026-10-31', '魔塔 2026版', 'magtower-2026', '20261031 魔塔 2026'), ('2026-10-31', 'Doodle Jump 2026版', 'doodle-2026', '20261031 Doodle Jump 2026')]),
+    ('还没复活（只有源码）', [('2012-08-13', '拼音输入法', None, '20120813 拼音输入法'), ('2013-02-12', 'Ogame', None, '20130212 Ogame'),
+                     ('2013-02-14', 'VisualFX', None, '20130214 VisualFX'), ('2013-04-11', '弹幕骨架', None, '20130411 弹幕骨架')]),
+]
+assert all(slug in {p[0] for p in PAGES} for _, rows in SECTIONS for _, _, slug, _ in rows if slug)
+home = {'title': 'GWHBOB 的计算器程序', 'sub': 'fx-9750GII  2010-2013', 'repo': REPO,
+        'sections': [{'name': n, 'rows': [{'date': d, 'name': t, 'play': (f'play/{slug}.html' if slug else None), 'src': tree(h)} for d, t, slug, h in rows]} for n, rows in SECTIONS]}
+texts = [home['title'], home['sub'], '源码', '介绍'] + [s['name'] for s in home['sections']] + [r['date'] + ' ' + r['name'] for s in home['sections'] for r in s['rows']]
+hzk = open(os.path.join(root, '20120703 魔塔', 'originals', 'HZK12.df'), 'rb').read()
+cjk = {}
+for ch in sorted({c for t in texts for c in t if ord(c) > 127}):
+    b = ch.encode('gb2312'); i = 94 * (b[0] - 0xA1) + (b[1] - 0xA1)
+    cjk[ch] = hzk[i*24:(i+1)*24].hex()
+asc = {f'{ord(c):X}': font[f'{ord(c):X}'] for c in sorted({c for t in texts for c in t if 32 < ord(c) < 128}) if f'{ord(c):X}' in font}  # 字库的键是大写十六进制
+home['cjk'] = cjk; home['ascii'] = asc
+missing = sorted({c for t in texts for c in t if 32 < ord(c) < 128} - {chr(int(k, 16)) for k in asc})
+assert not missing, missing
+h = open(os.path.join(here, 'home.html'), encoding='utf-8').read().replace('%%HOME_DATA%%', json.dumps(home, ensure_ascii=False))
+os.makedirs(os.path.join(here, 'site'), exist_ok=True)
+open(os.path.join(here, 'site', 'index.html'), 'w', encoding='utf-8').write(h)
+print('site/index.html', len(h.encode()), 'bytes;', len(cjk), '个中文字（HZK12 子集）')
+

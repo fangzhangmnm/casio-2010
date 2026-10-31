@@ -7,7 +7,7 @@ import os, shutil, subprocess
 HERE = os.path.dirname(os.path.abspath(__file__)); FAM = os.path.dirname(HERE)
 EMU = '20261030 卡西欧网页模拟器'
 SKIP_HALLS = {os.path.basename(HERE), '20261031 3D 引擎 2026'}
-SKIP_FILES = {'.gitignore', 'index.html'}            # 网页只在仓根放一份
+SKIP_FILES = {'.gitignore', 'index.html'}            # 网页不进展厅（仓根是合集页、play/ 是每个游戏一页）
 KEEP = {'.git', 'curate.py', 'README.md', 'CLAUDE.md', '.nojekyll'}
 halls = sorted(d for d in os.listdir(FAM) if os.path.isdir(os.path.join(FAM, d, '.git')) and d not in SKIP_HALLS)
 for n in os.listdir(HERE):
@@ -16,8 +16,9 @@ for n in os.listdir(HERE):
 for h in halls:
     src = os.path.join(FAM, h)
     for f in filter(None, subprocess.run(['git', '-C', src, 'ls-files', '-z'], capture_output=True, check=True).stdout.decode().split('\0')):
-        if os.path.basename(f) in SKIP_FILES: continue
+        if os.path.basename(f) in SKIP_FILES or f.startswith(('play/', 'site/')): continue
         d = os.path.join(HERE, h, f); os.makedirs(os.path.dirname(d), exist_ok=True); shutil.copy2(os.path.join(src, f), d)
-for f in ['index.html', 'THIRD_PARTY.md']:
-    shutil.copy2(os.path.join(FAM, EMU, f), os.path.join(HERE, f))
+shutil.copy2(os.path.join(FAM, EMU, 'site', 'index.html'), os.path.join(HERE, 'index.html'))   # 合集页（1-bit 液晶风格）
+shutil.copy2(os.path.join(FAM, EMU, 'THIRD_PARTY.md'), os.path.join(HERE, 'THIRD_PARTY.md'))
+shutil.copytree(os.path.join(FAM, EMU, 'play'), os.path.join(HERE, 'play'))                    # 每个游戏一页，打开就玩
 print(len(halls), '个展厅')

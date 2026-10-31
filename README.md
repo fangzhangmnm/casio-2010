@@ -2,7 +2,7 @@
 
 GWHBOB 2010–2013 年在卡西欧 fx-9750GII（刷 9860 系统）上写的程序，2026 年复活成网页，在浏览器里就能玩。
 
-**在线玩**：https://fangzhangmnm.github.io/casio-2010/
+**在线玩**：https://fangzhangmnm.github.io/casio-2010/ （合集页；每个游戏也有自己的网页，打开就玩，比如魔塔 https://fangzhangmnm.github.io/casio-2010/play/magtower.html ）
 
 ## 下载
 

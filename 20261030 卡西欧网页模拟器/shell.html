@@ -229,6 +229,7 @@
 "use strict";
 const FONT_HEX = %%FONT%%;
 const FONT_SMALL = %%FONT_SMALL%%;
+const AUTORUN = %%AUTORUN%%; // 单个游戏的网页：打开就跑第几个（合集页 = -1，先显示列表）；作者 10-31「每个网页都优先是点开能玩」
 const PROGRAMS = %%PROGRAMS%%; // G1M：{file, b64, entry, title, date, about, notes[], rules[], controls, bind}；G1A：多 kind:"g1a"、addin、fls0、source
 
 // ---------- 字体 ----------
@@ -1523,6 +1524,8 @@ document.getElementById("infoClose").addEventListener("click", () => info.close(
 info.addEventListener("click", e => { if (e.target === info) info.close(); }); // 点弹窗外面关掉
 info.addEventListener("close", () => { infoIx = null; shownPhase = ""; });
 toMenu(); updateSaveInfo(); fitDevice();
+if (AUTORUN >= 0 && AUTORUN < ENTRIES.length) run(AUTORUN);
+if (location.hash === "#info") document.getElementById("infoBtn").click(); // 合集页的「介绍」= 进游戏的同时弹出说明
 requestAnimationFrame(frame);
 window.__calc = { get mode() { return mode; }, get screen() { return screen; }, get target() { return target; }, get pick() { return pick; }, get vars() { return vars; }, get mats() { return mats; }, get text() { return text.map(r => r.map(c => (c < 128 ? String.fromCharCode(c) : "#")).join("")); }, press, release, run, get errMsg() { return errMsg; }, entries: ENTRIES.map(e => e.sub.name),
   get fb() { return addin ? addin.fb : null; }, get storageErr() { return storageErr; }, files: () => [...fls0.keys()] };
