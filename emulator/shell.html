@@ -268,12 +268,18 @@ const KW2 = { 0x7F46: "Dim", 0x7F51: "List", 0x7F47: "Fill(", 0x7F40: "Mat", 0x7
   0x7FB0: "And", 0x7FB1: "Or", 0x7F3A: "MOD(", 0x7F50: "i", 0x7F24: "ReP", 0x7F25: "ImP",
   0xF700: "If", 0xF701: "Then", 0xF702: "Else", 0xF703: "IfEnd", 0xF704: "For", 0xF705: "To", 0xF706: "Step",
   0xF707: "Next", 0xF708: "While", 0xF709: "WhileEnd", 0xF70C: "Return", 0xF70E: "Stop", 0xF710: "Locate", 0xF718: "ClrText",
-  0xF93F: "Str", 0xF936: "StrMid(", 0xF930: "StrJoin(", 0xF931: "StrLen(", 0xF932: "StrCmp(" };
-const NOOP2 = new Set([0xF909]); // 没查到含义，单独一行出现，当空操作（页面上会说）
+  0xF93F: "Str", 0xF936: "StrMid(", 0xF930: "StrJoin(", 0xF931: "StrLen(", 0xF932: "StrCmp(",
+  0x7F2D: "Min(", 0x7F20: "Max(", 0xF933: "StrSrc(", 0xF938: "Exp(", 0xF91E: "ClrMat",
+  // 图形屏（塔防、三国杀用的；指令码照 BIDE 的指令表）
+  0xF719: "ClrGraph", 0xF71A: "ClrList", 0xF723: "DrawStat", 0xF74A: "S-Gph1", 0xF74B: "S-Gph2", 0xF74C: "S-Gph3",
+  0xF74D: "Square", 0xF74E: "Cross", 0xF74F: "Dot", 0xF750: "Scatter", 0xF751: "xyLine", 0xF761: "S-WindMan",
+  0xF778: "BG-None", 0xF779: "BG-Pict", 0xF793: "StoPict", 0xF794: "RclPict", 0xF79E: "Menu", 0xF7A3: "Vertical", 0xF7A4: "Horizontal",
+  0xF7A5: "Text", 0xF7A7: "F-Line", 0xF7CC: "DrawOn", 0xF7D0: "FuncOff", 0xF7D2: "AxesOff", 0xF7DC: "DrawOff" };
+const NOOP2 = new Set([0xF909]); // 复数模式 a+bi（BIDE 指令表）：只管复数结果怎么显示，这几个程序用不上，当空操作（页面上会说）
 const OP1 = { 0x0E: "→", 0x13: "⇒", 0x10: "≤", 0x11: "≠", 0x12: "≥", 0x3C: "<", 0x3D: "=", 0x3E: ">", 0x89: "+",
   0x99: "-", 0xA9: "×", 0xB9: "÷", 0x87: "neg", 0x28: "(", 0x29: ")", 0x2C: ",", 0x5B: "[", 0x5D: "]",
-  0x7B: "{", 0x7D: "}", 0x3F: "?" };
-const KW1 = { 0xA6: "Int", 0xE2: "Lbl", 0xEC: "Goto", 0xED: "Prog" };
+  0x7B: "{", 0x7D: "}", 0x3F: "?", 0x7E: "~" };
+const KW1 = { 0xA6: "Int", 0xE2: "Lbl", 0xEC: "Goto", 0xED: "Prog", 0xD1: "Cls", 0xE0: "Plot", 0xE1: "Line", 0xEB: "ViewWindow" };
 const TOKEN_TEXT = { 0xF705: " To " }; // 字符串里出现的指令记号按名字显示
 class BasicError extends Error { constructor(kind, line) { super(kind); this.kind = kind; this.line = line; } }
 const codesOf = s => [...s].map(c => c.charCodeAt(0));
@@ -301,6 +307,8 @@ function lex(b) {
       cur.push({ k: "num", v: parseFloat(s) }); continue;
     }
     if (c >= 0x41 && c <= 0x5A) { cur.push({ k: "var", v: String.fromCharCode(c) }); i++; continue; }
+    if (c === 0xCD || c === 0xCE) { cur.push({ k: "var", v: c === 0xCD ? "r" : "θ" }); i++; continue; } // 变量 r、θ
+    if (c === 0x0C) { end(); cur.push({ k: "disp" }); end(); i++; continue; } // ◢：前面那句显示完停下来等 EXE，自成一句
     if (MULTI.has(c)) {
       const w = (c << 8) | b[i + 1];
       if (NOOP2.has(w)) { cur.push({ k: "noop", v: w }); noops.add(w); i += 2; continue; }
@@ -316,7 +324,10 @@ function lex(b) {
 }
 function listing(b) { // 给人看的源码
   const W = { "If": "If ", "Then": "Then ", "Else": "Else ", "For": "For ", "While": "While ", "Locate": "Locate ", "Dim": "Dim ",
-    "List": "List ", "Mat": "Mat ", "And": " And ", "Or": " Or ", "To": " To ", "Step": " Step ", "ReP": "ReP ", "ImP": "ImP ", "Str": "Str " };
+    "List": "List ", "Mat": "Mat ", "And": " And ", "Or": " Or ", "To": " To ", "Step": " Step ", "ReP": "ReP ", "ImP": "ImP ", "Str": "Str ",
+    "Text": "Text ", "Plot": "Plot ", "ViewWindow": "ViewWindow ", "Menu": "Menu ", "S-Gph1": "S-Gph1 ", "S-Gph2": "S-Gph2 ", "S-Gph3": "S-Gph3 ",
+    "BG-Pict": "BG-Pict ", "StoPict": "StoPict ", "RclPict": "RclPict ", "Horizontal": "Horizontal ", "Vertical": "Vertical ", "F-Line": "F-Line ", "ClrList": "ClrList ", "ClrMat": "ClrMat " };
+  const ONE = { 0x0C: "◢", 0xCD: "r", 0xCE: "θ", 0x7E: "~" };
   const CH = { 0xE6A3: "○", 0xE6A4: "●", 0xE6A5: "□", 0xE6A6: "■", 0xE6A8: "◆", 0xE5A5: "▫", 0xE59C: "¥", 0xD8: "▯" };
   let s = "", i = 0, inStr = false;
   while (i < b.length && b[i] !== 0) {
@@ -329,6 +340,7 @@ function listing(b) { // 给人看的源码
       i += 2; continue;
     }
     if (inStr && CH[c]) { s += CH[c]; i++; continue; }
+    if (ONE[c]) { s += ONE[c]; i++; continue; }
     if (KW1[c]) { s += KW1[c] + " "; i++; continue; }
     if (OP1[c] && c >= 0x80 || [0x0E, 0x13, 0x10, 0x11, 0x12].includes(c)) { s += c === 0x87 ? "(-)" : OP1[c]; i++; continue; }
     s += String.fromCharCode(c); i++;
@@ -375,6 +387,17 @@ class P {
   eat(k, v) { if (!this.is(k, v)) throw new BasicError("Syntax ERROR", this.line); return this.next(); }
   maybe(k, v) { if (this.is(k, v)) { this.i++; return true; } return false; }
 }
+// 加减乘除：列表和数逐项算（塔防的「16U-{0,15,15,0,0}→List 1」「List 3+5→List 3」），两个字符串相加 = 接起来
+function arith(op, a, b, line) {
+  if (Array.isArray(a) || Array.isArray(b)) {
+    if (Array.isArray(a) && Array.isArray(b) && a.length !== b.length) throw new BasicError("Dimension ERROR", line);
+    const n = Array.isArray(a) ? a.length : b.length;
+    return Array.from({ length: n }, (_, i) => arith(op, Array.isArray(a) ? a[i] : a, Array.isArray(b) ? b[i] : b, line));
+  }
+  if (op === "+" && isStr(a) && isStr(b)) return { str: true, c: [...a.c, ...b.c] };
+  need(a, line); need(b, line);
+  return op === "+" ? add(a, b) : op === "-" ? sub(a, b) : op === "×" ? mul(a, b) : div(a, b, line);
+}
 function expr(p) { let v = andE(p); while (p.is("kw", "Or")) { p.next(); const r = andE(p); v = (!eq(need(v, p.line), 0) || !eq(need(r, p.line), 0)) ? 1 : 0; } return v; }
 function andE(p) { let v = cmp(p); while (p.is("kw", "And")) { p.next(); const r = cmp(p); v = (!eq(need(v, p.line), 0) && !eq(need(r, p.line), 0)) ? 1 : 0; } return v; }
 const CMP = { "=": (a, b) => eq(a, b), "≠": (a, b) => !eq(a, b), "<": (a, b) => re(a) < re(b), ">": (a, b) => re(a) > re(b), "≤": (a, b) => re(a) <= re(b), "≥": (a, b) => re(a) >= re(b) };
@@ -383,13 +406,13 @@ function cmp(p) {
   while (p.peek() && p.peek().k === "op" && CMP[p.peek().v]) { const op = p.next().v; const r = addE(p); v = CMP[op](need(v, p.line), need(r, p.line)) ? 1 : 0; }
   return v;
 }
-function addE(p) { let v = mulE(p); while (p.is("op", "+") || p.is("op", "-")) { const op = p.next().v; const r = mulE(p); v = op === "+" ? add(need(v, p.line), need(r, p.line)) : sub(need(v, p.line), need(r, p.line)); } return v; }
-function mulE(p) { let v = imp(p); while (p.is("op", "×") || p.is("op", "÷")) { const op = p.next().v; const r = imp(p); v = op === "×" ? mul(need(v, p.line), need(r, p.line)) : div(need(v, p.line), need(r, p.line), p.line); } return v; }
-const PRIM_KW = ["Int", "MOD(", "RanInt#(", "Getkey", "List", "Mat", "i", "ReP", "ImP", "Str", "StrMid(", "StrJoin(", "StrLen(", "StrCmp("];
+function addE(p) { let v = mulE(p); while (p.is("op", "+") || p.is("op", "-")) { const op = p.next().v; v = arith(op, v, mulE(p), p.line); } return v; }
+function mulE(p) { let v = imp(p); while (p.is("op", "×") || p.is("op", "÷")) { const op = p.next().v; v = arith(op, v, imp(p), p.line); } return v; }
+const PRIM_KW = ["Int", "MOD(", "RanInt#(", "Getkey", "List", "Mat", "i", "ReP", "ImP", "Str", "StrMid(", "StrJoin(", "StrLen(", "StrCmp(", "Min(", "Max(", "StrSrc(", "Exp("];
 const strArg = (p) => { const s = expr(p); if (!isStr(s)) throw new BasicError("Argument ERROR", p.line); return s.c; };
 function startsPrimary(t) { return t && (t.k === "num" || t.k === "var" || (t.k === "op" && (t.v === "(" || t.v === "{")) || (t.k === "kw" && PRIM_KW.includes(t.v))); }
-function imp(p) { let v = unary(p); while (startsPrimary(p.peek())) v = mul(need(v, p.line), need(unary(p), p.line)); return v; } // 省略乘号比 × ÷ 优先
-function unary(p) { if (p.is("op", "neg") || p.is("op", "-")) { p.next(); return mul(-1, need(unary(p), p.line)); } return primary(p); }
+function imp(p) { let v = unary(p); while (startsPrimary(p.peek())) v = arith("×", v, unary(p), p.line); return v; } // 省略乘号比 × ÷ 优先
+function unary(p) { if (p.is("op", "neg") || p.is("op", "-")) { p.next(); return arith("×", -1, unary(p), p.line); } return primary(p); }
 const closeParen = p => p.maybe("op", ")");
 function listIndex(p, L) { const k = real(expr(p), p.line); p.maybe("op", "]"); return k; }
 function primary(p) {
@@ -427,6 +450,22 @@ function primary(p) {
       if (a < 1 || a > s.c.length) throw new BasicError("Argument ERROR", p.line);
       return { str: true, c: s.c.slice(a - 1, a - 1 + n) };
     }
+    case "Min(": case "Max(": { // 列表里最小 / 最大的那个（塔防用 Min(List 4) 找空位）
+      const v = expr(p); closeParen(p); const a = Array.isArray(v) ? v : [v];
+      if (!a.length) throw new BasicError("Dimension ERROR", p.line);
+      return a.reduce((m, x) => (t.v === "Min(" ? re(x) < re(m) : re(x) > re(m)) ? x : m);
+    }
+    case "StrSrc(": { // StrSrc(串, 要找的 [, 从第几个起]) → 第一次出现的位置，没有 = 0
+      const a = strArg(p); p.eat("op", ","); const b = strArg(p); const from = p.maybe("op", ",") ? real(expr(p), p.line) : 1; closeParen(p);
+      for (let k = Math.max(0, from - 1); k + b.length <= a.length; k++) if (b.every((ch, j) => a[k + j] === ch)) return k + 1;
+      return 0;
+    }
+    case "Exp(": { // 把字符串当算式算（塔防：Exp("3") = 3）
+      const s = strArg(p); closeParen(p);
+      const { lines } = lex(Uint8Array.from([...s.flatMap(c => (c > 0xFF ? [c >> 8, c & 0xFF] : [c])), 0]));
+      if (!lines.length || !lines[0].toks.length) throw new BasicError("Syntax ERROR", p.line);
+      return expr(new P(lines[0].toks, p.line));
+    }
     case "StrJoin(": { const a = strArg(p); p.eat("op", ","); const b = strArg(p); closeParen(p); return { str: true, c: [...a, ...b] }; }
     case "StrLen(": { const a = strArg(p); closeParen(p); return a.length; }
     case "StrCmp(": {
@@ -440,7 +479,10 @@ function primary(p) {
 function assign(p, v) {
   const t = p.next(); const line = p.line;
   if (!t) throw new BasicError("Syntax ERROR", line);
-  if (t.k === "var") { vars[t.v] = need(v, line); return; }
+  if (t.k === "var") {
+    if (p.maybe("op", "~")) { const z = p.eat("var").v; for (let c = t.v.charCodeAt(0); c <= z.charCodeAt(0); c++) vars[String.fromCharCode(c)] = need(v, line); return; } // 0→A~Z
+    vars[t.v] = need(v, line); return;
+  }
   if (t.k === "kw" && t.v === "Str") { const n = p.eat("num").v; if (!isStr(v)) throw new BasicError("Argument ERROR", line); strs[n] = v.c.slice(); return; }
   if (t.k === "kw" && t.v === "Dim") {
     const w = p.next();
@@ -465,6 +507,95 @@ function assign(p, v) {
     M.d[(r - 1) * M.c + (c - 1)] = need(v, line); return;
   }
   throw new BasicError("Syntax ERROR", line);
+}
+
+// ---------- 图形屏 ----------
+// 卡西欧的图形屏是另一块 128×64，和文字屏分开：最后被写的那块显示在屏幕上（Locate / 打印 / 输入 → 文字屏，Cls / Text / DrawStat … → 图形屏）。
+// 画图区 = 液晶第 1–127 列、第 1–63 行（第 0 列、第 0 行不画）。ViewWindow 的 Xmin 落在第 1 列、Xmax 在第 127 列，Ymax 在第 1 行、Ymin 在第 63 行；
+// Text 行,列 的字左上角就在液晶 (列, 行)。这些都对过塔防的 5 张截图（cnCalc 5009 帖，2010-10-22）。
+// DrawStat 不清屏、不重铺背景，叠在现有画面上画（截图里光标方框和子弹同时在）；擦画面靠程序自己 Cls（清空后铺 BG-Pict 的背景图）。
+const GW = 128;
+const gfx = new Uint8Array(128 * 64), picts = {}; // picts：Pict 1–20，计算器内存，跑完程序还在
+let screen = "text", vw, bgPict = 0, plots = [], pointer = null, pick = null;
+const sgph = [0, 1, 2].map(() => ({ on: false, type: "Scatter", xl: 1, yl: 2, mark: "Square" }));
+function vwInit() { vw = { xmin: -6.3, xmax: 6.3, xscl: 1, ymin: -3.1, ymax: 3.1, yscl: 1 }; } // 卡西欧的 INIT 窗口
+vwInit();
+const inArea = (c, r) => c >= 1 && c <= 127 && r >= 1 && r <= 63;
+function gset(c, r, on) { if (inArea(c, r)) gfx[r * GW + c] = on ? 1 : 0; }
+// 换算到点时四舍五入、正好一半往小的取（塔防标题的向日葵放大 1.5 倍，坐标带 .5；这样取和截图一个点不差，Math.round 往大取就错开一格）
+const half = v => Math.ceil(v - 0.5);
+const colOf = x => 1 + half((x - vw.xmin) * 126 / (vw.xmax - vw.xmin));
+const rowOf = y => 1 + half((vw.ymax - y) * 62 / (vw.ymax - vw.ymin));
+const xOf = c => vw.xmin + (c - 1) * (vw.xmax - vw.xmin) / 126, yOf = r => vw.ymax - (r - 1) * (vw.ymax - vw.ymin) / 62;
+function gline(c1, r1, c0, r0) { // Bresenham，两端都画，从终点往起点画（斜率一半那种线，从哪头画决定落在哪格；这样和截图一样）；只画画图区里的点（远在屏外的端点先截到屏边附近，免得一步步走上万格）
+  const clip = (a, b, lo, hi) => { // 线段在某一维上离屏太远：沿线挪到 [lo, hi] 附近
+    const t0 = a[0] < lo ? (lo - a[0]) / (b[0] - a[0]) : a[0] > hi ? (hi - a[0]) / (b[0] - a[0]) : 0;
+    return t0 > 0 && t0 < 1 ? [Math.round(a[0] + (b[0] - a[0]) * t0), Math.round(a[1] + (b[1] - a[1]) * t0)] : a;
+  };
+  let A = [c0, r0], B = [c1, r1];
+  if ((A[0] < -2 && B[0] < -2) || (A[0] > 130 && B[0] > 130) || (A[1] < -2 && B[1] < -2) || (A[1] > 66 && B[1] > 66)) return;
+  A = clip(A, B, -2, 130); B = clip(B, A, -2, 130);
+  A = clip(A.slice().reverse(), B.slice().reverse(), -2, 66).reverse(); B = clip(B.slice().reverse(), A.slice().reverse(), -2, 66).reverse();
+  let [x, y] = A; const [x1, y1] = B, dx = Math.abs(x1 - x), dy = -Math.abs(y1 - y), sx = x < x1 ? 1 : -1, sy = y < y1 ? 1 : -1;
+  let err = dx + dy;
+  for (let n = 0; n < 1000; n++) {
+    gset(x, y, 1); if (x === x1 && y === y1) break;
+    const e2 = 2 * err; if (e2 >= dy) { err += dy; x += sx; } if (e2 <= dx) { err += dx; y += sy; }
+  }
+}
+function gmark(c, r, mark) { // 统计图的点：Dot 一点；Square 3×3 空心方块（截图里的子弹）；Cross 3×3 的 ×
+  if (!inArea(c, r)) return;
+  if (mark === "Square") { for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (dx || dy) gset(c + dx, r + dy, 1); }
+  else if (mark === "Cross") { for (const [dx, dy] of [[-1, -1], [1, -1], [0, 0], [-1, 1], [1, 1]]) gset(c + dx, r + dy, 1); }
+  else gset(c, r, 1);
+}
+function gCls() { gfx.fill(0); if (bgPict && picts[bgPict]) gfx.set(picts[bgPict]); screen = "graph"; }
+function drawStat(line) {
+  for (const g of sgph) {
+    if (!g.on) continue;
+    const X = lists[g.xl], Y = lists[g.yl];
+    if (!X || !Y || X.length !== Y.length) throw new BasicError("Dimension ERROR", line);
+    const pts = X.map((x, i) => [colOf(re(x)), rowOf(re(Y[i]))]);
+    if (g.type === "xyLine") for (let i = 1; i < pts.length; i++) gline(...pts[i - 1], ...pts[i]);
+    for (const [c, r] of pts) gmark(c, r, g.mark);
+  }
+  screen = "graph";
+}
+// Text 行,列,"…"：小字（和 SDK 的 PrintMini 同一套），连字后面那一列、字下面那一行一起擦白——塔防拿空格擦旧数字
+const MINI_ALIAS = { 0x89: 0x2B, 0x99: 0x2D };
+function gText(r, c, codes) {
+  for (const ch0 of codes) {
+    const g = SMALL.get(MINI_ALIAS[ch0] ?? ch0) || SMALL.get(0x20), w = g.w;
+    for (let y = 0; y < 6; y++) for (let x = 0; x <= w; x++) gset(c + x, r + y, y < 5 && x < w && ((g.rows[y] >> (w - 1 - x)) & 1));
+    c += w + 1;
+  }
+  screen = "graph";
+}
+// Menu "标题","选项",标签,…：盖在当前画面上的选单窗（几何量自 5009 帖两张截图：任务选单、暂停选单）
+function drawPick(T) {
+  const set = (x, y, v) => { if (x >= 0 && x < 128 && y >= 0 && y < 64) T[y * 128 + x] = v; };
+  for (let y = 2; y <= 62; y++) for (let x = 5; x <= 123; x++) set(x, y, 0);
+  for (let x = 4; x <= 124; x++) set(x, 1, 1);
+  for (let x = 4; x <= 125; x++) { set(x, 12, 1); set(x, 63, 1); }
+  for (let y = 1; y <= 63; y++) { set(4, y, 1); set(124, y, 1); if (y >= 2) set(125, y, 1); } // 右边一列阴影
+  const txt = (codes, x0, y0, v) => codes.forEach((ch, k) => { for (let y = 0; y < 7; y++) for (let x = 0; x < 5; x++) if (glyphBit(ch, x, y)) set(x0 + 6 * k + x, y0 + y, v); });
+  txt(pick.title.slice(0, 19), 8, 3, 1);
+  const top = Math.max(0, Math.min(pick.sel - 5, pick.items.length - 6));
+  for (let k = 0; k < 6 && top + k < pick.items.length; k++) {
+    const i = top + k, y0 = 14 + 8 * k, sel = i === pick.sel;
+    if (sel) for (let y = y0; y < y0 + 8; y++) for (let x = 7; x <= 120; x++) set(x, y, 1); // 选中那行整条反白
+    txt([0x31 + i, 0x3A, ...pick.items[i].c].slice(0, 19), 8, y0, sel ? 0 : 1);
+  }
+}
+function pickChoose(i) {
+  const lb = pick.items[i].lb; pick = null;
+  if (!(lb in LABELS)) { fail(new BasicError("Go ERROR", PROG[pc].line)); return; }
+  pc = LABELS[lb] + 1; mode = "run";
+}
+// ◢ 停下来时：Plot 不带坐标的指针可以用方向键挪（一格一点），EXE 继续——指针的位置写回 X、Y 并点上
+function resumeDisp() {
+  if (pointer) { vars.X = xOf(pointer.c); vars.Y = yOf(pointer.r); gset(pointer.c, pointer.r, 1); plots.push([vars.X, vars.Y]); pointer = null; }
+  mode = "run"; pc++;
 }
 
 // ---------- 程序结构 ----------
@@ -499,6 +630,7 @@ function enter(code) { PROG = code.PROG; LABELS = code.LABELS; if (code.noopNote
 function returnFromProg() { const f = callStack.pop(); PROG = f.PROG; LABELS = f.LABELS; loops = f.loops; pc = f.pc; }
 // 打印一段文字：遇到换行另起一行，超过 21 格自动折到下一行，满 7 行往上滚；返回最后一行的长度
 function printText(codes) {
+  screen = "text";
   const lines = [[]]; for (const ch of codes) { if (ch === 0x0D) lines.push([]); else lines[lines.length - 1].push(ch); }
   let last = 0;
   for (const ln of lines) for (let k = 0; k === 0 || k < ln.length; k += COLS) {
@@ -515,6 +647,10 @@ function exec(toks, line) { // 返回 true = 已经改了 pc / 在等输入
   if (a >= 0) { const c = need(expr(new P(toks.slice(0, a), line)), line); return !eq(c, 0) ? exec(toks.slice(a + 1), line) : false; }
   const k0 = toks[0];
   if (k0.k === "comment" || k0.k === "noop") return false;
+  if (k0.k === "disp") { // ◢：文字屏上下一行右边写「- Disp -」（满了先上滚一行），等 EXE
+    if (screen === "text" && curRow >= ROWS) scroll();
+    mode = "disp"; return true;
+  }
   if (k0.k === "kw") switch (k0.v) {
     case "Goto": { const name = toks[1].v; if (!(name in LABELS)) throw new BasicError("Go ERROR", line); pc = LABELS[name] + 1; return true; }
     case "Stop": mode = "done"; return true;
@@ -527,11 +663,67 @@ function exec(toks, line) { // 返回 true = 已经改了 pc / 在等输入
       enter(codeOf(sub)); loops = {}; pc = 0; return true;
     }
     case "Return": if (callStack.length) returnFromProg(); else mode = "done"; return true;
-    case "ClrText": clrText(); return false;
+    case "ClrText": clrText(); screen = "text"; return false;
     case "Locate": {
       const p = new P(toks, line, 1); const x = real(expr(p), line); p.eat("op", ","); const y = real(expr(p), line); p.eat("op", ",");
       if (x < 1 || x > COLS || y < 1 || y > ROWS) throw new BasicError("Argument ERROR", line);
-      const v = expr(p); putCodes(Math.trunc(x) - 1, Math.trunc(y) - 1, isStr(v) ? v.c : numCodes(need(v, line))); return false;
+      const v = expr(p); putCodes(Math.trunc(x) - 1, Math.trunc(y) - 1, isStr(v) ? v.c : numCodes(need(v, line))); screen = "text"; return false;
+    }
+    // ---- 图形屏 ----
+    case "Cls": gCls(); return false;
+    case "ClrGraph": gfx.fill(0); vwInit(); screen = "graph"; return false; // 清图形屏，窗口回 INIT
+    case "ClrList": { const n = toks[1] && toks[1].k === "num" ? toks[1].v : null; if (n == null) lists = {}; else delete lists[n]; return false; }
+    case "ClrMat": { const n = toks[1] && toks[1].k === "var" ? toks[1].v : null; if (n == null) mats = {}; else delete mats[n]; return false; }
+    case "S-WindMan": case "AxesOff": case "FuncOff": return false; // 统计图窗口手动、不画坐标轴、不画函数图：这里本来就没有
+    case "BG-None": bgPict = 0; return false;
+    case "BG-Pict": bgPict = real(expr(new P(toks, line, 1)), line); return false;
+    case "ViewWindow": {
+      const p = new P(toks, line, 1), a = [];
+      do { a.push(real(expr(p), line)); } while (p.maybe("op", ",") && a.length < 6);
+      const [xmin, xmax, xscl = vw.xscl, ymin = vw.ymin, ymax = vw.ymax, yscl = vw.yscl] = a; // 卡西欧的顺序：Xmin,Xmax,Xscale,Ymin,Ymax,Yscale
+      if (xmin === xmax || ymin === ymax) throw new BasicError("Argument ERROR", line);
+      vw = { xmin, xmax, xscl, ymin, ymax, yscl }; return false;
+    }
+    case "S-Gph1": case "S-Gph2": case "S-Gph3": { // S-Gph1 DrawOn,xyLine,List 1,List 2,1,Dot / S-Gph2 DrawOff
+      const g = sgph[+k0.v.slice(-1) - 1], p = new P(toks, line, 1), sw = p.next();
+      if (!sw || sw.k !== "kw" || (sw.v !== "DrawOn" && sw.v !== "DrawOff")) throw new BasicError("Syntax ERROR", line);
+      g.on = sw.v === "DrawOn";
+      if (p.maybe("op", ",")) {
+        const ty = p.next(); if (!ty || ty.k !== "kw" || !["Scatter", "xyLine"].includes(ty.v)) throw new BasicError("Syntax ERROR", line);
+        g.type = ty.v; p.eat("op", ","); p.eat("kw", "List"); g.xl = p.eat("num").v; p.eat("op", ","); p.eat("kw", "List"); g.yl = p.eat("num").v;
+        if (p.maybe("op", ",")) { expr(p); if (p.maybe("op", ",")) { const mk = p.next(); if (mk && mk.k === "kw") g.mark = mk.v; } } // 频数（只用到 1）、点的样子
+      }
+      return false;
+    }
+    case "DrawStat": drawStat(line); return false;
+    case "StoPict": picts[real(expr(new P(toks, line, 1)), line)] = gfx.slice(); return false;
+    case "RclPict": { const pic = picts[real(expr(new P(toks, line, 1)), line)]; if (pic) for (let i = 0; i < gfx.length; i++) gfx[i] |= pic[i]; screen = "graph"; return false; }
+    case "Text": {
+      const p = new P(toks, line, 1); const r = real(expr(p), line); p.eat("op", ","); const c = real(expr(p), line); p.eat("op", ",");
+      if (r < 1 || r > 63 || c < 1 || c > 127) throw new BasicError("Argument ERROR", line);
+      const v = expr(p); gText(Math.round(r), Math.round(c), isStr(v) ? v.c : numCodes(need(v, line))); return false;
+    }
+    case "Horizontal": { const r = rowOf(real(expr(new P(toks, line, 1)), line)); for (let c = 1; c <= 127; c++) gset(c, r, 1); screen = "graph"; return false; }
+    case "Vertical": { const c = colOf(real(expr(new P(toks, line, 1)), line)); for (let r = 1; r <= 63; r++) gset(c, r, 1); screen = "graph"; return false; }
+    case "F-Line": {
+      const p = new P(toks, line, 1), a = []; do { a.push(real(expr(p), line)); } while (p.maybe("op", ",") && a.length < 4);
+      if (a.length < 4) throw new BasicError("Syntax ERROR", line);
+      gline(colOf(a[0]), rowOf(a[1]), colOf(a[2]), rowOf(a[3])); screen = "graph"; return false;
+    }
+    case "Plot": { // Plot X,Y 点一个点；不带坐标 = 在 (X, Y) 放一个指针，后面的 ◢ 停下时可以用方向键挪
+      screen = "graph";
+      if (toks.length > 1) {
+        const p = new P(toks, line, 1); const x = real(expr(p), line); p.eat("op", ","); const y = real(expr(p), line);
+        vars.X = x; vars.Y = y; gset(colOf(x), rowOf(y), 1); plots.push([x, y]); return false;
+      }
+      pointer = { c: Math.min(127, Math.max(1, colOf(vars.X))), r: Math.min(63, Math.max(1, rowOf(vars.Y))) }; return false;
+    }
+    case "Line": { if (plots.length >= 2) { const [a, b] = plots.slice(-2); gline(colOf(a[0]), rowOf(a[1]), colOf(b[0]), rowOf(b[1])); } screen = "graph"; return false; }
+    case "Menu": {
+      const p = new P(toks, line, 1); const title = strArg(p), items = [];
+      while (p.maybe("op", ",")) { const c = strArg(p); p.eat("op", ","); const lb = p.next(); if (!lb) throw new BasicError("Syntax ERROR", line); items.push({ c, lb: lb.v }); }
+      if (!items.length) throw new BasicError("Syntax ERROR", line);
+      pick = { title, items, sel: 0 }; mode = "pick"; return true;
     }
     case "Fill(": {
       const p = new P(toks, line, 1); const v = need(expr(p), line); p.eat("op", ","); const w = p.next();
@@ -586,14 +778,15 @@ for (const pr of PROGRAMS) {
   pr.subs = g1mPrograms(pr.bytes);
   ENTRIES.push({ prog: pr, sub: pr.subs.find(s => s.name === pr.entry) || pr.subs[0] });
 }
-function toMenu() { held.clear(); latch = null; injQueue = []; inj = null; callStack = []; hideStrInput(); mode = "menu"; clrText(); input = null; errMsg = null; current = null; applyTurn(); }
+function toMenu() { held.clear(); latch = null; injQueue = []; inj = null; callStack = []; hideStrInput(); mode = "menu"; clrText(); input = null; pick = null; pointer = null; errMsg = null; current = null; applyTurn(); }
 function run(ix) {
   if (addin) { stopAddin(ix); return; }
   menuSel = ix; menuFit(); // 正在跑 Add-in：先像按 MENU 一样退出（魔塔会问存不存档），退完再开
   if (ENTRIES[ix].prog.kind === "g1a") { startAddin(ix); return; }
   current = ENTRIES[ix]; menuSel = ix; applyTurn();
-  vars = {}; for (let c = 65; c <= 90; c++) vars[String.fromCharCode(c)] = 0;
-  lists = {}; mats = {}; strs = {}; loops = {}; clrText(); pc = 0; input = null; errMsg = null; mode = "run"; injQueue = []; inj = null;
+  // 变量、列表、矩阵、字符串、图片、图形屏是计算器的内存：跑完还在，下次跑接着用（塔防的「Continue」就靠这个）；刷新页面才清空
+  if (!vars) { vars = { r: 0, "θ": 0 }; for (let c = 65; c <= 90; c++) vars[String.fromCharCode(c)] = 0; lists = {}; mats = {}; strs = {}; }
+  loops = {}; clrText(); screen = "text"; pick = null; pointer = null; pc = 0; input = null; errMsg = null; mode = "run"; injQueue = []; inj = null;
   callStack = []; noopNote = ""; hideStrInput();
   try { enter(codeOf(current.sub)); } catch (e) { fail(e); }
 }
@@ -637,7 +830,22 @@ function press(code) {
     return;
   }
   if (mode === "addin") { addinPress(code); return; }
-  if (code === 47 || code === 48) { toMenu(); return; } // EXIT / MENU：中断程序回列表（真机上是 AC/ON）
+  // EXIT / AC：中断程序回列表（真机上是 AC/ON）。MENU 在程序跑着时交给程序——真机上 Getkey 读得到 48（塔防按 MENU 暂停）
+  if (code === 47 || code === 34 || (code === 48 && mode !== "run")) { toMenu(); return; }
+  if (mode === "pick") {
+    const n = pick.items.length;
+    if (code === 28) pick.sel = (pick.sel + n - 1) % n;
+    else if (code === 37) pick.sel = (pick.sel + 1) % n;
+    else if (code === 31) { pickChoose(pick.sel); held.delete(31); latch = null; }
+    else if (DIGIT[code] && +DIGIT[code] >= 1 && +DIGIT[code] <= n) { pickChoose(+DIGIT[code] - 1); held.delete(code); latch = null; }
+    return;
+  }
+  if (mode === "disp") {
+    if (code === 31) { resumeDisp(); held.delete(31); latch = null; return; }
+    const mv = { 28: [0, -1], 37: [0, 1], 38: [-1, 0], 27: [1, 0] }[code];
+    if (pointer && mv) { pointer.c = Math.min(127, Math.max(1, pointer.c + mv[0])); pointer.r = Math.min(63, Math.max(1, pointer.r + mv[1])); }
+    return;
+  }
   if (mode === "input") {
     if (input.kind === "str") { if (code === 31) { commitInput(); held.delete(31); latch = null; } return; }
     if (DIGIT[code] && input.buf.length < 6) input.buf += DIGIT[code];
@@ -759,6 +967,11 @@ lcd.addEventListener("pointerup", e => {
     swipe = null; return;
   }
   if (swipe && swipe.hold) { release(swipe.hold); swipe = null; return; }
+  if (swipe && !swipe.moved && mode === "pick" && pick) { // Menu 选单：点哪一项就选哪一项
+    const { y } = lcdPoint(e), top = Math.max(0, Math.min(pick.sel - 5, pick.items.length - 6)), k = Math.floor((y - 14) / 8);
+    if (y >= 14 && k < 6 && top + k < pick.items.length) pickChoose(top + k);
+    swipe = null; return;
+  }
   if (swipe && !swipe.moved) {
     if (mode === "run" && bindOf().touch && bindOf().touch.mode === "cell") tapCell(e, performance.now() - swipe.t >= LONG_MS);
     else if (mode !== "run" && mode !== "input") { press(31); release(31); }
@@ -1024,7 +1237,7 @@ function compose(t) {
     for (let k = 0; k < MENU_ROWS && top + k < ENTRIES.length; k++) {
       const e = ENTRIES[top + k];
       putCodes(1, k + 2, codesOf(e.sub.name.replace(/[^\x20-\x7e]/g, "_")));
-      if (e.prog.kind === "g1a") putCodes(17, k + 2, codesOf("G1A"));
+      if (e.prog.kind === "g1a") putCodes(17, k + 2, codesOf("G1A")); else if (e.prog.tag) putCodes(17, k + 2, codesOf(e.prog.tag)); // 同名入口（两版塔防）标版本
     }
     drawText(t);
     const r = menuSel - top + 2; if (r >= 2 && r < 2 + MENU_ROWS) for (let c = 0; c < COLS; c++) glyph(text[r][c], c * 6 + 1, r * 8, true);
@@ -1040,13 +1253,19 @@ function compose(t) {
     lines.forEach((s, i) => { const x = Math.max(0, Math.floor((COLS - s.length) / 2)); s.forEach((ch, j) => glyph(ch, (x + j) * 6 + 1, (2 + i) * 8)); });
     return;
   }
-  drawText(t);
+  if (screen === "graph") target.set(gfx); else drawText(t);
   if (mode === "input" && input) {
     const buf = inputCodes();
     buf.forEach((ch, j) => glyph(ch, (input.col + j) * 6 + 1, input.row * 8));
     const cc = Math.min(COLS - 1, input.col + buf.length);
     if (Math.floor(t / 500) % 2 === 0) for (let y = 0; y < 7; y++) for (let x = 0; x < 5; x++) target[(input.row * 8 + y) * W + cc * 6 + 1 + x] = 1;
   }
+  if (mode === "pick" && pick) drawPick(target);
+  if (mode === "disp") {
+    if (pointer && Math.floor(t / 300) % 2 === 0) for (const [dx, dy] of [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1]]) { const x = pointer.c + dx, y = pointer.r + dy; if (x >= 0 && x < W && y >= 0 && y < H) target[y * W + x] ^= 1; }
+    if (screen === "text") codesOf("- Disp -").forEach((ch, j) => glyph(ch, (13 + j) * 6 + 1, Math.min(curRow, ROWS - 1) * 8)); // 推测的样子，没对过真机截图
+  }
+  if (mode === "run") for (let y = 0; y < 4; y++) for (let x = 124; x < 128; x++) target[y * W + x] = 1; // 程序跑着时右上角的「忙」（截图里 4×4 实心）
 }
 // 竖屏：计算器逆时针转 90° 拿着玩的游戏（Doodle Jump），屏幕右边变成上面
 const bezel = document.querySelector(".bezel"); let portrait = false;
@@ -1143,8 +1362,15 @@ function controlsFor() {
   const c = (current && current.prog.controls) || {};
   if (mode === "input") return (input && input.kind === "str" && c.inputStr) || c.input || DEFAULT_INPUT;
   if (mode === "done") return c.done || DEFAULT_DONE;
+  if (mode === "pick") return c.pick || PICK_CONTROLS;
+  if (mode === "disp") return pointer ? POINTER_CONTROLS : c.disp || DISP_CONTROLS;
   return c.run || DEFAULT_RUN;
 }
+const PICK_CONTROLS = { title: "选一项", text: "↑↓ 选，EXE 确定；也可以直接按数字键，或者在屏幕上点那一项。", pc: "电脑：↑↓、Enter、数字键。",
+  keys: [[[28], "选"], [[37], "选"], [[31], "确定"], [[72, 62, 52, 73, 63, 53, 74, 64, 54], ""]] };
+const DISP_CONTROLS = { title: "暂停（◢）", text: "程序显示完停在这里，按 EXE 继续（点屏幕也行）。", pc: "电脑：Enter。", keys: [[[31], "继续"]] };
+const POINTER_CONTROLS = { title: "挪指针", text: "方向键挪指针（一下一点），EXE 在这里点一个点并继续。", pc: "电脑：方向键、Enter。",
+  keys: [[[28], "上"], [[37], "下"], [[38], "左"], [[27], "右"], [[31], "确定"]] };
 // 规则：列表里移到哪个程序 / 正在跑哪个，就显示哪个的规则（build.py 的 rules：一行一条，"## " 开头 = 小标题）
 let infoIx = null; // 说明弹窗里正在看哪个游戏（null = 弹窗没开）
 const rulesBox = document.getElementById("rulesBox"), rulesSum = document.getElementById("rulesSum"), rulesEl = document.getElementById("rules");
@@ -1298,7 +1524,7 @@ info.addEventListener("click", e => { if (e.target === info) info.close(); }); /
 info.addEventListener("close", () => { infoIx = null; shownPhase = ""; });
 toMenu(); updateSaveInfo(); fitDevice();
 requestAnimationFrame(frame);
-window.__calc = { get mode() { return mode; }, get vars() { return vars; }, get mats() { return mats; }, get text() { return text.map(r => r.map(c => (c < 128 ? String.fromCharCode(c) : "#")).join("")); }, press, release, run, get errMsg() { return errMsg; }, entries: ENTRIES.map(e => e.sub.name),
+window.__calc = { get mode() { return mode; }, get screen() { return screen; }, get target() { return target; }, get pick() { return pick; }, get vars() { return vars; }, get mats() { return mats; }, get text() { return text.map(r => r.map(c => (c < 128 ? String.fromCharCode(c) : "#")).join("")); }, press, release, run, get errMsg() { return errMsg; }, entries: ENTRIES.map(e => e.sub.name),
   get fb() { return addin ? addin.fb : null; }, get storageErr() { return storageErr; }, files: () => [...fls0.keys()] };
 </script>
 </body>
