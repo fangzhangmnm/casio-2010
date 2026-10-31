@@ -1540,6 +1540,7 @@ ENTRIES.forEach((e, ix) => {
   const pr = e.prog; const div = document.createElement("div"); div.className = "prog"; div.dataset.ix = ix;
   if (pr.kind === "g1a") {
     div.innerHTML = `<h2>${esc(pr.title)}<small>${esc(pr.file)} · ${esc(pr.date)}</small></h2><p>${esc(pr.about)}</p>` +
+    (pr.version ? `<details><summary>${esc(pr.versionTitle || "来历")}</summary><p>${esc(pr.version)}</p></details>` : "") + // 介绍只说游戏本身，来历 / 改了什么折在这里（作者 10-31）
       (pr.notes && pr.notes.length ? `<details><summary>${esc(pr.notesTitle || "原帖原话")}</summary><ul>${pr.notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul></details>` : "") +
       (pr.saves ? `<p class="note" data-saves="${esc(pr.saves.join("|"))}"></p>` +
         pr.saves.map(n => `<div class="saverow" data-save="${esc(n)}"><button data-act="export">导出存档</button><button data-act="import">导入存档</button>` +
@@ -1556,6 +1557,7 @@ ENTRIES.forEach((e, ix) => {
     progsEl.appendChild(div); return;
   }
   div.innerHTML = `<h2>${esc(pr.title)}<small>${esc(e.sub.name)} · ${esc(pr.date)}</small></h2><p>${esc(pr.about)}</p>` +
+    (pr.version ? `<details><summary>${esc(pr.versionTitle || "来历")}</summary><p>${esc(pr.version)}</p></details>` : "") + // 介绍只说游戏本身，来历 / 改了什么折在这里（作者 10-31）
     (pr.notes && pr.notes.length ? `<details><summary>${esc(pr.notesTitle || "原帖原话")}</summary><ul>${pr.notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul></details>` : "") +
     `<details><summary>源码（从 ${esc(pr.file)} 原件现场解码）</summary><pre></pre></details>` +
     `<button class="run">运行 ${esc(e.sub.name)}</button>`;
