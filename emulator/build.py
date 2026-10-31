@@ -223,7 +223,7 @@ ADDINS = [{
     'bind': {'keyboard': {**WASD, 'KeyO': 68, 'Equal': 42, 'NumpadAdd': 42, 'Minus': 32, 'NumpadSubtract': 32, 'KeyM': 48,
                           'ShiftLeft': 78, 'ShiftRight': 78},
              'touch': {'mode': 'swipe'}},
-    'fls0': {'HZK12.df': 'originals/magtower/HZK12.df'}, 'source': ['MagTower.c'],
+    'fls0': {'HZK12.df': 'originals/magtower/HZK12.df'}, 'source': ['MagTower.c', 'pictures.h', 'dialog.h', 'monsters.h', 'map.h'],  # 按 include 的顺序；当年 .h 当模块用（作者 10-31「我那时不会用link，所以只能用h来当模块」）
 }, {
     'kind': 'g1a', 'addin': 'DOODLE', 'entry': 'DOODLE', 'file': 'DOODLE.G1A', 'dir': 'originals/doodle/2013', 'title': 'Doodle Jump', 'date': '2013-07-23',
     'portrait': True, 'ghost': 0,  # 不加液晶残影（user 10-31「doodle的残影蛮难受，而且感觉是网页端渲染的问题」）
@@ -309,7 +309,7 @@ ADDINS = [{
                  [[42], '放大'], [[32], '缩小'], [[34], '退出']]}},
     'bind': {'keyboard': {'KeyW': 64, 'KeyS': 63, 'KeyA': 73, 'KeyD': 53, 'Equal': 42, 'NumpadAdd': 42, 'Minus': 32, 'NumpadSubtract': 32, 'Escape': 34},
              'touch': {'mode': 'swipe'}},
-    'fls0': {}, 'source': ['3DEngine.c'],
+    'fls0': {}, 'source': ['3DEngine.c', 'Textures.h', 'Maps.h', 'Public.h', 'Painter.h', 'DataStruct.h', 'PainterSort.h', 'Game_Script.h'],  # 按 include 的顺序；引擎本体在 .h 里
 }]
 
 # 魔塔 2026 版（考古家规（见 CLAUDE.md）：原样版是默认，2026 版 = 修复版另算、不当默认，两个版本共用一份存档；user 10-31「2026版就是修复版，没必要做三个版本」）
