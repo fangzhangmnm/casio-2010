@@ -1,0 +1,12 @@
+# casio-2010
+
+GWHBOB 2010–2013 年在卡西欧 fx-9750GII（刷 9860 系统）上写的游戏，在浏览器里跑：
+
+- 卡西欧 BASIC 原件：贪吃蛇（2010）、21 点（2010）、扫雷（2012）
+- C 写的 Add-in，当年的源码编成 WebAssembly：魔塔（2012）、3D 引擎（2012）、Doodle Jump（2013）
+
+在线玩：https://fangzhangmnm.github.io/casio-2010/
+
+这个仓只放编好的网页（`index.html` 一个文件）。程序当年发在 cnCalc 计算器论坛（https://www.cncalc.org/ ）。出处见网页底部「出处和致谢」，第三方许可全文见 `THIRD_PARTY.md`。
+
+> 网页壳、BASIC 解释器、SDK 模拟层由 Claude（Anthropic）在 2026 年写。本文件 created 20261031 by Claude Opus 5.5。
