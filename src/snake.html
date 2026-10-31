@@ -1,0 +1,88 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>贪吃蛇 · 化石</title><style>:root{--lcd:#c8ceba;--ink:#222620;--panel:#b9c0a9}html,body{margin:0;background:var(--lcd);color:var(--ink)}
+main{max-width:860px;margin:0 auto;padding:16px;font:15px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif}
+a{color:var(--ink)}h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:20px 0 6px;border-bottom:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:3px 6px;border-bottom:1px solid #9aa08c;text-align:left;vertical-align:top}
+td.n{text-align:right;white-space:nowrap}code,pre{font:13px/1.45 ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+pre{background:var(--panel);padding:10px;overflow:auto;white-space:pre;tab-size:4}details{margin:6px 0}summary{cursor:pointer;font-weight:600}
+.imgs{display:flex;flex-wrap:wrap;gap:12px}.imgs figure{margin:0}.imgs img{image-rendering:pixelated;max-width:100%;border:1px solid #9aa08c}
+.imgs figcaption{font-size:12px}.top a{margin-right:12px}.wrap{overflow-x:auto}</style></head><body><main><p class="top"><a href="../index.html">← GWHBOB的计算器程序</a><a href="../play/snake.html">▶ 玩 SnackI 贪吃蛇</a><a href="../play/snake.html?calc">计算器</a></p><h1>贪吃蛇 · 化石</h1><p>SnackI 贪吃蛇（不卡版），卡西欧 BASIC。</p>
+<p>时间戳 = G1M 文件时间 2010-08-29 21:01（北京时间）。cnCalc 4330 / 4388 / 4573 帖。</p><h2>原件</h2><p>当年的字节，一个没改；点文件名下载。时间是文件里存的原始修改时间（北京时间），「—」是论坛附件、看出处里的帖子日期。</p><div class="wrap"><table><tr><th>文件</th><th>字节</th><th>原始时间</th><th>sha256 前 16 位</th><th>出处</th></tr><tr><td><a href="../20100829%20%E8%B4%AA%E5%90%83%E8%9B%87/listings/SNACKI.txt" download>listings/SNACKI.txt</a></td><td class="n">1548</td><td>—</td><td><code></code></td><td>2026 年写的</td></tr><tr><td><a href="../20100829%20%E8%B4%AA%E5%90%83%E8%9B%87/originals/SNACKI.G1M" download>originals/SNACKI.G1M</a></td><td class="n">952</td><td>2010-08-29 21:01</td><td><code>5d379e53de94e9f5</code></td><td>cnCalc 4573 帖附件，2010-08-29</td></tr></table></div><h2>代码</h2><p>当年是 GBK 编码，这里解出来显示。</p><details open><summary>listings/SNACKI.txt</summary><pre>&#x27; SNACKI.G1M：从 G1M 原件解码成文字（指令名照卡西欧的写法；◢ = 显示后暂停，→ = 赋值，⇒ = 条件成立就做；卡西欧自己的特殊字符换成了长得像的 Unicode：▤◀▶ = 反白的 = &lt; &gt;，※ = 花纹块，⏨ = 10 的乘方）
+&#x27; 共 1 个程序：SNACKI
+
+&#x27;==== Prog &quot;SNACKI&quot; ====
+&quot;SPEED 1 To 10&quot;?→S
+&#x27;=====INIT==========
+ClrText
+148→Dim List 1
+Fill(0,List 1)
+{21,7}→Dim Mat A
+Fill(0,Mat A)
+2→X
+1→Y
+2→L
+1→P
+1×8+1→List 1[1]
+RanInt#(2,20)→M
+RanInt#(2,6)→N
+27→R
+27→Z
+If S≤10
+Then Int (80÷S)→S
+Else 1→S
+IfEnd
+Locate 1,1,&quot;○&quot;
+Locate 2,1,&quot;●&quot;
+Locate M,N,&quot;¥&quot;
+&#x27;=====MAIN LOOP=====
+While 1
+&#x27;=====DELAY&amp;KEY=====
+For 1→I To S
+GetKey→T
+T=64⇒28→T
+T=62⇒37→T
+T=73⇒38→T
+T=53⇒27→T
+(T=28) And (Z≠37)⇒T→R
+(T=37) And (Z≠28)⇒T→R
+(T=38) And (Z≠27)⇒T→R
+(T=27) And (Z≠38)⇒T→R
+Next
+R→Z
+&#x27;Mat B[X,Y]→Z
+&#x27;=====MOVE==========
+MOD(P,148)+1→P
+Locate X,Y,&quot;○&quot;
+1→Mat A[X,Y]
+8X+Y→List 1[P]
+Z=28⇒Y-1→Y
+Z=37⇒Y+1→Y
+Z=38⇒X-1→X
+Z=27⇒X+1→X
+&#x27;=====EAT==========
+If X=M And Y=N
+Then 
+RanInt#(2,20)→M
+RanInt#(2,6)→N
+L+1→L
+0→List 1[MOD(P-L,148)+1]
+IfEnd
+List 1[MOD(P-L,148)+1]→T
+T≠0⇒0→Mat A[Int (T÷8),MOD(T-1,8)+1]
+&#x27;=====DIE===========
+X&gt;21⇒Goto O
+X&lt;1⇒Goto O
+Y&gt;7⇒Goto O
+Y&lt;1⇒Goto O
+Mat A[X,Y]=1⇒Goto O
+&#x27;=====DISPLAY=======
+T≠0⇒Locate Int (T÷8),MOD(T-1,8)+1,&quot; &quot;
+Locate X,Y,&quot;●&quot;
+Locate M,N,&quot;¥&quot;
+WhileEnd
+&#x27;=====END===========
+Lbl O
+{3838}→List 1
+Locate 7,4,&quot;GAME OVER&quot;
+Locate 8,5,&quot;SCORE:   &quot;
+Locate 15,5,L-1
+</pre></details></main></body></html>

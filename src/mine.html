@@ -1,0 +1,347 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>扫雷 · 化石</title><style>:root{--lcd:#c8ceba;--ink:#222620;--panel:#b9c0a9}html,body{margin:0;background:var(--lcd);color:var(--ink)}
+main{max-width:860px;margin:0 auto;padding:16px;font:15px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif}
+a{color:var(--ink)}h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:20px 0 6px;border-bottom:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:3px 6px;border-bottom:1px solid #9aa08c;text-align:left;vertical-align:top}
+td.n{text-align:right;white-space:nowrap}code,pre{font:13px/1.45 ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+pre{background:var(--panel);padding:10px;overflow:auto;white-space:pre;tab-size:4}details{margin:6px 0}summary{cursor:pointer;font-weight:600}
+.imgs{display:flex;flex-wrap:wrap;gap:12px}.imgs figure{margin:0}.imgs img{image-rendering:pixelated;max-width:100%;border:1px solid #9aa08c}
+.imgs figcaption{font-size:12px}.top a{margin-right:12px}.wrap{overflow-x:auto}</style></head><body><main><p class="top"><a href="../index.html">← GWHBOB的计算器程序</a><a href="../play/mine.html">▶ 玩 扫雷（9860 版）</a><a href="../play/mine.html?calc">计算器</a><a href="../play/mine-9750.html">▶ 玩 扫雷（9750 版）</a><a href="../play/mine-9750.html?calc">计算器</a></p><h1>扫雷 · 化石</h1><p>扫雷，卡西欧 BASIC，9860 版（MINE）和 9750 版（MINEA）。</p>
+<p>时间戳 = G1M 文件时间 2012-06-29。</p><h2>原件</h2><p>当年的字节，一个没改；点文件名下载。时间是文件里存的原始修改时间（北京时间），「—」是论坛附件、看出处里的帖子日期。</p><div class="wrap"><table><tr><th>文件</th><th>字节</th><th>原始时间</th><th>sha256 前 16 位</th><th>出处</th></tr><tr><td><a href="../20120629%20%E6%89%AB%E9%9B%B7/listings/MINE.txt" download>listings/MINE.txt</a></td><td class="n">2542</td><td>—</td><td><code></code></td><td>2026 年写的</td></tr><tr><td><a href="../20120629%20%E6%89%AB%E9%9B%B7/listings/MINEA.txt" download>listings/MINEA.txt</a></td><td class="n">2545</td><td>—</td><td><code></code></td><td>2026 年写的</td></tr><tr><td><a href="../20120629%20%E6%89%AB%E9%9B%B7/originals/MINE.G1M" download>originals/MINE.G1M</a></td><td class="n">1516</td><td>2012-06-29 18:48</td><td><code>8e2ee0cda7b41e1f</code></td><td>cnCalc 7597 帖附件（9860 版），2012-06-29</td></tr><tr><td><a href="../20120629%20%E6%89%AB%E9%9B%B7/originals/MINEA.G1M" download>originals/MINEA.G1M</a></td><td class="n">1548</td><td>2012-06-29 18:48</td><td><code>1903290a50ab8f3a</code></td><td>cnCalc 7597 帖附件（9750 版），2012-06-29</td></tr></table></div><h2>代码</h2><p>当年是 GBK 编码，这里解出来显示。</p><details open><summary>listings/MINE.txt</summary><pre>&#x27; MINE.G1M：从 G1M 原件解码成文字（指令名照卡西欧的写法；◢ = 显示后暂停，→ = 赋值，⇒ = 条件成立就做；卡西欧自己的特殊字符换成了长得像的 Unicode：▤◀▶ = 反白的 = &lt; &gt;，※ = 花纹块，⏨ = 10 的乘方）
+&#x27; 共 1 个程序：MINE
+
+&#x27;==== Prog &quot;MINE&quot; ====
+&#x27;Goto 2
+ClrText
+&quot;MINE&quot;?→D
+0→F
+&quot;LOADING...&quot;
+
+Locate 21,1,&quot;%&quot;
+a+bi
+&quot;▯▯▯▯▯▯▯▯▯▯▯ 123456789◆◆◆◆◆◆◆◆◆◆◆&quot;→Str 1
+{-1-i,-1,-1+i,-i,i,1-i,1,1+i}→List 1
+{21,7}→Dim Mat M
+For 1→I To D
+Locate 19,1,Int ((I-1)÷D×100)
+Lbl 1
+RanInt#(1,21)→U
+RanInt#(1,7)→V
+Mat M[U,V]=-1 Or (U=11 And V=4)⇒Goto 1
+-1→Mat M[U,V]
+For 1→K To 8
+U+ReP List 1[K]→X
+V+ImP List 1[K]→Y
+1≤X And X≤21 And 1≤Y And Y≤7⇒Mat M[X,Y]≠-1⇒Mat M[X,Y]+1→Mat M[X,Y]
+Next
+Next
+
+Lbl 2
+For 1→J To 7
+Locate 1,J,&quot;▯▯▯▯▯▯▯▯▯▯▯▯▯▯▯▯▯▯▯▯▯&quot;
+Next
+
+11→U
+4→V
+0→Z
+While 1
+
+U→P
+V→Q
+Z=28⇒MOD(V-2,7)+1→V
+Z=37⇒MOD(V,7)+1→V
+Z=38⇒MOD(U-2,21)+1→U
+Z=27⇒MOD(U,21)+1→U
+
+(U≠P) Or (V≠Q)⇒Locate P,Q,StrMid(Str 1,Mat M[P,Q]+2,1)
+Locate U,V,&quot;?&quot;
+U≠P Or V≠Q⇒Locate U,V,&quot;?&quot;
+
+If Z=31
+Then 
+
+Mat M[U,V]→A
+
+If A≤9
+Then 
+Locate U,V,&quot;□&quot;
+For 1→I To 150
+Next
+Locate U,V,StrMid(Str 1,Mat M[U,V]+2,1)
+IfEnd
+
+If A=-1
+Then 
+For 1→I To 3
+Locate U,V,&quot;*&quot;
+For 1→J To 300
+Next
+Locate U,V,&quot; &quot;
+For 1→J To 300
+Next
+Next
+For 1→J To 7
+For 1→I To 21
+Mat M[I,J]→A
+A≥20⇒A-21→A
+A≤9⇒A+10→A
+
+If A=9
+Then Locate I,J,&quot;●&quot;
+Else Locate I,J,StrMid(Str 1,A+2,1)
+IfEnd
+Next
+Next
+Locate U,V,&quot;*&quot;
+Locate 7,4,&quot;Game Over&quot;
+Stop
+IfEnd
+
+
+If 1≤A And A≤9
+Then 
+Mat M[U,V]+10→Mat M[U,V]
+IfEnd
+
+
+If A=0
+Then 
+{U+Vi}→List 2
+A+10→Mat M[U,V]
+1→I
+1→E
+While I≤E
+ReP List 2[I]→X
+ImP List 2[I]→Y
+Locate X,Y,StrMid(Str 1,Mat M[X,Y]+2,1)
+If Mat M[X,Y]=10
+Then 
+For 1→K To 8
+X+ReP List 1[K]→M
+Y+ImP List 1[K]→N
+0→B
+M≥1 And M≤21 And N≥1 And N≤7⇒0≤Mat M[M,N] And Mat M[M,N]≤9⇒1→B
+If B
+Then 
+Mat M[M,N]+10→Mat M[M,N]
+M+Ni→List 2[E+1]
+E+1→E
+IfEnd
+Next
+IfEnd
+I+1→I
+WhileEnd
+{0}→List 2
+IfEnd
+
+
+Locate U,V,StrMid(Str 1,Mat M[U,V]+2,1)
+IfEnd
+
+
+If Z=41
+Then 
+Mat M[U,V]→A
+If A≤9
+Then 
+If A=-1
+Then D-1→D
+Else F+1→F
+IfEnd
+A+21→Mat M[U,V]
+IfEnd
+If A≥20
+Then 
+If A=20
+Then D+1→D
+Else F-1→F
+IfEnd
+A-21→Mat M[U,V]
+IfEnd
+Locate U,V,StrMid(Str 1,Mat M[U,V]+2,1)
+IfEnd
+
+If D=0 And F=0
+Then 
+Locate 7,4,&quot;You Win&quot;
+Stop
+IfEnd
+
+1→Z
+While Z≠0
+GetKey→Z
+WhileEnd
+While Z=0
+
+GetKey→Z
+WhileEnd
+WhileEnd
+</pre></details><details><summary>listings/MINEA.txt</summary><pre>&#x27; MINEA.G1M：从 G1M 原件解码成文字（指令名照卡西欧的写法；◢ = 显示后暂停，→ = 赋值，⇒ = 条件成立就做；卡西欧自己的特殊字符换成了长得像的 Unicode：▤◀▶ = 反白的 = &lt; &gt;，※ = 花纹块，⏨ = 10 的乘方）
+&#x27; 共 1 个程序：MINEA
+
+&#x27;==== Prog &quot;MINEA&quot; ====
+&#x27;Goto 2
+ClrText
+&quot;MINE&quot;?→D
+0→F
+&quot;LOADING...&quot;
+
+Locate 21,1,&quot;%&quot;
+a+bi
+&quot;□□□□□□□□□□□ 123456789◆◆◆◆◆◆◆◆◆◆◆&quot;→Str 1
+{-1-i,-1,-1+i,-i,i,1-i,1,1+i}→List 1
+{21,7}→Dim Mat M
+For 1→I To D
+Locate 19,1,Int ((I-1)÷D×100)
+Lbl 1
+RanInt#(1,21)→U
+RanInt#(1,7)→V
+Mat M[U,V]=-1 Or (U=11 And V=4)⇒Goto 1
+-1→Mat M[U,V]
+For 1→K To 8
+U+ReP List 1[K]→X
+V+ImP List 1[K]→Y
+1≤X And X≤21 And 1≤Y And Y≤7⇒Mat M[X,Y]≠-1⇒Mat M[X,Y]+1→Mat M[X,Y]
+Next
+Next
+
+Lbl 2
+For 1→J To 7
+Locate 1,J,&quot;□□□□□□□□□□□□□□□□□□□□□&quot;
+Next
+
+11→U
+4→V
+0→Z
+While 1
+
+U→P
+V→Q
+Z=28⇒MOD(V-2,7)+1→V
+Z=37⇒MOD(V,7)+1→V
+Z=38⇒MOD(U-2,21)+1→U
+Z=27⇒MOD(U,21)+1→U
+
+(U≠P) Or (V≠Q)⇒Locate P,Q,StrMid(Str 1,Mat M[P,Q]+2,1)
+Locate U,V,&quot;?&quot;
+U≠P Or V≠Q⇒Locate U,V,&quot;?&quot;
+
+If Z=31
+Then 
+
+Mat M[U,V]→A
+
+If A≤9
+Then 
+Locate U,V,&quot;▫&quot;
+For 1→I To 150
+Next
+Locate U,V,StrMid(Str 1,Mat M[U,V]+2,1)
+IfEnd
+
+If A=-1
+Then 
+For 1→I To 3
+Locate U,V,&quot;*&quot;
+For 1→J To 300
+Next
+Locate U,V,&quot; &quot;
+For 1→J To 300
+Next
+Next
+For 1→J To 7
+For 1→I To 21
+Mat M[I,J]→A
+A≥20⇒A-21→A
+A≤9⇒A+10→A
+
+If A=9
+Then Locate I,J,&quot;●&quot;
+Else Locate I,J,StrMid(Str 1,A+2,1)
+IfEnd
+Next
+Next
+Locate U,V,&quot;*&quot;
+Locate 7,4,&quot;Game Over&quot;
+Stop
+IfEnd
+
+
+If 1≤A And A≤9
+Then 
+Mat M[U,V]+10→Mat M[U,V]
+IfEnd
+
+
+If A=0
+Then 
+{U+Vi}→List 2
+A+10→Mat M[U,V]
+1→I
+1→E
+While I≤E
+ReP List 2[I]→X
+ImP List 2[I]→Y
+Locate X,Y,StrMid(Str 1,Mat M[X,Y]+2,1)
+If Mat M[X,Y]=10
+Then 
+For 1→K To 8
+X+ReP List 1[K]→M
+Y+ImP List 1[K]→N
+0→B
+M≥1 And M≤21 And N≥1 And N≤7⇒0≤Mat M[M,N] And Mat M[M,N]≤9⇒1→B
+If B
+Then 
+Mat M[M,N]+10→Mat M[M,N]
+M+Ni→List 2[E+1]
+E+1→E
+IfEnd
+Next
+IfEnd
+I+1→I
+WhileEnd
+{0}→List 2
+IfEnd
+
+
+Locate U,V,StrMid(Str 1,Mat M[U,V]+2,1)
+IfEnd
+
+
+If Z=41
+Then 
+Mat M[U,V]→A
+If A≤9
+Then 
+If A=-1
+Then D-1→D
+Else F+1→F
+IfEnd
+A+21→Mat M[U,V]
+IfEnd
+If A≥20
+Then 
+If A=20
+Then D+1→D
+Else F-1→F
+IfEnd
+A-21→Mat M[U,V]
+IfEnd
+Locate U,V,StrMid(Str 1,Mat M[U,V]+2,1)
+IfEnd
+
+If D=0 And F=0
+Then 
+Locate 7,4,&quot;You Win&quot;
+Stop
+IfEnd
+
+1→Z
+While Z≠0
+GetKey→Z
+WhileEnd
+While Z=0
+
+GetKey→Z
+WhileEnd
+WhileEnd
+</pre></details></main></body></html>

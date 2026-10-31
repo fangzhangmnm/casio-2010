@@ -229,7 +229,8 @@
 "use strict";
 const FONT_HEX = %%FONT%%;
 const FONT_SMALL = %%FONT_SMALL%%;
-const AUTORUN = %%AUTORUN%%; // 单个游戏的网页：打开就跑第几个（合集页 = -1，先显示列表）；作者 10-31「每个网页都优先是点开能玩」
+const AUTORUN = %%AUTORUN%%;
+const START_FS = %%START_FS%%; // 单个游戏的网页默认全屏软键盘（作者 10-31「默认是全屏软键盘这种，玩起来方便」）；网址带 ?calc 就用计算器模式打开 // 单个游戏的网页：打开就跑第几个（合集页 = -1，先显示列表）；作者 10-31「每个网页都优先是点开能玩」
 const PROGRAMS = %%PROGRAMS%%; // G1M：{file, b64, entry, title, date, about, notes[], rules[], controls, bind}；G1A：多 kind:"g1a"、addin、fls0、source
 
 // ---------- 字体 ----------
@@ -1017,8 +1018,9 @@ function renderVpad(caps) {
   for (const el of [top, left, right, num]) el.replaceChildren();
   const t = bindOf().touch || {};
   // 顶上一条：退出全屏、回列表、（要的话）重力感应
-  top.append(vproxy("退出全屏", () => setFs(false)));
-  if (mode !== "menu") top.append(vproxy("回列表", () => { if (addin) stopAddin(null); else toMenu(); }));
+  top.append(vproxy(AUTORUN >= 0 ? "计算器模式" : "退出全屏", () => setFs(false)));
+  if (AUTORUN >= 0) top.append(vproxy("重新开始", () => run(AUTORUN))); // 单个游戏的网页没有列表可回（作者「没必要要那个计算器内部导航」）
+  else if (mode !== "menu") top.append(vproxy("回列表", () => { if (addin) stopAddin(null); else toMenu(); }));
   if (mode === "addin" && (bindOf().tilt || bindOf().sensor)) top.append(vproxy(tiltOn ? "重力感应：开" : "重力感应：关", () => tiltBtn.click()));
   device.classList.toggle("bare", t.mode === "game");
   if (t.mode === "game") return; // 自己处理触屏的（Doodle 2026）：只留顶栏，屏幕尽量放大
@@ -1409,7 +1411,7 @@ function status() {
   applyControls();
   st1.textContent = mode === "menu" ? "↑↓ 选程序 · EXE 运行" : mode === "input" ? "输入数字后按 EXE" : mode === "done" ? "程序结束 · EXE 再来 · EXIT 回列表"
     : mode === "error" ? (errLine ? `第 ${errLine} 行 · ` : "") + errMsg
-    : mode === "addin" ? "运行中 · MENU 回列表" + (storageErr ? " · " + storageErr : "") : "运行中" + (noopNote ? " · " + noopNote : "");
+    : mode === "addin" ? (AUTORUN >= 0 ? "运行中 · MENU 停止" : "运行中 · MENU 回列表") + (storageErr ? " · " + storageErr : "") : "运行中" + (noopNote ? " · " + noopNote : "");
   st2.textContent = !current ? "PRGM" : current.prog.kind === "g1a" ? current.prog.file : `Prog "${current.sub.name}"`;
 }
 let last = performance.now();
@@ -1525,6 +1527,7 @@ info.addEventListener("click", e => { if (e.target === info) info.close(); }); /
 info.addEventListener("close", () => { infoIx = null; shownPhase = ""; });
 toMenu(); updateSaveInfo(); fitDevice();
 if (AUTORUN >= 0 && AUTORUN < ENTRIES.length) run(AUTORUN);
+if (START_FS && !new URLSearchParams(location.search).has("calc")) setFs(true);
 if (location.hash === "#info") document.getElementById("infoBtn").click(); // 合集页的「介绍」= 进游戏的同时弹出说明
 requestAnimationFrame(frame);
 window.__calc = { get mode() { return mode; }, get screen() { return screen; }, get target() { return target; }, get pick() { return pick; }, get vars() { return vars; }, get mats() { return mats; }, get text() { return text.map(r => r.map(c => (c < 128 ? String.fromCharCode(c) : "#")).join("")); }, press, release, run, get errMsg() { return errMsg; }, entries: ENTRIES.map(e => e.sub.name),

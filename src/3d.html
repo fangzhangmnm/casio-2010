@@ -1,0 +1,2467 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>3D 引擎 · 化石</title><style>:root{--lcd:#c8ceba;--ink:#222620;--panel:#b9c0a9}html,body{margin:0;background:var(--lcd);color:var(--ink)}
+main{max-width:860px;margin:0 auto;padding:16px;font:15px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif}
+a{color:var(--ink)}h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:20px 0 6px;border-bottom:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:3px 6px;border-bottom:1px solid #9aa08c;text-align:left;vertical-align:top}
+td.n{text-align:right;white-space:nowrap}code,pre{font:13px/1.45 ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+pre{background:var(--panel);padding:10px;overflow:auto;white-space:pre;tab-size:4}details{margin:6px 0}summary{cursor:pointer;font-weight:600}
+.imgs{display:flex;flex-wrap:wrap;gap:12px}.imgs figure{margin:0}.imgs img{image-rendering:pixelated;max-width:100%;border:1px solid #9aa08c}
+.imgs figcaption{font-size:12px}.top a{margin-right:12px}.wrap{overflow-x:auto}</style></head><body><main><p class="top"><a href="../index.html">← GWHBOB的计算器程序</a><a href="../play/3d.html">▶ 玩 3D 引擎</a><a href="../play/3d.html?calc">计算器</a></p><h1>3D 引擎 · 化石</h1><p>3D 引擎（2011-12 → 2012-02，寒假前应付初赛的版本），C 写的 Add-in；<code>ai-docs/</code> 是 2026 年对它的算法整理和性能报告（考古，只讲当年）。</p>
+<p>时间戳 = cnCalc 6786 帖「挖坑不填」2011-11-11（贴了更早的贴墙内循环，那份代码在第三方参考目录、不在这里）；这里最早的文件是 2011-11-18 的图标。原件来自 7079 帖 3Dold.rar。</p>
+<ul><li><code>ai-docs/20261031-3d-engine-algorithm.md</code>：当年的算法，伪代码层次。</li><li><code>ai-docs/20261031-3d-engine-2012-performance.md</code>：2012 原样版的性能报告和优化空间。</li></ul><h2>原件</h2><p>当年的字节，一个没改；点文件名下载。时间是文件里存的原始修改时间（北京时间），「—」是论坛附件、看出处里的帖子日期。</p><div class="wrap"><table><tr><th>文件</th><th>字节</th><th>原始时间</th><th>sha256 前 16 位</th><th>出处</th></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/ai-docs/20261031-3d-engine-2012-performance.md" download>ai-docs/20261031-3d-engine-2012-performance.md</a></td><td class="n">7667</td><td>—</td><td><code></code></td><td>2026 年写的</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/ai-docs/20261031-3d-engine-algorithm.md" download>ai-docs/20261031-3d-engine-algorithm.md</a></td><td class="n">19082</td><td>—</td><td><code></code></td><td>2026 年写的</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/3DENGIN4.G1A" download>originals/3DENGIN4.G1A</a></td><td class="n">54550</td><td>2011-12-04 09:17</td><td><code>12c7d1fb56fc2a9f</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/3DENGINE.G1A" download>originals/3DENGINE.G1A</a></td><td class="n">54542</td><td>2012-02-03 15:41</td><td><code>1adcb370fbe7bdcc</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/3DENGINF.G1A" download>originals/3DENGINF.G1A</a></td><td class="n">54066</td><td>2011-12-04 01:00</td><td><code>b1c50aba74872044</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/3DENGYNE.G1A" download>originals/3DENGYNE.G1A</a></td><td class="n">54550</td><td>2011-12-04 09:26</td><td><code>e8deda74f55f9953</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/3DEngine.c" download>originals/3DEngine.c</a></td><td class="n">6224</td><td>2012-02-03 15:41</td><td><code>9c7737c1d1caca98</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/3DEngine.g1w" download>originals/3DEngine.g1w</a></td><td class="n">415</td><td>2011-12-04 00:29</td><td><code>2adf93e2b495d8db</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/AddinInfo.txt" download>originals/AddinInfo.txt</a></td><td class="n">469</td><td>2011-12-04 00:29</td><td><code>50fd8635d7f5f3ec</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/DataStruct.h" download>originals/DataStruct.h</a></td><td class="n">5916</td><td>2011-12-03 22:54</td><td><code>6accb3a208e36464</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/FXSH_Build.bat" download>originals/FXSH_Build.bat</a></td><td class="n">513</td><td>2012-02-03 15:41</td><td><code>dc8102eb998870f6</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/Game_Script.h" download>originals/Game_Script.h</a></td><td class="n">86</td><td>2011-12-03 22:21</td><td><code>f7bd3ad211dcc184</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/MainIcon.bmp" download>originals/MainIcon.bmp</a></td><td class="n">138</td><td>2011-11-18 20:19</td><td><code>4feb526c359f28f3</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/MainIconc.bmp" download>originals/MainIconc.bmp</a></td><td class="n">1802</td><td>2011-11-18 20:19</td><td><code>dcebbf987f590033</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/Maps.h" download>originals/Maps.h</a></td><td class="n">3303</td><td>2012-02-03 15:40</td><td><code>ba0f87b1a8fd1c59</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/Painter.h" download>originals/Painter.h</a></td><td class="n">7866</td><td>2011-12-04 00:02</td><td><code>eca278858cb75cc4</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/PainterSort.h" download>originals/PainterSort.h</a></td><td class="n">8655</td><td>2011-12-03 22:48</td><td><code>31fb6ed9663dcdc9</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/Public.h" download>originals/Public.h</a></td><td class="n">3787</td><td>2011-12-04 09:10</td><td><code>0deae3c1f25332b2</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/Textures.h" download>originals/Textures.h</a></td><td class="n">35805</td><td>2011-12-04 00:27</td><td><code>e24d2f6a4eb2d95f</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/eActivityIcon.bmp" download>originals/eActivityIcon.bmp</a></td><td class="n">106</td><td>2006-12-04 11:47</td><td><code>50d41bc4438e94ee</code></td><td>cnCalc 7079 帖附件 3Dold.rar，2011-12 → 2012-02</td></tr><tr><td><a href="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/screenshots/123.bmp" download>originals/screenshots/123.bmp</a></td><td class="n">9270</td><td>—</td><td><code>43685687ae6f2b4e</code></td><td>cnCalc 7079 帖截图（网页版开局第一帧和它逐像素一致）</td></tr></table></div><h2>代码</h2><p>当年是 GBK 编码，这里解出来显示。</p><details open><summary>originals/3DEngine.c</summary><pre>/*****************************************************************/
+/*                                                               */
+/*   CASIO fx-9860G SDK Library                                  */
+/*                                                               */
+/*   File name : [ProjectName].c                                 */
+/*                                                               */
+/*   Copyright (c) 2006 CASIO COMPUTER CO., LTD.                 */
+/*                                                               */
+/*****************************************************************/
+#include &quot;fxlib.h&quot;
+#include &quot;mathf.h&quot;
+#include &quot;revolution.h&quot;
+
+#include &quot;Textures.h&quot;
+#include &quot;Maps.h&quot;
+#include &quot;Public.h&quot;
+#include &quot;Painter.h&quot;
+#include &quot;DataStruct.h&quot;
+#include &quot;PainterSort.h&quot;
+int TouchCheck(x0,y0,dx,dy) //must rely on RenderQueue!
+{
+
+}
+
+#include &quot;Game_Script.h&quot;
+#define MAXCREATURES 10
+
+float CreatureX[MAXCREATURES],CreatureY[MAXCREATURES];
+char CreatureType[MAXCREATURES];
+const void (*CreatureAI[])(void)={&amp;gs_RegionError};
+char CreatureStatic[MAXCREATURES];
+long CreatureHP[MAXCREATURES];
+/*
+const char RegionMap[]=
+{	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	0,	1,	1,	2,	3,	3,	3,	3,	3,	3,
+	0,	1,	1,	2,	3,	3,	3,	3,	3,	3,
+	0,	1,	1,	2,	3,	3,	3,	3,	3,	3,
+	0,	0,	0,	0,	3,	3,	3,	3,	3,	3,
+	4,	0,	0,	0,	0,	0,	3,	3,	3,	3,
+	4,	0,	0,	0,	0,	0,	3,	3,	3,	3,
+	4,	4,	4,	4,	6,	6,	6,	6,	6,	6,
+	4,	4,	0,	4,	5,	6,	6,	6,	6,	6,
+	4,	4,	0,	4,	6,	6,	6,	6,	6,	6,
+};
+const RegionMapWidth=10;
+const RegionMapHeight=10;
+
+const RegionWidth=10;
+const RegionHeight=10;
+*/
+const void (*RegionCallonFlip[])(void)=           {	&amp;gs_RegionError,	&amp;gs_DoNothing,};
+const void (*RegionCallonEnter[])(void)=        {	&amp;gs_RegionError,	&amp;gs_DoNothing,};
+const void (*RegionCallonExit[])(void)=           {	&amp;gs_DoNothing,		&amp;gs_DoNothing,};
+const void (*RegionCallonFirstEnter[])(void)={	&amp;gs_DoNothing,		&amp;gs_DoNothing,};
+#define STEP 0.05
+#define STEPT 0.025
+long CheckRegion()
+{
+  return 0;
+}
+
+
+void Input()
+{
+  ISWALKING=0;
+  if(IsKeyDown(KEY_CTRL_UP))if(Deg&lt;60)Deg+=3;
+  if(IsKeyDown(KEY_CTRL_DOWN))if(Deg&gt;3)Deg-=3;
+  if(IsKeyDown(KEY_CTRL_LEFT)){Theta+=STEPT;if(Theta&gt;2*pi)Theta-=(2*pi);cos_T=cosf(Theta);sin_T=sinf(Theta);}
+  if(IsKeyDown(KEY_CTRL_RIGHT)){Theta-=STEPT;if(Theta&lt;0)Theta+=(2*pi);cos_T=cosf(Theta);sin_T=sinf(Theta);}
+  if(IsKeyDown(KEY_CHAR_PLUS))if(PIXELZOOM&lt;500)PIXELZOOM+=5;
+  if(IsKeyDown(KEY_CHAR_MINUS))if(PIXELZOOM&gt;10)PIXELZOOM-=5;
+  if(IsKeyDown(KEY_CHAR_8)){pos_X+=STEP*cos_T;pos_Y+=STEP*sin_T;ISWALKING=1;}
+  if(IsKeyDown(KEY_CHAR_5)){pos_X-=STEP*cos_T;pos_Y-=STEP*sin_T;ISWALKING=1;}
+  if(IsKeyDown(KEY_CHAR_4)){pos_X-=STEP*sin_T;pos_Y+=STEP*cos_T;ISWALKING=1;}
+  if(IsKeyDown(KEY_CHAR_6)){pos_X+=STEP*sin_T;pos_Y-=STEP*cos_T;ISWALKING=1;}
+  if(IsKeyDown(KEY_CTRL_AC))Reset_Calc();
+}
+void Init()
+{
+       //GrayLinkBuffers(&amp;bufferdd1, &amp;bufferdd2);  // Link them together
+       //GrayInit(6800,3250);    // Load the timers with 3661
+       //CPUSpeedQuadruple();//CPUSpeedTriple();////CPUSpeedDouble();
+       PIXELZOOM=63;
+       Deg=32;
+       RENDERTIMER=0;
+       WALKTIMER=0;
+
+       pos_X=1.714502;pos_Y=-5.863173;pos_Z=.5;
+       Theta=0;cos_T=cosf(Theta);sin_T=sinf(Theta);
+}
+//****************************************************************************
+//  AddIn_main (Sample program main function)
+//
+//  param   :   isAppli   : 1 = This application is launched by MAIN MENU.
+//                        : 0 = This application is launched by a strip in eACT application.
+//
+//              OptionNum : Strip number (0~3)
+//                         (This parameter is only used when isAppli parameter is 0.)
+//
+//  retval  :   1 = No error / 0 = Error
+//
+//****************************************************************************
+
+int AddIn_main(int isAppli, unsigned short OptionNum)
+{
+    unsigned int key;
+    int i;
+    Init();
+
+    while(1){    //Main Loop
+        Input();
+        LocalRegion=CheckRegion();
+
+
+//Rendering
+        memset(&amp;buffer1, 0, 1024);
+        memset(&amp;buffer2, 0, 1024);
+        CleanRQ();
+        SetFloorSet(0,-pos_Z);
+
+        w_map=3;h_map=5;Start_map=0;zoom_map=32;
+        for(i=Deg;i&lt;=63;i++)LineH_map(1,127,i);
+        AddStaticWalls(0,21);//21
+        AddStaticFloors(0,11);
+        AddStaticObjects(0,7);
+        Render();
+        //RegionCallonFlip[0]();
+        SetTexture(8);
+        if(ISWALKING)RenderPicture(64,68-(int)(4*sinf(RENDERTIMER*2*pi/15)),1,1);
+        else RenderPicture(64,68,1,1);
+
+        PlotPixel(RENDERTIMER%128, 1, &amp;buffer2, BLACK);
+        PlotPixel((int)(Theta/2/pi*128), 1, &amp;buffer2, BLACK);
+        PlotPixel(RQNumber, 1, &amp;buffer2, BLACK);
+
+        for(i=0;i&lt;1024;i++){
+           bufferdd1[i]=buffer1[i];bufferdd2[i]=buffer2[i];  
+        }
+        RENDERTIMER++;
+        if(ISWALKING)WALKTIMER++;
+
+        DrawAll(&amp;bufferdd2);
+//End
+    }
+    while(1){
+        GetKey(&amp;key);
+    }
+      GrayEnd();
+    return 1;
+}
+
+ 
+
+
+//****************************************************************************
+//**************                                              ****************
+//**************                 Notice!                      ****************
+//**************                                              ****************
+//**************  Please do not change the following source.  ****************
+//**************                                              ****************
+//****************************************************************************
+
+
+#pragma section _BR_Size
+unsigned long BR_Size;
+#pragma section
+
+
+#pragma section _TOP
+
+//****************************************************************************
+//  InitializeSystem
+//
+//  param   :   isAppli   : 1 = Application / 0 = eActivity
+//              OptionNum : Option Number (only eActivity)
+//
+//  retval  :   1 = No error / 0 = Error
+//
+//****************************************************************************
+int InitializeSystem(int isAppli, unsigned short OptionNum)
+{
+    return INIT_ADDIN_APPLICATION(isAppli, OptionNum);
+}
+
+#pragma section
+
+
+</pre></details><details><summary>originals/3DEngine.g1w</summary><pre>[DLSimProject]
+Name=3DEngine
+Version=1
+Model=:fx-9860G.dlm
+SourcePath=SRC
+MemoryPath=INIT
+MemCardPath=SDCard
+
+[Program1]
+Program=3DENGINE.G1A
+Debug=Debug\FXADDINror.dbg
+LoadAddress=80000000:90100000
+
+[Files]
+SourceFile=:3DEngine.c
+HeaderFile=:Maps.h
+HeaderFile=:Public.h
+HeaderFile=:Painter.h
+HeaderFile=:DataStruct.h
+HeaderFile=:PainterSort.h
+HeaderFile=:Game_Script.h
+HeaderFile=:Textures.h
+</pre></details><details><summary>originals/AddinInfo.txt</summary><pre>//------------------------------------------------------------------
+// Addin-Application header control file, created with the CASIO SDK
+//------------------------------------------------------------------
+[OUTPUT]     : &quot;3DENGINE.G1A&quot;
+[BINDATA]    : &quot;FXADDINror.bin&quot;
+[DISPNAME]   : &quot;3DEngine&quot;
+[APPNAME]    : &quot;@3DENGIN&quot;
+[VERSION]    : &quot;01.00.0000&quot;
+[APL_ICON]   : &quot;MainIcon.bmp&quot;
+[MODULE_NUM] : 0
+[MOD1_TITLE] : &quot;3DEngine&quot;
+[MOD1_ICON]  : &quot;eActivityIcon.bmp&quot;
+</pre></details><details><summary>originals/DataStruct.h</summary><pre> void SetTexture(long pt)
+{
+  if(pt&gt;=0)
+  {
+    picStart1=TextureLight[pt];picStart2=TextureDark[pt];picStart3=TextureAlpha[pt];w=TextureWidth[pt];h=TextureHeight[pt];
+  }else{//(pt&lt;0)
+    SetTexture(TextureCartoon[-pt+1+(RENDERTIMER/TextureCartoon[-pt])%TextureCartoon[-pt-1]]);
+  }
+}
+void SetFloorSet(long i,float D)
+{
+  float x0,z0,x1,z1,x2,z2;
+  SetTexture(FloorSetTexture[i]);
+  TransferPoint1S(FloorSetP0[i],&amp;x0,&amp;z0);TransferPoint1S(FloorSetDPx[i],&amp;x1,&amp;z1);TransferPoint1S(FloorSetDPy[i],&amp;x2,&amp;z2);
+  SetFloor(D,x0,z0,x1-x0,z1-z0,x2-x0,z2-z0);
+}
+void AddStaticObjects(long Start,long Number)
+{
+     long i,tmppp;
+     float x1,z1;
+     for(i=0;i&lt;Number;i++){
+          tmppp=Start+i;
+          TransferPoint1S(ObjectPoint[tmppp],&amp;x1,&amp;z1);
+          if(z1&gt;SIGHTLIMIT){
+              RQType[RQNumber]=3;
+              RQPointer[RQNumber]=Start+i;
+              RQNumber++;
+          }
+     }
+}
+void AddStaticWalls(long Start,long Number)
+{
+     long i,tmppp;
+     float x1,z1,x2,z2;
+     for(i=0;i&lt;Number;i++){
+          tmppp=Start+i;
+          TransferPoint1S(WallLeftPoint[tmppp],&amp;x1,&amp;z1);
+          TransferPoint1S(WallRightPoint[tmppp],&amp;x2,&amp;z2);
+          if(!((TransferPoint2S(x1,z1,x2,z2)==TransferPoint2S(x2,z2,x1,z1))
+               ||(z1&lt;SIGHTLIMIT&amp;&amp;z2&lt;SIGHTLIMIT))){
+              RQType[RQNumber]=1;
+              RQPointer[RQNumber]=Start+i;
+              RQNumber++;
+          }
+     }
+}
+void AddStaticFloors(long Start,long Number)
+{
+     long i,tmppp;
+     float x1,z1,x2,z2,x3,z3;
+     for(i=0;i&lt;Number;i++){
+          tmppp=Start+i;
+          TransferPoint1S(FloorPoint1[tmppp],&amp;x1,&amp;z1);
+          TransferPoint1S(FloorPoint2[tmppp],&amp;x2,&amp;z2);
+          TransferPoint1S(FloorPoint3[tmppp],&amp;x3,&amp;z3);
+
+          if((TransferPoint2S(x1,z1,x2,z2)!=TransferPoint2S(x2,z2,x1,z1)   //which ought kick out the case that z1,z2&amp;z3 &lt;0 ?
+           ||TransferPoint2S(x1,z1,x3,z3)!=TransferPoint2S(x3,z3,x1,z1)
+           ||TransferPoint2S(x3,z3,x2,z2)!=TransferPoint2S(x2,z2,x3,z3))
+           &amp;&amp;!(z1&lt;SIGHTLIMIT&amp;&amp;z2&lt;SIGHTLIMIT&amp;&amp;z3&lt;SIGHTLIMIT)){
+              RQType[RQNumber]=2;
+              RQPointer[RQNumber]=Start+i;
+              RQNumber++;
+          }
+     }
+}
+int AddDyamicPoint(float x1,float y1,long *pt)
+{
+    if(PointDNum&gt;=MAXPOINTDS)return 1;
+    PointDX[PointDNum]=x1;PointDY[PointDNum]=y1;
+    *pt=PointDNum;
+    PointDNum++;
+    return 0;
+}
+int AddDyamicObject(long pt,float x1,float y1,float z1,float width1,float height1,long pTexture)//New Position=-1
+{
+  if(ObjectDNum&gt;=MAXOBJECTDS)return 1;
+  if(pt==-1)if(AddDyamicPoint(x1,y1,&amp;pt))return 1;
+  ObjectDPoint[ObjectDNum]=pt;
+  ObjectDTexture[ObjectDNum]=pTexture;
+  ObjectDY[ObjectDNum]=z1;ObjectDW[ObjectDNum]=width1;ObjectDH[ObjectDNum]=height1;
+  ObjectDNum++;
+  return 0;
+}
+int AddDyamicWall(long pt1,float x1,float y1,long pt2,float x2,float y2,float z1,float z2,float repeat1,long pTexture)//New Position=-1
+{
+  if(WallDNum&gt;=MAXWALLDS)return 1;
+  if(pt1==-1&amp;&amp;pt2==-1&amp;&amp;PointDNum+2&gt;MAXPOINTDS)return 1;
+  if(pt1==-1)if(AddDyamicPoint(x1,y1,&amp;pt1))return 1;
+  if(pt2==-1)if(AddDyamicPoint(x2,y2,&amp;pt2))return 1;
+  WallDLeftPoint[WallDNum]=pt1;WallDRightPoint[WallDNum]=pt2;
+  WallDY1[WallDNum]=z1;WallDY2[WallDNum]=z2;
+  WallDRepeat[WallDNum]=repeat1;WallDTexture[WallDNum]=pTexture;
+  WallDNum++;
+  return 0;
+}
+void AddDyamicToRQ()
+{
+     long i;
+     float x1,z1,x2,z2,x3,z3;
+     for(i=0;i&lt;ObjectDNum;i++){
+          TransferPoint1S(ObjectDPoint[i],&amp;x1,&amp;z1);
+          if(z1&gt;SIGHTLIMIT){
+              RQType[RQNumber]=-3;
+              RQPointer[RQNumber]=i;
+              RQNumber++;
+          }
+     }
+     for(i=0;i&lt;WallDNum;i++){
+          TransferPoint1S(WallDLeftPoint[i],&amp;x1,&amp;z1);
+          TransferPoint1S(WallDRightPoint[i],&amp;x2,&amp;z2);
+          if(!((TransferPoint2S(x1,z1,x2,z2)==TransferPoint2S(x2,z2,x1,z1))
+               ||(z1&lt;SIGHTLIMIT&amp;&amp;z2&lt;SIGHTLIMIT))){
+              RQType[RQNumber]=-1;
+              RQPointer[RQNumber]=i;
+              RQNumber++;
+          }
+     }
+}
+void CleanRQ(){	RQNumber=0;}
+void CleanDyamic(){	ObjectDNum=0;	PointDNum=0;	WallDNum=0;}
+void LoadRenderItem(long i,float *x1,float *z1,float *x2,float *z2,float *x3,float *z3,float *y1,float *y2,char *type,long *pt,float *d1,float *d2)
+{
+    long p;
+    p=RQPointer[i];
+    switch(RQType[i]){
+      case 1:                                              //Static Wall
+        *type=1;*y1=WallY1[p]-pos_Z;*y2=WallY2[p]-pos_Z;
+        TransferPoint1S(WallLeftPoint[p],x1,z1);TransferPoint1S(WallRightPoint[p],x2,z2);  //x3=x1;z3=z1;
+        *pt=WallTexture[p];*d1=WallRepeat[p];
+      break;
+      case 2:                                              //Static Floor
+        *type=2;*y1=FloorD[p]-pos_Z;*y2=*y1;
+        TransferPoint1S(FloorPoint1[p],x1,z1);TransferPoint1S(FloorPoint2[p],x2,z2);TransferPoint1S(FloorPoint3[p],x3,z3);
+        *pt=FloorSet[p];*d1=FloorD[p];
+      break;
+      case 3:                                              //Static Object
+        *type=3;*y1=ObjectY[p]+ObjectH[p]-pos_Z;*y2=ObjectY[p]-pos_Z;
+        TransferPoint1S(ObjectPoint[p],x1,z1);  //x2=x1;z2=z1;x3=x1;z3=z1;
+        *pt=ObjectTexture[p];*d1=ObjectH[p];*d2=ObjectW[p]/2;
+      break;
+      case -1:                                              //Dyamic Wall
+        *type=1;*y1=WallDY1[p]-pos_Z;*y2=WallDY2[p]-pos_Z;
+        TransferPoint1S(WallDLeftPoint[p],x1,z1);TransferPoint1S(WallDRightPoint[p],x2,z2);  //x3=x1;z3=z1;
+        *pt=WallDTexture[p];*d1=WallDRepeat[p];
+      break;
+      case -3:                                              //Dyamic Object
+        *type=3;*y1=ObjectDY[p]+ObjectDH[p]-pos_Z;*y2=ObjectDY[p]-pos_Z;
+        TransferPoint1S(ObjectDPoint[p],x1,z1);  //x2=x1;z2=z1;x3=x1;z3=z1;
+        *pt=ObjectDTexture[p];*d1=ObjectDH[p];*d2=ObjectDW[p]/2;
+      break;
+    }
+}
+</pre></details><details><summary>originals/FXSH_Build.bat</summary><pre>@echo off
+rem Do not edit! This batch file is created by CASIO fx-9860G SDK.
+
+
+if exist 3DENGINE.G1A  del 3DENGINE.G1A
+
+cd debug
+if exist FXADDINror.bin  del FXADDINror.bin
+&quot;C:\Program Files\CASIO\fx-9860G SDK\OS\SH\Bin\Hmake.exe&quot; Addin.mak
+cd ..
+if not exist debug\FXADDINror.bin  goto error
+
+&quot;C:\Program Files\CASIO\fx-9860G SDK\Tools\MakeAddinHeader363.exe&quot; &quot;C:\3Dold&quot;
+if not exist 3DENGINE.G1A  goto error
+echo Build has completed.
+goto end
+
+:error
+echo Build was not successful.
+
+:end
+
+</pre></details><details><summary>originals/Game_Script.h</summary><pre>void gs_DoNothing()
+{
+//DoNothing
+}
+void gs_RegionError()
+{
+}
+void gs_1()
+{
+}</pre></details><details><summary>originals/Maps.h</summary><pre>//======POINTS======
+
+const float PointX[]={.9101676,	9.800177,	9.821343,	.9101676,	2.413002,	8.445508,	8.445508,	8.445508,	6.032506,	6.032506,	
+				2.413002,	3.937004,	4.656672,	4.699005,	3.958171,	3.153836,	3.153836,	6.815673,	7.620008,	7.620008,	
+				6.794507,	1.333501,	3.958171,	9.334509,	9.186342,	2.455336,	2.476502,	5.588006,	1.629835,	0,	
+				.1,	0,	3.958171,	4.058171,	3.958171,	};
+const float PointY[]={-.8890009,	-.8890009,	-6.794507,	-6.794507,	-2.391836,	-2.413002,	-3.958171,	-6.011339,	-6.011339,	-3.937004,	
+				-3.937004,	-4.741338,	-5.164672,	-5.990172,	-6.45584,	-6.053673,	-5.164672,	-3.048003,	-3.048003,	-5.270505,	
+				-5.270505,	-1.799168,	-1.460501,	-1.291168,	-3.725337,	-4.804838,	-5.545672,	-6.244173,	-6.180673,	0,	
+				0,	.1,	-5.630339,	-5.630339,	-5.730339,	};
+/*
+const float PointX[]={	8,4,6,12,4,6,8,10,10,8,
+				4,6,6,4,8,11,11,8,};
+const float PointY[]={	8,4,4,4,8,8,5,5,6,6,
+				12,12,16,16,10,10,14,14,};
+*/
+//======OBJECTS======
+const long ObjectPoint[]={21,22,23,24,25,26,27,};
+const long ObjectTexture[]={7,7,7,7,7,7,7,};
+const float ObjectY[]={0,0,0,0,0,0,0,};
+const float ObjectH[]={1.2,1.1,1.2,1.3,1.4,1.1,1.2,};
+const float ObjectW[]={.5,.5,.5,.5,.5,.5,.5,};
+
+//======WALLS======
+const long WallLeftPoint[]=   {0,1,2,3, 4,5, 6,7,8, 9,10, 11,12,13,14,15,16, 17,18,19,20,};
+const long WallRightPoint[]={1,2,3,0, 5,6, 7,8,9, 10,4, 12,13,14,15,16,11, 18,19,20,17,};
+const float WallY1[]=               {.6,.6,.6,.6, 1,1, 1,1,1, 1,1,   .2,.2,.2,.2,.2,.2, 1.9,1.9,1.9,1.9,};
+const float WallY2[]=               {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,};
+//Num=21
+const float WallRepeat[]=      {12,8,12,8,8,2,3,3,3,5,2,5,5,5,5,5,5,1,3,1,3,};
+const long WallTexture[]=     {4,4,4,4,1,1,2,2,2,1,1,3,3,3,3,3,3,1,2,1,2,};
+
+//======FLOORSETS======
+const long FloorSetTexture[]={3,3,};//6,5//3,3
+const long FloorSetP0[]={29,32,};
+//Warning: The following vars are related vars!
+const long FloorSetDPx[]={30,33,};
+const long FloorSetDPy[]={31,34,};
+
+//======FLOORS======
+const long FloorPoint1[]={8,11,11,11,11,0,0,4,4,6,6,};//4,5,5,5,7,8,8,9,9,10,};
+const long FloorPoint2[]={9,12,13,14,15,1,2,5,6,7,8,};//5,18,19,7,8,20,9,17,10,4,};
+const long FloorPoint3[]={13,13,14,15,16,2,3,6,10,8,9,};//17,17,18,19,19,19,20,20,17,17,};
+const long FloorSet[]={1,1,1,1,1,1,1,1,1,1,1,};//{0,0,1,1,1,1,1,1,1,1,1,1,};
+const float FloorD[]={.2,.2,.2,.2,.2,0,0,1,1,1,1,}; //{0,0,1,1,1,1,1,1,1,1,1,1,};
+
+//======FLOORMAPS======
+const char FloorMap[]=
+{
+	0,	0,	0,	1,	1,	0,	0,	0,
+	0,	0,	1,	2,	2,	1,	0,	0,
+	0,	1,	2,	3,	3,	2,	1,	0,
+	1,	2,	2,	3,	3,	2,	2,	1,
+	1,	2,	2,	3,	3,	2,	2,	1,
+};//{3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,};
+const long FloorMapPointer[]={0,0,1,-1,3,4,};
+//Position 0 is not avilable! &amp; Their w&amp;h should be the same.
+//======TEXTURES======
+const long TextureCartoon[]={	5,5, 0,1,2,3,4,                       //number,timeperflip, texturepoints...
+						2,1, 0,1,};
+const long TextureLight[]={0,128,384,768,128,896,1152,1408,1664};
+const long TextureDark[]= {0,256,512,768,256,1024,1280,1408,1664};
+const long TextureAlpha[]={0,0,640,0,0,0,0,1536,2368};
+
+const int    TextureWidth[]={1,2,2,2,2,2,2,2,4,};
+const int   TextureHeight[]={32,32,32,32,25,32,32,32,44,};
+</pre></details><details><summary>originals/Painter.h</summary><pre>
+void SetFloor(float D,float X0,float Z0,float dxx,float dzx,float dxy,float dzy)
+{
+     float t;
+     t=((float)MULTI)/(dxx*dzy-dzx*dxy);
+     f_A=D*dzy*t;   f_B=-t*(64.5*D*dzy+PIXELZOOM*D*dxy);   f_C=t*(-X0*dzy+Z0*dxy);
+     f_D=-D*dzx*t;   f_E=t*(64.5*D*dzx+PIXELZOOM*D*dxx);   f_F=-t*(-X0*dzx+Z0*dxx);
+}
+
+void SetTexture(long pt);//    \/ needs.
+
+void LineH_map(int l,int r,int y)
+{
+  long a1,b1,a2,b2,W,H,pB,X,Y;
+  long a10,b10,a20,b20,W0,H0,X0,Y0;
+  long pB2;
+  long tmppt;
+  float t,t0;
+  int i;
+  char mark,mark2,terrian,terrian0;
+
+  if((Deg==y)||(y&lt;1)||(y&gt;63))return;
+  if(l&lt;1)l=1;if(r&gt;127)r=127;
+  t=1/(float)(Deg-y);
+  t0=t/(float)zoom_map;
+
+  W=(long)8&lt;&lt;(LNMULTI+w);H=(long)h&lt;&lt;LNMULTI;
+  W0=(long)1&lt;&lt;(LNMULTI+w_map);H0=(long)h_map&lt;&lt;LNMULTI;
+
+  a1=(long)(f_A*t)%W;b1=(long)(l*a1+f_B*t+f_C)%W;
+  a2=(long)(f_D*t)%H;b2=(long)(l*a2+f_E*t+f_F)%H;
+  a10=(long)(f_A*t0);b10=(long)(l*a10+f_B*t0+f_C/(float)zoom_map);
+  a20=(long)(f_D*t0);b20=(long)(l*a20+f_E*t0+f_F/(float)zoom_map);
+
+  if(a1&lt;0)a1+=W;if(a2&lt;0)a2+=H;if(b1&lt;0)b1+=W;if(b2&lt;0)b2+=H;
+
+  terrian0=-1;
+
+  for(i=l;i&lt;=r;i++)
+  {
+    if((b10&gt;=0)&amp;&amp;(b10&lt;=W0)&amp;&amp;(b20&gt;=0)&amp;&amp;(b20&lt;=H0))
+    {
+        X0=b10&gt;&gt;LNMULTI;Y0=(b20&gt;&gt;LNMULTI)&lt;&lt;w_map;
+        terrian=FloorMap[X0+Y0+Start_map];
+        if(terrian!=terrian0){terrian0=terrian;SetTexture(FloorMapPointer[terrian]);}
+        if(terrian){
+            X=b1&gt;&gt;LNMULTI;Y=(b2&gt;&gt;LNMULTI)&lt;&lt;w;
+            pB=(X&gt;&gt;3)+Y;mark=128&gt;&gt;(X&amp;7);          //&quot;(X&gt;&gt;3)+Y&quot; != &quot;X&gt;&gt;3+Y&quot; !!!
+            if((picturebuffer[picStart3+pB]&amp;mark)){
+                //PlotPixel(i, y, &amp;buffer1,(picturebuffer[picStart1+pB]&amp;mark)!=0);PlotPixel(i, y, &amp;buffer2,(picturebuffer[picStart2+pB]&amp;mark)!=0);
+              pB2=(i&gt;&gt;3)+(y&lt;&lt;4);mark2=128&gt;&gt;(i&amp;7);
+              buffer1[pB2]=(picturebuffer[picStart1+pB]&amp;mark)==0?buffer1[pB2]&amp;~mark2:buffer1[pB2]|mark2;
+              buffer2[pB2]=(picturebuffer[picStart2+pB]&amp;mark)==0?buffer2[pB2]&amp;~mark2:buffer2[pB2]|mark2;
+            }
+        }
+    }
+    b1+=a1;if(b1&gt;=W) b1-=W;
+    b2+=a2;if(b2&gt;=H) b2-=H;
+    b10+=a10;
+    b20+=a20;
+  }
+}
+
+void LineH(int l,int r,int y)
+{
+  long a1,b1,a2,b2,W,H,pB,X,Y,pB2;
+  float t;
+  int i;
+  char mark,mark2;
+
+  if((Deg==y)||(y&lt;1)||(y&gt;63))return;
+  if(l&lt;1)l=1;if(r&gt;127)r=127;
+  t=1/(float)(Deg-y);
+
+  W=(long)8&lt;&lt;(LNMULTI+w);H=(long)h&lt;&lt;LNMULTI;
+  a1=(long)(f_A*t)%W;b1=(long)(l*a1+f_B*t+f_C)%W;
+  a2=(long)(f_D*t)%H;b2=(long)(l*a2+f_E*t+f_F)%H;
+  if(a1&lt;0)a1+=W;if(a2&lt;0)a2+=H;if(b1&lt;0)b1+=W;if(b2&lt;0)b2+=H;
+
+  for(i=l;i&lt;=r;i++){
+    X=b1&gt;&gt;LNMULTI;Y=(b2&gt;&gt;LNMULTI)&lt;&lt;w;
+    pB=(X&gt;&gt;3)+Y;mark=128&gt;&gt;(X&amp;7);          //&quot;(X&gt;&gt;3)+Y&quot; != &quot;X&gt;&gt;3+Y&quot; !!!
+    if((picturebuffer[picStart3+pB]&amp;mark)){
+        //PlotPixel(i, y, &amp;buffer1,(picturebuffer[picStart1+pB]&amp;mark)!=0);PlotPixel(i, y, &amp;buffer2,(picturebuffer[picStart2+pB]&amp;mark)!=0);
+      pB2=(i&gt;&gt;3)+(y&lt;&lt;4);mark2=128&gt;&gt;(i&amp;7);
+      buffer1[pB2]=(picturebuffer[picStart1+pB]&amp;mark)==0?buffer1[pB2]&amp;~mark2:buffer1[pB2]|mark2;
+      buffer2[pB2]=(picturebuffer[picStart2+pB]&amp;mark)==0?buffer2[pB2]&amp;~mark2:buffer2[pB2]|mark2;
+    }
+    b1+=a1;if(b1&gt;=W) b1-=W;
+    b2+=a2;if(b2&gt;=H) b2-=H;
+  }
+}
+
+void Triangle(int X1,int Y1,int X2,int Y2,int X3,int Y3)
+{
+  int xmin,xmax,y,t;
+  float tmp,xl,xr,dxl,dxr;
+
+  if(Y1&gt;Y2){t=Y1;Y1=Y2;Y2=t;t=X1;X1=X2;X2=t;}
+  if(Y1&gt;Y3){t=Y1;Y1=Y3;Y3=t;t=X1;X1=X3;X3=t;}
+  if(Y2&gt;Y3){t=Y2;Y2=Y3;Y3=t;t=X2;X2=X3;X3=t;}
+  xmax=X1;xmin=X1;if(X2&gt;xmax) xmax=X2; else if(X2&lt;xmin) xmin=X2;if(X3&gt;xmax) xmax=X3; else if(X3&lt;xmin) xmin=X3;
+  if(xmax&gt;127)xmax=127;if(xmin&lt;1)xmin=1;
+  xl=X1;xr=X1;y=Y1;
+  if(Y1!=Y2){
+    dxl=(float)(X2-X1)/(float)(Y2-Y1);
+    dxr=(float)(X3-X1)/(float)(Y3-Y1);
+    if(dxl&gt;dxr){tmp=dxl; dxl=dxr; dxr=tmp;}
+    y=Y1;if(y&lt;1)y=1;
+    xl+=(y-Y1)*dxl;xr+=(y-Y1)*dxr;
+    for(y=Y1;y&lt;Y2;y++){
+      LineH((xl&gt;xmin?xl:xmin),(xr&lt;xmax?xr:xmax),y);
+      xl+=dxl;xr+=dxr;
+    }
+  } else {if(X2&gt;X1)xr=X2; else xl=X2;}
+  LineH((xl&gt;xmin?xl:xmin),(xr&lt;xmax?xr:xmax),Y2);
+  if(Y2!=Y3){
+    dxl=(float)(X3-X2)/(float)(Y3-Y2);
+    dxr=(float)(X3-X1)/(float)(Y3-Y1);
+    if(dxl&lt;dxr){tmp=dxl;dxl=dxr;dxr=tmp;}
+    if(Y3&gt;63)Y3=63;
+    for(y=Y2+1;y&lt;=Y3;y++){
+      LineH((xl&gt;xmin?xl:xmin),(xr&lt;xmax?xr:xmax),y);
+      xl+=dxl;xr+=dxr;
+    }
+  }
+}
+
+void RenderPicture(int X0,int Y0,float ZoomX,float ZoomY)
+{
+     int x,y,xs,xe,ys,ye,X,Y;
+     long a,a0,b,c,d,pB,pB2,p1,p2,p3;
+     float xsf,ysf;
+     char mark,mark2;
+
+     c=(long)(MULTI/ZoomX);                                                  //not &quot;*&quot; but &quot;/&quot;   !!!
+     d=(long)(MULTI/ZoomY); 
+     xsf=X0-fabsf(ZoomX)*(4&lt;&lt;w);xs=ceilf(xsf);xe=floorf(X0+fabsf(ZoomX)*(4&lt;&lt;w));
+     if(xs&lt;1)xs=1;
+     a0=(xs-xsf)*c;
+     if(xe&gt;127) xe=127;
+     ysf=Y0-ZoomY*h;ys=ceilf(ysf);
+     if(ys&lt;1)ys=1;
+     b=(ys-ysf)*d;
+     ye=(Y0&lt;=63?Y0:63);
+     for(y=ys;y&lt;=ye;y++){
+        a=a0;Y=(b&gt;&gt;LNMULTI)&lt;&lt;w;
+        p1=picStart1+Y;p2=picStart2+Y;p3=picStart3+Y;
+        for(x=xs;x&lt;=xe;x++){
+           X=a&gt;&gt;LNMULTI;
+           pB=(X&gt;&gt;3);mark=128&gt;&gt;(X&amp;7);
+           if((picturebuffer[p3+pB]&amp;mark)){
+                 //PlotPixel(x, y, &amp;buffer1,(picturebuffer[p1+pB]&amp;mark)!=0);PlotPixel(x, y, &amp;buffer2,(picturebuffer[p2+pB]&amp;mark)!=0);
+               pB2=(x&gt;&gt;3)+(y&lt;&lt;4);mark2=128&gt;&gt;(x&amp;7);
+               buffer1[pB2]=(picturebuffer[p1+pB]&amp;mark)==0?buffer1[pB2]&amp;~mark2:buffer1[pB2]|mark2;
+               buffer2[pB2]=(picturebuffer[p2+pB]&amp;mark)==0?buffer2[pB2]&amp;~mark2:buffer2[pB2]|mark2;
+           }
+           a+=c;
+        }
+        b+=d;
+     }
+}
+
+void RenderWall(float X1,float Z1,float X2,float Z2,float Y1,float Y2,float Repeat)//,long picStart1,long picStart2,long picStart3, int w,int H)
+{
+    int Xs,Xe,Ye,t,Xrr,Yrr,X,Y;
+    long W,H,pB,p1,p2,p3;
+    long M,N;
+    float dX,dY,dZ;
+    float max;
+    float A,B,C,D,D2,E,E2,F,G,P,Q;
+    int ysm,yem;
+    char val,mark;
+    long pB2;
+    char mark2;
+  W=8&lt;&lt;w;H=h;
+
+  //RANGE CHECKING
+    if(Y1-Y2&lt;SIGHTLIMIT)return;
+    max=Z1&gt;Z2?Z1:Z2;
+    if(max&lt;SIGHTLIMIT)return;
+    if((Deg-PIXELZOOM*Y2/max&lt;1)||(Deg-PIXELZOOM*Y1/max&gt;63))return;
+
+    Xs=TransferPoint2S(X1,Z1,X2,Z2);Xe=TransferPoint2S(X2,Z2,X1,Z1);
+    if(Xs==Xe)return;
+    if(Xs&gt;Xe){t=Xs;Xs=Xe;Xe=t;}
+    ysm=TransferPoint22S(Y1,Z1,1);t=TransferPoint22S(Y1,Z2,1);if(ysm&gt;t)ysm=t;
+    yem=TransferPoint22S(Y2,Z1,0);t=TransferPoint22S(Y2,Z2,0);if(yem&lt;t)yem=t;
+  //END
+
+  //CONST CALCULATING
+    dX=(X2-X1)/W/Repeat;dY=(Y2-Y1)/H;dZ=(Z2-Z1)/W/Repeat;
+
+    A=-Z1*Xs+64*Z1+PIXELZOOM*X1;
+    B=dZ*Xs-64*dZ-PIXELZOOM*dX;
+    C=PIXELZOOM*(Z2*X1-Z1*X2)/W/Repeat;
+    D=Deg-PIXELZOOM*Y1*(dZ*Xs-64*dZ-PIXELZOOM*dX)/C;
+    D2=Deg-PIXELZOOM*Y2*(dZ*Xs-64*dZ-PIXELZOOM*dX)/C;
+    E=-PIXELZOOM*Y1*dZ/C;
+    E2=-PIXELZOOM*Y2*dZ/C;
+    F=-MULTI*C/(PIXELZOOM*dY);                                                     //?
+    G=-MULTI*(Y1/dY);
+
+  //END
+
+  //MAIN LOOP
+   for(Xrr=Xs;Xrr&lt;=Xe;Xrr++){
+        X=(int)(A/B)%W;
+        pB=X&gt;&gt;3;mark=128&gt;&gt;(X&amp;7);
+        p1=picStart1+pB;p2=picStart2+pB;p3=picStart3+pB;
+        Yrr=ceilf(D);Ye=floorf(D2);
+        if(Yrr&lt;ysm)Yrr=ysm;
+        if(Ye&gt;yem)Ye=yem;
+        pB2=(Xrr&gt;&gt;3)+(Yrr&lt;&lt;4);mark2=128&gt;&gt;(Xrr&amp;7);
+
+        N=(long)(P=F/B);
+        M=(long)(P*(Yrr-Deg)+G);
+        while(Yrr&lt;=Ye){
+            Y=M&gt;&gt;LNMULTI&lt;&lt;w;
+            if((picturebuffer[p3+Y]&amp;mark)){
+               buffer1[pB2]=(picturebuffer[p1+Y]&amp;mark)==0?buffer1[pB2]&amp;~mark2:buffer1[pB2]|mark2;
+               buffer2[pB2]=(picturebuffer[p2+Y]&amp;mark)==0?buffer2[pB2]&amp;~mark2:buffer2[pB2]|mark2;
+                 //PlotPixel(Xrr, Yrr, &amp;buffer1,(picturebuffer[p1+Y]&amp;mark)!=0);PlotPixel(Xrr, Yrr, &amp;buffer2,(picturebuffer[p2+Y]&amp;mark)!=0);
+            }
+            Yrr+=1;M+=N;
+            pB2+=16;
+            //Bdisp_SetPoint_VRAM(Xrr,Yrr,wall[Y][X]);
+        }
+        A-=Z1;B+=dZ;D+=E;D2+=E2;
+    }
+  //END
+}
+</pre></details><details><summary>originals/PainterSort.h</summary><pre> void Render()
+{
+float maxZ[MAXRENDERQUEUE],minZ[MAXRENDERQUEUE];
+char flags[MAXRENDERQUEUE];
+long i,j,k,l,pt;
+float tmpmax,tmpmin,tmpswap,x1,z1,x2,z2,x3,z3,x4,z4,x5,z5,x6,z6,yo1,yo2,ys1,ys2,ds1,do1,ds2,do2;
+float A1,B1,C1,A2,B2,C2,A3,B3,C3,A,B,C;
+int a,b,c,d;
+char flag,types,typeo;
+float floatlimit;
+
+sin_T=sinf(Theta);cos_T=cosf(Theta);
+memset(&amp;flags, 0, MAXRENDERQUEUE);
+                                                                         //1st: Sort the Polygons at Zmax from Smallest to Biggest
+   for(i=0;i&lt;RQNumber;i++){
+       LoadRenderItem(i,&amp;x1,&amp;z1,&amp;x2,&amp;z2,&amp;x3,&amp;z3,&amp;ys1,&amp;ys2,&amp;types,&amp;pt,&amp;ds1,&amp;ds2);
+       tmpmax=z1;tmpmin=z1;
+       if(types!=3){if(tmpmax&lt;z2)tmpmax=z2; else tmpmin=z2;}
+       if(types==2){if(tmpmax&lt;z3)tmpmax=z3;else if(tmpmin&gt;z3)tmpmin=z3;}
+       maxZ[i]=tmpmax;minZ[i]=tmpmin;
+   }
+
+   flag=1;
+   for(i=0;(i&lt;RQNumber-1)&amp;&amp;flag;i++){
+      flag=0;
+      for(j=RQNumber-1;j&gt;i;j--)
+         if(maxZ[j]&lt;maxZ[j-1]){
+            tmpswap=maxZ[j];maxZ[j]=maxZ[j-1];maxZ[j-1]=tmpswap;
+            tmpswap=minZ[j];minZ[j]=minZ[j-1];minZ[j-1]=tmpswap;
+            k=RQPointer[j];RQPointer[j]=RQPointer[j-1];RQPointer[j-1]=k;
+            k=RQType[j];RQType[j]=RQType[j-1];RQType[j-1]=k;
+            flag=1;
+        }
+   }
+
+//TODOTODOTODOTODO          TODOTODOTODO
+
+while(RQNumber&gt;0){
+                                                                           //2nd
+    flag=1;i=RQNumber-1;
+
+    LoadRenderItem(i,&amp;x1,&amp;z1,&amp;x2,&amp;z2,&amp;x3,&amp;z3,&amp;ys1,&amp;ys2,&amp;types,&amp;pt,&amp;ds1,&amp;ds2);
+    GetAB(&amp;a,&amp;b,types,x1,z1,x2,z2,x3,z3,ds2);
+    if(types!=3)GetABC(x1,z1,x2,z2,&amp;A1,&amp;B1,&amp;C1);
+    if(types==2){GetABC(x1,z1,x3,z3,&amp;A2,&amp;B2,&amp;C2);GetABC(x3,z3,x2,z2,&amp;A3,&amp;B3,&amp;C3);}
+
+    for(j=0;(j&lt;RQNumber-1)&amp;&amp;flag;j++)
+    if(maxZ[j]&lt;minZ[i]) continue; else{
+
+        LoadRenderItem(j,&amp;x4,&amp;z4,&amp;x5,&amp;z5,&amp;x6,&amp;z6,&amp;yo1,&amp;yo2,&amp;typeo,&amp;k,&amp;do1,&amp;do2);
+
+        if(ys2+FLOATLIMIT&gt;=yo1&amp;&amp;yo1+FLOATLIMIT&gt;=0
+        || ys1&lt;=yo2+FLOATLIMIT&amp;&amp;yo2&lt;=FLOATLIMIT
+        || ys2&gt;0&amp;&amp;yo1&lt;0 || ys1&lt;0&amp;&amp;yo2&gt;0 )          /*!*/
+         continue;													//CHECKOUT (2)
+
+        GetAB(&amp;c,&amp;d,typeo,x4,z4,x5,z5,x6,z6,do2);
+        if(b&lt;=c||d&lt;=a) continue;											//CHECKOUT (1)
+
+if(types==3){//Object
+  if(typeo==3){//to Object
+    //z4 always &gt;z1
+      flag=0;break;                 //j--;? no.
+  }
+  if(typeo==1){//to Wall
+    GetABC(x4,z4,x5,z5,&amp;A,&amp;B,&amp;C);
+    if((A*x1+B*z1+C&gt;FLOATLIMIT)){flag=0;break;}		 //CHECKOUT (3)
+  }
+  if(typeo==2){//to Floor
+    //maxZ[j] always&lt;minZ[i]
+    GetABC(x4,z4,x5,z5,&amp;A,&amp;B,&amp;C);
+    if((A*x1+B*z1+C&lt;=FLOATLIMIT))continue;			 //CHECKOUT (3)
+    GetABC(x4,z4,x6,z6,&amp;A,&amp;B,&amp;C);
+    if((A*x1+B*z1+C&lt;=FLOATLIMIT))continue;			 //CHECKOUT (3)
+    GetABC(x6,z6,x5,z5,&amp;A,&amp;B,&amp;C);
+    if((A*x1+B*z1+C&lt;=FLOATLIMIT))continue;			 //CHECKOUT (3)
+    flag=0;break;
+  }
+}//Object
+if(types==1){//Wall
+  if(typeo==3){//to Object
+    if(A1*x4+B1*z4+C1&lt;-FLOATLIMIT){flag=0;break;}		 //CHECKOUT (4)
+  }
+  if(typeo==1){//to Wall
+    if( (A1*x4+B1*z4+C1&gt;=-FLOATLIMIT) &amp;&amp; (A1*x5+B1*z5+C1&gt;=-FLOATLIMIT) ) continue;	//CHECKOUT (4)
+    GetABC(x4,z4,x5,z5,&amp;A,&amp;B,&amp;C);
+    if( (A*x1+B*z1+C&lt;=FLOATLIMIT) &amp;&amp; (A*x2+B*z2+C&lt;=FLOATLIMIT) )  continue;			//CHECKOUT (3)
+    flag=0;break;
+  }
+  if(typeo==2){//to Floor
+    if( (A1*x4+B1*z4+C1&gt;=-FLOATLIMIT) &amp;&amp; (A1*x5+B1*z5+C1&gt;=-FLOATLIMIT)
+       &amp;&amp; (A1*x6+B1*z6+C1&gt;=-FLOATLIMIT)) continue;					//CHECKOUT (4)
+    floatlimit=((yo1+FLOATLIMIT&gt;=ys1)&amp;&amp;(yo1+FLOATLIMIT&gt;=ys2)
+                      ||(yo1&lt;=FLOATLIMIT+ys1)&amp;&amp;(yo1&lt;=FLOATLIMIT+ys2))?FLOATLIMIT:-FLOATLIMIT;            //if wall is completely beneath|above the floor,0 will still shadow it!
+    GetABC(x4,z4,x5,z5,&amp;A,&amp;B,&amp;C);
+    if((A*x1+B*z1+C&lt;=-floatlimit)&amp;&amp;(A*x2+B*z2+C&lt;=-floatlimit))continue;		//CHECKOUT (3)
+    GetABC(x4,z4,x6,z6,&amp;A,&amp;B,&amp;C);
+    if((A*x1+B*z1+C&lt;=-floatlimit)&amp;&amp;(A*x2+B*z2+C&lt;=-floatlimit))continue;		//CHECKOUT (3)
+    GetABC(x6,z6,x5,z5,&amp;A,&amp;B,&amp;C);
+    if((A*x1+B*z1+C&lt;=-floatlimit)&amp;&amp;(A*x2+B*z2+C&lt;=-floatlimit))continue;		//CHECKOUT (3)
+    flag=0;break;
+  }
+}//Wall
+if(types==2){//Floor
+  if(typeo==3){//to Object
+    //maxZ[j] always&lt;minZ[i]
+    if(A1*x4+B1*z4+C1&gt;=-FLOATLIMIT)continue;			 //CHECKOUT (4)
+    if(A2*x4+B2*z4+C2&gt;=-FLOATLIMIT)continue;			 //CHECKOUT (4)
+    if(A3*x4+B3*z4+C3&gt;=-FLOATLIMIT)continue;			 //CHECKOUT (4)
+    flag=0;break;
+  }
+  if(typeo==1){//to Wall
+    floatlimit=((yo1+FLOATLIMIT&gt;=ys1)&amp;&amp;(yo1+FLOATLIMIT&gt;=ys2)
+                      ||(yo1&lt;=FLOATLIMIT+ys1)&amp;&amp;(yo1&lt;=FLOATLIMIT+ys2))?FLOATLIMIT:-FLOATLIMIT;            //if wall is completely beneath|above the floor,0 will still shadow it!
+    if( (A1*x4+B1*z4+C1&gt;=floatlimit) &amp;&amp; (A1*x5+B1*z5+C1&gt;=floatlimit)
+       ||(A2*x4+B2*z4+C2&gt;=floatlimit) &amp;&amp; (A2*x5+B2*z5+C2&gt;=floatlimit)
+       ||(A3*x4+B3*z4+C3&gt;=floatlimit) &amp;&amp; (A3*x5+B3*z5+C3&gt;=floatlimit)) continue;		//CHECKOUT (4)
+    GetABC(x4,z4,x5,z5,&amp;A,&amp;B,&amp;C);
+    if( (A*x1+B*z1+C&lt;=FLOATLIMIT) &amp;&amp; (A*x2+B*z2+C&lt;=FLOATLIMIT)
+      &amp;&amp; (A*x3+B*z3+C&lt;=FLOATLIMIT) )  continue;								//CHECKOUT (3)
+    flag=0;break;
+  }
+  if(typeo==2){//to Floor
+    if( (A1*x4+B1*z4+C1&gt;=-FLOATLIMIT) &amp;&amp; (A1*x5+B1*z5+C1&gt;=-FLOATLIMIT) &amp;&amp; (A1*x6+B1*z6+C1&gt;=-FLOATLIMIT)
+       ||(A2*x4+B2*z4+C2&gt;=-FLOATLIMIT) &amp;&amp; (A2*x5+B2*z5+C2&gt;=-FLOATLIMIT) &amp;&amp; (A2*x6+B2*z6+C2&gt;=-FLOATLIMIT)
+       ||(A3*x4+B3*z4+C3&gt;=-FLOATLIMIT) &amp;&amp; (A3*x5+B3*z5+C3&gt;=-FLOATLIMIT) &amp;&amp; (A3*x6+B3*z6+C3&gt;=-FLOATLIMIT)) continue;	//CHECKOUT (4)
+    GetABC(x4,z4,x5,z5,&amp;A,&amp;B,&amp;C);
+    if((A*x1+B*z1+C&gt;FLOATLIMIT)||(A*x2+B*z2+C&gt;FLOATLIMIT)||(A*x3+B*z3+C&gt;FLOATLIMIT)){flag=0;break;}	//CHECKOUT (3)
+    GetABC(x4,z4,x6,z6,&amp;A,&amp;B,&amp;C);
+    if((A*x1+B*z1+C&gt;FLOATLIMIT)||(A*x2+B*z2+C&gt;FLOATLIMIT)||(A*x3+B*z3+C&gt;FLOATLIMIT)){flag=0;break;}	//CHECKOUT (3)
+    GetABC(x6,z6,x5,z5,&amp;A,&amp;B,&amp;C);
+    if((A*x1+B*z1+C&gt;FLOATLIMIT)||(A*x2+B*z2+C&gt;FLOATLIMIT)||(A*x3+B*z3+C&gt;FLOATLIMIT)){flag=0;break;}	//CHECKOUT (3)
+  }
+}//Floor
+    }//if&amp;for
+
+    //if(flags[i]){
+       //Reset_Calc();                                                        //TODO
+     //}
+
+     if(flag||flags[i]){                      //Render It
+       if(types==1){
+            SetTexture(pt);
+            RenderWall(x1,z1,x2,z2,ys1,ys2,ds1);
+       }
+       if(types==2){
+            SetFloorSet(pt,ys1);
+            if(z1&lt;z2){tmpswap=z1;z1=z2;z2=tmpswap;tmpswap=x1;x1=x2;x2=tmpswap;}
+            if(z1&lt;z3){tmpswap=z1;z1=z3;z3=tmpswap;tmpswap=x1;x1=x3;x3=tmpswap;}
+            if(z2&lt;z3){tmpswap=z2;z2=z3;z3=tmpswap;tmpswap=x2;x2=x3;x3=tmpswap;}
+
+            if(ys1&gt;0)z5=PIXELZOOM*ys1/(Deg-1);else z5=PIXELZOOM*ys1/(Deg-63);
+            z6=z5;
+            if(z1&lt;z5) ;
+            else if(z2&lt;z5){
+               x5=x1+(x2-x1)*(z5-z1)/(z2-z1);x6=x1+(x3-x1)*(z6-z1)/(z3-z1);
+               a=TransferPoint21S(x5,z5,x1,z1);b=TransferPoint21S(x6,z6,x1,z1);
+               if(ys1&gt;0) Triangle(TransferPoint20S(x1,z1),TransferPoint23S(ys1,z1),a,1,b,1);
+               else Triangle(TransferPoint20S(x1,z1),TransferPoint23S(ys1,z1),a,63,b,63);
+
+            }else if(z3&lt;z5){
+               x5=x1+(x3-x1)*(z5-z1)/(z3-z1);x6=x2+(x3-x2)*(z6-z2)/(z3-z2);
+               a=TransferPoint21S(x5,z5,x1,z1);b=TransferPoint21S(x6,z6,x2,z2);
+               if(ys1&gt;0)
+                  {Triangle(TransferPoint20S(x1,z1),TransferPoint23S(ys1,z1),a,1,TransferPoint20S(x2,z2),TransferPoint23S(ys1,z2));Triangle(TransferPoint20S(x2,z2),TransferPoint23S(ys1,z2),a,1,b,1);}
+               else
+                  {Triangle(TransferPoint20S(x1,z1),TransferPoint23S(ys1,z1),a,63,TransferPoint20S(x2,z2),TransferPoint23S(ys1,z2));Triangle(TransferPoint20S(x2,z2),TransferPoint23S(ys1,z2),a,63,b,63);}
+            }else
+            Triangle(TransferPoint20S(x1,z1),TransferPoint23S(ys1,z1),TransferPoint20S(x2,z2),TransferPoint23S(ys1,z2),TransferPoint20S(x3,z3),TransferPoint23S(ys1,z3));
+       }//if(type==2)
+
+     memset(&amp;flags, 0, MAXRENDERQUEUE);
+     RQNumber--;
+//DrawAll(buffer2);
+       if(types==3){
+            SetTexture(pt);
+            RenderPicture(TransferPoint20S(x1,z1),TransferPoint23S(ys2,z1),PIXELZOOM*ds2/z1/(float)(4&lt;&lt;w),PIXELZOOM*ds1/z1/(float)h);
+       }
+     }else{
+            flags[i]=flags[j];flags[j]=1;                                 //i !     &gt;i&lt; not j!!!   qian yi l jiu bu ke yi wang hou yi! Don&#x27;t Come back again!!!!!!!! and they will be exchanged !!!!
+
+            tmpswap=maxZ[j];maxZ[j]=maxZ[i];maxZ[i]=tmpswap;                 //Exchange
+            tmpswap=minZ[j];minZ[j]=minZ[i];minZ[i]=tmpswap;
+            k=RQPointer[j];RQPointer[j]=RQPointer[i];RQPointer[i]=k;
+            k=RQType[j];RQType[j]=RQType[i];RQType[i]=k;
+     }
+}//while
+}//void Render
+</pre></details><details><summary>originals/Public.h</summary><pre>#define SIGHTLIMIT 0.05
+#define FLOATLIMIT 0.0001
+int PIXELZOOM;
+
+const float pi=3.14159265358979323846264338327950288;
+//===Region
+long LocalRegion;
+//===End
+//===VRAM
+long RENDERTIMER;
+long WALKTIMER;
+float LASTTIME;
+int ISWALKING;
+
+unsigned char buffer1[1024]; 
+unsigned char buffer2[1024];
+unsigned char bufferdd1[1024]; 
+unsigned char bufferdd2[1024];
+//===End
+//===Creature
+
+//===End
+//===Position
+int Deg;
+float pos_X,pos_Y,pos_Z,Theta,cos_T,sin_T;
+//===End
+
+//===RenderQueue
+#define MAXRENDERQUEUE 100
+
+long RQPointer[MAXRENDERQUEUE];
+char RQType[MAXRENDERQUEUE];                                    //RenderQueue Type:   0-None   1-Static Wall   2-Static Floor Triangle
+int RQNumber;
+//===End
+
+//===Painter
+#define MULTI 1048576
+#define LNMULTI 20
+
+float f_A,f_B,f_C,f_D,f_E,f_F;
+
+int Brush,w,h;
+int w_map,h_map,zoom_map;
+long Start_map;
+long picStart1,picStart2,picStart3;
+//===End
+
+//===Dyamic
+#define MAXPOINTDS 30
+//30=20+2*5
+float PointDX[MAXPOINTDS];
+float PointDY[MAXPOINTDS];
+int PointDNum;
+
+#define MAXOBJECTDS 20
+long ObjectDPoint[MAXOBJECTDS];
+long ObjectDTexture[MAXOBJECTDS];
+float ObjectDY[MAXOBJECTDS];
+float ObjectDH[MAXOBJECTDS];
+float ObjectDW[MAXOBJECTDS];
+int ObjectDNum;
+
+#define MAXWALLDS 5
+long WallDLeftPoint[MAXWALLDS];
+long WallDRightPoint[MAXWALLDS];
+float WallDY1[MAXWALLDS];
+float WallDY2[MAXWALLDS];
+float WallDRepeat[MAXWALLDS];
+long WallDTexture[MAXWALLDS];
+int WallDNum;
+
+//===End
+
+int GetABC(float x1,float y1,float x2,float y2,float *A,float *B,float *C)
+{*A=y2-y1;*B=x1-x2;*C=x2*y1-x1*y2;
+if(*C&lt;0){*A=-*A;*B=-*B;*C=-*C;}}//if (x1,y1)=(x2,y2) then ABC=(0,0,0)!!
+
+void TransferPoint1S(long i,float *x,float *z)
+{
+   float x1,y1;
+   if(i&gt;=0){x1=PointX[i]-pos_X;y1=PointY[i]-pos_Y;}
+         else{i=-i-1;x1=PointDX[i]-pos_X;y1=PointDY[i]-pos_Y;}
+   *x=x1*sin_T-y1*cos_T;
+   *z=x1*cos_T+y1*sin_T;
+}
+int TransferPoint2S(float x,float z,float x2,float z2)
+{  
+    if(z&gt;FLOATLIMIT){
+        if(PIXELZOOM*x&gt;(127-64)*z)return 127;
+        else if(PIXELZOOM*x&lt;(1-64)*z)return 1;
+        else return(int)(64+PIXELZOOM*x/z);
+    }else{
+        return ((z2*x-z*x2)&gt;0)==(z2-z&gt;0)?127:1;
+    }
+}
+int TransferPoint20S(float x,float z)
+{  
+    if(z&gt;FLOATLIMIT)return(int)(64+PIXELZOOM*x/z);
+    else return 0;
+}
+int TransferPoint21S(float x,float z,float x2,float z2)
+{  
+    if(z&gt;FLOATLIMIT)return(int)(64+PIXELZOOM*x/z);
+    else if(fabsf(z2-z)&gt;FLOATLIMIT)return (int)(64+PIXELZOOM*((z2-SIGHTLIMIT)*x-(z-SIGHTLIMIT)*x2)/SIGHTLIMIT/(z2-z));
+    else return 0;
+}
+int TransferPoint22S(float y,float z,int ceilorfloor)
+{
+    if(z&gt;FLOATLIMIT){
+        if(PIXELZOOM*y&gt;(Deg-1)*z)return 1;
+        else if(PIXELZOOM*y&lt;(Deg-63)*z)return 63;
+        else return ceilorfloor?ceilf(Deg-PIXELZOOM*y/z):floorf(Deg-PIXELZOOM*y/z);
+    }else{
+        if(y&gt;0)return 1; else return 63;
+    }
+}
+int TransferPoint23S(float y,float z)
+{
+    if(z&gt;FLOATLIMIT)return (int)(Deg-PIXELZOOM*y/z);
+    else if(y&gt;0)return 1; else return 63;
+}
+void GetAB(int *A,int *B,char type,float x1,float z1,float x2,float z2,float x3,float z3,float d2)
+{
+   int a,b,t;
+   float tf;
+   if(type==1){a=TransferPoint2S(x1,z1,x2,z2);b=TransferPoint2S(x2,z2,x1,z1);}
+   if(type==2){
+      if(z1&lt;z2){tf=z1;z1=z2;z2=tf;tf=x1;x1=x2;x2=tf;}
+      if(z1&lt;z3){tf=z1;z1=z3;z3=tf;tf=x1;x1=x3;x3=tf;} //z1 is max
+      if(z1&lt;0){a=0;b=0;}
+      else{  //x1,z1&gt;0!
+         a=TransferPoint2S(x1,z1,0,0);b=a;
+         t=TransferPoint2S(x2,z2,x1,z1);if(t&lt;a)a=t; else if(t&gt;b)b=t;
+         t=TransferPoint2S(x3,z3,x1,z1);if(t&lt;a)a=t; else if(t&gt;b)b=t;
+      }
+   }
+   if(type==3){a=TransferPoint2S(x1-d2,z1,0,0);b=TransferPoint2S(x1+d2,z1,0,0);}
+   if(a&lt;b){*A=a;*B=b;}else{*A=b;*B=a;}
+}
+</pre></details><details><summary>originals/Textures.h</summary><pre>//0 SoildMask
+//128 Wall l
+//256 Wall d
+//384 Window l
+//512 Window d
+//640 Window a
+//768 Debug
+//896 Floorm l
+//1024 Floorm d
+//1152Floord l
+//1280Floorl d
+//1408Debug Tree ld
+//1536DebugTree a
+//1664 LMG ld  44
+//2368 LMG a
+//3072 water d
+//3104 voidmask
+//3232 rock l
+//3264 rock d
+//3296 house l
+//3568 house d
+//3840 house a
+//4112 ground l
+//4144 grass l
+//4176 RPG l&amp;d    47
+//4928 RPG a
+//5680 LMG_S l&amp;d
+//6704 LMG_S a
+//7728 grass l
+//7760 grass d
+//7792 people up l
+//7824 people up l
+//7856 people down l
+//7888 people down l
+//7920 people up d
+//7952 people up d
+//7984 people down d
+//8016 people down d
+//8048 people up a
+//8080 people up a
+//8112 people down a
+//8144 people down a
+//8176 people left l
+//8208 people left d
+//8240 people left a
+//8272 people left l
+//8304 people left d
+//8336 people left a
+const unsigned char picturebuffer[]={
+//0 SoildMask
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+
+//128 Wall l
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 15, 255, 129, 252,
+ 15, 255, 129, 252,
+ 15, 255, 129, 252,
+ 15, 255, 129, 252,
+ 15, 255, 129, 252,
+ 15, 255, 129, 252,
+ 15, 255, 129, 248,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 15, 129, 255, 252,
+ 15, 129, 255, 252,
+ 15, 129, 255, 252,
+ 15, 129, 255, 252,
+ 15, 129, 255, 252,
+ 15, 129, 255, 252,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 31, 255, 7, 240,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+
+//256 Wall d
+ 0, 0, 0, 0,
+ 127, 255, 239, 255,
+ 127, 255, 239, 255,
+ 127, 255, 239, 255,
+ 112, 0, 110, 3,
+ 112, 0, 110, 3,
+ 112, 0, 110, 3,
+ 112, 0, 110, 3,
+ 112, 0, 110, 3,
+ 112, 0, 110, 2,
+ 112, 0, 110, 4,
+ 127, 255, 239, 249,
+ 127, 255, 239, 243,
+ 0, 0, 0, 0,
+ 127, 231, 255, 255,
+ 127, 231, 255, 255,
+ 127, 239, 255, 255,
+ 112, 110, 0, 3,
+ 112, 110, 0, 3,
+ 112, 110, 0, 3,
+ 112, 110, 0, 3,
+ 112, 110, 0, 3,
+ 112, 110, 0, 3,
+ 127, 239, 255, 255,
+ 127, 239, 255, 255,
+ 0, 0, 0, 0,
+ 255, 255, 195, 253,
+ 255, 255, 199, 253,
+ 255, 255, 207, 253,
+ 224, 0, 216, 13,
+ 255, 255, 223, 253,
+ 255, 255, 223, 253,
+
+//384 Window l
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 195, 255, 255, 195,
+ 194, 1, 128, 67,
+ 194, 1, 128, 67,
+ 194, 1, 128, 67,
+ 196, 1, 128, 35,
+ 196, 1, 128, 35,
+ 196, 1, 128, 35,
+ 196, 1, 128, 35,
+ 204, 1, 128, 51,
+ 207, 255, 255, 243,
+ 207, 255, 255, 243,
+ 204, 1, 128, 51,
+ 196, 1, 128, 35,
+ 196, 1, 128, 35,
+ 196, 1, 128, 35,
+ 194, 1, 128, 67,
+ 194, 1, 128, 67,
+ 194, 1, 128, 67,
+ 194, 1, 128, 67,
+ 199, 255, 255, 227,
+ 199, 255, 255, 227,
+ 199, 255, 255, 227,
+ 199, 255, 255, 227,
+ 196, 0, 0, 99,
+ 203, 240, 0, 115,
+ 203, 240, 248, 115,
+ 199, 240, 248, 35,
+ 195, 240, 248, 195,
+ 218, 0, 248, 219,
+ 252, 0, 4, 255,
+
+//512 Window d
+ 0, 0, 0, 0,
+ 126, 0, 0, 126,
+ 127, 255, 255, 254,
+ 126, 1, 128, 126,
+ 126, 1, 128, 126,
+ 126, 1, 128, 126,
+ 124, 1, 128, 62,
+ 124, 1, 128, 62,
+ 124, 1, 128, 62,
+ 124, 1, 128, 62,
+ 124, 1, 128, 62,
+ 127, 255, 255, 254,
+ 127, 255, 255, 254,
+ 124, 1, 128, 62,
+ 124, 1, 128, 62,
+ 124, 1, 128, 62,
+ 124, 1, 128, 62,
+ 126, 1, 128, 126,
+ 126, 1, 128, 126,
+ 126, 1, 128, 126,
+ 126, 1, 128, 126,
+ 127, 255, 255, 254,
+ 124, 0, 0, 62,
+ 124, 0, 0, 62,
+ 127, 255, 255, 254,
+ 127, 251, 253, 190,
+ 124, 11, 253, 158,
+ 124, 11, 5, 158,
+ 124, 11, 5, 254,
+ 126, 11, 4, 126,
+ 127, 251, 4, 126,
+ 36, 3, 248, 36,
+
+//640 Window a
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 254, 1, 128, 127,
+ 254, 1, 128, 127,
+ 254, 1, 128, 127,
+ 252, 1, 128, 63,
+ 252, 1, 128, 63,
+ 252, 1, 128, 63,
+ 252, 1, 128, 63,
+ 252, 1, 128, 63,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 252, 1, 128, 63,
+ 252, 1, 128, 63,
+ 252, 1, 128, 63,
+ 252, 1, 128, 63,
+ 254, 1, 128, 127,
+ 254, 1, 128, 127,
+ 254, 1, 128, 127,
+ 254, 1, 128, 127,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+
+//768 Debug
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 255, 255, 0, 0,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+ 0, 0, 255, 255,
+
+//896 Floorm l
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 3, 192, 0,
+ 0, 12, 56, 0,
+ 0, 48, 4, 0,
+ 0, 64, 2, 0,
+ 0, 128, 29, 0,
+ 0, 128, 63, 0,
+ 1, 0, 127, 128,
+ 1, 48, 243, 128,
+ 1, 120, 225, 128,
+ 1, 121, 225, 128,
+ 1, 49, 243, 128,
+ 0, 131, 255, 0,
+ 0, 199, 255, 0,
+ 0, 127, 254, 0,
+ 0, 127, 254, 0,
+ 0, 63, 252, 0,
+ 0, 31, 240, 0,
+ 0, 3, 192, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+
+//1024 Floorm d
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 7, 224, 0,
+ 1, 0, 0, 128,
+ 4, 7, 224, 64,
+ 8, 128, 2, 32,
+ 17, 0, 1, 16,
+ 34, 0, 0, 136,
+ 4, 0, 0, 64,
+ 8, 0, 0, 32,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 40, 0, 0, 20,
+ 40, 0, 0, 20,
+ 40, 0, 0, 20,
+ 40, 0, 0, 20,
+ 40, 0, 0, 20,
+ 40, 0, 0, 20,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 32,
+ 8, 0, 0, 64,
+ 4, 0, 0, 136,
+ 34, 0, 1, 16,
+ 17, 0, 2, 32,
+ 8, 128, 0, 64,
+ 4, 7, 224, 128,
+ 2, 0, 0, 0,
+ 0, 7, 224, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+
+//1152Floord l
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 51, 51, 51, 51,
+ 51, 51, 51, 51,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 48, 48, 48, 48,
+ 48, 48, 48, 48,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 51, 51, 51, 51,
+ 51, 51, 51, 51,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 48, 48, 48, 48,
+ 48, 48, 48, 48,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 51, 51, 51, 51,
+ 51, 51, 51, 51,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 48, 48, 48, 48,
+ 48, 48, 48, 48,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 51, 51, 51, 51,
+ 51, 51, 51, 51,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 48, 48, 48, 48,
+ 48, 48, 48, 48,
+
+//1280Floorl d
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 3, 3, 3, 3,
+ 3, 3, 3, 3,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 3, 3, 3, 3,
+ 3, 3, 3, 3,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 3, 3, 3, 3,
+ 3, 3, 3, 3,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 3, 3, 3, 3,
+ 3, 3, 3, 3,
+
+//1408Debug Tree ld
+ 0, 15, 240, 0,
+ 0, 127, 254, 0,
+ 1, 255, 255, 128,
+ 7, 240, 15, 224,
+ 15, 192, 1, 240,
+ 31, 0, 0, 248,
+ 60, 0, 0, 60,
+ 56, 0, 0, 30,
+ 120, 0, 0, 14,
+ 112, 0, 0, 14,
+ 240, 0, 0, 7,
+ 224, 0, 0, 7,
+ 224, 0, 0, 7,
+ 224, 0, 0, 7,
+ 224, 0, 0, 7,
+ 240, 0, 0, 7,
+ 112, 3, 128, 14,
+ 112, 3, 192, 14,
+ 56, 3, 192, 30,
+ 60, 3, 192, 60,
+ 30, 3, 192, 120,
+ 15, 131, 193, 240,
+ 7, 243, 207, 224,
+ 1, 255, 255, 128,
+ 0, 255, 254, 0,
+ 0, 15, 240, 0,
+ 0, 3, 192, 0,
+ 0, 3, 192, 0,
+ 0, 3, 192, 0,
+ 0, 3, 192, 0,
+ 0, 3, 192, 0,
+ 0, 3, 192, 0,
+
+//1536DebugTree a
+ 0, 15, 240, 0,
+ 0, 127, 254, 0,
+ 1, 255, 255, 128,
+ 7, 255, 255, 224,
+ 15, 255, 255, 240,
+ 31, 255, 255, 248,
+ 63, 255, 255, 252,
+ 63, 255, 255, 254,
+ 127, 255, 255, 254,
+ 127, 255, 255, 254,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 255, 255, 255, 255,
+ 127, 255, 255, 254,
+ 127, 255, 255, 254,
+ 63, 255, 255, 254,
+ 63, 255, 255, 252,
+ 31, 255, 255, 248,
+ 15, 255, 255, 240,
+ 7, 255, 255, 224,
+ 1, 255, 255, 128,
+ 0, 255, 254, 0,
+ 0, 15, 240, 0,
+ 0, 3, 192, 0,
+ 0, 3, 192, 0,
+ 0, 3, 192, 0,
+ 0, 3, 192, 0,
+ 0, 3, 192, 0,
+ 0, 3, 192, 0,
+
+//1664 LMG l&amp;d
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 248, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 241, 8, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 18, 8, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 222, 8, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 130, 127, 200, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 140, 198, 15, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 137, 142, 126, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 145, 27, 193, 128, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 81, 35, 96, 96, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 58, 34, 0, 32, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 4, 30, 16, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 62, 8, 33, 16, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 136, 64, 136, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 57, 200, 66, 136, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 56, 248, 70, 136, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 56, 28, 92, 136, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 184, 6, 33, 16, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 1, 128, 0, 152, 3, 30, 32, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 3, 64, 0, 216, 3, 0, 96, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 2, 56, 3, 120, 0, 197, 128, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 2, 12, 126, 120, 0, 62, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 2, 7, 192, 120, 0, 130, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 14, 0, 130, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 1, 131, 0, 3, 128, 131, 0, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 193, 128, 0, 192, 135, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 115, 192, 0, 112, 135, 128, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 80, 0, 31, 1, 252, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 56, 0, 15, 192, 12, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 30, 0, 11, 97, 200, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 7, 0, 48, 3, 8, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 192, 245, 131, 192, 32, 30, 136, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 193, 152, 129, 224, 32, 240, 216, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 3, 195, 184, 224, 120, 33, 130, 206, 0,
+ 0, 0, 0, 0, 0, 0, 0, 15, 254, 160, 48, 96, 39, 2, 3, 240,
+ 0, 0, 0, 0, 0, 0, 0, 24, 127, 248, 12, 48, 36, 0, 1, 24,
+ 0, 0, 0, 0, 0, 0, 0, 48, 31, 254, 4, 30, 36, 0, 1, 12,
+ 0, 0, 0, 0, 0, 0, 0, 97, 240, 123, 194, 3, 136, 0, 1, 12,
+ 0, 0, 0, 0, 0, 0, 0, 247, 31, 14, 121, 128, 232, 0, 239, 248,
+ 0, 0, 0, 0, 0, 0, 0, 102, 1, 199, 12, 192, 56, 143, 192, 96,
+ 0, 0, 0, 0, 0, 0, 1, 230, 0, 69, 128, 96, 31, 248, 0, 32,
+
+ 0, 0, 0, 0, 0, 0, 1, 76, 0, 96, 192, 48, 24, 0, 64, 24,
+ 0, 0, 0, 0, 0, 0, 2, 92, 48, 48, 120, 28, 8, 0, 96, 4,
+ 0, 0, 0, 0, 0, 0, 2, 116, 62, 24, 12, 6, 136, 0, 32, 4,
+ 0, 0, 0, 0, 0, 0, 2, 124, 66, 0, 6, 3, 152, 0, 0, 4,
+//44*16=704
+
+//2368 LMG a
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 248, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 241, 248, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 243, 248, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 255, 248, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 248, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 254, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 128, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 255, 255, 224, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 255, 255, 224, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 255, 255, 240, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 255, 255, 240, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 255, 255, 248, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 255, 255, 248, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 255, 255, 248, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 255, 255, 248, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 191, 255, 255, 240, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 1, 128, 0, 159, 255, 255, 224, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 3, 192, 0, 223, 255, 255, 224, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 3, 248, 3, 255, 255, 255, 128, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 3, 252, 127, 255, 255, 254, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 3, 255, 255, 255, 255, 254, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 3, 255, 255, 255, 255, 254, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 1, 255, 255, 255, 255, 255, 0, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 255, 255, 255, 255, 128, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 255, 255, 255, 255, 252, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 255, 255, 255, 255, 252, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 255, 255, 255, 255, 248, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 255, 255, 255, 255, 248, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 192, 247, 255, 255, 255, 255, 248, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 193, 255, 255, 255, 255, 255, 248, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 3, 195, 255, 255, 255, 255, 255, 254, 0,
+ 0, 0, 0, 0, 0, 0, 0, 15, 255, 255, 255, 255, 255, 255, 255, 240,
+ 0, 0, 0, 0, 0, 0, 0, 31, 255, 255, 255, 255, 255, 255, 255, 248,
+ 0, 0, 0, 0, 0, 0, 0, 63, 255, 255, 255, 255, 255, 255, 255, 252,
+ 0, 0, 0, 0, 0, 0, 0, 127, 255, 255, 255, 255, 255, 255, 255, 252,
+ 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 248,
+ 0, 0, 0, 0, 0, 0, 0, 127, 255, 255, 255, 255, 255, 255, 255, 224,
+ 0, 0, 0, 0, 0, 0, 1, 255, 255, 255, 255, 255, 255, 255, 255, 224,
+
+ 0, 0, 0, 0, 0, 0, 1, 255, 255, 255, 255, 255, 255, 255, 255, 248,
+ 0, 0, 0, 0, 0, 0, 3, 255, 255, 255, 255, 255, 255, 255, 255, 252,
+ 0, 0, 0, 0, 0, 0, 3, 255, 255, 255, 255, 255, 255, 255, 255, 252,
+ 0, 0, 0, 0, 0, 0, 3, 255, 255, 255, 255, 255, 255, 255, 255, 252,
+
+//3072 water d
+ 231, 231,
+ 207, 207,
+ 207, 207,
+ 231, 231,
+ 241, 241,
+ 126, 126,
+ 159, 159,
+ 207, 207,
+ 231, 231,
+ 207, 207,
+ 207, 207,
+ 231, 231,
+ 241, 241,
+ 126, 126,
+ 159, 159,
+ 207, 207,
+
+//3104 voidmask
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+ 0, 0, 0, 0,
+
+//3232 rock l
+ 213, 213,
+ 68, 68,
+ 24, 24,
+ 28, 28,
+ 60, 60,
+ 124, 124,
+ 59, 59,
+ 255, 255,
+ 213, 213,
+ 68, 68,
+ 24, 24,
+ 28, 28,
+ 60, 60,
+ 124, 124,
+ 59, 59,
+ 255, 255,
+
+//3264 rock d
+ 171, 171,
+ 94, 94,
+ 60, 60,
+ 58, 58,
+ 87, 87,
+ 175, 175,
+ 247, 247,
+ 225, 225,
+ 171, 171,
+ 94, 94,
+ 60, 60,
+ 58, 58,
+ 87, 87,
+ 175, 175,
+ 247, 247,
+ 225, 225,
+
+//3296 house l
+ 0, 1, 255, 255, 255, 255, 128, 0,
+ 0, 6, 0, 0, 0, 0, 96, 0,
+ 0, 25, 255, 255, 255, 255, 152, 0,
+ 0, 103, 255, 127, 255, 255, 230, 0,
+ 1, 159, 126, 0, 126, 126, 249, 128,
+ 6, 127, 133, 0, 133, 133, 254, 96,
+ 25, 255, 137, 0, 137, 137, 255, 152,
+ 103, 248, 147, 255, 147, 147, 31, 230,
+
+ 159, 224, 165, 0, 165, 165, 7, 249,
+ 127, 128, 201, 0, 201, 201, 1, 254,
+ 14, 0, 126, 0, 126, 126, 0, 112,
+ 31, 0, 0, 0, 0, 0, 0, 248,
+ 24, 255, 255, 255, 255, 255, 255, 24,
+ 24, 255, 255, 255, 255, 255, 255, 24,
+ 24, 255, 255, 255, 255, 255, 255, 24,
+ 31, 255, 255, 255, 255, 255, 255, 248,
+
+ 31, 255, 255, 255, 255, 255, 255, 248,
+ 31, 0, 0, 0, 0, 0, 0, 248,
+ 31, 255, 255, 255, 255, 255, 255, 248,
+ 4, 127, 95, 250, 255, 255, 127, 32,
+ 4, 0, 127, 254, 126, 126, 0, 32,
+ 4, 0, 96, 6, 133, 133, 0, 32,
+ 4, 0, 103, 230, 137, 137, 0, 32,
+ 4, 255, 40, 84, 147, 147, 255, 32,
+
+ 4, 0, 40, 180, 165, 165, 0, 32,
+ 4, 0, 41, 116, 201, 201, 0, 32,
+ 4, 0, 42, 244, 126, 126, 0, 32,
+ 7, 255, 39, 236, 255, 255, 255, 224,
+ 4, 255, 32, 20, 255, 255, 255, 32,
+ 4, 0, 40, 28, 0, 0, 0, 32,
+ 7, 255, 39, 244, 255, 255, 255, 224,
+ 6, 0, 39, 244, 0, 0, 0, 96,
+
+ 6, 0, 32, 4, 0, 0, 0, 96,
+ 3, 255, 63, 252, 255, 255, 255, 192,
+//8*34=272
+
+//3568 house d
+ 0, 1, 255, 255, 255, 255, 128, 0,
+ 0, 7, 255, 255, 255, 255, 224, 0,
+ 0, 31, 255, 255, 255, 255, 248, 0,
+ 0, 126, 0, 128, 0, 0, 126, 0,
+ 1, 248, 255, 0, 255, 255, 31, 128,
+ 7, 224, 129, 0, 129, 129, 7, 224,
+ 31, 128, 131, 0, 131, 131, 1, 248,
+ 126, 0, 133, 0, 133, 133, 0, 126,
+
+ 248, 0, 139, 0, 139, 139, 0, 31,
+ 120, 0, 151, 0, 151, 151, 0, 30,
+ 8, 0, 255, 0, 255, 255, 0, 16,
+ 24, 255, 255, 255, 255, 255, 255, 24,
+ 24, 0, 0, 0, 0, 0, 0, 24,
+ 24, 0, 0, 0, 0, 0, 0, 24,
+ 24, 0, 0, 0, 0, 0, 0, 24,
+ 24, 0, 0, 0, 0, 0, 0, 24,
+
+ 31, 255, 255, 255, 255, 255, 255, 248,
+ 16, 255, 255, 255, 255, 255, 255, 8,
+ 31, 255, 255, 255, 255, 255, 255, 248,
+ 4, 128, 160, 5, 0, 0, 128, 32,
+ 4, 0, 191, 253, 255, 255, 0, 32,
+ 4, 0, 191, 253, 129, 129, 0, 32,
+ 4, 0, 191, 253, 131, 131, 0, 32,
+ 4, 0, 184, 29, 133, 133, 0, 32,
+
+ 4, 0, 184, 29, 139, 139, 0, 32,
+ 4, 0, 184, 29, 151, 151, 0, 32,
+ 4, 0, 184, 29, 255, 255, 0, 32,
+ 4, 0, 191, 253, 0, 0, 0, 32,
+ 4, 0, 191, 245, 0, 0, 0, 32,
+ 4, 0, 176, 13, 0, 0, 0, 32,
+ 4, 0, 176, 13, 0, 0, 0, 32,
+ 5, 255, 176, 13, 255, 255, 255, 160,
+
+ 5, 255, 191, 253, 255, 255, 255, 160,
+ 3, 255, 191, 253, 255, 255, 255, 192,
+
+//3840 house a
+ 0, 1, 255, 255, 255, 255, 128, 0,
+ 0, 7, 255, 255, 255, 255, 224, 0,
+ 0, 31, 255, 255, 255, 255, 248, 0,
+ 0, 127, 255, 255, 255, 255, 254, 0,
+ 1, 255, 255, 255, 255, 255, 255, 128,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 31, 255, 255, 255, 255, 255, 255, 248,
+ 127, 255, 255, 255, 255, 255, 255, 254,
+
+ 255, 255, 255, 255, 255, 255, 255, 255,
+ 127, 255, 255, 255, 255, 255, 255, 254,
+ 15, 255, 255, 255, 255, 255, 255, 240,
+ 31, 255, 255, 255, 255, 255, 255, 248,
+ 31, 255, 255, 255, 255, 255, 255, 248,
+ 31, 255, 255, 255, 255, 255, 255, 248,
+ 31, 255, 255, 255, 255, 255, 255, 248,
+ 31, 255, 255, 255, 255, 255, 255, 248,
+
+ 31, 255, 255, 255, 255, 255, 255, 248,
+ 31, 255, 255, 255, 255, 255, 255, 248,
+ 31, 255, 255, 255, 255, 255, 255, 248,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 7, 255, 255, 255, 255, 255, 255, 224,
+
+ 7, 255, 255, 255, 255, 255, 255, 224,
+ 3, 255, 255, 255, 255, 255, 255, 192,
+
+//4112 ground l
+ 224, 224,
+ 255, 255,
+ 14, 14,
+ 4, 4,
+ 14, 14,
+ 255, 255,
+ 224, 224,
+ 64, 64,
+ 224, 224,
+ 255, 255,
+ 14, 14,
+ 4, 4,
+ 14, 14,
+ 255, 255,
+ 224, 224,
+ 64, 64,
+
+//4144 grass l
+ 81, 81,
+ 163, 163,
+ 87, 87,
+ 174, 174,
+ 212, 212,
+ 137, 137,
+ 95, 95,
+ 234, 234,
+ 81, 81,
+ 163, 163,
+ 87, 87,
+ 174, 174,
+ 212, 212,
+ 137, 137,
+ 95, 95,
+ 234, 234,
+
+//4176 RPG l&amp;d
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 230, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 1, 133, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 112, 0, 193, 0, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 216, 0, 129, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 136, 0, 193, 128, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 216, 0, 64, 128, 0,
+ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 80, 0, 64, 128, 0,
+ 0, 0, 0, 0, 0, 0, 2, 1, 0, 128, 0, 208, 0, 64, 128, 0,
+ 0, 0, 0, 0, 0, 0, 3, 111, 237, 128, 31, 240, 0, 65, 224, 0,
+ 0, 0, 0, 0, 0, 0, 0, 129, 2, 0, 48, 112, 0, 103, 176, 0,
+ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 96, 112, 0, 252, 176, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 192, 120, 0, 128, 176, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 56, 0, 128, 176, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 128, 28, 0, 128, 240, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 128, 15, 128, 128, 160, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 240, 7, 224, 131, 176, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 248, 14, 48, 142, 56, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 28, 24, 248, 240, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 56, 14, 135, 184, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 112, 3, 252, 24, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 224, 7, 224, 31, 128,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 192, 15, 7, 255, 240,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 192, 54, 63, 31, 248,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 192, 96, 224, 63, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 96, 192, 224, 255, 239,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 33, 129, 195, 224, 127,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 227, 177, 199, 143, 0, 30,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 232, 223, 14, 60, 0, 6,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 110, 24, 56, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 54, 48, 112, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 156, 48, 240, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 236, 49, 224, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 188, 33, 192, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 252, 97, 192, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 99, 192, 0, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 99, 192, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 99, 192, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 99, 192, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 49, 224, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 49, 224, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 24, 240, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 142, 120, 0, 0,
+//16*47=752
+
+//4928 RPG a
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 254, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 254, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 254, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 254, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 255, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 1, 255, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 112, 0, 255, 0, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 248, 0, 255, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 248, 0, 255, 128, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 248, 0, 127, 128, 0,
+ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 112, 0, 127, 128, 0,
+ 0, 0, 0, 0, 0, 0, 2, 1, 0, 128, 0, 240, 0, 127, 128, 0,
+ 0, 0, 0, 0, 0, 0, 3, 111, 237, 128, 31, 240, 0, 127, 224, 0,
+ 0, 0, 0, 0, 0, 0, 0, 129, 2, 0, 63, 240, 0, 127, 240, 0,
+ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 127, 240, 0, 255, 240, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 248, 0, 255, 240, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 248, 0, 255, 240, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 255, 252, 0, 255, 240, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 255, 255, 128, 255, 224, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 224, 255, 240, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 240, 255, 248, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 255, 248, 255, 240, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 255, 254, 255, 248, 0,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 255, 255, 255, 248, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 255, 255, 255, 255, 128,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 255, 255, 255, 255, 240,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 255, 255, 255, 255, 248,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 255, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 255, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 255, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 255, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 255, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 255, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 255, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 255, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 255, 255, 255, 255,
+
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 255, 255, 255, 255,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 255, 255, 255, 255,
+
+//5680 LMG_S l&amp;d
+ 0, 0, 0, 0, 0, 0, 0, 63, 240, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 1, 255, 255, 128, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 15, 255, 255, 240, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 63, 255, 255, 248, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 255, 255, 255, 254, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 3, 255, 255, 255, 255, 128, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 7, 255, 224, 7, 255, 192, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 255, 255, 0, 0, 255, 255, 252, 0, 0, 0, 0,
+ 0, 0, 0, 0, 103, 31, 248, 0, 0, 31, 250, 14, 0, 0, 0, 0,
+ 0, 0, 0, 0, 193, 255, 224, 0, 0, 7, 251, 241, 0, 0, 0, 0,
+ 0, 0, 0, 1, 152, 127, 192, 0, 0, 3, 252, 25, 0, 0, 0, 0,
+ 0, 0, 0, 1, 16, 255, 0, 0, 0, 0, 254, 9, 0, 0, 0, 0,
+ 0, 0, 0, 1, 145, 254, 0, 0, 0, 0, 127, 9, 0, 0, 0, 0,
+ 0, 0, 0, 0, 223, 252, 0, 0, 0, 0, 63, 138, 0, 0, 0, 0,
+ 0, 0, 0, 0, 243, 248, 0, 0, 0, 0, 31, 178, 0, 0, 0, 0,
+ 0, 0, 0, 0, 87, 240, 0, 0, 0, 0, 15, 230, 0, 0, 0, 0,
+ 0, 0, 0, 0, 103, 240, 0, 0, 0, 0, 7, 204, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 224, 0, 0, 0, 0, 7, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 192, 0, 0, 0, 0, 3, 224, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 192, 0, 0, 0, 0, 3, 240, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 128, 0, 0, 0, 0, 1, 240, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 128, 0, 0, 0, 0, 1, 240, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 127, 0, 0, 0, 0, 0, 0, 120, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 146, 64, 1, 36, 128, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 255, 248, 15, 255, 128, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 146, 64, 1, 36, 128, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 0, 0, 128, 0, 0, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 0, 128, 0, 0, 120, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 0, 128, 0, 0, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 0, 138, 0, 0, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 3, 234, 0, 0, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 128, 0, 0, 142, 0, 1, 240, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 128, 0, 0, 130, 0, 1, 240, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 192, 0, 0, 156, 0, 3, 240, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 192, 0, 0, 144, 0, 3, 224, 0, 0, 0, 0,
+ 0, 0, 0, 0, 15, 224, 0, 1, 220, 0, 7, 224, 0, 0, 0, 0,
+ 0, 0, 0, 0, 7, 240, 0, 0, 148, 0, 7, 192, 0, 0, 0, 0,
+ 0, 0, 0, 0, 7, 240, 0, 0, 156, 0, 15, 192, 0, 0, 0, 0,
+ 0, 0, 0, 0, 3, 248, 0, 0, 128, 0, 31, 128, 0, 0, 0, 0,
+ 0, 0, 0, 0, 3, 252, 0, 0, 0, 0, 63, 128, 0, 0, 0, 0,
+ 0, 0, 0, 0, 1, 254, 0, 0, 0, 0, 127, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 255, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 3, 255, 192, 0, 0, 3, 254, 192, 0, 0, 0, 0,
+ 0, 0, 0, 0, 15, 255, 224, 0, 0, 7, 254, 96, 4, 0, 0, 0,
+ 0, 0, 0, 0, 8, 255, 248, 0, 0, 31, 255, 144, 6, 0, 0, 0,
+ 0, 0, 0, 0, 19, 255, 255, 0, 0, 127, 255, 204, 126, 0, 0, 0,
+ 0, 0, 0, 0, 55, 255, 255, 224, 7, 255, 255, 239, 254, 0, 0, 0,
+ 0, 0, 0, 0, 103, 255, 255, 255, 255, 255, 255, 231, 254, 0, 0, 0,
+ 0, 0, 0, 0, 103, 255, 255, 255, 255, 255, 255, 247, 255, 0, 0, 0,
+ 0, 0, 0, 0, 111, 255, 255, 255, 255, 255, 255, 247, 255, 0, 0, 0,
+ 0, 0, 0, 0, 111, 255, 255, 255, 255, 255, 255, 247, 255, 0, 0, 0,
+ 0, 0, 0, 0, 111, 255, 255, 255, 255, 255, 255, 231, 255, 0, 0, 0,
+ 0, 0, 0, 0, 103, 255, 255, 255, 255, 255, 255, 207, 255, 0, 0, 0,
+ 0, 0, 0, 0, 51, 255, 255, 255, 255, 255, 255, 159, 255, 0, 0, 0,
+ 0, 0, 0, 0, 25, 255, 255, 255, 255, 255, 255, 59, 255, 0, 0, 0,
+ 0, 0, 0, 0, 30, 255, 255, 255, 255, 255, 252, 119, 255, 0, 0, 0,
+
+//6704 LMG_S a
+ 0, 0, 0, 0, 0, 0, 0, 63, 240, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 1, 255, 255, 128, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 15, 255, 255, 240, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 63, 255, 255, 248, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 255, 255, 255, 254, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 3, 255, 255, 255, 255, 128, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 7, 255, 224, 7, 255, 192, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 255, 255, 0, 0, 255, 255, 252, 0, 0, 0, 0,
+ 0, 0, 0, 0, 127, 255, 248, 0, 0, 31, 251, 254, 0, 0, 0, 0,
+ 0, 0, 0, 0, 255, 255, 224, 0, 0, 7, 251, 255, 0, 0, 0, 0,
+ 0, 0, 0, 1, 255, 255, 192, 0, 0, 3, 252, 31, 0, 0, 0, 0,
+ 0, 0, 0, 1, 255, 255, 0, 0, 0, 0, 254, 15, 0, 0, 0, 0,
+ 0, 0, 0, 1, 255, 254, 0, 0, 0, 0, 127, 15, 0, 0, 0, 0,
+ 0, 0, 0, 0, 255, 252, 0, 0, 0, 0, 63, 142, 0, 0, 0, 0,
+ 0, 0, 0, 0, 255, 248, 0, 0, 0, 0, 31, 190, 0, 0, 0, 0,
+ 0, 0, 0, 0, 127, 240, 0, 0, 0, 0, 15, 254, 0, 0, 0, 0,
+ 0, 0, 0, 0, 127, 240, 0, 0, 0, 0, 7, 252, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 224, 0, 0, 0, 0, 7, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 192, 0, 0, 0, 0, 3, 224, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 192, 0, 0, 0, 0, 3, 240, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 128, 0, 0, 0, 0, 1, 240, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 128, 0, 0, 0, 0, 1, 240, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 127, 0, 0, 0, 0, 0, 0, 120, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 146, 64, 1, 36, 128, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 255, 248, 15, 255, 128, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 146, 64, 1, 36, 128, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 126, 0, 0, 0, 128, 0, 0, 124, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 0, 128, 0, 0, 120, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 0, 128, 0, 0, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 0, 138, 0, 0, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 0, 0, 3, 234, 0, 0, 248, 0, 0, 0, 0,
+ 0, 0, 0, 0, 63, 128, 0, 0, 142, 0, 1, 240, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 128, 0, 0, 130, 0, 1, 240, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 192, 0, 0, 156, 0, 3, 240, 0, 0, 0, 0,
+ 0, 0, 0, 0, 31, 192, 0, 0, 144, 0, 3, 224, 0, 0, 0, 0,
+ 0, 0, 0, 0, 15, 224, 0, 1, 220, 0, 7, 224, 0, 0, 0, 0,
+ 0, 0, 0, 0, 7, 240, 0, 0, 148, 0, 7, 192, 0, 0, 0, 0,
+ 0, 0, 0, 0, 7, 240, 0, 0, 156, 0, 15, 192, 0, 0, 0, 0,
+ 0, 0, 0, 0, 3, 248, 0, 0, 128, 0, 31, 128, 0, 0, 0, 0,
+ 0, 0, 0, 0, 3, 252, 0, 0, 0, 0, 63, 128, 0, 0, 0, 0,
+ 0, 0, 0, 0, 1, 254, 0, 0, 0, 0, 127, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 255, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 3, 255, 192, 0, 0, 3, 255, 192, 0, 0, 0, 0,
+ 0, 0, 0, 0, 15, 255, 224, 0, 0, 7, 255, 224, 4, 0, 0, 0,
+ 0, 0, 0, 0, 15, 255, 248, 0, 0, 31, 255, 240, 6, 0, 0, 0,
+ 0, 0, 0, 0, 31, 255, 255, 0, 0, 127, 255, 252, 126, 0, 0, 0,
+ 0, 0, 0, 0, 63, 255, 255, 224, 7, 255, 255, 255, 254, 0, 0, 0,
+ 0, 0, 0, 0, 127, 255, 255, 255, 255, 255, 255, 255, 254, 0, 0, 0,
+ 0, 0, 0, 0, 127, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0,
+ 0, 0, 0, 0, 127, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0,
+ 0, 0, 0, 0, 127, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0,
+ 0, 0, 0, 0, 127, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0,
+ 0, 0, 0, 0, 127, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0,
+ 0, 0, 0, 0, 63, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0,
+ 0, 0, 0, 0, 31, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0,
+ 0, 0, 0, 0, 31, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0,
+
+//7728 grass l
+ 1, 1,
+ 0, 0,
+ 6, 6,
+ 5, 5,
+ 32, 32,
+ 18, 18,
+ 208, 208,
+ 100, 100,
+ 1, 1,
+ 0, 0,
+ 6, 6,
+ 5, 5,
+ 32, 32,
+ 18, 18,
+ 208, 208,
+ 100, 100,
+
+//7760 grass d
+ 2, 2,
+ 5, 5,
+ 201, 201,
+ 170, 170,
+ 158, 158,
+ 76, 76,
+ 44, 44,
+ 24, 24,
+ 2, 2,
+ 5, 5,
+ 201, 201,
+ 170, 170,
+ 158, 158,
+ 76, 76,
+ 44, 44,
+ 24, 24,
+
+//7792 people up l
+//7824 people up l
+//7856 people down l
+//7888 people down l
+ 3, 192,
+ 7, 224,
+ 15, 240,
+ 19, 200,
+ 17, 136,
+ 52, 44,
+ 82, 74,
+ 66, 66,
+ 48, 12,
+ 57, 156,
+ 79, 242,
+ 79, 242,
+ 63, 252,
+ 31, 248,
+ 31, 248,
+ 14, 112,
+ 0, 0,
+ 3, 192,
+ 7, 224,
+ 15, 240,
+ 19, 200,
+ 17, 136,
+ 52, 44,
+ 82, 74,
+ 66, 66,
+ 112, 12,
+ 89, 156,
+ 63, 244,
+ 31, 204,
+ 15, 200,
+ 15, 176,
+ 7, 0,
+ 3, 192,
+ 7, 224,
+ 11, 208,
+ 16, 8,
+ 16, 8,
+ 48, 12,
+ 80, 10,
+ 64, 2,
+ 48, 12,
+ 56, 28,
+ 95, 250,
+ 95, 250,
+ 63, 252,
+ 31, 248,
+ 31, 248,
+ 14, 112,
+ 3, 192,
+ 7, 224,
+ 11, 208,
+ 16, 8,
+ 16, 8,
+ 48, 12,
+ 80, 10,
+ 64, 2,
+ 112, 12,
+ 88, 28,
+ 63, 242,
+ 31, 242,
+ 15, 252,
+ 15, 192,
+ 7, 0,
+ 0, 0,
+//7920 people up d
+//7952 people up d
+//7984 people down d
+//8016 people down d
+ 0, 0,
+ 0, 0,
+ 8, 16,
+ 16, 8,
+ 16, 8,
+ 52, 44,
+ 82, 74,
+ 64, 2,
+ 48, 12,
+ 56, 28,
+ 79, 242,
+ 79, 242,
+ 57, 156,
+ 22, 104,
+ 17, 136,
+ 14, 112,
+ 0, 0,
+ 0, 0,
+ 0, 0,
+ 8, 16,
+ 16, 8,
+ 16, 8,
+ 52, 44,
+ 82, 74,
+ 64, 2,
+ 112, 12,
+ 88, 20,
+ 63, 244,
+ 27, 204,
+ 14, 72,
+ 9, 176,
+ 7, 0,
+ 0, 0,
+ 0, 0,
+ 8, 16,
+ 16, 8,
+ 16, 8,
+ 48, 12,
+ 80, 10,
+ 64, 2,
+ 48, 12,
+ 56, 28,
+ 95, 250,
+ 95, 250,
+ 63, 252,
+ 23, 232,
+ 17, 136,
+ 14, 112,
+ 0, 0,
+ 0, 0,
+ 8, 16,
+ 16, 8,
+ 16, 8,
+ 48, 12,
+ 80, 10,
+ 64, 2,
+ 112, 12,
+ 88, 28,
+ 63, 242,
+ 31, 242,
+ 12, 60,
+ 11, 192,
+ 7, 0,
+ 0, 0,
+//8048 people up a
+//8080 people up a
+//8112 people down a
+//8144 people down a
+ 3, 192,
+ 7, 224,
+ 15, 240,
+ 31, 248,
+ 31, 248,
+ 63, 252,
+ 127, 254,
+ 127, 254,
+ 63, 252,
+ 63, 252,
+ 127, 254,
+ 127, 254,
+ 63, 252,
+ 31, 248,
+ 31, 248,
+ 14, 112,
+ 0, 0,
+ 3, 192,
+ 7, 224,
+ 15, 240,
+ 31, 248,
+ 31, 248,
+ 63, 252,
+ 127, 254,
+ 127, 254,
+ 127, 252,
+ 127, 252,
+ 63, 252,
+ 31, 252,
+ 15, 248,
+ 15, 176,
+ 7, 0,
+ 3, 192,
+ 7, 224,
+ 15, 240,
+ 31, 248,
+ 31, 248,
+ 63, 252,
+ 127, 254,
+ 127, 254,
+ 63, 252,
+ 63, 252,
+ 127, 254,
+ 127, 254,
+ 63, 252,
+ 31, 248,
+ 31, 248,
+ 14, 112,
+ 3, 192,
+ 7, 224,
+ 15, 240,
+ 31, 248,
+ 31, 248,
+ 63, 252,
+ 127, 254,
+ 127, 254,
+ 127, 252,
+ 127, 252,
+ 63, 254,
+ 31, 254,
+ 15, 252,
+ 15, 192,
+ 7, 0,
+ 0, 0,
+
+//8176 people left l
+//8208 people left l
+ 7, 224,
+ 15, 240,
+ 31, 152,
+ 28, 8,
+ 24, 8,
+ 18, 8,
+ 20, 104,
+ 20, 152,
+ 16, 24,
+ 12, 120,
+ 7, 240,
+ 3, 48,
+ 3, 48,
+ 7, 224,
+ 7, 224,
+ 3, 192,
+ 0, 0,
+ 7, 224,
+ 15, 240,
+ 31, 152,
+ 30, 8,
+ 24, 8,
+ 18, 8,
+ 20, 104,
+ 20, 152,
+ 16, 24,
+ 12, 112,
+ 7, 240,
+ 31, 152,
+ 63, 156,
+ 31, 252,
+ 14, 24,
+//8240 people left d
+//8272 people left d
+ 0, 0,
+ 0, 0,
+ 0, 0,
+ 0, 0,
+ 0, 8,
+ 18, 8,
+ 16, 104,
+ 20, 152,
+ 16, 24,
+ 8, 120,
+ 7, 240,
+ 3, 48,
+ 3, 48,
+ 4, 224,
+ 4, 32,
+ 3, 192,
+ 0, 0,
+ 0, 0,
+ 0, 0,
+ 0, 0,
+ 0, 0,
+ 0, 8,
+ 18, 8,
+ 16, 104,
+ 20, 152,
+ 16, 24,
+ 8, 112,
+ 7, 240,
+ 31, 152,
+ 36, 148,
+ 19, 228,
+ 14, 24,
+//8304 people left a
+//8336 people left a
+ 7, 224,
+ 15, 240,
+ 31, 248,
+ 31, 248,
+ 31, 248,
+ 31, 248,
+ 31, 248,
+ 31, 248,
+ 31, 248,
+ 15, 248,
+ 7, 240,
+ 3, 240,
+ 3, 240,
+ 7, 224,
+ 7, 224,
+ 3, 192,
+ 0, 0,
+ 7, 224,
+ 15, 240,
+ 31, 248,
+ 31, 248,
+ 31, 248,
+ 31, 248,
+ 31, 248,
+ 31, 248,
+ 31, 248,
+ 15, 240,
+ 7, 240,
+ 31, 248,
+ 63, 252,
+ 31, 252,
+ 14, 24,
+
+//8368
+
+};</pre></details><h2>图</h2><div class="imgs"><figure><img src="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/MainIcon.bmp" alt="originals/MainIcon.bmp" loading="lazy"><figcaption>originals/MainIcon.bmp</figcaption></figure><figure><img src="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/MainIconc.bmp" alt="originals/MainIconc.bmp" loading="lazy"><figcaption>originals/MainIconc.bmp</figcaption></figure><figure><img src="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/eActivityIcon.bmp" alt="originals/eActivityIcon.bmp" loading="lazy"><figcaption>originals/eActivityIcon.bmp</figcaption></figure><figure><img src="../20111111%203D%20%E5%BC%95%E6%93%8E/originals/screenshots/123.bmp" alt="originals/screenshots/123.bmp" loading="lazy"><figcaption>originals/screenshots/123.bmp</figcaption></figure></div></main></body></html>

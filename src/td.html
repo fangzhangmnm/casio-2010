@@ -1,0 +1,1579 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>塔防 · 化石</title><style>:root{--lcd:#c8ceba;--ink:#222620;--panel:#b9c0a9}html,body{margin:0;background:var(--lcd);color:var(--ink)}
+main{max-width:860px;margin:0 auto;padding:16px;font:15px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif}
+a{color:var(--ink)}h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:20px 0 6px;border-bottom:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:3px 6px;border-bottom:1px solid #9aa08c;text-align:left;vertical-align:top}
+td.n{text-align:right;white-space:nowrap}code,pre{font:13px/1.45 ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+pre{background:var(--panel);padding:10px;overflow:auto;white-space:pre;tab-size:4}details{margin:6px 0}summary{cursor:pointer;font-weight:600}
+.imgs{display:flex;flex-wrap:wrap;gap:12px}.imgs figure{margin:0}.imgs img{image-rendering:pixelated;max-width:100%;border:1px solid #9aa08c}
+.imgs figcaption{font-size:12px}.top a{margin-right:12px}.wrap{overflow-x:auto}</style></head><body><main><p class="top"><a href="../index.html">← GWHBOB的计算器程序</a><a href="../play/td.html">▶ 玩 塔防 1.1</a><a href="../play/td.html?calc">计算器</a><a href="../play/td-1.0.html">▶ 玩 塔防 1.0</a><a href="../play/td-1.0.html?calc">计算器</a></p><h1>塔防 · 化石</h1><p>塔防 / 植物大战僵尸，卡西欧 BASIC，1.0 和 1.1 两版；帖子里的说明和 6 张截图（网页的图形屏照它们逐像素对过）。</p>
+<p>时间戳 = 1.0 版 G1M 文件时间 2010-10-22（1.1 是 10-24）。cnCalc 5009 帖。</p><h2>原件</h2><p>当年的字节，一个没改；点文件名下载。时间是文件里存的原始修改时间（北京时间），「—」是论坛附件、看出处里的帖子日期。</p><div class="wrap"><table><tr><th>文件</th><th>字节</th><th>原始时间</th><th>sha256 前 16 位</th><th>出处</th></tr><tr><td><a href="../20101022%20%E5%A1%94%E9%98%B2/listings/TDGAME.txt" download>listings/TDGAME.txt</a></td><td class="n">12777</td><td>—</td><td><code></code></td><td>2026 年写的</td></tr><tr><td><a href="../20101022%20%E5%A1%94%E9%98%B2/listings/TDGAME11.txt" download>listings/TDGAME11.txt</a></td><td class="n">12787</td><td>—</td><td><code></code></td><td>2026 年写的</td></tr><tr><td><a href="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-ReadMe.txt" download>originals/TDGAME-ReadMe.txt</a></td><td class="n">1056</td><td>2010-10-24 10:52</td><td><code>110765aa6fac741c</code></td><td>cnCalc 5009 帖附件 TDGAME11.rar 里的说明（GBK）</td></tr><tr><td><a href="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-screenshot.jpg" download>originals/TDGAME-screenshot.jpg</a></td><td class="n">4669</td><td>—</td><td><code>9530db2d92c34f9d</code></td><td>cnCalc 5009 帖截图 DispCap2.jpg</td></tr><tr><td><a href="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-screenshots/aimg5230.jpg" download>originals/TDGAME-screenshots/aimg5230.jpg</a></td><td class="n">5057</td><td>—</td><td><code>ce6b88ad76d0a1a6</code></td><td>cnCalc 5009 帖一楼正文里的截图（附件 id 5230，标题画面），2010-10-22</td></tr><tr><td><a href="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-screenshots/aimg5232.jpg" download>originals/TDGAME-screenshots/aimg5232.jpg</a></td><td class="n">4741</td><td>—</td><td><code>b58d236f12661741</code></td><td>cnCalc 5009 帖一楼正文里的截图（附件 id 5232，对战中），2010-10-22</td></tr><tr><td><a href="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-screenshots/aimg5233.jpg" download>originals/TDGAME-screenshots/aimg5233.jpg</a></td><td class="n">5848</td><td>—</td><td><code>07ae34b19b904606</code></td><td>cnCalc 5009 帖一楼正文里的截图（附件 id 5233，对战中），2010-10-22</td></tr><tr><td><a href="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-screenshots/aimg5234.jpg" download>originals/TDGAME-screenshots/aimg5234.jpg</a></td><td class="n">5747</td><td>—</td><td><code>293f9af1a01d5bb3</code></td><td>cnCalc 5009 帖一楼正文里的截图（附件 id 5234，对战中），2010-10-22</td></tr><tr><td><a href="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-screenshots/aimg5235.jpg" download>originals/TDGAME-screenshots/aimg5235.jpg</a></td><td class="n">3062</td><td>—</td><td><code>3ba30ca7857c372d</code></td><td>cnCalc 5009 帖一楼正文里的截图（附件 id 5235，按 MENU 暂停的选单），2010-10-22</td></tr><tr><td><a href="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME.G1M" download>originals/TDGAME.G1M</a></td><td class="n">10144</td><td>2010-10-22 21:55</td><td><code>eb2ca0ad612bcb3e</code></td><td>cnCalc 5009 帖附件 proj6_pvz.rar（塔防 1.0），2010-10-22</td></tr><tr><td><a href="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME11.G1M" download>originals/TDGAME11.G1M</a></td><td class="n">11036</td><td>2010-10-24 10:47</td><td><code>baebb9b8a7a71b8b</code></td><td>cnCalc 5009 帖附件 TDGAME11.rar（塔防 1.1），2010-10-23</td></tr></table></div><h2>代码</h2><p>当年是 GBK 编码，这里解出来显示。</p><details open><summary>listings/TDGAME.txt</summary><pre>&#x27; TDGAME.G1M：从 G1M 原件解码成文字（指令名照卡西欧的写法；◢ = 显示后暂停，→ = 赋值，⇒ = 条件成立就做；卡西欧自己的特殊字符换成了长得像的 Unicode：▤◀▶ = 反白的 = &lt; &gt;，※ = 花纹块，⏨ = 10 的乘方）
+&#x27; 共 33 个程序：+ATTACK, +BF, +BG1, +CHECK1, +CHECK2, +CLEAR, +CTRL, +DISP, +ENDING1, +ENDING2, +HIT, +INIT1, +INIT2, +INTRO2, +JUMP, +MAIN, +MOVE, +NUT, +PEA, +PLANT, +PLANT2, +PLANT3, +SELECT, +SUB, +SUNF, +ZIRON, +ZJUMP, +ZJUMP2, +ZOMB, +ZOMBIE, +ZOMBIE2, TDGAME, ××SNACKI
+
+&#x27;==== Prog &quot;+ATTACK&quot; ====
+Mat H[G-1,H]-1→Mat H[G-1,H]
+16G-24→S
+16H→T
+Prog &quot;+HIT&quot;
+DrawStat
+Cls
+If Mat H[G-1,H]≤0
+Then 
+0→Mat P[G-1,H]
+Cls
+Prog &quot;+CLEAR&quot;
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+IfEnd
+
+&#x27;==== Prog &quot;+BF&quot; ====
+StrMid(Str 6,Int P,1)→Str 1
+
+StrSrc(&quot;ZIJ&quot;,Str 1)→Z
+If Z≠0:Then 
+RanInt#(1,3)→Y
+If Mat S[8,Y]=0
+Then 
+Prog &quot;+ZOMBIE&quot;
+P+1→P
+IfEnd
+Return
+IfEnd
+
+If StrSrc(&quot;012345&quot;,Str 1)≠0:Then 
+0→Z
+For 1→Y To 6
+Mat Z[Y,1]&gt;0⇒Z+1→Z
+Next
+Z≤Exp(Str 1)⇒P+1→P
+Return
+IfEnd
+
+If StrCmp(Str 1,&quot;U&quot;)=0:Then 
+Text 20,1,&quot;                               &quot;
+Text 32,1,&quot;                               &quot;
+Text 24,1,&quot;  A Huge Wave Of ZOMBIES      &quot;
+Text 29,1,&quot;         Is APPOACHING......   &quot;
+For 1→Z To 3838
+Next
+P+1→P
+Return
+IfEnd
+
+If StrCmp(Str 1,&quot;W&quot;)=0:Then 
+P+.2→P
+Return
+IfEnd
+
+&#x27;==== Prog &quot;+BG1&quot; ====
+Horizontal 49
+63→T
+10→S:Prog &quot;+PEA&quot;
+DrawStat
+Text 58,1,&quot;4θ&quot;
+Text 58,16,&quot;4&quot;
+31→S:Prog &quot;+SUNF&quot;
+DrawStat
+Text 58,21,&quot;2θ&quot;
+Text 58,36,&quot;0&quot;
+51→S:Prog &quot;+NUT&quot;
+DrawStat
+Text 58,41,&quot;2θ&quot;
+Text 58,56,&quot;8&quot;
+
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+
+StoPict 1
+
+&#x27;==== Prog &quot;+CHECK1&quot; ====
+Y=1⇒Goto 1
+Y=2⇒Goto 2
+Y=3⇒Goto 3
+Y=-1⇒Return
+Lbl 1
+For 1→I To 10
+If List 4[I]≥0:Then 
+If List 3[I]&gt;127.2
+Then -1000I→List 4[I]
+Else 
+Mat S[Int (List 3[I]÷16)+1,1]→F
+If F&gt;0
+Then Mat Z[F,2]-1→Mat Z[F,2]
+-1000I→List 4[I]
+Prog &quot;+CHECK2&quot;
+IfEnd
+IfEnd
+IfEnd
+Next
+Y=1⇒Return
+Lbl 2
+For 1→I To 10
+If List 6[I]≥0:Then 
+If List 5[I]&gt;127.2
+Then -1000I→List 6[I]
+Else 
+Mat S[Int (List 5[I]÷16)+1,2]→F
+If F&gt;0
+Then Mat Z[F,2]-1→Mat Z[F,2]
+-1000I→List 6[I]
+Prog &quot;+CHECK2&quot;
+IfEnd
+IfEnd
+IfEnd
+Next
+Y=2⇒Return
+Lbl 3
+For 1→I To 10
+If List 8[I]≥0:Then 
+If List 7[I]&gt;127.2
+Then -1000I→List 8[I]
+Else 
+Mat S[Int (List 7[I]÷16)+1,3]→F
+If F&gt;0
+Then Mat Z[F,2]-1→Mat Z[F,2]
+-1000I→List 8[I]
+Prog &quot;+CHECK2&quot;
+IfEnd
+IfEnd
+IfEnd
+Next
+
+&#x27;==== Prog &quot;+CHECK2&quot; ====
+Mat Z[F,1]=0⇒Return
+
+16Mat Z[F,3]-8→S
+16Mat Z[F,4]→T
+Mat P[Mat Z[F,3],Mat Z[F,4]]≠0⇒T-4→T
+Prog &quot;+HIT&quot;
+DrawStat
+
+If Mat Z[F,2]≤0:Then 
+If Mat Z[F,1]=2:Then 
+1→Mat Z[F,1]
+6→Mat Z[F,2]
+Cls
+Prog &quot;+CLEAR&quot;
+Prog &quot;+ZOMB&quot;
+DrawStat
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+Return
+IfEnd
+
+0→Mat Z[F,1]
+0→Mat S[Mat Z[F,3],Mat Z[F,4]]
+
+Mat P[Mat Z[F,3],Mat Z[F,4]]≠0⇒Return
+
+Cls
+Prog &quot;+CLEAR&quot;
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+IfEnd
+
+&#x27;==== Prog &quot;+CLEAR&quot; ====
+T-15&gt;0⇒Text T-15,S-7,&quot;    &quot;
+Text T-11,S-7,&quot;    &quot;
+Text T-7,S-7,&quot;    &quot;
+Text T-5,S-7,&quot;    &quot;
+
+S&lt;120⇒Return
+Text T-15,S+4,&quot; &quot;
+Text T-11,S+4,&quot; &quot;
+Text T-7,S+4,&quot; &quot;
+Text T-5,S+4,&quot; &quot;
+
+&#x27;==== Prog &quot;+CTRL&quot; ====
+0→Z
+For 1→J To 2
+GetKey→r
+r≠0⇒r→Z
+Next
+
+Z=28⇒MOD(V-2,3)+1→V
+Z=37⇒MOD(V,3)+1→V
+Z=38⇒MOD(U-2,7)+1→U
+Z=27⇒MOD(U,7)+1→U
+
+If Z=48:Then 
+Menu &quot;Pause...&quot;,&quot;Continue&quot;,2,&quot;Quit&quot;,1
+Lbl 1
+Stop
+Lbl 2
+IfEnd
+
+If MOD(Z,10)=9:Then 
+8-(Z-9)÷10→Z
+Prog &quot;+PLANT&quot;
+IfEnd
+
+&#x27;==== Prog &quot;+DISP&quot; ====
+16U-{0,15,15,0,0}→List 1
+16V-{0,0,15,15,0}→List 2
+DrawStat
+7
+S-Gph1 DrawOn,Scatter,List 3,List 4,1,Square
+S-Gph2 DrawOn,Scatter,List 5,List 6,1,Square
+S-Gph3 DrawOn,Scatter,List 7,List 8,1,Square
+DrawStat
+S-Gph1 DrawOn,xyLine,List 1,List 2,1,Dot
+S-Gph2 DrawOff
+S-Gph3 DrawOff
+
+&#x27;==== Prog &quot;+ENDING1&quot; ====
+BG-None
+Cls
+0→S
+0→T
+Prog &quot;+PEA&quot;
+24+3List 1→List 1
+48+3List 2→List 2
+Text 16,72,&quot;You&quot;
+Text 24,72,&quot;  DEFEAT&quot;
+Text 32,72,&quot;    the&quot;
+Text 40,72,&quot;    2B&quot;
+DrawStat
+Text 40,60,&quot;[EXE]&quot;
+63→T
+0→I
+While GetKey≠31
+MOD(I,8)+1→I
+16I-8→S
+Prog &quot;+SUNF&quot;
+DrawStat
+16(MOD(I+3,8)+1)-8→S
+Prog &quot;+CLEAR&quot;
+WhileEnd
+ClrList 
+Stop
+
+&#x27;==== Prog &quot;+ENDING2&quot; ====
+BG-None
+Cls
+0→S
+0→T
+Prog &quot;+ZOMB&quot;
+104+3List 1→List 1
+47+3List 2→List 2
+Text 16,1,&quot;Zombies&quot;
+Text 24,1,&quot;    eat&quot;
+Text 32,1,&quot;      Your&quot;
+Text 40,1,&quot;         Brain!&quot;
+DrawStat
+Text 40,60,&quot;[EXE]&quot;
+63→T
+9→I
+While GetKey≠31
+MOD(I-2,8)+1→I
+16I-8→S
+Prog &quot;+ZOMB&quot;
+DrawStat
+
+16(MOD(I+3,8)+1)-8→S
+Prog &quot;+CLEAR&quot;
+WhileEnd
+ClrList 
+Stop
+
+&#x27;==== Prog &quot;+HIT&quot; ====
+S+{-7,7,8,-8}→List 1
+T-{15,0,1,16}→List 2
+
+&#x27;==== Prog &quot;+INIT1&quot; ====
+ClrGraph:S-WindMan:ViewWindow 1,127,1,63,1,1:AxesOff:BG-None:FuncOff
+S-Gph2 DrawOff
+S-Gph3 DrawOff
+S-Gph1 DrawOn,xyLine,List 1,List 2,1,Dot
+
+
+&#x27;==== Prog &quot;+INIT2&quot; ====
+0→A~Z
+1→P:1→U:1→V
+ClrMat 
+{8,3}→Dim Mat P:{8,3}→Dim Mat H:{8,3}→Dim Mat C:{6,5}→Dim Mat Z:{8,3}→Dim Mat S:{6,1}→Dim Mat D
+4→Mat D[1,1]
+0→Mat D[2,1]
+8→Mat D[3,1]
+ClrList 
+10→Dim List 3
+10→Dim List 4
+10→Dim List 5
+10→Dim List 6
+10→Dim List 7
+10→Dim List 8
+For 1→I To 10
+-1000I→List 4[I]
+-1000I→List 6[I]
+-1000I→List 8[I]
+Next
+
+Prog &quot;+BG1&quot;
+
+&#x27;==== Prog &quot;+INTRO2&quot; ====
+StoPict 2
+Cls
+Text 4,2,&quot;  As the Zombies appears,DO NOT&quot;
+Text 12,2,&quot;plant anything but watchin&#x27; the&quot;
+Text 20,2,&quot;zombies move.&quot;
+Text 28,2,&quot;  You will win the game as a&quot;
+Text 36,2,&quot;zombie enters your house.&quot;
+Text 50,100,&quot;--ZZM&quot;◢Cls
+RclPict 2
+
+&#x27;==== Prog &quot;+JUMP&quot; ====
+0→Mat S[G,H]
+K→Mat S[G-1,H]
+G-1→Mat Z[K,3]
+
+16G-24→S:16H-4→T
+Prog &quot;+ZJUMP2&quot;
+S+16→S:T+4→T
+Cls
+Prog &quot;+CLEAR&quot;
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+16G-24→S:16H-4→T
+Prog &quot;+CLEAR&quot;
+DrawStat
+
+Prog &quot;+DISP&quot;
+Prog &quot;+CHECK1&quot;
+
+If Mat Z[K,2]≤0:Then 0→Mat Z[K,1]
+Return
+IfEnd
+
+0→Mat S[G-1,H]
+K→Mat S[G-2,H]
+1→Mat Z[K,1]
+G-2→Mat Z[K,3]
+
+16G-40→S:16H→T
+Prog &quot;+ZOMB&quot;
+Cls
+Prog &quot;+CLEAR&quot;
+DrawStat
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+Prog &quot;+DISP&quot;
+Prog &quot;+CHECK1&quot;
+If Mat Z[K,2]&gt;0:Then 0→Mat P[G-2,H]
+0→Mat H[G-2,H]
+IfEnd
+
+&#x27;==== Prog &quot;+MAIN&quot; ====
+BG-Pict 1
+While P≤StrLen(Str 6)
+Prog &quot;+PLANT2&quot;
+Prog &quot;+PLANT3&quot;
+Prog &quot;+SUB&quot;
+For 1→K To 3
+-1→Y
+Prog &quot;+ZOMBIE2&quot;
+Prog &quot;+SUB&quot;
+Prog &quot;+SUB&quot;
+Next
+Prog &quot;+BF&quot;
+Prog &quot;+SUB&quot;
+Prog &quot;+PLANT2&quot;
+Prog &quot;+PLANT3&quot;
+Prog &quot;+SUB&quot;
+For 4→K To 6
+-1→Y
+Prog &quot;+ZOMBIE2&quot;
+Prog &quot;+SUB&quot;
+Prog &quot;+SUB&quot;
+Next
+Prog &quot;+BF&quot;
+Prog &quot;+SUB&quot;
+WhileEnd
+Prog &quot;+ENDING1&quot;
+
+&#x27;==== Prog &quot;+MOVE&quot; ====
+0→Mat S[G,H]
+K→Mat S[G-1,H]
+G-1→Mat Z[K,3]
+
+16G-24→S:16H→T
+Mat Z[K,1]=1⇒Prog &quot;+ZOMB&quot;
+Mat Z[K,1]=2⇒Prog &quot;+ZIRON&quot;
+Mat Z[K,1]=3⇒Prog &quot;+ZJUMP&quot;
+S+16→S
+Cls
+Prog &quot;+CLEAR&quot;
+DrawStat
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+Prog &quot;+DISP&quot;
+Prog &quot;+CHECK1&quot;
+
+&#x27;==== Prog &quot;+NUT&quot; ====
+S+{-2,8,8,6,0,-2,-2,-5,-5,-3,3,6,3,-3}→List 1
+T-{0,0,5,9,9,5,0,2,7,11,11,9,9,11}→List 2
+
+&#x27;==== Prog &quot;+PEA&quot; ====
+S+{0,4,8,4,-4,-8,-4,0,0,1,3,7,9,7,5,7,9,7,3,1,-3,-5,-5,-3,0}→List 1
+T-{2,4,2,0,4,2,0,2,6,6,8,8,10,12,10,8,10,12,12,14,14,12,8,6,6}→List 2
+
+&#x27;==== Prog &quot;+PLANT&quot; ====
+Z&gt;3⇒Return
+Mat D[Z,1]&gt;0⇒Return
+Mat S[U,V]≥1⇒Return
+16U-8→S:16V→T
+
+If Z=1:Then 
+θ&lt;4⇒Return
+θ-4→θ
+3→Mat H[U,V]
+0→Mat C[U,V]
+4→Mat D[Z,1]
+Prog &quot;+PEA&quot;
+IfEnd
+If Z=2:Then 
+θ&lt;2⇒Return
+θ-2→θ
+2→Mat H[U,V]
+1→Mat C[U,V]
+2→Mat D[Z,1]
+Prog &quot;+SUNF&quot;
+IfEnd
+If Z=3:Then 
+θ&lt;2⇒Return
+θ-2→θ
+8→Mat H[U,V]
+8→Mat D[Z,1]
+Prog &quot;+NUT&quot;
+IfEnd
+
+Cls
+Mat P[U,V]≠0⇒Prog &quot;+CLEAR&quot;
+DrawStat
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+Text 58,20Z-4,Mat D[Z,1]
+StoPict 1
+Prog &quot;+DISP&quot;
+Z→Mat P[U,V]
+
+&#x27;==== Prog &quot;+PLANT2&quot; ====
+For 1→J To 3
+For 1→I To 8
+If Mat C[I,J]&gt;0:Then Mat C[I,J]-1→Mat C[I,J]
+Else 
+
+If Mat P[I,J]=1:Then 
+If (J=1) And (Min(List 4)&lt;0):Then 
+-.001Min(List 4)→F
+16I+.001F→List 3[F]
+16J-10→List 4[F]
+IfEnd
+
+If (J=2) And (Min(List 6)&lt;0):Then 
+-.001Min(List 6)→F
+16I+.001F→List 5[F]
+16J-10→List 6[F]
+IfEnd
+
+If (J=3) And (Min(List 8)&lt;0):Then 
+-.001Min(List 8)→F
+16I+.001F→List 7[F]
+16J-10→List 8[F]
+IfEnd
+
+
+0→Mat C[I,J]
+IfEnd
+
+If Mat P[I,J]=2:Then θ+1→θ
+Cls
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+Prog &quot;+DISP&quot;
+2→Mat C[I,J]
+IfEnd
+
+IfEnd
+Next
+Next
+
+&#x27;==== Prog &quot;+PLANT3&quot; ====
+Cls
+For 1→I To 3
+If Mat D[I,1]&gt;0:Then Mat D[I,1]-1→Mat D[I,1]
+Text 58,20I-4,Mat D[I,1]
+IfEnd
+Next
+StoPict 1
+Prog &quot;+DISP&quot;
+
+&#x27;==== Prog &quot;+SELECT&quot; ====
+Menu &quot;Select Mission&quot;,&quot;Zombie Appears&quot;,1,&quot;Stronger Waves&quot;,2,&quot;A Big Fight&quot;,3,&quot;!Zombie Sea¡&quot;,9
+Lbl 1
+&quot;WZ0ZWZ1WUZZZ0&quot;→Str 6
+4→θ
+Return
+Lbl 2
+&quot;WZWZWIWZWI0ZZ1UZIZIZ0&quot;→Str 6
+4→θ
+Return
+Lbl 3
+&quot;WZWIWZWJWZ0ZZWUZIJZ1WZZ1UZZIJIZJ0&quot;→Str 6
+4→θ
+Return
+Lbl 9
+&quot;ZZZIZJZIZJ&quot;→Str 6
+For 1→I To 60
+RanInt#(1,3)→J
+Str 6+StrMid(&quot;ZIJ&quot;,J,1)→Str 6
+Next
+Str 6+&quot;0&quot;→Str 6
+999→θ
+Return
+
+&#x27;==== Prog &quot;+SUB&quot; ====
+List 3+5→List 3
+List 5+5→List 5
+List 7+5→List 7
+Prog &quot;+CTRL&quot;
+Cls
+Prog &quot;+DISP&quot;
+0→Y
+Prog &quot;+CHECK1&quot;
+
+&#x27;==== Prog &quot;+SUNF&quot; ====
+S+{0,8,4,-4,-8,0,0,2,6,4,8,8,4,6,2,0,-2,-6,-4,-8,-8,-4,-6,-2,0,4,4,0,-4,-4,0}→List 1
+T-{0,3,0,0,3,0,6,3,5,8,8,11,11,14,15,12,15,14,11,11,8,8,5,3,6,8,11,12,11,8,6}→List 2
+
+&#x27;==== Prog &quot;+ZIRON&quot; ====
+S+{3,-1,-2,-1,0,0,3,3,0,4,6,6,5,5,1,1,1,-4,-3,-3,-6,-7,-6,-3,-2,-1,-3,0,3,6,4,5,6,5,-2,-3}→List 1
+T-{4,4,5,6,6,8,8,6,6,6,4,3,2,0,0,2,0,0,0,4,4,5,6,6,7,8,8,11,11,8,8,7,8,15,15,8}→List 2
+
+&#x27;==== Prog &quot;+ZJUMP&quot; ====
+S+{-7,0,3,0,6,5,5,1,1,1,-3,-2,-2,-1,-1,0,0,3,3,0,4,6,6,6,4,6,6,5,3,5,4,-1,-2,0,-2,-3,-3,-2}→List 1
+T-{7,4,4,4,1,2,0,0,2,0,0,0,3,3,6,6,9,9,6,6,6,4,3,4,6,8,12,13,11,13,14,14,13,11,13,12,8,7}→List 2
+
+&#x27;==== Prog &quot;+ZJUMP2&quot; ====
+S+{5,5,1,1,1,-3,-2,-2,0,0,3,3,5,1,3,1,-3,3,0,4,5,5,5,4,6,6,5,3,5,4,-1,-2,0,-2,-3,-3,-2}→List 1
+T-1-{2,0,0,2,0,0,0,5,6,9,9,6,8,3,3,3,-1,6,6,6,4,3,4,6,8,12,13,11,13,14,14,13,11,13,12,8,7}→List 2
+
+&#x27;==== Prog &quot;+ZOMB&quot; ====
+S+{3,5,6,6,4,6,6,5,5,-4,1,1,5,-3,-3,-3,-6,-7,-6,-3,-1,3,3,0,0,-1,-2,-1,3,-1,-2,-1,-3,-3,-1,4,-1,-2,0}→List 1
+T-{11,13,12,8,6,4,3,2,0,0,0,2,2,2,0,6,6,5,4,4,6,6,9,9,6,6,5,4,4,4,5,6,8,12,14,14,14,13,11}→List 2
+
+&#x27;==== Prog &quot;+ZOMBIE&quot; ====
+For 1→I To 6
+Mat Z[I,1]=0⇒Goto 1
+Next
+Return
+Lbl 1
+
+120→S:16Y→T
+8→Mat Z[I,3]
+Y→Mat Z[I,4]
+0→Mat Z[I,5]
+
+If Z=1:Then 
+Prog &quot;+ZOMB&quot;
+6→Mat Z[I,2]
+IfEnd
+
+If Z=2:Then 
+Prog &quot;+ZIRON&quot;
+12→Mat Z[I,2]
+IfEnd
+
+If Z=3:Then 
+Prog &quot;+ZJUMP&quot;
+6→Mat Z[I,2]
+IfEnd
+
+I→Mat S[8,Y]
+Cls
+DrawStat
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+Prog &quot;+DISP&quot;
+Z→Mat Z[I,1]
+
+&#x27;==== Prog &quot;+ZOMBIE2&quot; ====
+Mat Z[K,1]=0⇒Return
+
+If Mat Z[K,5]&gt;0:Then Mat Z[K,5]-1→Mat Z[K,5]:Return
+IfEnd
+
+Mat Z[K,3]→G
+Mat Z[K,4]→H
+
+If G=1:Then 
+Prog &quot;+ENDING2&quot;
+IfEnd
+
+If (Mat P[G-1,H]=0) And (Mat S[G-1,H]=0):Then 
+Prog &quot;+MOVE&quot;
+Return
+IfEnd
+
+If (Mat Z[K,1]=3) And (G&gt;2):Then 
+If (Mat P[G-1,H]≠0) And (Mat S[G-2,H]=0):Then 
+Prog &quot;+JUMP&quot;
+Return
+IfEnd
+IfEnd
+
+If Mat P[G-1,H]≠0:Then Prog &quot;+ATTACK&quot;
+Return
+IfEnd
+
+&#x27;==== Prog &quot;TDGAME&quot; ====
+Prog &quot;+INIT1&quot;
+BG-None
+Cls
+Text 1,1,&quot;======PLANTS VS ZOMBIES======&quot;
+{70,120,120,70,70,76,126,120,126,126,120,126}→List 1
+{10,10,50,50,10,2,2,10,2,42,50,42}→List 2
+DrawStat
+Text 1,1,&quot;======PLANTS VS ZOMBIES======&quot;
+0→S
+0→T
+Text 56,56,&quot;designby G.W.H.&quot;
+Prog &quot;+PEA&quot;
+24+4List 1→List 1
+63+4List 2→List 2
+DrawStat
+Prog &quot;+SUNF&quot;
+40+1.5List 1→List 1
+63+1.5List 2→List 2
+DrawStat
+120→S
+63→T
+Prog &quot;+ZOMB&quot;
+DrawStat
+Text 56,1,&quot;V0.5&quot;
+Text 14,80,&quot;New Game&quot;
+Text 20,80,&quot;Continue&quot;
+Text 26,80,&quot;Help&quot;
+Text 32,80,&quot;Quit&quot;
+0→Y
+While 1
+Text 14+6Y,74,&quot;θ&quot;
+0→Z
+For 1→I To 20
+GetKey→r
+r≠0⇒r→Z
+Next
+Text 14+6Y,74,&quot; &quot;
+Z=28⇒MOD(Y-1,4)→Y
+Z=37⇒MOD(Y+1,4)→Y
+If Z=31:Then 
+If Y=0:Then 
+Prog &quot;+SELECT&quot;
+Prog &quot;+INIT1&quot;
+Prog &quot;+INIT2&quot;
+Prog &quot;+MAIN&quot;
+IfEnd
+If Y=1:Then 
+Prog &quot;+MAIN&quot;
+IfEnd
+If Y=2:Then 
+Prog &quot;+INTRO2&quot;
+IfEnd
+If Y=3:Then 
+ClrList 1
+ClrList 2
+BG-None
+ClrGraph
+Return
+IfEnd
+IfEnd
+WhileEnd
+BG-None
+ClrList 1
+ClrList 2
+ClrGraph
+
+
+&#x27;==== Prog &quot;××SNACKI&quot; ====
+&quot;SPEED 1 To 15&quot;?→S
+&#x27;=====INIT==========
+ClrText
+148→Dim List 1
+Fill(0,List 1)
+{21,7}→Dim Mat A
+Fill(0,Mat A)
+2→X
+1→Y
+2→L
+1→P
+1×8+1→List 1[1]
+RanInt#(2,20)→M
+RanInt#(2,6)→N
+27→R
+27→Z
+If S≤15
+Then Int (80÷S)→S
+Else 1→S
+IfEnd
+Locate 1,1,&quot;○&quot;
+Locate 2,1,&quot;●&quot;
+Locate M,N,&quot;¥&quot;
+&#x27;=====MAIN LOOP=====
+While 1
+&#x27;=====DELAY&amp;KEY=====
+For 1→I To S
+GetKey→T
+T=64⇒28→T
+T=62⇒37→T
+T=73⇒38→T
+T=53⇒27→T
+(T=28) And (Z≠37)⇒T→R
+(T=37) And (Z≠28)⇒T→R
+(T=38) And (Z≠27)⇒T→R
+(T=27) And (Z≠38)⇒T→R
+Next
+R→Z
+&#x27;Mat B[X,Y]→Z
+&#x27;=====MOVE==========
+MOD(P,148)+1→P
+Locate X,Y,&quot;○&quot;
+1→Mat A[X,Y]
+8X+Y→List 1[P]
+Z=28⇒Y-1→Y
+Z=37⇒Y+1→Y
+Z=38⇒X-1→X
+Z=27⇒X+1→X
+&#x27;=====EAT==========
+If X=M And Y=N
+Then 
+RanInt#(2,20)→M
+RanInt#(2,6)→N
+L+1→L
+0→List 1[MOD(P-L,148)+1]
+IfEnd
+List 1[MOD(P-L,148)+1]→T
+T≠0⇒0→Mat A[Int (T÷8),MOD(T-1,8)+1]
+&#x27;=====DIE===========
+X&gt;21⇒Goto O
+X&lt;1⇒Goto O
+Y&gt;7⇒Goto O
+Y&lt;1⇒Goto O
+Mat A[X,Y]=1⇒Goto O
+&#x27;=====DISPLAY=======
+T≠0⇒Locate Int (T÷8),MOD(T-1,8)+1,&quot; &quot;
+Locate X,Y,&quot;●&quot;
+Locate M,N,&quot;¥&quot;
+WhileEnd
+&#x27;=====END===========
+Lbl O
+{3838}→List 1
+Locate 7,4,&quot;GAME OVER&quot;
+Locate 7,5,&quot;SCORE:   &quot;
+Locate 14,5,L-1
+</pre></details><details><summary>listings/TDGAME11.txt</summary><pre>&#x27; TDGAME11.G1M：从 G1M 原件解码成文字（指令名照卡西欧的写法；◢ = 显示后暂停，→ = 赋值，⇒ = 条件成立就做；卡西欧自己的特殊字符换成了长得像的 Unicode：▤◀▶ = 反白的 = &lt; &gt;，※ = 花纹块，⏨ = 10 的乘方）
+&#x27; 共 33 个程序：+ATTACK, +BF, +BG1, +CHECK1, +CHECK2, +CLEAR, +CTRL, +DISP, +ENDING1, +ENDING2, +HIT, +INIT1, +INIT2, +INTRO2, +JUMP, +MAIN, +MOVE, +NUT, +PEA, +PLANT, +PLANT2, +PLANT3, +SELECT, +SUB, +SUNF, +ZIRON, +ZJUMP, +ZJUMP2, +ZOMB, +ZOMBIE, +ZOMBIE2, TDGAME, ××SNACKI
+
+&#x27;==== Prog &quot;+ATTACK&quot; ====
+Mat H[G-1,H]-1→Mat H[G-1,H]
+16G-24→S
+16H→T
+Prog &quot;+HIT&quot;
+DrawStat
+Cls
+If Mat H[G-1,H]≤0
+Then 
+0→Mat P[G-1,H]
+Cls
+Prog &quot;+CLEAR&quot;
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+IfEnd
+
+&#x27;==== Prog &quot;+BF&quot; ====
+StrMid(Str 6,Int P,1)→Str 1
+
+StrSrc(&quot;ZIJ&quot;,Str 1)→Z
+If Z≠0:Then 
+RanInt#(1,3)→Y
+If Mat S[8,Y]=0
+Then 
+Prog &quot;+ZOMBIE&quot;
+P+1→P
+IfEnd
+Return
+IfEnd
+
+If StrSrc(&quot;012345&quot;,Str 1)≠0:Then 
+0→Z
+For 1→Y To 6
+Mat Z[Y,1]&gt;0⇒Z+1→Z
+Next
+Z≤Exp(Str 1)⇒P+1→P
+Return
+IfEnd
+
+If StrCmp(Str 1,&quot;U&quot;)=0:Then 
+Text 20,1,&quot;                               &quot;
+Text 32,1,&quot;                               &quot;
+Text 24,1,&quot;  A Huge Wave Of ZOMBIES      &quot;
+Text 29,1,&quot;         Is APPOACHING......   &quot;
+For 1→Z To 3838
+Next
+P+1→P
+Return
+IfEnd
+
+If StrCmp(Str 1,&quot;W&quot;)=0:Then 
+P+.2→P
+Return
+IfEnd
+
+&#x27;==== Prog &quot;+BG1&quot; ====
+Horizontal 49
+63→T
+10→S:Prog &quot;+PEA&quot;
+DrawStat
+Text 58,1,&quot;4θ&quot;
+Text 58,16,&quot;4&quot;
+31→S:Prog &quot;+SUNF&quot;
+DrawStat
+Text 58,21,&quot;2θ&quot;
+Text 58,36,&quot;0&quot;
+51→S:Prog &quot;+NUT&quot;
+DrawStat
+Text 58,41,&quot;2θ&quot;
+Text 58,56,&quot;8&quot;
+
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+
+StoPict 1
+
+&#x27;==== Prog &quot;+CHECK1&quot; ====
+H=1⇒Goto 1
+H=2⇒Goto 2
+H=3⇒Goto 3
+H=-1⇒Return
+Lbl 1
+For 1→I To 10
+If List 4[I]≥0:Then 
+If List 3[I]&gt;127.2
+Then -1000I→List 4[I]
+Else 
+Mat S[Int (List 3[I]÷16)+1,1]→F
+If F&gt;0
+Then Mat Z[F,2]-1→Mat Z[F,2]
+-1000I→List 4[I]
+Prog &quot;+CHECK2&quot;
+IfEnd
+IfEnd
+IfEnd
+Next
+H=1⇒Return
+Lbl 2
+For 1→I To 10
+If List 6[I]≥0:Then 
+If List 5[I]&gt;127.2
+Then -1000I→List 6[I]
+Else 
+Mat S[Int (List 5[I]÷16)+1,2]→F
+If F&gt;0
+Then Mat Z[F,2]-1→Mat Z[F,2]
+-1000I→List 6[I]
+Prog &quot;+CHECK2&quot;
+IfEnd
+IfEnd
+IfEnd
+Next
+H=2⇒Return
+Lbl 3
+For 1→I To 10
+If List 8[I]≥0:Then 
+If List 7[I]&gt;127.2
+Then -1000I→List 8[I]
+Else 
+Mat S[Int (List 7[I]÷16)+1,3]→F
+If F&gt;0
+Then Mat Z[F,2]-1→Mat Z[F,2]
+-1000I→List 8[I]
+Prog &quot;+CHECK2&quot;
+IfEnd
+IfEnd
+IfEnd
+Next
+
+&#x27;==== Prog &quot;+CHECK2&quot; ====
+Mat Z[F,1]=0⇒Return
+
+16Mat Z[F,3]-8→S
+16Mat Z[F,4]→T
+Mat P[Mat Z[F,3],Mat Z[F,4]]≠0⇒T-4→T
+Prog &quot;+HIT&quot;
+DrawStat
+
+If Mat Z[F,2]≤0:Then 
+If Mat Z[F,1]=2:Then 
+1→Mat Z[F,1]
+6→Mat Z[F,2]
+Cls
+Prog &quot;+CLEAR&quot;
+Prog &quot;+ZOMB&quot;
+DrawStat
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+Return
+IfEnd
+
+0→Mat Z[F,1]
+0→Mat S[Mat Z[F,3],Mat Z[F,4]]
+
+Mat P[Mat Z[F,3],Mat Z[F,4]]≠0⇒Return
+
+Cls
+Prog &quot;+CLEAR&quot;
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+IfEnd
+
+&#x27;==== Prog &quot;+CLEAR&quot; ====
+T-15&gt;0⇒Text T-15,S-7,&quot;    &quot;
+Text T-11,S-7,&quot;    &quot;
+Text T-7,S-7,&quot;    &quot;
+Text T-5,S-7,&quot;    &quot;
+
+S&lt;120⇒Return
+Text T-15,S+4,&quot; &quot;
+Text T-11,S+4,&quot; &quot;
+Text T-7,S+4,&quot; &quot;
+Text T-5,S+4,&quot; &quot;
+
+&#x27;==== Prog &quot;+CTRL&quot; ====
+0→Z
+For 1→J To 2
+GetKey→r
+r≠0⇒r→Z
+Next
+
+Z=28⇒MOD(V-2,3)+1→V
+Z=37⇒MOD(V,3)+1→V
+Z=38⇒MOD(U-2,7)+1→U
+Z=27⇒MOD(U,7)+1→U
+
+If Z=48:Then 
+Menu &quot;Pause...&quot;,&quot;Continue&quot;,2,&quot;Quit&quot;,1
+Lbl 1
+Stop
+Lbl 2
+IfEnd
+
+If MOD(Z,10)=9:Then 
+8-(Z-9)÷10→Z
+Prog &quot;+PLANT&quot;
+IfEnd
+
+&#x27;==== Prog &quot;+DISP&quot; ====
+16U-{0,15,15,0,0}→List 1
+16V-{0,0,15,15,0}→List 2
+DrawStat
+7
+S-Gph1 DrawOn,Scatter,List 3,List 4,1,Square
+S-Gph2 DrawOn,Scatter,List 5,List 6,1,Square
+S-Gph3 DrawOn,Scatter,List 7,List 8,1,Square
+DrawStat
+S-Gph1 DrawOn,xyLine,List 1,List 2,1,Dot
+S-Gph2 DrawOff
+S-Gph3 DrawOff
+
+&#x27;==== Prog &quot;+ENDING1&quot; ====
+BG-None
+Cls
+0→S
+0→T
+Prog &quot;+PEA&quot;
+24+3List 1→List 1
+48+3List 2→List 2
+Text 16,72,&quot;You&quot;
+Text 24,72,&quot;  DEFEAT&quot;
+Text 32,72,&quot;    the&quot;
+Text 40,72,&quot;      Zombies!&quot;
+DrawStat
+Text 40,60,&quot;[EXE]&quot;
+63→T
+0→I
+While GetKey≠31
+MOD(I,8)+1→I
+16I-8→S
+Prog &quot;+SUNF&quot;
+DrawStat
+16(MOD(I+3,8)+1)-8→S
+Prog &quot;+CLEAR&quot;
+WhileEnd
+ClrList 
+Stop
+
+&#x27;==== Prog &quot;+ENDING2&quot; ====
+BG-None
+Cls
+0→S
+0→T
+Prog &quot;+ZOMB&quot;
+104+3List 1→List 1
+47+3List 2→List 2
+Text 16,1,&quot;Zombies&quot;
+Text 24,1,&quot;    eat&quot;
+Text 32,1,&quot;      Your&quot;
+Text 40,1,&quot;         Brain!&quot;
+DrawStat
+Text 40,60,&quot;[EXE]&quot;
+63→T
+9→I
+While GetKey≠31
+MOD(I-2,8)+1→I
+16I-8→S
+Prog &quot;+ZOMB&quot;
+DrawStat
+
+16(MOD(I+3,8)+1)-8→S
+Prog &quot;+CLEAR&quot;
+WhileEnd
+ClrList 
+Stop
+
+&#x27;==== Prog &quot;+HIT&quot; ====
+S+{-7,7,8,-8}→List 1
+T-{15,0,1,16}→List 2
+
+&#x27;==== Prog &quot;+INIT1&quot; ====
+ClrGraph:S-WindMan:ViewWindow 1,127,1,63,1,1:AxesOff:BG-None:FuncOff
+S-Gph2 DrawOff
+S-Gph3 DrawOff
+S-Gph1 DrawOn,xyLine,List 1,List 2,1,Dot
+
+
+&#x27;==== Prog &quot;+INIT2&quot; ====
+0→A~Z
+1→P:1→U:1→V
+ClrMat 
+{8,3}→Dim Mat P:{8,3}→Dim Mat H:{8,3}→Dim Mat C:{6,5}→Dim Mat Z:{8,3}→Dim Mat S:{6,1}→Dim Mat D
+4→Mat D[1,1]
+0→Mat D[2,1]
+8→Mat D[3,1]
+ClrList 
+10→Dim List 3
+10→Dim List 4
+10→Dim List 5
+10→Dim List 6
+10→Dim List 7
+10→Dim List 8
+For 1→I To 10
+-1000I→List 4[I]
+-1000I→List 6[I]
+-1000I→List 8[I]
+Next
+
+Prog &quot;+BG1&quot;
+
+&#x27;==== Prog &quot;+INTRO2&quot; ====
+StoPict 2
+Cls
+Text 4,2,&quot;  As the Zombies appears,DO NOT&quot;
+Text 12,2,&quot;plant anything but watchin&#x27; the&quot;
+Text 20,2,&quot;zombies move.&quot;
+Text 28,2,&quot;  You will win the game as a&quot;
+Text 36,2,&quot;zombie enters your house.&quot;
+Text 50,100,&quot;--ZZM&quot;◢Cls
+RclPict 2
+
+&#x27;==== Prog &quot;+JUMP&quot; ====
+0→Mat S[G,H]
+K→Mat S[G-1,H]
+G-1→Mat Z[K,3]
+
+16G-24→S:16H-4→T
+Prog &quot;+ZJUMP2&quot;
+S+16→S:T+4→T
+Cls
+Prog &quot;+CLEAR&quot;
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+16G-24→S:16H-4→T
+Prog &quot;+CLEAR&quot;
+DrawStat
+
+Prog &quot;+DISP&quot;
+Prog &quot;+CHECK1&quot;
+
+If Mat Z[K,2]≤0:Then 0→Mat Z[K,1]
+Return
+IfEnd
+
+0→Mat S[G-1,H]
+K→Mat S[G-2,H]
+1→Mat Z[K,1]
+G-2→Mat Z[K,3]
+
+16G-40→S:16H→T
+Prog &quot;+ZOMB&quot;
+Cls
+Prog &quot;+CLEAR&quot;
+DrawStat
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+Prog &quot;+DISP&quot;
+Prog &quot;+CHECK1&quot;
+If Mat Z[K,2]&gt;0:Then 0→Mat P[G-2,H]
+0→Mat H[G-2,H]
+IfEnd
+
+&#x27;==== Prog &quot;+MAIN&quot; ====
+BG-Pict 1
+While P≤StrLen(Str 6)
+Prog &quot;+PLANT2&quot;
+Prog &quot;+PLANT3&quot;
+Prog &quot;+SUB&quot;
+For 1→K To 3
+-1→Y
+Prog &quot;+ZOMBIE2&quot;
+Prog &quot;+SUB&quot;
+Prog &quot;+SUB&quot;
+Next
+Prog &quot;+BF&quot;
+Prog &quot;+SUB&quot;
+Prog &quot;+PLANT2&quot;
+Prog &quot;+PLANT3&quot;
+Prog &quot;+SUB&quot;
+For 4→K To 6
+-1→Y
+Prog &quot;+ZOMBIE2&quot;
+Prog &quot;+SUB&quot;
+Prog &quot;+SUB&quot;
+Next
+Prog &quot;+BF&quot;
+Prog &quot;+SUB&quot;
+WhileEnd
+Prog &quot;+ENDING1&quot;
+
+&#x27;==== Prog &quot;+MOVE&quot; ====
+0→Mat S[G,H]
+K→Mat S[G-1,H]
+G-1→Mat Z[K,3]
+
+16G-24→S:16H→T
+Mat Z[K,1]=1⇒Prog &quot;+ZOMB&quot;
+Mat Z[K,1]=2⇒Prog &quot;+ZIRON&quot;
+Mat Z[K,1]=3⇒Prog &quot;+ZJUMP&quot;
+S+16→S
+Cls
+Prog &quot;+CLEAR&quot;
+DrawStat
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+Prog &quot;+DISP&quot;
+Prog &quot;+CHECK1&quot;
+
+&#x27;==== Prog &quot;+NUT&quot; ====
+S+{-2,8,8,6,0,-2,-2,-5,-5,-3,3,6,3,-3}→List 1
+T-{0,0,5,9,9,5,0,2,7,11,11,9,9,11}→List 2
+
+&#x27;==== Prog &quot;+PEA&quot; ====
+S+{0,4,8,4,-4,-8,-4,0,0,1,3,7,9,7,5,7,9,7,3,1,-3,-5,-5,-3,0}→List 1
+T-{2,4,2,0,4,2,0,2,6,6,8,8,10,12,10,8,10,12,12,14,14,12,8,6,6}→List 2
+
+&#x27;==== Prog &quot;+PLANT&quot; ====
+Z&gt;3⇒Return
+Mat D[Z,1]&gt;0⇒Return
+Mat S[U,V]≥1⇒Return
+16U-8→S:16V→T
+
+If Z=1:Then 
+θ&lt;4⇒Return
+θ-4→θ
+3→Mat H[U,V]
+0→Mat C[U,V]
+4→Mat D[Z,1]
+Prog &quot;+PEA&quot;
+IfEnd
+If Z=2:Then 
+θ&lt;2⇒Return
+θ-2→θ
+2→Mat H[U,V]
+1→Mat C[U,V]
+2→Mat D[Z,1]
+Prog &quot;+SUNF&quot;
+IfEnd
+If Z=3:Then 
+θ&lt;2⇒Return
+θ-2→θ
+8→Mat H[U,V]
+8→Mat D[Z,1]
+Prog &quot;+NUT&quot;
+IfEnd
+
+Cls
+Mat P[U,V]≠0⇒Prog &quot;+CLEAR&quot;
+DrawStat
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+Text 58,20Z-4,Mat D[Z,1]
+StoPict 1
+Prog &quot;+DISP&quot;
+Z→Mat P[U,V]
+
+&#x27;==== Prog &quot;+PLANT2&quot; ====
+For 1→J To 3
+For 1→I To 8
+If Mat C[I,J]&gt;0:Then Mat C[I,J]-1→Mat C[I,J]
+Else 
+
+If Mat P[I,J]=1:Then 
+If (J=1) And (Min(List 4)&lt;0):Then 
+-.001Min(List 4)→F
+16I+.001F→List 3[F]
+16J-10→List 4[F]
+IfEnd
+
+If (J=2) And (Min(List 6)&lt;0):Then 
+-.001Min(List 6)→F
+16I+.001F→List 5[F]
+16J-10→List 6[F]
+IfEnd
+
+If (J=3) And (Min(List 8)&lt;0):Then 
+-.001Min(List 8)→F
+16I+.001F→List 7[F]
+16J-10→List 8[F]
+IfEnd
+
+
+0→Mat C[I,J]
+IfEnd
+
+If Mat P[I,J]=2:Then θ+1→θ
+Cls
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+Prog &quot;+DISP&quot;
+3→Mat C[I,J]
+IfEnd
+
+IfEnd
+Next
+Next
+
+&#x27;==== Prog &quot;+PLANT3&quot; ====
+Cls
+For 1→I To 3
+If Mat D[I,1]&gt;0:Then Mat D[I,1]-1→Mat D[I,1]
+Text 58,20I-4,Mat D[I,1]
+IfEnd
+Next
+StoPict 1
+Prog &quot;+DISP&quot;
+
+&#x27;==== Prog &quot;+SELECT&quot; ====
+Menu &quot;Select Mission&quot;,&quot;Zombie Appears&quot;,1,&quot;Stronger Waves&quot;,2,&quot;A Big Fight&quot;,3,&quot;!Zombie Sea¡&quot;,9
+Lbl 1
+&quot;WZ0ZWZ1WUZZZ0&quot;→Str 6
+4→θ
+Return
+Lbl 2
+&quot;WZWZWIWZWI0ZZ1UZIZIZ0&quot;→Str 6
+4→θ
+Return
+Lbl 3
+&quot;WZWIWZWJWZ0ZZWUZIJZ1WZZ1UZZIJIZJ0&quot;→Str 6
+4→θ
+Return
+Lbl 9
+&quot;ZZZIZJZIZJ&quot;→Str 6
+For 1→I To 60
+RanInt#(1,3)→J
+Str 6+StrMid(&quot;ZIJ&quot;,J,1)→Str 6
+Next
+Str 6+&quot;0&quot;→Str 6
+999→θ
+Return
+
+&#x27;==== Prog &quot;+SUB&quot; ====
+List 3+5→List 3
+List 5+5→List 5
+List 7+5→List 7
+Prog &quot;+CTRL&quot;
+Cls
+Prog &quot;+DISP&quot;
+0→H
+Prog &quot;+CHECK1&quot;
+
+&#x27;==== Prog &quot;+SUNF&quot; ====
+S+{0,8,4,-4,-8,0,0,2,6,4,8,8,4,6,2,0,-2,-6,-4,-8,-8,-4,-6,-2,0,4,4,0,-4,-4,0}→List 1
+T-{0,3,0,0,3,0,6,3,5,8,8,11,11,14,15,12,15,14,11,11,8,8,5,3,6,8,11,12,11,8,6}→List 2
+
+&#x27;==== Prog &quot;+ZIRON&quot; ====
+S+{3,-1,-2,-1,0,0,3,3,0,4,6,6,5,5,1,1,1,-4,-3,-3,-6,-7,-6,-3,-2,-1,-3,0,3,6,4,5,6,5,-2,-3}→List 1
+T-{4,4,5,6,6,8,8,6,6,6,4,3,2,0,0,2,0,0,0,4,4,5,6,6,7,8,8,11,11,8,8,7,8,15,15,8}→List 2
+
+&#x27;==== Prog &quot;+ZJUMP&quot; ====
+S+{-7,0,3,0,6,5,5,1,1,1,-3,-2,-2,-1,-1,0,0,3,3,0,4,6,6,6,4,6,6,5,3,5,4,-1,-2,0,-2,-3,-3,-2}→List 1
+T-{7,4,4,4,1,2,0,0,2,0,0,0,3,3,6,6,9,9,6,6,6,4,3,4,6,8,12,13,11,13,14,14,13,11,13,12,8,7}→List 2
+
+&#x27;==== Prog &quot;+ZJUMP2&quot; ====
+S+{5,5,1,1,1,-3,-2,-2,0,0,3,3,5,1,3,1,-3,3,0,4,5,5,5,4,6,6,5,3,5,4,-1,-2,0,-2,-3,-3,-2}→List 1
+T-1-{2,0,0,2,0,0,0,5,6,9,9,6,8,3,3,3,-1,6,6,6,4,3,4,6,8,12,13,11,13,14,14,13,11,13,12,8,7}→List 2
+
+&#x27;==== Prog &quot;+ZOMB&quot; ====
+S+{3,5,6,6,4,6,6,5,5,-4,1,1,5,-3,-3,-3,-6,-7,-6,-3,-1,3,3,0,0,-1,-2,-1,3,-1,-2,-1,-3,-3,-1,4,-1,-2,0}→List 1
+T-{11,13,12,8,6,4,3,2,0,0,0,2,2,2,0,6,6,5,4,4,6,6,9,9,6,6,5,4,4,4,5,6,8,12,14,14,14,13,11}→List 2
+
+&#x27;==== Prog &quot;+ZOMBIE&quot; ====
+For 1→I To 6
+Mat Z[I,1]=0⇒Goto 1
+Next
+Return
+Lbl 1
+
+120→S:16Y→T
+8→Mat Z[I,3]
+Y→Mat Z[I,4]
+0→Mat Z[I,5]
+
+If Z=1:Then 
+Prog &quot;+ZOMB&quot;
+6→Mat Z[I,2]
+IfEnd
+
+If Z=2:Then 
+Prog &quot;+ZIRON&quot;
+12→Mat Z[I,2]
+IfEnd
+
+If Z=3:Then 
+Prog &quot;+ZJUMP&quot;
+6→Mat Z[I,2]
+IfEnd
+
+I→Mat S[8,Y]
+Cls
+DrawStat
+Text 1,1,&quot;θ×    &quot;
+Text 1,10,θ
+StoPict 1
+Prog &quot;+DISP&quot;
+Z→Mat Z[I,1]
+
+&#x27;==== Prog &quot;+ZOMBIE2&quot; ====
+Mat Z[K,1]=0⇒Return
+
+If Mat Z[K,5]&gt;0:Then Mat Z[K,5]-1→Mat Z[K,5]:Return
+IfEnd
+
+Mat Z[K,3]→G
+Mat Z[K,4]→H
+
+If G=1:Then 
+Prog &quot;+ENDING2&quot;
+IfEnd
+
+If (Mat P[G-1,H]=0) And (Mat S[G-1,H]=0):Then 
+Prog &quot;+MOVE&quot;
+Return
+IfEnd
+
+If (Mat Z[K,1]=3) And (G&gt;2):Then 
+If (Mat P[G-1,H]≠0) And (Mat S[G-2,H]=0):Then 
+Prog &quot;+JUMP&quot;
+Return
+IfEnd
+IfEnd
+
+If Mat P[G-1,H]≠0:Then Prog &quot;+ATTACK&quot;
+Return
+IfEnd
+
+&#x27;==== Prog &quot;TDGAME&quot; ====
+Prog &quot;+INIT1&quot;
+BG-None
+Cls
+Text 1,1,&quot;======PLANTS VS ZOMBIES======&quot;
+{70,120,120,70,70,76,126,120,126,126,120,126}→List 1
+{10,10,50,50,10,2,2,10,2,42,50,42}→List 2
+DrawStat
+Text 1,1,&quot;======PLANTS VS ZOMBIES======&quot;
+0→S
+0→T
+Text 56,56,&quot;designby G.W.H.&quot;
+Prog &quot;+PEA&quot;
+24+4List 1→List 1
+63+4List 2→List 2
+DrawStat
+Prog &quot;+SUNF&quot;
+40+1.5List 1→List 1
+63+1.5List 2→List 2
+DrawStat
+120→S
+63→T
+Prog &quot;+ZOMB&quot;
+DrawStat
+Text 56,1,&quot;V0.5&quot;
+Text 14,80,&quot;New Game&quot;
+Text 20,80,&quot;Continue&quot;
+Text 26,80,&quot;Help&quot;
+Text 32,80,&quot;Quit&quot;
+0→Y
+While 1
+Text 14+6Y,74,&quot;θ&quot;
+0→Z
+For 1→I To 20
+GetKey→r
+r≠0⇒r→Z
+Next
+Text 14+6Y,74,&quot; &quot;
+Z=28⇒MOD(Y-1,4)→Y
+Z=37⇒MOD(Y+1,4)→Y
+If Z=31:Then 
+If Y=0:Then 
+Prog &quot;+SELECT&quot;
+Prog &quot;+INIT1&quot;
+Prog &quot;+INIT2&quot;
+Prog &quot;+MAIN&quot;
+IfEnd
+If Y=1:Then 
+Prog &quot;+MAIN&quot;
+IfEnd
+If Y=2:Then 
+Prog &quot;+INTRO2&quot;
+IfEnd
+If Y=3:Then 
+ClrList 1
+ClrList 2
+BG-None
+ClrGraph
+Return
+IfEnd
+IfEnd
+WhileEnd
+BG-None
+ClrList 1
+ClrList 2
+ClrGraph
+
+
+&#x27;==== Prog &quot;××SNACKI&quot; ====
+&quot;SPEED 1 To 15&quot;?→S
+&#x27;=====INIT==========
+ClrText
+148→Dim List 1
+Fill(0,List 1)
+{21,7}→Dim Mat A
+Fill(0,Mat A)
+2→X
+1→Y
+2→L
+1→P
+1×8+1→List 1[1]
+RanInt#(2,20)→M
+RanInt#(2,6)→N
+27→R
+27→Z
+If S≤15
+Then Int (80÷S)→S
+Else 1→S
+IfEnd
+Locate 1,1,&quot;○&quot;
+Locate 2,1,&quot;●&quot;
+Locate M,N,&quot;¥&quot;
+&#x27;=====MAIN LOOP=====
+While 1
+&#x27;=====DELAY&amp;KEY=====
+For 1→I To S
+GetKey→T
+T=64⇒28→T
+T=62⇒37→T
+T=73⇒38→T
+T=53⇒27→T
+(T=28) And (Z≠37)⇒T→R
+(T=37) And (Z≠28)⇒T→R
+(T=38) And (Z≠27)⇒T→R
+(T=27) And (Z≠38)⇒T→R
+Next
+R→Z
+&#x27;Mat B[X,Y]→Z
+&#x27;=====MOVE==========
+MOD(P,148)+1→P
+Locate X,Y,&quot;○&quot;
+1→Mat A[X,Y]
+8X+Y→List 1[P]
+Z=28⇒Y-1→Y
+Z=37⇒Y+1→Y
+Z=38⇒X-1→X
+Z=27⇒X+1→X
+&#x27;=====EAT==========
+If X=M And Y=N
+Then 
+RanInt#(2,20)→M
+RanInt#(2,6)→N
+L+1→L
+0→List 1[MOD(P-L,148)+1]
+IfEnd
+List 1[MOD(P-L,148)+1]→T
+T≠0⇒0→Mat A[Int (T÷8),MOD(T-1,8)+1]
+&#x27;=====DIE===========
+X&gt;21⇒Goto O
+X&lt;1⇒Goto O
+Y&gt;7⇒Goto O
+Y&lt;1⇒Goto O
+Mat A[X,Y]=1⇒Goto O
+&#x27;=====DISPLAY=======
+T≠0⇒Locate Int (T÷8),MOD(T-1,8)+1,&quot; &quot;
+Locate X,Y,&quot;●&quot;
+Locate M,N,&quot;¥&quot;
+WhileEnd
+&#x27;=====END===========
+Lbl O
+{3838}→List 1
+Locate 7,4,&quot;GAME OVER&quot;
+Locate 7,5,&quot;SCORE:   &quot;
+Locate 14,5,L-1
+</pre></details><details><summary>originals/TDGAME-ReadMe.txt</summary><pre>塔防小游戏
+	GWHBOB
+		fxesms.5d6d.com
+
+========================操作指南========================
+[上下左右]：移动光标。
+[F1~F3]：在光标所在位置种下植物。
+[menu]：暂停。
+
+最下面一排：[F1~F3]种下植物最下面一排对应的植物，
+	从左往右分别是：{豌豆射手hp3,太阳花hp2,坚果墙hp8}
+	植物下面的数字，左边是需要的阳光数，
+		右边是冷却时间，到0之后才可以种植物。
+左上角是你拥有的阳光数。
+
+========================注意事项========================
+@因为平台和个人编码能力的问题，本游戏有点卡，请见谅。
+@为防止误操作对程序的破坏，可在&quot;RUN.MAT&quot;模式中输入：
+	([SHIFT][VARS](PRGM)[F2](CTL)[F1])[Prog ]
+	&quot;([SHIFT][EXP])TDGAME&quot;
+	效果：Prog &quot;TDGAME&quot;
+	按下[EXE]运行。
+	此时中断程式不会跳转至代码编辑界面。
+@本游戏可能存在BUG，如有，请联系fxesms论坛的GWHBOB。
+@本游戏可能在年底出第二版，将增加三种左右的僵尸和植物，
+	并支持BOSS战。
+@本游戏为fxesms论坛的GWHBOB所编写，为开源软件，欢迎大家研究。
+========================1.1版更新========================
+@去除了胜利时显示43的16进制的BUG。
+@去除了撑杆跳僵尸跳过子弹的BUG。
+@太阳花生产阳光的速度适当减慢了。</pre></details><h2>图</h2><div class="imgs"><figure><img src="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-screenshot.jpg" alt="originals/TDGAME-screenshot.jpg" loading="lazy"><figcaption>originals/TDGAME-screenshot.jpg</figcaption></figure><figure><img src="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-screenshots/aimg5230.jpg" alt="originals/TDGAME-screenshots/aimg5230.jpg" loading="lazy"><figcaption>originals/TDGAME-screenshots/aimg5230.jpg</figcaption></figure><figure><img src="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-screenshots/aimg5232.jpg" alt="originals/TDGAME-screenshots/aimg5232.jpg" loading="lazy"><figcaption>originals/TDGAME-screenshots/aimg5232.jpg</figcaption></figure><figure><img src="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-screenshots/aimg5233.jpg" alt="originals/TDGAME-screenshots/aimg5233.jpg" loading="lazy"><figcaption>originals/TDGAME-screenshots/aimg5233.jpg</figcaption></figure><figure><img src="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-screenshots/aimg5234.jpg" alt="originals/TDGAME-screenshots/aimg5234.jpg" loading="lazy"><figcaption>originals/TDGAME-screenshots/aimg5234.jpg</figcaption></figure><figure><img src="../20101022%20%E5%A1%94%E9%98%B2/originals/TDGAME-screenshots/aimg5235.jpg" alt="originals/TDGAME-screenshots/aimg5235.jpg" loading="lazy"><figcaption>originals/TDGAME-screenshots/aimg5235.jpg</figcaption></figure></div></main></body></html>

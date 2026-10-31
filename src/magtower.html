@@ -1,0 +1,5192 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>魔塔 · 化石</title><style>:root{--lcd:#c8ceba;--ink:#222620;--panel:#b9c0a9}html,body{margin:0;background:var(--lcd);color:var(--ink)}
+main{max-width:860px;margin:0 auto;padding:16px;font:15px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif}
+a{color:var(--ink)}h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:20px 0 6px;border-bottom:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:3px 6px;border-bottom:1px solid #9aa08c;text-align:left;vertical-align:top}
+td.n{text-align:right;white-space:nowrap}code,pre{font:13px/1.45 ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+pre{background:var(--panel);padding:10px;overflow:auto;white-space:pre;tab-size:4}details{margin:6px 0}summary{cursor:pointer;font-weight:600}
+.imgs{display:flex;flex-wrap:wrap;gap:12px}.imgs figure{margin:0}.imgs img{image-rendering:pixelated;max-width:100%;border:1px solid #9aa08c}
+.imgs figcaption{font-size:12px}.top a{margin-right:12px}.wrap{overflow-x:auto}</style></head><body><main><p class="top"><a href="../index.html">← GWHBOB的计算器程序</a><a href="../play/magtower.html">▶ 玩 魔塔</a><a href="../play/magtower.html?calc">计算器</a></p><h1>魔塔 · 化石</h1><p>魔塔（MagTower），C 写的 Add-in：08-07 的源码和素材、08-09 更新的 G1A、中文字库 HZK12.df、当年自己写的地图编辑器和图片转换器、截图。</p>
+<p>时间戳 = 最早的素材 hud_left.bmp 2012-07-03；2012-08-07 发在 cnCalc 7735 帖。</p>
+<ul><li>第三方：<code>originals/HZK12.df</code> 是 UCDOS 年代流传的 12×12 点阵字库，原作者不明。</li></ul><h2>原件</h2><p>当年的字节，一个没改；点文件名下载。时间是文件里存的原始修改时间（北京时间），「—」是论坛附件、看出处里的帖子日期。</p><div class="wrap"><table><tr><th>文件</th><th>字节</th><th>原始时间</th><th>sha256 前 16 位</th><th>出处</th></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/HZK12.df" download>originals/HZK12.df</a></td><td class="n">196272</td><td>—</td><td><code>d83b7f1603e87dd6</code></td><td>cnCalc 7735 帖附件：12×12 中文点阵字库（UCDOS 年代的 HZK12 格式，原作者不明）</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/MAGTOWER.G1A" download>originals/MAGTOWER.G1A</a></td><td class="n">48552</td><td>—</td><td><code>8fed234dbccfb433</code></td><td>cnCalc 7735 帖附件，2012-08-09 更新的那版（没有对应源码）</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/material/dialogs.txt" download>originals/material/dialogs.txt</a></td><td class="n">6816</td><td>2012-08-07 13:21</td><td><code>b241ae76b7e9610d</code></td><td>cnCalc 7735 帖附件 material.rar（GBK）</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/material/hud%20-%20%E5%89%AF%E6%9C%AC%20%282%29.bmp" download>originals/material/hud - 副本 (2).bmp</a></td><td class="n">24630</td><td>2012-07-07 15:24</td><td><code>384b36df7dd8d6dc</code></td><td>cnCalc 7735 帖附件 material.rar</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/material/hud%20-%20%E5%89%AF%E6%9C%AC.bmp" download>originals/material/hud - 副本.bmp</a></td><td class="n">24630</td><td>2012-07-07 15:15</td><td><code>997c18f6717d2935</code></td><td>cnCalc 7735 帖附件 material.rar</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/material/hud_book.bmp" download>originals/material/hud_book.bmp</a></td><td class="n">24630</td><td>2012-07-07 11:32</td><td><code>e318ea1cae5e8cb4</code></td><td>cnCalc 7735 帖附件 material.rar</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/material/hud_fight.bmp" download>originals/material/hud_fight.bmp</a></td><td class="n">24630</td><td>2012-07-07 15:26</td><td><code>60eaf4cfba674549</code></td><td>cnCalc 7735 帖附件 material.rar</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/material/hud_left.bmp" download>originals/material/hud_left.bmp</a></td><td class="n">6198</td><td>2012-07-03 18:30</td><td><code>b77a41f832b38b0c</code></td><td>cnCalc 7735 帖附件 material.rar</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/material/%E9%AD%94%E5%A1%94%E9%BB%91%E7%99%BD%20-%20%E5%89%AF%E6%9C%AC.bmp" download>originals/material/魔塔黑白 - 副本.bmp</a></td><td class="n">136278</td><td>2012-07-05 20:21</td><td><code>4840530aecd8e97d</code></td><td>作者电脑里的工程文件夹（同一张也贴在 cnCalc 7616 帖）</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/screenshots/ss7.bmp" download>originals/screenshots/ss7.bmp</a></td><td class="n">9270</td><td>—</td><td><code>20bfb3b7236655c6</code></td><td>cnCalc 7735 帖截图</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/src/MagTower.c" download>originals/src/MagTower.c</a></td><td class="n">30822</td><td>2012-08-07 15:34</td><td><code>c75364f5d38f2591</code></td><td>cnCalc 7735 帖附件 code.rar，2012-08-07（GBK）</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/src/dialog.h" download>originals/src/dialog.h</a></td><td class="n">23735</td><td>2012-08-07 14:01</td><td><code>ca3d65227266a7a4</code></td><td>cnCalc 7735 帖附件 code.rar，2012-08-07（GBK）</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/src/map.h" download>originals/src/map.h</a></td><td class="n">10850</td><td>2012-08-06 22:03</td><td><code>defc6f795b6f8a4d</code></td><td>cnCalc 7735 帖附件 code.rar，2012-08-07（GBK）</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/src/monsters.h" download>originals/src/monsters.h</a></td><td class="n">2698</td><td>2012-08-06 22:08</td><td><code>1920f63986cad433</code></td><td>cnCalc 7735 帖附件 code.rar，2012-08-07（GBK）</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/src/pictures.h" download>originals/src/pictures.h</a></td><td class="n">39056</td><td>2012-07-07 15:28</td><td><code>147ff022a7f8f69a</code></td><td>cnCalc 7735 帖附件 code.rar，2012-08-07（GBK）</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/tools/B2C.exe" download>originals/tools/B2C.exe</a></td><td class="n">32768</td><td>—</td><td><code>fe4f94d57a82670e</code></td><td>cnCalc 7735 帖附件：作者写的 BMP → C 数组转换器</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/tools/MapEdit.exe" download>originals/tools/MapEdit.exe</a></td><td class="n">163840</td><td>2012-08-06 16:10</td><td><code>e48538947fee2f9d</code></td><td>cnCalc 7735 帖附件 material.rar</td></tr><tr><td><a href="../20120703%20%E9%AD%94%E5%A1%94/originals/tools/MapEdit.frm" download>originals/tools/MapEdit.frm</a></td><td class="n">5859</td><td>2012-07-06 11:00</td><td><code>bbbc58ccede879b2</code></td><td>cnCalc 7735 帖附件 material.rar：作者写的地图编辑器（VB 源码）</td></tr></table></div><h2>代码</h2><p>当年是 GBK 编码，这里解出来显示。</p><details><summary>originals/material/dialogs.txt</summary><pre>Private Sub Command1_Click()
+Dim i As Integer, s As String
+Dim c As Integer, cc As Integer
+c = 0
+cc = 0
+Text2 = &quot;&quot;&quot;&quot;
+For i = 1 To Len(Text1)
+    s = Mid(Text1, i, 1)
+    If Asc(s) &gt;= 0 Then
+        If Asc(s) = Asc(vbCrLf) Then
+            Text2 = Text2 + &quot;&quot;&quot;,&quot; + vbCrLf + &quot;&quot;&quot;&quot;
+            cc = cc + 1
+            c = 0
+        Else
+            c = c + 6
+            If c &gt;= 128 Then
+                c = 6
+                Text2 = Text2 + &quot;\n&quot;
+            End If
+            Text2 = Text2 + s
+        End If
+    Else
+        c = c + 12
+        If c &gt;= 128 Then
+            c = 12
+            Text2 = Text2 + &quot;\n&quot;
+        End If
+        Text2 = Text2 + &quot;\x&quot; + Hex(&amp;HFF + (Asc(s) \ &amp;H100)) + &quot;\x&quot; + Hex(Asc(s) And &amp;HFF)
+    End If
+Next i
+Text2 = Text2 + &quot;&quot;&quot;&quot;
+Me.Caption = cc + 1
+End Sub
+
+游戏暂停\n1.继续\n2.保存\n3.退出
+游戏退出，你要保存吗？1.保存后退出2.不保存直接退出
+保存成功！
+保存失败。。。
+加载成功！
+加载失败。。。
+
+勇士：。。。。。。
+仙子：你醒了！
+勇士：。。。。。。你是谁？我在哪里？
+仙子：我是这里的仙子，刚才你被这里的小怪打昏了。
+勇士：。。。。。。剑，剑，我的剑呢？
+仙子：你的剑被他们抢走了，我只来得及将你救出来。
+勇士：那，公主呢？我是来救公主的。
+仙子：公主还在里面，你这样进去是打不过里面的小怪的。
+勇士：那我怎么办，我答应了国王一定要把公主救出来的，那我现在应该怎么办呢？
+仙子：放心吧，我把我的力量借给你，你就可以打赢那些小怪了。
+仙子：不过，你的先帮我去找一样东西，找到了再来这里找我。 
+勇士：找东西？找什么东西？
+仙子：是一个十字架，中间有一颗红色的宝石。
+勇士：那个东西有什么用吗？
+仙子：我本是这座塔守护者，可不久前，从北方来了一批恶魔，并将我的魔力封在了这个十字架里面。
+仙子：如果你能将它带出塔来，那我的魔力便会慢慢地恢复，到那时我便可以把力量借给你去救出公主了。
+仙子：要记住：只有用我的魔力才能打开二十一层的门。
+勇士：。。。。。。好吧，我试试看。
+仙子：刚才我去看过了，你的剑被放在三楼，你的盾在五楼上，而那个十字架被放在七楼。
+仙子：要到七楼，你的先取回你的剑和盾。
+仙子：另外，在塔里的其它楼层上，还有一些存放了好几百年的宝剑和宝物。
+仙子：如果得到它们，对于你对付这里面的怪物将有很大的帮助。
+仙子：我这里有三把钥匙，你先拿去，在塔里面还有很多这样的钥匙，你一定要珍惜使用。
+仙子：勇敢的去吧，勇士！
+获得A钥匙、B钥匙和C钥匙各1！
+
+仙子：快去打败魔王，勇士，别忘了去找十字架！
+
+商店老板：欢迎你！远道而来的勇士！给我%d个金币，我可以给你提升以下一种力量：
+费用：%d金币
+1.增加%d点攻击
+2.增加%d点防御
+3.增加%d点生命
+4.谢谢，不用
+没钱你来干什么！
+商店老板：谢谢惠顾！
+
+神秘老人：你好，年轻人，需要我的帮助吗？
+1.%d点攻击需要经验%d
+2.%d点防御需要经验%d
+3.提升%d级需要经验%d
+4.谢谢，不用
+神秘老人：没有足够的经验，年轻人，你需要多多努力！
+神秘老人：恭喜你，年轻人，你的实力有所长进！
+
+商人：嗨！你需要钥匙吗？
+1.A钥匙卖%d金币
+2.B钥匙卖%d金币
+3.C钥匙卖%d金币
+4.谢谢，不用
+没钱你来干什么！
+商人：谢谢惠顾！
+
+商人：高价收购钥匙喽！
+1.A钥匙出售%d金币
+2.B钥匙出售%d金币
+3.C钥匙出售%d金币
+4.谢谢，不用
+你没有%c钥匙！
+商人：谢谢惠顾！
+
+勇士：你已经得救了！
+小偷：啊，那真是太好了，我又可以在这里面寻宝了！
+小偷：哦，还没有自我介绍，我叫杰克，是这附近有名的小偷，什么金银财宝我样样都偷过。
+小偷：不过这次运气可不是太好，刚进来就被抓了。现在你帮我打开了门，那我就帮你做一件事吧。
+勇士：快走吧，外面还有很多怪物，我可能顾不上你。
+小偷：不，不，不会有事的。快说吧，叫我做什么？
+勇士：。。。。。。你会开门吗？
+小偷：那当然。
+勇士：那就请你帮我打开第二层的门吧！
+小偷：那个简单，不过，如果你能帮我找到一把嵌了红宝石的铁锒头的话，我还帮你打通第十八层的路。
+勇士：嵌了红宝石的铁锒头？好吧，我帮你找找。
+小偷：非常地感谢。一会我便会把第二层的门打开。如果你找到那个铁锒头的话，还是来这里找我！
+
+小偷：搞定了~
+
+勇士：您已经得救了！
+神秘老人：哦，我的孩子，真是太感谢你了！这个地方又脏又坏，我真的是快呆不下去了。
+勇士：快走吧，我还的走救被关在这里的公主。
+神秘老人：哦，你是来救公主的，为了表示对你的感谢，这个东西就送给你吧。
+神秘老人：这还是我年青的时候用过的。拿着它去解救公主吧！
+
+勇士：您已经得救了！
+商人：哦，是嘛！真是太感谢你了！我是个商人，不知道为什么被抓到这里来了。
+勇士：快走吧，现现您已经自由了。
+商人：哦，对对对，我已经自由了。那这个东西就给你吧，本来我是准备卖钱的。
+商人：相信它对你一定很有帮助！
+
+勇士：。。。。。。
+红衣魔王：停止吧！愚蠢的人类！
+勇士：该停止的是你！魔王。快说，公主关在哪里？
+红衣魔王：等你打赢我再说吧！
+
+红衣魔王：哈哈哈，我就告诉你吧，公主被我关在了第十八层，可是你却救不了她！哈哈哈！
+红衣魔王：哈哈哈哈哈哈。。。。。。呃
+
+神秘老人：你好，勇敢的孩子，你终于来到这里了。我将给你一个非常好的宝物。
+神秘老人：它可以使你的攻击力提升 120点，但这必须得用你的 500点经验来进行交换，考虑一下子吧！
+1.好的
+2.不
+对不起！你没有足够的经验！
+勇士：好吧，那就将那把剑给我吧！
+神秘老人：那好吧，这把剑就给你了！
+
+商人：啊哈，欢迎你的到来！我这里有一件对你来说非常好的宝物，只要你出得起钱，我就卖给你。
+勇士：什么宝物？要多少钱？
+商人：是这个游戏是最好的盾牌，防御值可以增加 120点，而你只要出 500个金币就可以买下。
+商人：怎么样？你有 500个金币吗？
+1.有！
+2.算了
+没钱你来干什么！
+勇士：我有 500个金币。
+商人：好，成交！
+
+实际上不是最好的……
+
+勇士：哈，快看，我找到了什么！
+小偷：太好了，这个东西果然是在这里。好吧，我这就去帮你修好第十八层的路面
+
+勇士：公主！你得救了！
+公主：啊，你是来救我的吗？
+勇士：是的，我的奉国王的命令来救你的。请你快随我出去吧！
+公主：不，我还不想走。
+勇士：为什么？这里面到处都是恶魔。
+公主：正是因为这里面到处都是恶魔，所以才不可以就这样出去，我要看着那个恶魔被杀死！
+公主：英雄的勇士，如果你能够将那个大恶魔杀死，我就和你一起出去！
+勇士：大恶魔？我已经杀死了一个魔王！
+公主：大恶魔在这座塔的最顶层，你杀死的可能是一个小队长之类的恶魔
+勇士：好，那你等着，等我杀了那个恶魔再来这里找你！
+公主：大恶魔比你刚才杀死的那个厉害多了。
+公主：而且他还会变身，变身后的魔王他的攻击力和防御力都会提升至少一半以上，你得小心！
+公主：请一定要杀死大魔王！
+
+勇士：大魔头，你的死期到了！
+冥灵魔王：哈哈哈，你也真是有意思。
+冥灵魔王：别以为蝶仙那家伙给了你力量你就可以打败我，想打败我你还早着呢！
+勇士：废话少说，去死吧！
+
+冥灵魔王：看不出你还有两下子，有本领的话来21楼。在那你，你就可以见识到我真正的实力了！
+
+勇士：仙子，我已经将那个十字架找到了。
+仙子：你做得很好。那么，现在我就开始授予你更强的力量！
+仙子：咪啦哆咪哗。。。。。。
+仙子：好了，我已经将你现在的力量提升了！
+仙子：记住：如果你没有足够的实力的话，不要去第二十一层！在那一层里，你所有宝物的法力都会失去作用！
+仙子：快走吧。
+
+冥灵魔王：。。。。。。。。。。。。
+
+冥灵魔王：啊。。。。。。怎么可能，我怎么可能会被你打败呢！不，不要这样。
+冥灵魔王：。。。。。。。。。。。。
+
+勇士：魔王已经死了。
+公主：真的吗？
+勇士：是的。
+公主：太好了！这个魔头已经为非作歹很长时间了。你真是个大英雄！
+勇士：那么我们快离开这儿吧。
+
+勇士：魔王已经被消灭了。
+仙子：你做的很好，人们会很感谢你的。
+勇士：不过，没有你的帮助，我也做不到这一步。谢谢！
+仙子：不用谢啦。
+仙子：你们快走吧，我还要把这座塔重新收拾收拾一下。
+
+游戏结束
+得分：</pre></details><details open><summary>originals/src/MagTower.c</summary><pre>#include &quot;fxlib.h&quot;
+#include &quot;stdarg.h&quot;
+#include &quot;timer.h&quot;
+#include &quot;stdlib.h&quot;
+
+#include &quot;pictures.h&quot;
+#include &quot;dialog.h&quot;
+#include &quot;monsters.h&quot;
+#include &quot;map.h&quot;
+
+//system data
+int CHEATMODE;
+int GAME;
+
+int mapwidth;
+int mapheight;
+int mapnumber;
+int viewportx;
+int viewporty;
+int viewportf;
+const screenwidth=96;
+const screenheight=64;
+const directions[5][2]={{0,1},{0,-1},{-1,0},{1,0},{0,0}};
+int clock;
+typedef struct{
+	int pid;
+	int life;
+	int crood;	//0-none	1-map	2-map16	3-screen
+	int x;
+	int y;
+	int width;
+	int height;
+} sprite;
+sprite sprites[10];
+
+//game data
+unsigned char map[22][11][11];
+typedef struct{
+	int key[3];
+	int hoe;
+	int cross;
+	int book;
+	int elevator;
+	int maxfloor;
+	int plot;
+} inventory;
+typedef struct{
+	int f;
+	int x;
+	int y;
+	int t;
+	int c;
+
+	int hp;
+	int atk;
+	int dec;
+	int lv;
+	int gold;
+	int exp;
+
+	inventory inv;
+} character;
+character player;
+
+
+
+unsigned short * chr_to_fnt(const char *c,unsigned short *f){int i,len = strlen(c);for(i=0; i&lt;len ;++i)f[i] = c[i];f[i]=0;return f;}
+int fh_HZK = 0;
+int open_chs_font(){unsigned short file_name[16];chr_to_fnt(&quot;\\\\fls0\\HZK12.df&quot;,file_name);fh_HZK = Bfile_OpenFile(file_name,_OPENMODE_READ);return fh_HZK;}
+
+int getpictureHZK(unsigned char* mat,unsigned char c1,unsigned char c2)
+{
+	int sec,pot; 
+	sec = c1-0xa0;
+	pot = c2-0xa0;
+	Bfile_ReadFile(fh_HZK,mat,24,(94*(sec-1)+(pot-1))*24);
+//mat[12][2]
+}
+int getpicture(unsigned char* mat,int pid)
+{
+	int i,j;
+	j=pid&lt;&lt;5;
+	for(i=0;i&lt;32;i++)mat[i]=pictures[j++];
+}
+int putpicture(unsigned char* mat,int xs,int ys,int w,int h)
+{
+	int xe,ye,i,j,x,y,ii,jj,p;
+	unsigned char mask;
+	xe=xs+w-1;if(xe&gt;127)xe=127;
+	ye=ys+h-1;if(ye&gt;63)ye=63;
+	ii=jj=0;
+	if(xs&lt;0){ii=-xs;xs=0;}
+	if(ys&lt;0){jj=-ys;ys=0;}
+	if(w%8)w=(w&gt;&gt;3)+1;else w=w&gt;&gt;3;
+	i=ii;
+	for(x=xs;x&lt;=xe;x++){
+		j=jj;
+		for(y=ys;y&lt;=ye;y++){
+			mask=128&gt;&gt;(i%8);
+			p=(j*w)+(i&gt;&gt;3);
+			Bdisp_SetPoint_VRAM(x,y,mat[p]&amp;mask?1:0);
+			j++;
+		}
+	i++;
+	}
+}
+int printf5(int x,int y,char * msg,...)
+{
+	unsigned char c1,c2;
+	unsigned char buf[128];
+	va_list  arg_list;
+
+	va_start	(arg_list,msg);
+	vsprintf	((char*)buf,msg,arg_list);
+	va_end		(arg_list);
+	
+	PrintMini (x,y,buf,0);
+
+}
+int printf7(int x,int y,char * msg,...)
+{
+	unsigned char c1,c2;
+	unsigned char buf[128];
+	va_list  arg_list;
+
+	va_start	(arg_list,msg);
+	vsprintf	((char*)buf,msg,arg_list);
+	va_end		(arg_list);
+	
+	PrintXY (x,y,buf,0);
+
+}
+int printf12 (int x,int y,unsigned char * msg,...)
+{
+	unsigned char c1,c2;
+	unsigned char buf[128],*p=buf;
+	unsigned char mat[12][2];
+	int lan=0;
+	va_list  arg_list;
+
+	va_start	(arg_list,msg);
+	vsprintf	((char*)buf,(char*)msg,arg_list);
+	va_end		(arg_list);
+
+	while (*p)
+	{
+		if ((c1=*p) &amp; 0x80)
+		{
+			if(lan==2)x++;
+			p++;c2 = *p++;
+			getpictureHZK (mat,c1,c2);
+			putpicture(mat,x,y,12,12);
+			x+=12;
+			lan=1;
+		}
+		else
+		{
+			char s[2];
+			DISPBOX box;
+			s[0]=c1;s[1]=&#x27;\0&#x27;;
+			p++;
+			box.left = x;box.top = y;box.right = x+6;box.bottom = y+11; 
+			Bdisp_AreaClr_VRAM (&amp;box);
+			PrintXY (x,y+3,(unsigned char*)s,0);
+			x+=6;
+			lan=2;
+		}
+	}
+}
+
+int msgbox(unsigned char * msg,...)
+{
+	unsigned char c1,c2;
+	unsigned char buf[128],*p;
+	unsigned char mat[12][2];
+	unsigned char lan,length[5],maxlength,i;
+	int x,y;
+	va_list  arg_list;
+	DISPBOX box;
+
+	va_start	(arg_list,msg);
+	vsprintf	((char*)buf,(char*)msg,arg_list);
+	va_end		(arg_list);
+
+	lan=0;
+	p=buf;
+	i=0;length[i]=0;
+	maxlength=0;
+	while (*p){
+		if ((c1=*p) &amp; 0x80){
+			if(lan==2)length[i]++;
+			length[i]+=12;
+			lan=1;
+			p+=2;
+		}else{
+			if(c1==&#x27;\n&#x27; &amp;&amp; i&lt;4){
+				if(length[i]&gt;maxlength)maxlength=length[i];
+				i++;length[i]=0;
+				lan=0;
+			}else{
+				length[i]+=6;
+				lan=2;
+			}
+			p++;
+		}
+	}
+	if(length[i]&gt;maxlength)maxlength=length[i];
+	i++;
+	box.left = 63-maxlength/2;box.top = 31-i*6;box.right = 65+maxlength/2;box.bottom = 33+i*6; 
+	Bdisp_AreaClr_VRAM (&amp;box);	
+	y=32-i*6;
+	lan=0;
+	p=buf;
+	i=0;x=64-length[i]/2;
+	while (*p)
+	{
+		if ((c1=*p) &amp; 0x80)
+		{
+			if(lan==2)x++;
+			p++;c2 = *p++;
+			getpictureHZK (mat,c1,c2);
+			putpicture(mat,x,y,12,12);
+			x+=12;
+			lan=1;
+		}
+		else
+		{
+			if(c1==&#x27;\n&#x27; &amp;&amp; i&lt;4){
+				i++;x=64-length[i]/2;y+=12;
+				lan=0;
+			}else{
+				char s[2];
+				s[0]=c1;s[1]=&#x27;\0&#x27;;
+				box.left = x;box.top = y;box.right = x+6;box.bottom = y+11; 
+				Bdisp_AreaClr_VRAM (&amp;box);
+				PrintXY (x,y+3,(unsigned char*)s,0);
+				x+=6;
+				lan=2;
+			}
+			p++;
+		}
+	}
+	return maxlength;
+}
+int menu(int tips,int rows,int maxlength)
+{
+	int i,y0,t;
+	unsigned int key;
+
+	i=0;key=0;y0=32+tips*6-rows*6;
+	Bdisp_AreaReverseVRAM(63-maxlength/2,y0+i*12,65+maxlength/2,y0+i*12+12);
+	while(key!=KEY_CTRL_EXE){
+		GetKey(&amp;key);
+		Bdisp_AreaReverseVRAM(63-maxlength/2,y0+i*12,65+maxlength/2,y0+i*12+12);
+		switch(key){
+		case KEY_CTRL_UP:case KEY_CTRL_LEFT:
+			i=(i+rows-1)%rows;
+		break;
+		case KEY_CTRL_DOWN:case KEY_CTRL_RIGHT:
+			i=(i+1)%rows;
+		break;
+		}
+		t=key-KEY_CHAR_1;
+		if(t&gt;=0&amp;&amp;t&lt;rows){i=t;key=KEY_CTRL_EXE;}
+		Bdisp_AreaReverseVRAM(63-maxlength/2,y0+i*12,65+maxlength/2,y0+i*12+12);
+	}
+	return i;
+}
+int fixviewport(int x,int y,int f)
+{
+	viewportx=x-screenwidth/2;
+	viewporty=y-screenheight/2;
+	if(viewportx&lt;0)viewportx=0;
+	if(viewportx&gt;16*mapwidth-screenwidth)viewportx=16*mapwidth-screenwidth;
+	if(viewporty&lt;0)viewporty=0;
+	if(viewporty&gt;16*mapheight-screenheight)viewporty=16*mapheight-screenheight;
+	viewportf=f;
+}
+int getpid(int i)
+{
+	if(i==231)i=229;
+	if(i&gt;=200)return i-200+0+(clock?32:0);
+	if(i&gt;=100)return i-100+64;
+	if(i&gt;=50)return (i-50)*2+96+(clock?1:0);
+	if(i==10||i==13||i==15)return i+128+(clock?1:0);
+	return i+128;
+}
+int putmap()
+{
+	int i,j;
+	int xs,xe,ys,ye;
+	unsigned char mat[32];
+
+	xs=viewportx&gt;&gt;4;
+	ys=viewporty&gt;&gt;4;
+	if(viewportx%16==0) xe=xs+5; else xe=xs+6;
+	if(viewporty%16==0) ye=ys+3; else ye=ys+4;
+
+	for(i=xs;i&lt;=xe;i++)
+	for(j=ys;j&lt;=ye;j++){
+		getpicture(mat,getpid(map[viewportf][i][j]));
+		putpicture(mat,(i&lt;&lt;4)-viewportx,(j&lt;&lt;4)-viewporty,16,16);
+		//printf7((i&lt;&lt;4)-viewportx,(j&lt;&lt;4)-viewporty,&quot;%d&quot;,map[viewportf][i][j]);
+	}
+}
+int log10(int n)
+{
+	if(n&lt;0)n*=-10;
+
+	if(n&gt;=10000)return 5;
+	if(n&gt;=1000)return 4;
+	if(n&gt;=100)return 3;
+	if(n&gt;=10)return 2;
+	return 1;
+}
+int puthud()
+{
+	putpicture(hud_left,96,0,32,64);
+	
+	if(player.x&lt;=2)	printf7(78,0,&quot;%02dF&quot;,player.f);
+	else			printf7(0,0,&quot;%02dF&quot;,player.f);
+	//printf12(97,1,(unsigned char*)&quot;勇者&quot;);
+	if(log10(player.lv)==1)	printf7(121,6,&quot;%d&quot;,player.lv);
+	else				printf5(120,6,&quot;%2d&quot;,player.lv);
+	if(log10(player.hp)&lt;=4)
+		printf7(120-4*log10(player.hp),13,&quot;%d&quot;,player.hp);
+	else
+		printf5(104,14,&quot;%d&quot;,player.hp);
+	printf7(120-4*log10(player.atk),21,&quot;%d&quot;,player.atk);
+	printf7(120-4*log10(player.dec),29,&quot;%d&quot;,player.dec);
+	printf7(120-4*log10(player.gold),37,&quot;%d&quot;,player.gold);
+	printf7(120-4*log10(player.exp),45,&quot;%d&quot;,player.exp);
+	
+	printf5(101,57,&quot;%02d&quot;,player.inv.key[0]);
+	printf5(110,57,&quot;%02d&quot;,player.inv.key[1]);
+	printf5(119,57,&quot;%02d&quot;,player.inv.key[2]);
+}
+int putplayer()
+{
+	int pid,x,y;
+	unsigned char mat[32];
+
+	if(player.f!=viewportf)return 1;
+	pid=96+player.t*2;
+	x=16*player.x-viewportx;
+	y=16*player.y-viewporty;
+	if(player.c==0){
+		pid+=clock?1:0;
+	}else{
+		pid+=player.c&gt;2?0:1;
+		x+=directions[player.t][0]*4*(player.c-1);
+		y+=directions[player.t][1]*4*(player.c-1);
+	}
+	getpicture(mat,pid);
+	putpicture(mat,x,y,16,16);
+}
+int putsprites()
+{
+	int i;int mat[32];
+	for(i=0;i&lt;10;i++) if(sprites[i].life&gt;0){
+		getpicture(mat,sprites[i].pid);
+		switch(sprites[i].crood){
+		case 1:
+			putpicture(mat,16*sprites[i].x-viewportx,16*sprites[i].y-viewporty,sprites[i].width,sprites[i].height);
+		break;case 2:
+			putpicture(mat,sprites[i].x-viewportx,sprites[i].y-viewporty,sprites[i].width,sprites[i].height);
+		break;case 3:
+			putpicture(mat,sprites[i].x,sprites[i].y,sprites[i].width,sprites[i].height);
+		}
+	}
+}
+int putsprite(int pid,int life,int crood,int x,int y,int width,int height)
+{
+	int i,min,p;
+	p=0;min=sprites[0].life;
+	for(i=1;i&lt;10;i++) if(sprites[i].life&lt;min){ p=i; min=sprites[i].life; }
+	sprites[p].pid=pid; sprites[p].life=life; sprites[p].crood=crood; sprites[p].x=x; sprites[p].y=y; sprites[p].width=width; sprites[p].height=height;
+	return p;
+}
+int delsprite(int id)
+{
+	if(id&lt;0||id&gt;9)return 0;
+	sprites[id].life=0;
+}
+int putall()
+{
+	putmap();
+	putplayer();
+	putsprites();
+	puthud();
+	Bdisp_PutDisp_DD();
+}
+int timer1()
+{
+	int i;
+	clock=!clock;
+	putall();
+	for(i=0;i&lt;10;i++)if(sprites[i].life&gt;0&amp;&amp;sprites[i].life&lt;30000)sprites[i].life--;
+}
+int pause()
+{
+	KillTimer(ID_USER_TIMER1);
+	while( IsKeyDown(KEY_CTRL_UP) || IsKeyDown(KEY_CTRL_DOWN) || IsKeyDown(KEY_CTRL_LEFT) || IsKeyDown(KEY_CTRL_RIGHT));
+}
+int start()
+{
+	SetTimer(ID_USER_TIMER1,400,timer1);
+}
+
+int dialog(int n,unsigned char* a[])
+{
+	int i;
+	unsigned int key;
+
+	key=0;
+	for(i=0;i&lt;n&amp;&amp;key!=KEY_CTRL_EXIT;i++){
+		putall();
+		printf5(0,59,&quot;[EXIT] to skip&quot;);
+		msgbox(a[i]);
+		GetKey(&amp;key);
+	}
+	putall();
+}
+int fight(int id)
+{
+	unsigned int key;
+	int hp,tmp;
+	unsigned char mat[32];
+
+	putpicture(hud_fight,0,0,128,64);
+
+	hp=monsters0[id].hp;
+
+	clock=0;getpicture(mat,getpid(50));putpicture(mat,4,4,16,16);
+	printf12(4,22,&quot;勇者&quot;);
+	printf7(11,36,&quot;%-6d&quot;,player.hp);
+	printf7(11,44,&quot;%d&quot;,player.atk);
+	printf7(11,52,&quot;%d&quot;,player.dec);
+
+	getpicture(mat,getpid(200+id));putpicture(mat,76,4,16,16);
+	printf12(76,22,&quot;%s&quot;,monsters0[id].name);
+	printf7(83,36,&quot;%-6d&quot;,hp);
+	printf7(83,44,&quot;%d&quot;,monsters0[id].atk);
+	printf7(83,52,&quot;%d&quot;,monsters0[id].dec);
+
+	Bdisp_PutDisp_DD();Sleep(400);
+
+	tmp=0;
+	if(id==12)tmp=100;
+	if(id==13)tmp=300;
+	if(id==23)tmp=player.hp/3;
+	if(id==25)tmp=player.hp/4;
+
+	if(tmp!=0){
+		clock=1;getpicture(mat,getpid(50));putpicture(mat,4,4,16,16);
+		if(log10(tmp)&gt;4) printf5(23,8,&quot;-%d&quot;,tmp); else printf7(23,8,&quot;-%-4d&quot;,tmp);
+		Bdisp_PutDisp_DD();Sleep(200);
+		player.hp-=tmp;
+		printf7(11,36,&quot;%-6d&quot;,player.hp);
+		clock=0;getpicture(mat,getpid(200+id));putpicture(mat,76,4,16,16);
+		Bdisp_PutDisp_DD();Sleep(200);
+		printf7(23,8,&quot;     &quot;,tmp);
+	}
+	while(player.hp&gt;0&amp;&amp;hp&gt;0){
+		if(player.hp&gt;0){
+			tmp=player.atk-monsters0[id].dec;if(tmp&lt;0)tmp=0;
+			clock=1;getpicture(mat,getpid(200+id));putpicture(mat,76,4,16,16);
+			printf7(95,8,&quot;-%-4d&quot;,tmp);
+			Bdisp_PutDisp_DD();Sleep(200);
+			hp-=tmp;if(hp&lt;0)hp=0;
+			printf7(83,36,&quot;%-6d&quot;,hp);
+			clock=0;getpicture(mat,getpid(50));putpicture(mat,4,4,16,16);
+			Bdisp_PutDisp_DD();Sleep(200);
+			printf7(95,8,&quot;     &quot;);
+		}
+		if(hp&gt;0){
+			tmp=monsters0[id].atk-player.dec;if(tmp&lt;0)tmp=0;
+			clock=1;getpicture(mat,getpid(50));putpicture(mat,4,4,16,16);
+			printf7(23,8,&quot;-%-4d&quot;,tmp);
+			Bdisp_PutDisp_DD();Sleep(200);
+			player.hp-=tmp;if(player.hp&lt;0)player.hp=0;
+			printf7(11,36,&quot;%-6d&quot;,player.hp);
+			clock=0;getpicture(mat,getpid(200+id));putpicture(mat,76,4,16,16);
+			Bdisp_PutDisp_DD();Sleep(200);
+			printf7(23,8,&quot;     &quot;,tmp);
+		}
+	}
+	if(player.hp&gt;0){
+		msgbox(&quot;战胜%s！\n获得%d金钱！\n获得%d\xBE\xAD\xD1\xE9！&quot;,monsters0[id].name,monsters0[id].gold,monsters0[id].exp);
+		player.gold+=monsters0[id].gold;
+		player.exp+=monsters0[id].exp;
+		GetKey(&amp;key);
+	}
+}
+int damageestimate(int id)
+{
+	int t,dam;
+	if(player.atk&lt;=monsters0[id].dec)return -1;
+	dam=0;
+	if(id==12)dam=100;
+	if(id==13)dam=300;
+	if(id==23)dam=player.hp/3;
+	if(id==25)dam=player.hp/4;
+	t=(int)((monsters0[id].hp-1)/(player.atk-monsters0[id].dec));
+	if(monsters0[id].atk&gt;player.dec)dam+=t*(monsters0[id].atk-player.dec);
+	return dam;
+}
+int move()
+{
+	for(player.c=2;player.c&lt;=4;player.c++){
+		fixviewport(		player.x*16+8+directions[player.t][0]*4*(player.c-1),
+					player.y*16+8+directions[player.t][1]*4*(player.c-1),
+					player.f);
+		putall();
+		Sleep(50);
+	}
+	player.x+=directions[player.t][0];
+	player.y+=directions[player.t][1];
+	player.c=0;
+	fixviewport(player.x*16+8,player.y*16+8,player.f);
+	putall();
+}
+int elevatecheck(int floor)
+{
+	int i,b,x,y,f,x0,y0;
+	if(!player.inv.elevator)return 0;
+	b=0;
+	for(i=0;i&lt;5;i++){
+		f=player.f;
+		x=player.x+directions[i][0];
+		y=player.y+directions[i][1];
+		if(x&gt;=0&amp;&amp;x&lt;mapwidth&amp;&amp;y&gt;=0&amp;&amp;y&lt;mapheight&amp;&amp;f&gt;=0&amp;&amp;f&lt;mapnumber)
+			if(map[f][x][y]==2 || map[f][x][y]==3) b=1;
+	}
+	if(!b)return 0;
+	if(floor&lt;0||floor&gt;player.inv.maxfloor)return 0;
+	x0=y0=-1;
+	for(x=0;x&lt;mapwidth;x++)for(y=0;y&lt;mapwidth;y++)if(map[floor][x][y]==2||(floor==0&amp;&amp;map[floor][x][y]==3)){x0=x;y0=y;}
+	if(x0==-1)return 0;
+	player.f=floor;
+	player.x=x0;
+	player.y=y0;
+	
+	fixviewport(player.x*16+8,player.y*16+8,player.f);
+	putall();
+	return 1;
+}
+int beginning()
+{
+	int p,x;
+
+	fixviewport(player.x*16+8,player.y*16+8,player.f);
+	putall();
+	Sleep(500);
+	pause();
+	dialog(25,dialog_beginning2);
+
+	player.inv.key[0]+=1;
+	player.inv.key[1]+=1;
+	player.inv.key[2]+=1;
+	start();
+	map[0][5][8]=0;
+	p=-1;
+	for(x=0;x&lt;4;x++){
+		if(p!=-1)delsprite(p);
+		p=putsprite(getpid(56),30000,2,5*16-4*x,8*16,16,16);
+		putall();
+		Sleep(100);
+	}
+	delsprite(p);
+	map[0][4][8]=56;
+	player.inv.plot=1;
+}
+int ending()
+{
+
+}
+int check1(int f,int x,int y)
+{
+
+	int i;unsigned int key;
+	int j;
+	int p;
+	int dam;
+	int gold,atk,dec,hp,shop,gold2,lv;
+
+	if(x&lt;0||x&gt;=mapwidth||y&lt;0||y&gt;=mapheight||f&lt;0||f&gt;=mapnumber)return 0;
+	i=map[f][x][y];
+	//floor&amp;stairs
+		if(i==0||i==2||i==3)return 1;
+
+	//doors
+		if(4&lt;=i&amp;&amp;i&lt;=7){
+			if(i!=4){
+				if(player.inv.key[i-5]&lt;=0){
+					pause();
+					putall();
+					msgbox(&quot;没有%c钥匙！&quot;,(unsigned char)(i-5+65));
+					GetKey(&amp;key);
+					start();
+					return 0;
+				}else{
+					player.inv.key[i-5]--;
+				}
+			}
+			map[f][x][y]=0;
+			//pause();
+			p=-1;
+			for(j=1;j&lt;4;j++){
+				if(p!=-1)delsprite(p);
+				p=putsprite(getpid(i),30000,2,16*x,16*y+4*j,16,16-4*j);
+				putall();
+				Sleep(100);
+			}
+			delsprite(p);
+			//putall();
+			//start();
+			return 1;
+		}
+	//monsters
+		if(i&gt;=200){
+			pause();
+
+			//boss
+			if(i==226&amp;&amp;player.f==16) dialog(4,dialog_boss1);
+			if(i==229&amp;&amp;player.f==19) dialog(4,dialog_boss2);
+			if(i==229&amp;&amp;player.f==21) dialog(1,dialog_boss3);
+
+			dam=damageestimate(i-200);
+			if(dam==-1||dam&gt;=player.hp){
+				putall();
+				msgbox(&quot;你打不过！&quot;);
+				GetKey(&amp;key);
+			}else{
+				putall();
+				if(i==229&amp;&amp;player.f==21) fight(31);
+				else fight(i-200);
+				//boss
+				if(i==226&amp;&amp;player.f==16) dialog(2,dialog_bossko1);
+				if(i==229&amp;&amp;player.f==19) dialog(1,dialog_bossko2);
+				if(i==229&amp;&amp;player.f==21){
+					dialog(2,dialog_bossko3);
+					start();
+					Sleep(1000);
+					map[f][x][y]=0;
+					Sleep(1500);
+					map[21][5][7]=2;
+					player.inv.plot=3;
+				}
+
+				map[f][x][y]=0;
+				putall();
+			}
+			start();
+			return 0;
+		}
+	//items
+		if(i&gt;=100){
+			pause();
+			putall();
+			switch(i-100){
+				case 0:msgbox(&quot;获得铁盾\n防御加10&quot;);player.dec+=10;break;
+				case 1:msgbox(&quot;获得银盾\n防御加30&quot;);player.dec+=30;break;
+				case 2:msgbox(&quot;获得骑士盾\n防御加70&quot;);player.dec+=70;break;
+				case 3:msgbox(&quot;获得圣盾\n防御加120&quot;);player.dec+=120;break;
+				case 4:msgbox(&quot;获得星光神盾\n防御加150&quot;);player.dec+=150;break;
+				case 5:msgbox(&quot;获得铁剑\n攻击加10&quot;);player.atk+=10;break;
+				case 6:msgbox(&quot;获得银剑\n攻击加30&quot;);player.atk+=30;break;
+				case 7:msgbox(&quot;获得骑士剑\n攻击加70&quot;);player.atk+=70;break;
+				case 8:msgbox(&quot;获得圣剑\n攻击加120&quot;);player.atk+=120;break;
+				case 9:msgbox(&quot;获得星光神剑\n攻击加150&quot;);player.atk+=150;break;
+				case 10:msgbox(&quot;获得攻击宝石\n攻击加3&quot;);player.atk+=3;break;
+				case 11:msgbox(&quot;获得防御宝石\n防御加3&quot;);player.dec+=3;break;
+				case 12:case 13:case 14:msgbox(&quot;获得%c钥匙！&quot;,(unsigned char)(i-112+65));player.inv.key[i-112]++;break;
+				case 15:msgbox(&quot;获得小血瓶\n生命加200&quot;);player.hp+=200;break;
+				case 16:msgbox(&quot;获得大血瓶\n生命加500&quot;);player.hp+=500;break;
+				case 17:msgbox(&quot;获得圣水\n生命翻倍&quot;);player.hp*=2;break;
+				case 18:break;
+				case 19:
+					if(player.f==6){msgbox(&quot;获得小\xB7\xC9\xD3\xF0\n提升1级&quot;);player.lv+=1;player.hp+=1000;player.atk+=10;player.dec+=10;}
+					if(player.f==13){msgbox(&quot;获得大\xB7\xC9\xD3\xF0\n提升3级&quot;);player.lv+=1;player.hp+=1000;player.atk+=10;player.dec+=10;}
+				break;
+				case 20:msgbox(&quot;获得大金币\n金钱加300 &quot;);player.gold+=300;break;
+				case 21:msgbox(&quot;获得铁锒头！&quot;);player.inv.hoe++;break;
+				case 22:msgbox(&quot;获得黄金十字架&quot;);player.inv.cross++;break;
+				case 23:msgbox(&quot;获得\xB9\xD6\xCE\xEF\xCD\xBC\xBC\xF8\n按[optn]键查看&quot;);player.inv.book=1;break;
+				case 24:msgbox(&quot;获得万能钥匙\n每种钥匙+1&quot;);player.inv.key[0]++;player.inv.key[1]++;player.inv.key[2]++;break;
+				case 25:msgbox(&quot;获得电梯\n在楼梯口使用\n按[+]或[-]&quot;);player.inv.elevator=1;break;
+				//END...
+			}
+			GetKey(&amp;key);
+			map[f][x][y]=0;
+			putall();
+			start();
+			return 0;
+		}
+	//npcs
+		if(i&gt;=50 || i==10){
+			pause();
+			switch(i){
+			case 56://fairy
+				if(player.inv.plot&lt;3){
+					if(player.inv.cross==0){
+						dialog(1,dialog_fairy1);
+					}else{
+						dialog(6,dialog_fairy2);
+						player.inv.cross--;
+						map[20][5][7]=3;
+						player.hp+=player.hp/3;
+						player.atk+=player.atk/3;
+						player.dec+=player.dec/3;
+					}
+				}else{
+					start();
+					p=-1;
+					for(j=0;j&lt;4;j++){
+						if(p!=-1)delsprite(p);
+						p=putsprite(getpid(57),30000,2,5*16,8*16-4*j,16,16);
+						putall();
+						Sleep(100);
+					}
+					delsprite(p);
+					map[0][5][7]=57;
+					putall();
+					Sleep(1000);
+					pause();
+					dialog(5,dialog_fairy3);
+					start();
+					map[0][5][7]=0;
+					player.t=0;
+					for(j=0;j&lt;=16;j++){
+						if(j%4==0)move();
+						if(p!=-1)delsprite(p);
+						p=putsprite(getpid(57),30000,2,5*16,7*16+4*j,16,16);
+						putall();
+						Sleep(100);
+					}
+					player.inv.plot=4;
+				}
+					
+			break;
+			case 10://shop
+				switch(player.f){
+					case 3: gold=25;atk=dec=4;hp=800; break;
+					case 11: gold=100;atk=dec=20;hp=4000; break;
+				}
+				msgbox(dialog_shop[0],gold);
+				GetKey(&amp;key);putall();
+				shop=menu(1,4,msgbox(dialog_shop[1],gold,atk,dec,hp));
+				if(shop==3)break;
+				if(player.gold&lt;gold){
+					dialog(1,&amp;dialog_shop[2]);
+				}else{
+					if(shop&lt;3)player.gold-=gold;
+					switch(shop){
+						case 0:player.atk+=atk;break;
+						case 1:player.dec+=dec;break;
+						case 2:player.hp+=hp;break;
+					}
+					dialog(1,&amp;dialog_shop[3]);
+				}
+			break;
+			case 54://merchant
+				switch(player.f){
+					case 2:
+						dialog(5,dialog_merchant2);
+						//putall();
+						Sleep(1000);
+						map[2][9][10]=101;
+					break;
+					case 15:
+						dialog(4,dialog_merchant15);//实际上不是最好的……
+						shop=menu(0,2,msgbox(dialog_merchant15[4]));
+						putall();
+						if(shop==0){
+							if(player.gold&lt;500){
+								dialog(1,&amp;dialog_merchant15[5]);
+							}else{
+								player.gold-=500;
+								dialog(2,&amp;dialog_merchant15[6]);
+								Sleep(1000);
+								map[15][6][3]=103;
+							}
+						}
+					break;
+					case 5:
+						dialog(1,dialog_merchantsell);
+						shop=menu(0,4,msgbox(dialog_merchantsell[1],10,50,100));
+						if(shop==3)break;
+						switch(shop){
+							case 0:gold=10;break;
+							case 1:gold=50;break;
+							case 2:gold=100;break;
+						}
+						if(player.gold&lt;gold){
+							dialog(1,&amp;dialog_merchantsell[2]);
+						}else{
+							player.gold-=gold;
+							player.inv.key[shop]++;
+							dialog(1,&amp;dialog_merchantsell[3]);
+						}
+					break;
+					case 12:
+						dialog(1,dialog_merchantbuy);
+						shop=menu(0,4,msgbox(dialog_merchantbuy[1],7,35,70));
+						if(shop==3)break;
+						switch(shop){
+							case 0:gold=7;break;
+							case 1:gold=35;break;
+							case 2:gold=70;break;
+						}
+						if(player.inv.key[shop]&lt;=0){
+							putall();
+							msgbox(dialog_merchantbuy[2],shop+&#x27;A&#x27;);
+							GetKey(&amp;key);
+						}else{
+							player.gold+=gold;
+							player.inv.key[shop]--;
+							dialog(1,&amp;dialog_merchantbuy[3]);
+						}
+					break;
+				}
+			break;
+			case 55://old
+				switch(player.f){//old1
+					case 5: gold=30;gold2=100;atk=5;dec=5;lv=1; break;
+					case 13: gold=90;gold2=270;atk=18;dec=18;lv=3; break;
+
+					case 2:
+						dialog(5,dialog_old2);
+						//putall();
+						Sleep(1000);
+						map[2][7][10]=106;
+					break;
+					case 15:
+						dialog(2,dialog_old15);
+						shop=menu(0,2,msgbox(dialog_old15[2]));
+						putall();
+						if(shop==0){
+							if(player.exp&lt;500){
+								dialog(1,&amp;dialog_old15[3]);
+							}else{
+								player.exp-=500;
+								dialog(2,&amp;dialog_old15[4]);
+								Sleep(1000);
+								map[15][4][3]=108;
+							}
+						}
+					break;
+
+				}
+				if(player.f==5||player.f==13){//old
+					msgbox(dialog_old[0]);
+					GetKey(&amp;key);putall();
+					shop=menu(0,4,msgbox(dialog_old[1],atk,gold,dec,gold,lv,gold2));
+					if(shop==3)break;
+					if(shop==2)gold=gold2;
+					if(player.exp&lt;gold){
+						putall();
+						msgbox(dialog_old[2]);
+						GetKey(&amp;key);
+					}else{
+						if(shop&lt;3)player.exp-=gold;
+						switch(shop){
+							case 0:player.atk+=atk;break;
+							case 1:player.dec+=dec;break;
+							case 2:player.lv+=lv;player.atk+=10*lv;player.dec+=10*lv;player.hp+=1000*lv;break;
+						}
+						putall();
+						msgbox(dialog_old[3]);
+						GetKey(&amp;key);
+					}
+				}
+			break;
+			case 58://thief
+				if(player.inv.plot==1){
+					dialog(12,dialog_thief1);
+					start();
+					putall();
+					Sleep(1200);
+					player.t=2;
+					move();
+					map[4][5][0]=0;
+					p=-1;
+					for(j=0;j&lt;20;j++){
+						if(p!=-1)delsprite(p);
+						p=putsprite(getpid(58),30000,2,5*16,4*j,16,16);
+						putall();
+						Sleep(100);
+					}
+					Sleep(3000);
+					for(j=20;j&gt;=0;j--){
+						if(p!=-1)delsprite(p);
+						p=putsprite(getpid(58),30000,2,5*16,4*j,16,16);
+						putall();
+						Sleep(100);
+					}
+					delsprite(p);
+					map[4][5][0]=58;
+					pause();
+					dialog(1,dialog_thief2);
+					map[2][1][6]=0;
+					player.inv.plot=2;
+				}
+
+				if(player.inv.hoe){
+					dialog(2,dialog_thief3);
+					player.inv.hoe--;
+					start();
+					putall();
+					Sleep(1200);
+					player.t=2;
+					move();
+					map[4][5][0]=0;
+					p=-1;
+					for(j=0;j&lt;20;j++){
+						if(p!=-1)delsprite(p);
+						p=putsprite(getpid(58),30000,2,5*16,4*j,16,16);
+						putall();
+						Sleep(100);
+					}
+					delsprite(p);
+					map[18][5][8]=map[18][5][9]=0;
+				}
+			break;
+			case 57://princess
+				if(player.inv.plot&lt;3){
+					dialog(13,dialog_princess1);
+				}else{
+					dialog(5,dialog_princess2);
+					map[18][5][4]=0;
+					start();
+					p=-1;
+					for(j=0;j&lt;4;j++){
+						if(p!=-1)delsprite(p);
+						p=putsprite(getpid(57),30000,2,5*16,4*j+4*16,16,16);
+						putall();
+						Sleep(100);
+					}
+					delsprite(p);
+				}
+			break;
+			}
+			start();
+			return 0;
+		}
+
+	return 0;
+}
+int check2(int f,int x,int y)
+{
+	int i;
+	if(x&lt;0||x&gt;=mapwidth||y&lt;0||y&gt;=mapheight||f&lt;0||f&gt;mapnumber)return 0;
+	i=map[f][x][y];
+	switch(i){
+	case 2:
+		Sleep(200);
+		if(player.f==1)player.y=0;
+		if(player.f&gt;0)player.f--;
+		fixviewport(player.x*16+8,player.y*16+8,player.f);
+		putall();
+	break;case 3:
+		Sleep(200);
+		if(player.f==0)player.y=10;
+		if(player.f&lt;mapnumber-1)player.f++;
+		if(player.inv.maxfloor&lt;player.f)player.inv.maxfloor=player.f;
+		fixviewport(player.x*16+8,player.y*16+8,player.f);
+		putall();
+	break;
+	}
+}
+int check3()
+{
+	if(player.inv.plot==0)beginning();
+}
+int monsterpedia()
+{
+	unsigned int key;
+	int page,i,dam;
+	unsigned char mat[32];
+	clock=0;
+	page=0;
+	while(1){
+		putpicture(hud_book,0,0,128,64);
+		for(i=0;i&lt;=1;i++)if(i+page&lt;monsternumber){
+			getpicture(mat,getpid(page+i+200));
+			putpicture(mat,40+i*65,32,16,16);
+			printf12(5+i*65,5,&quot;%s&quot;,monsters0[page+i].name);
+			printf7(11+i*65,19,&quot;%d&quot;,monsters0[page+i].hp);
+			printf7(11+i*65,27,&quot;%d&quot;,monsters0[page+i].atk);
+			printf7(11+i*65,35,&quot;%d&quot;,monsters0[page+i].dec);
+			printf7(11+i*65,43,&quot;+%d&quot;,monsters0[page+i].gold);
+			printf7(11+i*65,51,&quot;+%d&quot;,monsters0[page+i].exp);
+			dam=damageestimate(page+i);
+			if(dam==-1)printf5(40+i*65,51,&quot;?????&quot;);
+			else printf5(44-2*log10(dam)+i*65,51,&quot;-%d&quot;,damageestimate(page+i));
+		}
+		GetKey(&amp;key);
+		if(key==KEY_CTRL_EXIT||key==KEY_CTRL_AC||key==KEY_CTRL_OPTN)break;
+		if((key==KEY_CTRL_LEFT||key==KEY_CTRL_UP)&amp;&amp;page&gt;=2)page-=2;
+		if((key==KEY_CTRL_RIGHT||key==KEY_CTRL_DOWN)&amp;&amp;page&lt;=monsternumber-3)page+=2;
+	}
+	putall();
+}
+int save()
+{
+	int fp=0;
+	unsigned short file_name[24];
+	chr_to_fnt(&quot;\\\\fls0\\MagTower.sav&quot;,file_name);
+	Bfile_DeleteFile(file_name);
+	Bfile_CreateFile(file_name,sizeof(player)+sizeof(map));
+	fp = Bfile_OpenFile(file_name,_OPENMODE_WRITE);
+	if(fp&lt;0)return 0;
+	Bfile_WriteFile(fp,&amp;player,sizeof(player));
+	Bfile_WriteFile(fp,&amp;map,sizeof(map));
+	Bfile_CloseFile(fp);
+	return 1;
+}
+int load()
+{
+	int fp=0;
+	unsigned short file_name[24];
+	chr_to_fnt(&quot;\\\\fls0\\MagTower.sav&quot;,file_name);
+	fp = Bfile_OpenFile(file_name,_OPENMODE_READ);
+	if(fp&lt;0)return 0;
+	Bfile_ReadFile(fp,&amp;player,sizeof(player),-1);
+	Bfile_ReadFile(fp,&amp;map,sizeof(map),-1);
+	Bfile_CloseFile(fp);
+	return 1;
+}
+int gamemenu()
+{
+	unsigned int key;
+	pause();
+	key=menu(1,3,msgbox(&quot;\xD3\xCE\xCF\xB7\xD4\xDD\xCD\xA3\n1.\xBC\xCC\xD0\xF8\n2.\xB1\xA3\xB4\xE6\n3.\xCD\xCB\xB3\xF6&quot;));
+	switch(key){
+		case 0://continue
+			start();
+		break;
+		case 1://save
+			if(save()){
+				msgbox(&quot;\xB1\xA3\xB4\xE6\xB3\xC9\xB9\xA6\xA3\xA1&quot;);
+			}else{
+				msgbox(&quot;\xB1\xA3\xB4\xE6\xCA\xA7\xB0\xDC\xA1\xA3\xA1\xA3\xA1\xA3&quot;);
+			}
+			GetKey(&amp;key);
+			start();
+		break;
+		case 2://exit
+			GAME=0;
+			//GetKey(&amp;key);
+			//while(key!=KEY_CTRL_MENU&amp;&amp;key!=KEY_CTRL_AC)GetKey(&amp;key);
+			//start();
+		break;
+	}
+}
+int gameloop()
+{
+	unsigned int key;
+	int i;
+	while(GAME){
+		check3();
+		if(IsKeyDown(KEY_CHAR_7) &amp;&amp; IsKeyDown(KEY_CTRL_SHIFT) &amp;&amp; IsKeyDown(KEY_CTRL_F6)){
+			pause();
+			putall();
+			key=menu(1,4,msgbox(&quot;====Debug Mode====\n1.Lv+10\n2.Gold&amp;Exp+1000\n3.Turn %s CheatMode\n4.Exit&quot;,CHEATMODE?&quot;Off&quot;:&quot;On&quot;));
+			switch(key){
+				case 0:
+					player.lv+=10;
+					player.atk+=100;
+					player.dec+=100;
+					player.hp+=10000;
+				break;
+				case 1:
+					player.gold+=1000;
+					player.exp+=1000;
+				break;
+				case 2:
+					CHEATMODE=!CHEATMODE;
+				break;
+			}
+			putall();
+			start();
+		}
+		if(IsKeyDown(KEY_CTRL_MENU)){
+				pause();
+				GetKey(&amp;key);
+				start();
+		}
+		if(IsKeyDown(KEY_CTRL_DOWN)){
+				player.t=0;
+				if(check1(player.f,player.x,player.y+1))move();
+				check2(player.f,player.x,player.y);
+		}
+		if(IsKeyDown(KEY_CTRL_UP)){
+				player.t=1;
+				if(check1(player.f,player.x,player.y-1))move();
+				check2(player.f,player.x,player.y);
+		}
+		if(IsKeyDown(KEY_CTRL_LEFT)){
+				player.t=2;
+				if(check1(player.f,player.x-1,player.y))move();
+				check2(player.f,player.x,player.y);
+		}
+		if(IsKeyDown(KEY_CTRL_RIGHT)){
+				player.t=3;
+				if(check1(player.f,player.x+1,player.y))move();
+				check2(player.f,player.x,player.y);
+		}
+		if(IsKeyDown(KEY_CTRL_AC)||IsKeyDown(KEY_CTRL_EXIT)){
+				gamemenu();
+				putall();
+		}
+		if(IsKeyDown(KEY_CTRL_OPTN)){
+				while(IsKeyDown(KEY_CTRL_OPTN));
+				pause();
+				if(player.inv.book || CHEATMODE)monsterpedia();
+				while(IsKeyDown(KEY_CTRL_OPTN));
+				start();
+		}
+		if(IsKeyDown(KEY_CHAR_PLUS)){
+				while(IsKeyDown(KEY_CHAR_PLUS));
+				if(CHEATMODE){
+					player.f++;fixviewport(player.x*16+8,player.y*16+8,player.f);putall();
+				}else{
+					elevatecheck(player.f+1);
+				}
+		}
+		if(IsKeyDown(KEY_CHAR_MINUS)){
+				while(IsKeyDown(KEY_CHAR_MINUS));
+				if(CHEATMODE){
+					player.f--;fixviewport(player.x*16+8,player.y*16+8,player.f);putall();
+				}else{
+					elevatecheck(player.f-1);
+				}
+		}
+		//putall();
+		//putall();
+		//Sleep(100);
+	}
+}
+int initgame()
+{
+	int f,x,y;int p;
+	for(f=0;f&lt;mapnumber;f++)for(x=0;x&lt;mapwidth;x++)for(y=0;y&lt;mapheight;y++)
+		map[f][x][y]=map0[f][y][x];
+	player.hp=1000;
+	player.atk=10;
+	player.dec=10;
+	player.lv=1;
+	player.gold=0;
+	player.exp=0;
+	player.f=0;
+	player.x=5;
+	player.y=9;
+	player.t=0;
+	player.c=0;
+	player.inv.key[0]=0;
+	player.inv.key[1]=0;
+	player.inv.key[2]=0;
+	player.inv.hoe=0;
+	player.inv.cross=0;
+	player.inv.book=0;
+	player.inv.elevator=0;
+	player.inv.maxfloor=0;
+	player.inv.plot=0;
+}
+int quithandle()
+{
+	int key;
+	if(GAME){
+		key=menu(2,2,msgbox(&quot;\xD3\xCE\xCF\xB7\xCD\xCB\xB3\xF6\xA3\xAC\n\xC4\xE3\xD2\xAA\xB1\xA3\xB4\xE6\xC2\xF0\xA3\xBF\n1.\xB1\xA3\xB4\xE6\xBA\xF3\xCD\xCB\xB3\xF6\n2.\xB2\xBB\xB1\xA3\xB4\xE6\xD6\xB1\xBD\xD3\xCD\xCB\xB3\xF6&quot;));
+		if(key==0){//save
+			save();
+			msgbox(&quot;\xB1\xA3\xB4\xE6\xB3\xC9\xB9\xA6\xA3\xA1&quot;);
+			GetKey(&amp;key);
+		}
+	}
+	pause();
+}
+int AddIn_main(int isAppli, unsigned short OptionNum)
+{
+    unsigned int key;
+
+    CHEATMODE=0;
+    GAME=0;
+
+    SetQuitHandler(quithandle);
+
+    open_chs_font ();
+    mapwidth=11;
+    mapheight=11;
+    mapnumber=22;
+    clock=0;
+
+    key=menu(1,3,msgbox(&quot;\xC4\xA7\xCB\xFE\n\xD0\xC2\xD3\xCE\xCF\xB7\n\xBC\xCC\xD0\xF8\n\xCD\xCB\xB3\xF6&quot;));
+    switch(key){
+    case 0:
+        GAME=1;
+        initgame();
+    break;
+    case 1:
+        if(!load()){msgbox(&quot;\xBC\xD3\xD4\xD8\xCA\xA7\xB0\xDC\xA1\xA3\xA1\xA3\xA1\xA3&quot;);GetKey(&amp;key);return 0;}
+        GAME=1;
+        fixviewport(player.x*16+8,player.y*16+8,player.f);
+	putall();
+	msgbox(&quot;\xBC\xD3\xD4\xD8\xB3\xC9\xB9\xA6\xA3\xA1&quot;);GetKey(&amp;key);
+    break;
+    case 2:
+        GAME=0;
+    break;
+    }
+    if(GAME){
+        start();
+        gameloop();
+    }
+    //while(1){
+    //    GetKey(&amp;key);
+    //}
+
+    return 1;
+}
+
+
+
+
+//****************************************************************************
+//**************                                              ****************
+//**************                 Notice!                      ****************
+//**************                                              ****************
+//**************  Please do not change the following source.  ****************
+//**************                                              ****************
+//****************************************************************************
+
+
+#pragma section _BR_Size
+unsigned long BR_Size;
+#pragma section
+
+
+#pragma section _TOP
+
+//****************************************************************************
+//  InitializeSystem
+//
+//  param   :   isAppli   : 1 = Application / 0 = eActivity
+//              OptionNum : Option Number (only eActivity)
+//
+//  retval  :   1 = No error / 0 = Error
+//
+//****************************************************************************
+int InitializeSystem(int isAppli, unsigned short OptionNum)
+{
+    return INIT_ADDIN_APPLICATION(isAppli, OptionNum);
+}
+
+#pragma section
+
+</pre></details><details><summary>originals/src/dialog.h</summary><pre>const unsigned char* dialog_shop[4]=
+{
+&quot;\xC9\xCC\xB5\xEA\xC0\xCF\xB0\xE5\xA3\xBA\xBB\xB6\xD3\xAD\xC4\xE3\xA3\xA1\xD4\xB6\n\xB5\xC0\xB6\xF8\xC0\xB4\xB5\xC4\xD3\xC2\xCA\xBF\xA3\xA1\xB8\xF8\xCE\xD2\n%d\xB8\xF6\xBD\xF0\xB1\xD2\xA3\xAC\xCE\xD2\xBF\xC9\xD2\xD4\xB8\xF8\n\xC4\xE3\xCC\xE1\xC9\xFD\xD2\xD4\xCF\xC2\xD2\xBB\xD6\xD6\xC1\xA6\xC1\xBF\xA3\xBA&quot;,
+&quot;\xB7\xD1\xD3\xC3\xA3\xBA%d\xBD\xF0\xB1\xD2\n1.\xD4\xF6\xBC\xD3%d\xB5\xE3\xB9\xA5\xBB\xF7\n2.\xD4\xF6\xBC\xD3%d\xB5\xE3\xB7\xC0\xD3\xF9\n3.\xD4\xF6\xBC\xD3%d\xB5\xE3\xC9\xFA\xC3\xFC\n4.\xD0\xBB\xD0\xBB\xA3\xAC\xB2\xBB\xD3\xC3&quot;,
+&quot;\xC3\xBB\xC7\xAE\xC4\xE3\xC0\xB4\xB8\xC9\xCA\xB2\xC3\xB4\xA3\xA1&quot;,
+&quot;\xC9\xCC\xB5\xEA\xC0\xCF\xB0\xE5\xA3\xBA\xD0\xBB\xD0\xBB\xBB\xDD\xB9\xCB\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_old[4]=
+{
+&quot;\xC9\xF1\xC3\xD8\xC0\xCF\xC8\xCB\xA3\xBA\xC4\xE3\xBA\xC3\xA3\xAC\xC4\xEA\xC7\xE1\n\xC8\xCB\xA3\xAC\xD0\xE8\xD2\xAA\xCE\xD2\xB5\xC4\xB0\xEF\xD6\xFA\xC2\xF0\xA3\xBF&quot;,
+&quot;1.%d\xB5\xE3\xB9\xA5\xBB\xF7\xD0\xE8\xD2\xAA\xBE\xAD\xD1\xE9%d\n2.%d\xB5\xE3\xB7\xC0\xD3\xF9\xD0\xE8\xD2\xAA\xBE\xAD\xD1\xE9%d\n3.\xCC\xE1\xC9\xFD%d\xBC\xB6\xD0\xE8\xD2\xAA\xBE\xAD\xD1\xE9%d\n4.\xD0\xBB\xD0\xBB\xA3\xAC\xB2\xBB\xD3\xC3&quot;,
+&quot;\xC9\xF1\xC3\xD8\xC0\xCF\xC8\xCB\xA3\xBA\xC3\xBB\xD3\xD0\xD7\xE3\xB9\xBB\xB5\xC4\n\xBE\xAD\xD1\xE9\xA3\xAC\xC4\xEA\xC7\xE1\xC8\xCB\xA3\xAC\xC4\xE3\xD0\xE8\xD2\xAA\n\xB6\xE0\xB6\xE0\xC5\xAC\xC1\xA6\xA3\xA1&quot;,
+&quot;\xC9\xF1\xC3\xD8\xC0\xCF\xC8\xCB\xA3\xBA\xB9\xA7\xCF\xB2\xC4\xE3\xA3\xAC\xC4\xEA\n\xC7\xE1\xC8\xCB\xA3\xAC\xC4\xE3\xB5\xC4\xCA\xB5\xC1\xA6\xD3\xD0\xCB\xF9\xB3\xA4\n\xBD\xF8\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_merchantsell[4]=
+{
+&quot;\xC9\xCC\xC8\xCB\xA3\xBA\xE0\xCB\xA3\xA1\xC4\xE3\xD0\xE8\xD2\xAA\xD4\xBF\xB3\xD7\n\xC2\xF0\xA3\xBF&quot;,
+&quot;1.A\xD4\xBF\xB3\xD7\xC2\xF4%d\xBD\xF0\xB1\xD2\n2.B\xD4\xBF\xB3\xD7\xC2\xF4%d\xBD\xF0\xB1\xD2\n3.C\xD4\xBF\xB3\xD7\xC2\xF4%d\xBD\xF0\xB1\xD2\n4.\xD0\xBB\xD0\xBB\xA3\xAC\xB2\xBB\xD3\xC3&quot;,
+&quot;\xC3\xBB\xC7\xAE\xC4\xE3\xC0\xB4\xB8\xC9\xCA\xB2\xC3\xB4\xA3\xA1&quot;,
+&quot;\xC9\xCC\xC8\xCB\xA3\xBA\xD0\xBB\xD0\xBB\xBB\xDD\xB9\xCB\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_merchantbuy[4]=
+{
+&quot;\xC9\xCC\xC8\xCB\xA3\xBA\xB8\xDF\xBC\xDB\xCA\xD5\xB9\xBA\xD4\xBF\xB3\xD7\xE0\xB6\n\xA3\xA1&quot;,
+&quot;1.A\xD4\xBF\xB3\xD7\xB3\xF6\xCA\xDB%d\xBD\xF0\xB1\xD2\n2.B\xD4\xBF\xB3\xD7\xB3\xF6\xCA\xDB%d\xBD\xF0\xB1\xD2\n3.C\xD4\xBF\xB3\xD7\xB3\xF6\xCA\xDB%d\xBD\xF0\xB1\xD2\n4.\xD0\xBB\xD0\xBB\xA3\xAC\xB2\xBB\xD3\xC3&quot;,
+&quot;\xC4\xE3\xC3\xBB\xD3\xD0%c\xD4\xBF\xB3\xD7\xA3\xA1&quot;,
+&quot;\xC9\xCC\xC8\xCB\xA3\xBA\xD0\xBB\xD0\xBB\xBB\xDD\xB9\xCB\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_beginning2[25]=
+{
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xC4\xE3\xD0\xD1\xC1\xCB\xA3\xA1&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xC4\xE3\n\xCA\xC7\xCB\xAD\xA3\xBF\xCE\xD2\xD4\xDA\xC4\xC4\xC0\xEF\xA3\xBF&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xCE\xD2\xCA\xC7\xD5\xE2\xC0\xEF\xB5\xC4\xCF\xC9\xD7\xD3\n\xA3\xAC\xB8\xD5\xB2\xC5\xC4\xE3\xB1\xBB\xD5\xE2\xC0\xEF\xB5\xC4\xD0\xA1\xB9\xD6\n\xB4\xF2\xBB\xE8\xC1\xCB\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xBD\xA3\n\xA3\xAC\xBD\xA3\xA3\xAC\xCE\xD2\xB5\xC4\xBD\xA3\xC4\xD8\xA3\xBF&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xC4\xE3\xB5\xC4\xBD\xA3\xB1\xBB\xCB\xFB\xC3\xC7\xC7\xC0\n\xD7\xDF\xC1\xCB\xA3\xAC\xCE\xD2\xD6\xBB\xC0\xB4\xB5\xC3\xBC\xB0\xBD\xAB\xC4\xE3\n\xBE\xC8\xB3\xF6\xC0\xB4\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xC4\xC7\xA3\xAC\xB9\xAB\xD6\xF7\xC4\xD8\xA3\xBF\xCE\xD2\n\xCA\xC7\xC0\xB4\xBE\xC8\xB9\xAB\xD6\xF7\xB5\xC4\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xB9\xAB\xD6\xF7\xBB\xB9\xD4\xDA\xC0\xEF\xC3\xE6\xA3\xAC\n\xC4\xE3\xD5\xE2\xD1\xF9\xBD\xF8\xC8\xA5\xCA\xC7\xB4\xF2\xB2\xBB\xB9\xFD\xC0\xEF\n\xC3\xE6\xB5\xC4\xD0\xA1\xB9\xD6\xB5\xC4\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xC4\xC7\xCE\xD2\xD4\xF5\xC3\xB4\xB0\xEC\xA3\xAC\xCE\xD2\n\xB4\xF0\xD3\xA6\xC1\xCB\xB9\xFA\xCD\xF5\xD2\xBB\xB6\xA8\xD2\xAA\xB0\xD1\xB9\xAB\n\xD6\xF7\xBE\xC8\xB3\xF6\xC0\xB4\xB5\xC4\xA3\xAC\xC4\xC7\xCE\xD2\xCF\xD6\xD4\xDA\n\xD3\xA6\xB8\xC3\xD4\xF5\xC3\xB4\xB0\xEC\xC4\xD8\xA3\xBF&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xB7\xC5\xD0\xC4\xB0\xC9\xA3\xAC\xCE\xD2\xB0\xD1\xCE\xD2\n\xB5\xC4\xC1\xA6\xC1\xBF\xBD\xE8\xB8\xF8\xC4\xE3\xA3\xAC\xC4\xE3\xBE\xCD\xBF\xC9\n\xD2\xD4\xB4\xF2\xD3\xAE\xC4\xC7\xD0\xA9\xD0\xA1\xB9\xD6\xC1\xCB\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xB2\xBB\xB9\xFD\xA3\xAC\xC4\xE3\xB5\xC4\xCF\xC8\xB0\xEF\n\xCE\xD2\xC8\xA5\xD5\xD2\xD2\xBB\xD1\xF9\xB6\xAB\xCE\xF7\xA3\xAC\xD5\xD2\xB5\xBD\n\xC1\xCB\xD4\xD9\xC0\xB4\xD5\xE2\xC0\xEF\xD5\xD2\xCE\xD2\xA1\xA3 &quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xD5\xD2\xB6\xAB\xCE\xF7\xA3\xBF\xD5\xD2\xCA\xB2\xC3\xB4\n\xB6\xAB\xCE\xF7\xA3\xBF&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xCA\xC7\xD2\xBB\xB8\xF6\xCA\xAE\xD7\xD6\xBC\xDC\xA3\xAC\n\xD6\xD0\xBC\xE4\xD3\xD0\xD2\xBB\xBF\xC5\xBA\xEC\xC9\xAB\xB5\xC4\xB1\xA6\xCA\xAF\n\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xC4\xC7\xB8\xF6\xB6\xAB\xCE\xF7\xD3\xD0\xCA\xB2\xC3\xB4\n\xD3\xC3\xC2\xF0\xA3\xBF&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xCE\xD2\xB1\xBE\xCA\xC7\xD5\xE2\xD7\xF9\xCB\xFE\xCA\xD8\n\xBB\xA4\xD5\xDF\xA3\xAC\xBF\xC9\xB2\xBB\xBE\xC3\xC7\xB0\xA3\xAC\xB4\xD3\xB1\xB1\n\xB7\xBD\xC0\xB4\xC1\xCB\xD2\xBB\xC5\xFA\xB6\xF1\xC4\xA7\xA3\xAC\xB2\xA2\xBD\xAB\n\xCE\xD2\xB5\xC4\xC4\xA7\xC1\xA6\xB7\xE2\xD4\xDA\xC1\xCB\xD5\xE2\xB8\xF6\xCA\xAE\n\xD7\xD6\xBC\xDC\xC0\xEF\xC3\xE6\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xC8\xE7\xB9\xFB\xC4\xE3\xC4\xDC\xBD\xAB\xCB\xFC\xB4\xF8\n\xB3\xF6\xCB\xFE\xC0\xB4\xA3\xAC\xC4\xC7\xCE\xD2\xB5\xC4\xC4\xA7\xC1\xA6\xB1\xE3\n\xBB\xE1\xC2\xFD\xC2\xFD\xB5\xD8\xBB\xD6\xB8\xB4\xA3\xAC\xB5\xBD\xC4\xC7\xCA\xB1\n\xCE\xD2\xB1\xE3\xBF\xC9\xD2\xD4\xB0\xD1\xC1\xA6\xC1\xBF\xBD\xE8\xB8\xF8\xC4\xE3\n\xC8\xA5\xBE\xC8\xB3\xF6\xB9\xAB\xD6\xF7\xC1\xCB\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xD2\xAA\xBC\xC7\xD7\xA1\xA3\xBA\xD6\xBB\xD3\xD0\xD3\xC3\n\xCE\xD2\xB5\xC4\xC4\xA7\xC1\xA6\xB2\xC5\xC4\xDC\xB4\xF2\xBF\xAA\xB6\xFE\xCA\xAE\n\xD2\xBB\xB2\xE3\xB5\xC4\xC3\xC5\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xBA\xC3\n\xB0\xC9\xA3\xAC\xCE\xD2\xCA\xD4\xCA\xD4\xBF\xB4\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xB8\xD5\xB2\xC5\xCE\xD2\xC8\xA5\xBF\xB4\xB9\xFD\xC1\xCB\n\xA3\xAC\xC4\xE3\xB5\xC4\xBD\xA3\xB1\xBB\xB7\xC5\xD4\xDA\xC8\xFD\xC2\xA5\xA3\xAC\n\xC4\xE3\xB5\xC4\xB6\xDC\xD4\xDA\xCE\xE5\xC2\xA5\xC9\xCF\xA3\xAC\xB6\xF8\xC4\xC7\n\xB8\xF6\xCA\xAE\xD7\xD6\xBC\xDC\xB1\xBB\xB7\xC5\xD4\xDA\xC6\xDF\xC2\xA5\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xD2\xAA\xB5\xBD\xC6\xDF\xC2\xA5\xA3\xAC\xC4\xE3\xB5\xC4\n\xCF\xC8\xC8\xA1\xBB\xD8\xC4\xE3\xB5\xC4\xBD\xA3\xBA\xCD\xB6\xDC\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xC1\xED\xCD\xE2\xA3\xAC\xD4\xDA\xCB\xFE\xC0\xEF\xB5\xC4\n\xC6\xE4\xCB\xFC\xC2\xA5\xB2\xE3\xC9\xCF\xA3\xAC\xBB\xB9\xD3\xD0\xD2\xBB\xD0\xA9\n\xB4\xE6\xB7\xC5\xC1\xCB\xBA\xC3\xBC\xB8\xB0\xD9\xC4\xEA\xB5\xC4\xB1\xA6\xBD\xA3\n\xBA\xCD\xB1\xA6\xCE\xEF\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xC8\xE7\xB9\xFB\xB5\xC3\xB5\xBD\xCB\xFC\xC3\xC7\xA3\xAC\n\xB6\xD4\xD3\xDA\xC4\xE3\xB6\xD4\xB8\xB6\xD5\xE2\xC0\xEF\xC3\xE6\xB5\xC4\xB9\xD6\n\xCE\xEF\xBD\xAB\xD3\xD0\xBA\xDC\xB4\xF3\xB5\xC4\xB0\xEF\xD6\xFA\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xCE\xD2\xD5\xE2\xC0\xEF\xD3\xD0\xC8\xFD\xB0\xD1\xD4\xBF\n\xB3\xD7\xA3\xAC\xC4\xE3\xCF\xC8\xC4\xC3\xC8\xA5\xA3\xAC\xD4\xDA\xCB\xFE\xC0\xEF\n\xC3\xE6\xBB\xB9\xD3\xD0\xBA\xDC\xB6\xE0\xD5\xE2\xD1\xF9\xB5\xC4\xD4\xBF\xB3\xD7\n\xA3\xAC\xC4\xE3\xD2\xBB\xB6\xA8\xD2\xAA\xD5\xE4\xCF\xA7\xCA\xB9\xD3\xC3\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xD3\xC2\xB8\xD2\xB5\xC4\xC8\xA5\xB0\xC9\xA3\xAC\xD3\xC2\n\xCA\xBF\xA3\xA1&quot;,
+&quot;\xBB\xF1\xB5\xC3 A\xD4\xBF\xB3\xD7\xA1\xA2 B\xD4\xBF\xB3\xD7\xBA\xCD\nC\xD4\xBF\xB3\xD7\xB8\xF7 1\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_fairy1[1]=
+{
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xBF\xEC\xC8\xA5\xB4\xF2\xB0\xDC\xC4\xA7\xCD\xF5\xA3\xAC\n\xD3\xC2\xCA\xBF\xA3\xAC\xB1\xF0\xCD\xFC\xC1\xCB\xC8\xA5\xD5\xD2\xCA\xAE\xD7\xD6\n\xBC\xDC\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_thief1[12]=
+{
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xC4\xE3\xD2\xD1\xBE\xAD\xB5\xC3\xBE\xC8\xC1\xCB\xA3\xA1&quot;,
+&quot;\xD0\xA1\xCD\xB5\xA3\xBA\xB0\xA1\xA3\xAC\xC4\xC7\xD5\xE6\xCA\xC7\xCC\xAB\xBA\xC3\n\xC1\xCB\xA3\xAC\xCE\xD2\xD3\xD6\xBF\xC9\xD2\xD4\xD4\xDA\xD5\xE2\xC0\xEF\xC3\xE6\n\xD1\xB0\xB1\xA6\xC1\xCB\xA3\xA1&quot;,
+&quot;\xD0\xA1\xCD\xB5\xA3\xBA\xC5\xB6\xA3\xAC\xBB\xB9\xC3\xBB\xD3\xD0\xD7\xD4\xCE\xD2\n\xBD\xE9\xC9\xDC\xA3\xAC\xCE\xD2\xBD\xD0\xBD\xDC\xBF\xCB\xA3\xAC\xCA\xC7\xD5\xE2\n\xB8\xBD\xBD\xFC\xD3\xD0\xC3\xFB\xB5\xC4\xD0\xA1\xCD\xB5\xA3\xAC\xCA\xB2\xC3\xB4\n\xBD\xF0\xD2\xF8\xB2\xC6\xB1\xA6\xCE\xD2\xD1\xF9\xD1\xF9\xB6\xBC\xCD\xB5\xB9\xFD\n\xA1\xA3&quot;,
+&quot;\xD0\xA1\xCD\xB5\xA3\xBA\xB2\xBB\xB9\xFD\xD5\xE2\xB4\xCE\xD4\xCB\xC6\xF8\xBF\xC9\n\xB2\xBB\xCA\xC7\xCC\xAB\xBA\xC3\xA3\xAC\xB8\xD5\xBD\xF8\xC0\xB4\xBE\xCD\xB1\xBB\n\xD7\xA5\xC1\xCB\xA1\xA3\xCF\xD6\xD4\xDA\xC4\xE3\xB0\xEF\xCE\xD2\xB4\xF2\xBF\xAA\n\xC1\xCB\xC3\xC5\xA3\xAC\xC4\xC7\xCE\xD2\xBE\xCD\xB0\xEF\xC4\xE3\xD7\xF6\xD2\xBB\n\xBC\xFE\xCA\xC2\xB0\xC9\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xBF\xEC\xD7\xDF\xB0\xC9\xA3\xAC\xCD\xE2\xC3\xE6\xBB\xB9\n\xD3\xD0\xBA\xDC\xB6\xE0\xB9\xD6\xCE\xEF\xA3\xAC\xCE\xD2\xBF\xC9\xC4\xDC\xB9\xCB\n\xB2\xBB\xC9\xCF\xC4\xE3\xA1\xA3&quot;,
+&quot;\xD0\xA1\xCD\xB5\xA3\xBA\xB2\xBB\xA3\xAC\xB2\xBB\xA3\xAC\xB2\xBB\xBB\xE1\xD3\xD0\n\xCA\xC2\xB5\xC4\xA1\xA3\xBF\xEC\xCB\xB5\xB0\xC9\xA3\xAC\xBD\xD0\xCE\xD2\xD7\xF6\n\xCA\xB2\xC3\xB4\xA3\xBF&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xC4\xE3\n\xBB\xE1\xBF\xAA\xC3\xC5\xC2\xF0\xA3\xBF&quot;,
+&quot;\xD0\xA1\xCD\xB5\xA3\xBA\xC4\xC7\xB5\xB1\xC8\xBB\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xC4\xC7\xBE\xCD\xC7\xEB\xC4\xE3\xB0\xEF\xCE\xD2\xB4\xF2\n\xBF\xAA\xB5\xDA\xB6\xFE\xB2\xE3\xB5\xC4\xC3\xC5\xB0\xC9\xA3\xA1&quot;,
+&quot;\xD0\xA1\xCD\xB5\xA3\xBA\xC4\xC7\xB8\xF6\xBC\xF2\xB5\xA5\xA3\xAC\xB2\xBB\xB9\xFD\n\xA3\xAC\xC8\xE7\xB9\xFB\xC4\xE3\xC4\xDC\xB0\xEF\xCE\xD2\xD5\xD2\xB5\xBD\xD2\xBB\n\xB0\xD1\xC7\xB6\xC1\xCB\xBA\xEC\xB1\xA6\xCA\xAF\xB5\xC4\xCC\xFA\xEF\xB6\xCD\xB7\n\xB5\xC4\xBB\xB0\xA3\xAC\xCE\xD2\xBB\xB9\xB0\xEF\xC4\xE3\xB4\xF2\xCD\xA8\xB5\xDA\n\xCA\xAE\xB0\xCB\xB2\xE3\xB5\xC4\xC2\xB7\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xC7\xB6\xC1\xCB\xBA\xEC\xB1\xA6\xCA\xAF\xB5\xC4\xCC\xFA\n\xEF\xB6\xCD\xB7\xA3\xBF\xBA\xC3\xB0\xC9\xA3\xAC\xCE\xD2\xB0\xEF\xC4\xE3\xD5\xD2\n\xD5\xD2\xA1\xA3&quot;,
+&quot;\xD0\xA1\xCD\xB5\xA3\xBA\xB7\xC7\xB3\xA3\xB5\xD8\xB8\xD0\xD0\xBB\xA1\xA3\xD2\xBB\n\xBB\xE1\xCE\xD2\xB1\xE3\xBB\xE1\xB0\xD1\xB5\xDA\xB6\xFE\xB2\xE3\xB5\xC4\xC3\xC5\n\xB4\xF2\xBF\xAA\xA1\xA3\xC8\xE7\xB9\xFB\xC4\xE3\xD5\xD2\xB5\xBD\xC4\xC7\xB8\xF6\n\xCC\xFA\xEF\xB6\xCD\xB7\xB5\xC4\xBB\xB0\xA3\xAC\xBB\xB9\xCA\xC7\xC0\xB4\xD5\xE2\n\xC0\xEF\xD5\xD2\xCE\xD2\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_thief2[1]=
+{
+&quot;\xD0\xA1\xCD\xB5\xA3\xBA\xB8\xE3\xB6\xA8\xC1\xCB~&quot;
+};
+
+
+const unsigned char* dialog_old2[5]=
+{
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xC4\xFA\xD2\xD1\xBE\xAD\xB5\xC3\xBE\xC8\xC1\xCB\xA3\xA1&quot;,
+&quot;\xC9\xF1\xC3\xD8\xC0\xCF\xC8\xCB\xA3\xBA\xC5\xB6\xA3\xAC\xCE\xD2\xB5\xC4\xBA\xA2\n\xD7\xD3\xA3\xAC\xD5\xE6\xCA\xC7\xCC\xAB\xB8\xD0\xD0\xBB\xC4\xE3\xC1\xCB\xA3\xA1\n\xD5\xE2\xB8\xF6\xB5\xD8\xB7\xBD\xD3\xD6\xD4\xE0\xD3\xD6\xBB\xB5\xA3\xAC\xCE\xD2\n\xD5\xE6\xB5\xC4\xCA\xC7\xBF\xEC\xB4\xF4\xB2\xBB\xCF\xC2\xC8\xA5\xC1\xCB\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xBF\xEC\xD7\xDF\xB0\xC9\xA3\xAC\xCE\xD2\xBB\xB9\xB5\xC4\n\xD7\xDF\xBE\xC8\xB1\xBB\xB9\xD8\xD4\xDA\xD5\xE2\xC0\xEF\xB5\xC4\xB9\xAB\xD6\xF7\n\xA1\xA3&quot;,
+&quot;\xC9\xF1\xC3\xD8\xC0\xCF\xC8\xCB\xA3\xBA\xC5\xB6\xA3\xAC\xC4\xE3\xCA\xC7\xC0\xB4\n\xBE\xC8\xB9\xAB\xD6\xF7\xB5\xC4\xA3\xAC\xCE\xAA\xC1\xCB\xB1\xED\xCA\xBE\xB6\xD4\n\xC4\xE3\xB5\xC4\xB8\xD0\xD0\xBB\xA3\xAC\xD5\xE2\xB8\xF6\xB6\xAB\xCE\xF7\xBE\xCD\n\xCB\xCD\xB8\xF8\xC4\xE3\xB0\xC9\xA1\xA3&quot;,
+&quot;\xC9\xF1\xC3\xD8\xC0\xCF\xC8\xCB\xA3\xBA\xD5\xE2\xBB\xB9\xCA\xC7\xCE\xD2\xC4\xEA\n\xC7\xE0\xB5\xC4\xCA\xB1\xBA\xF2\xD3\xC3\xB9\xFD\xB5\xC4\xA1\xA3\xC4\xC3\xD7\xC5\n\xCB\xFC\xC8\xA5\xBD\xE2\xBE\xC8\xB9\xAB\xD6\xF7\xB0\xC9\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_merchant2[5]=
+{
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xC4\xFA\xD2\xD1\xBE\xAD\xB5\xC3\xBE\xC8\xC1\xCB\xA3\xA1&quot;,
+&quot;\xC9\xCC\xC8\xCB\xA3\xBA\xC5\xB6\xA3\xAC\xCA\xC7\xC2\xEF\xA3\xA1\xD5\xE6\xCA\xC7\n\xCC\xAB\xB8\xD0\xD0\xBB\xC4\xE3\xC1\xCB\xA3\xA1\xCE\xD2\xCA\xC7\xB8\xF6\xC9\xCC\n\xC8\xCB\xA3\xAC\xB2\xBB\xD6\xAA\xB5\xC0\xCE\xAA\xCA\xB2\xC3\xB4\xB1\xBB\xD7\xA5\n\xB5\xBD\xD5\xE2\xC0\xEF\xC0\xB4\xC1\xCB\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xBF\xEC\xD7\xDF\xB0\xC9\xA3\xAC\xCF\xD6\xCF\xD6\xC4\xFA\n\xD2\xD1\xBE\xAD\xD7\xD4\xD3\xC9\xC1\xCB\xA1\xA3&quot;,
+&quot;\xC9\xCC\xC8\xCB\xA3\xBA\xC5\xB6\xA3\xAC\xB6\xD4\xB6\xD4\xB6\xD4\xA3\xAC\xCE\xD2\n\xD2\xD1\xBE\xAD\xD7\xD4\xD3\xC9\xC1\xCB\xA1\xA3\xC4\xC7\xD5\xE2\xB8\xF6\xB6\xAB\n\xCE\xF7\xBE\xCD\xB8\xF8\xC4\xE3\xB0\xC9\xA3\xAC\xB1\xBE\xC0\xB4\xCE\xD2\xCA\xC7\n\xD7\xBC\xB1\xB8\xC2\xF4\xC7\xAE\xB5\xC4\xA1\xA3&quot;,
+&quot;\xC9\xCC\xC8\xCB\xA3\xBA\xCF\xE0\xD0\xC5\xCB\xFC\xB6\xD4\xC4\xE3\xD2\xBB\xB6\xA8\n\xBA\xDC\xD3\xD0\xB0\xEF\xD6\xFA\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_boss1[4]=
+{
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3&quot;,
+&quot;\xBA\xEC\xD2\xC2\xC4\xA7\xCD\xF5\xA3\xBA\xCD\xA3\xD6\xB9\xB0\xC9\xA3\xA1\xD3\xDE\n\xB4\xC0\xB5\xC4\xC8\xCB\xC0\xE0\xA3\xA1&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xB8\xC3\xCD\xA3\xD6\xB9\xB5\xC4\xCA\xC7\xC4\xE3\xA3\xA1\n\xC4\xA7\xCD\xF5\xA1\xA3\xBF\xEC\xCB\xB5\xA3\xAC\xB9\xAB\xD6\xF7\xB9\xD8\xD4\xDA\n\xC4\xC4\xC0\xEF\xA3\xBF&quot;,
+&quot;\xBA\xEC\xD2\xC2\xC4\xA7\xCD\xF5\xA3\xBA\xB5\xC8\xC4\xE3\xB4\xF2\xD3\xAE\xCE\xD2\n\xD4\xD9\xCB\xB5\xB0\xC9\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_bossko1[2]=
+{
+&quot;\xBA\xEC\xD2\xC2\xC4\xA7\xCD\xF5\xA3\xBA\xB9\xFE\xB9\xFE\xB9\xFE\xA3\xAC\xCE\xD2\n\xBE\xCD\xB8\xE6\xCB\xDF\xC4\xE3\xB0\xC9\xA3\xAC\xB9\xAB\xD6\xF7\xB1\xBB\xCE\xD2\n\xB9\xD8\xD4\xDA\xC1\xCB\xB5\xDA\xCA\xAE\xB0\xCB\xB2\xE3\xA3\xAC\xBF\xC9\xCA\xC7\n\xC4\xE3\xC8\xB4\xBE\xC8\xB2\xBB\xC1\xCB\xCB\xFD\xA3\xA1\xB9\xFE\xB9\xFE\xB9\xFE\n\xA3\xA1&quot;,
+&quot;\xBA\xEC\xD2\xC2\xC4\xA7\xCD\xF5\xA3\xBA\xB9\xFE\xB9\xFE\xB9\xFE\xB9\xFE\xB9\xFE\n\xB9\xFE\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xDF\xC0&quot;
+};
+
+
+const unsigned char* dialog_old15[6]=
+{
+&quot;\xC9\xF1\xC3\xD8\xC0\xCF\xC8\xCB\xA3\xBA\xC4\xE3\xBA\xC3\xA3\xAC\xD3\xC2\xB8\xD2\n\xB5\xC4\xBA\xA2\xD7\xD3\xA3\xAC\xC4\xE3\xD6\xD5\xD3\xDA\xC0\xB4\xB5\xBD\xD5\xE2\n\xC0\xEF\xC1\xCB\xA1\xA3\xCE\xD2\xBD\xAB\xB8\xF8\xC4\xE3\xD2\xBB\xB8\xF6\xB7\xC7\n\xB3\xA3\xBA\xC3\xB5\xC4\xB1\xA6\xCE\xEF\xA1\xA3&quot;,
+&quot;\xC9\xF1\xC3\xD8\xC0\xCF\xC8\xCB\xA3\xBA\xCB\xFC\xBF\xC9\xD2\xD4\xCA\xB9\xC4\xE3\n\xB5\xC4\xB9\xA5\xBB\xF7\xC1\xA6\xCC\xE1\xC9\xFD 120\xB5\xE3\xA3\xAC\n\xB5\xAB\xD5\xE2\xB1\xD8\xD0\xEB\xB5\xC3\xD3\xC3\xC4\xE3\xB5\xC4 500\n\xB5\xE3\xBE\xAD\xD1\xE9\xC0\xB4\xBD\xF8\xD0\xD0\xBD\xBB\xBB\xBB\xA3\xAC\xBF\xBC\n\xC2\xC7\xD2\xBB\xCF\xC2\xD7\xD3\xB0\xC9\xA3\xA1&quot;,
+&quot;1.\xBA\xC3\xB5\xC4\n2.\xB2\xBB&quot;,
+&quot;\xB6\xD4\xB2\xBB\xC6\xF0\xA3\xA1\xC4\xE3\xC3\xBB\xD3\xD0\xD7\xE3\xB9\xBB\xB5\xC4\n\xBE\xAD\xD1\xE9\xA3\xA1&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xBA\xC3\xB0\xC9\xA3\xAC\xC4\xC7\xBE\xCD\xBD\xAB\xC4\xC7\n\xB0\xD1\xBD\xA3\xB8\xF8\xCE\xD2\xB0\xC9\xA3\xA1&quot;,
+&quot;\xC9\xF1\xC3\xD8\xC0\xCF\xC8\xCB\xA3\xBA\xC4\xC7\xBA\xC3\xB0\xC9\xA3\xAC\xD5\xE2\n\xB0\xD1\xBD\xA3\xBE\xCD\xB8\xF8\xC4\xE3\xC1\xCB\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_merchant15[8]=
+{
+&quot;\xC9\xCC\xC8\xCB\xA3\xBA\xB0\xA1\xB9\xFE\xA3\xAC\xBB\xB6\xD3\xAD\xC4\xE3\xB5\xC4\n\xB5\xBD\xC0\xB4\xA3\xA1\xCE\xD2\xD5\xE2\xC0\xEF\xD3\xD0\xD2\xBB\xBC\xFE\xB6\xD4\n\xC4\xE3\xC0\xB4\xCB\xB5\xB7\xC7\xB3\xA3\xBA\xC3\xB5\xC4\xB1\xA6\xCE\xEF\xA3\xAC\n\xD6\xBB\xD2\xAA\xC4\xE3\xB3\xF6\xB5\xC3\xC6\xF0\xC7\xAE\xA3\xAC\xCE\xD2\xBE\xCD\n\xC2\xF4\xB8\xF8\xC4\xE3\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xCA\xB2\xC3\xB4\xB1\xA6\xCE\xEF\xA3\xBF\xD2\xAA\xB6\xE0\n\xC9\xD9\xC7\xAE\xA3\xBF&quot;,
+&quot;\xC9\xCC\xC8\xCB\xA3\xBA\xCA\xC7\xD5\xE2\xB8\xF6\xD3\xCE\xCF\xB7\xCA\xC7\xD7\xEE\n\xBA\xC3\xB5\xC4\xB6\xDC\xC5\xC6\xA3\xAC\xB7\xC0\xD3\xF9\xD6\xB5\xBF\xC9\xD2\xD4\n\xD4\xF6\xBC\xD3 120\xB5\xE3\xA3\xAC\xB6\xF8\xC4\xE3\xD6\xBB\xD2\xAA\n\xB3\xF6 500\xB8\xF6\xBD\xF0\xB1\xD2\xBE\xCD\xBF\xC9\xD2\xD4\xC2\xF2\n\xCF\xC2\xA1\xA3&quot;,
+&quot;\xC9\xCC\xC8\xCB\xA3\xBA\xD4\xF5\xC3\xB4\xD1\xF9\xA3\xBF\xC4\xE3\xD3\xD0\n500\xB8\xF6\xBD\xF0\xB1\xD2\xC2\xF0\xA3\xBF&quot;,
+&quot;1.\xD3\xD0\xA3\xA1\n2.\xCB\xE3\xC1\xCB&quot;,
+&quot;\xC3\xBB\xC7\xAE\xC4\xE3\xC0\xB4\xB8\xC9\xCA\xB2\xC3\xB4\xA3\xA1&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xCE\xD2\xD3\xD0 500\xB8\xF6\xBD\xF0\xB1\xD2\n\xA1\xA3&quot;,
+&quot;\xC9\xCC\xC8\xCB\xA3\xBA\xBA\xC3\xA3\xAC\xB3\xC9\xBD\xBB\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_thief3[2]=
+{
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xB9\xFE\xA3\xAC\xBF\xEC\xBF\xB4\xA3\xAC\xCE\xD2\xD5\xD2\n\xB5\xBD\xC1\xCB\xCA\xB2\xC3\xB4\xA3\xA1&quot;,
+&quot;\xD0\xA1\xCD\xB5\xA3\xBA\xCC\xAB\xBA\xC3\xC1\xCB\xA3\xAC\xD5\xE2\xB8\xF6\xB6\xAB\n\xCE\xF7\xB9\xFB\xC8\xBB\xCA\xC7\xD4\xDA\xD5\xE2\xC0\xEF\xA1\xA3\xBA\xC3\xB0\xC9\n\xA3\xAC\xCE\xD2\xD5\xE2\xBE\xCD\xC8\xA5\xB0\xEF\xC4\xE3\xD0\xDE\xBA\xC3\xB5\xDA\n\xCA\xAE\xB0\xCB\xB2\xE3\xB5\xC4\xC2\xB7\xC3\xE6&quot;
+};
+
+
+const unsigned char* dialog_princess1[13]=
+{
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xB9\xAB\xD6\xF7\xA3\xA1\xC4\xE3\xB5\xC3\xBE\xC8\xC1\xCB\n\xA3\xA1&quot;,
+&quot;\xB9\xAB\xD6\xF7\xA3\xBA\xB0\xA1\xA3\xAC\xC4\xE3\xCA\xC7\xC0\xB4\xBE\xC8\xCE\xD2\n\xB5\xC4\xC2\xF0\xA3\xBF&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xCA\xC7\xB5\xC4\xA3\xAC\xCE\xD2\xB5\xC4\xB7\xEE\xB9\xFA\n\xCD\xF5\xB5\xC4\xC3\xFC\xC1\xEE\xC0\xB4\xBE\xC8\xC4\xE3\xB5\xC4\xA1\xA3\xC7\xEB\n\xC4\xE3\xBF\xEC\xCB\xE6\xCE\xD2\xB3\xF6\xC8\xA5\xB0\xC9\xA3\xA1&quot;,
+&quot;\xB9\xAB\xD6\xF7\xA3\xBA\xB2\xBB\xA3\xAC\xCE\xD2\xBB\xB9\xB2\xBB\xCF\xEB\xD7\xDF\n\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xCE\xAA\xCA\xB2\xC3\xB4\xA3\xBF\xD5\xE2\xC0\xEF\xC3\xE6\n\xB5\xBD\xB4\xA6\xB6\xBC\xCA\xC7\xB6\xF1\xC4\xA7\xA1\xA3&quot;,
+&quot;\xB9\xAB\xD6\xF7\xA3\xBA\xD5\xFD\xCA\xC7\xD2\xF2\xCE\xAA\xD5\xE2\xC0\xEF\xC3\xE6\n\xB5\xBD\xB4\xA6\xB6\xBC\xCA\xC7\xB6\xF1\xC4\xA7\xA3\xAC\xCB\xF9\xD2\xD4\xB2\xC5\n\xB2\xBB\xBF\xC9\xD2\xD4\xBE\xCD\xD5\xE2\xD1\xF9\xB3\xF6\xC8\xA5\xA3\xAC\xCE\xD2\n\xD2\xAA\xBF\xB4\xD7\xC5\xC4\xC7\xB8\xF6\xB6\xF1\xC4\xA7\xB1\xBB\xC9\xB1\xCB\xC0\n\xA3\xA1&quot;,
+&quot;\xB9\xAB\xD6\xF7\xA3\xBA\xD3\xA2\xD0\xDB\xB5\xC4\xD3\xC2\xCA\xBF\xA3\xAC\xC8\xE7\n\xB9\xFB\xC4\xE3\xC4\xDC\xB9\xBB\xBD\xAB\xC4\xC7\xB8\xF6\xB4\xF3\xB6\xF1\xC4\xA7\n\xC9\xB1\xCB\xC0\xA3\xAC\xCE\xD2\xBE\xCD\xBA\xCD\xC4\xE3\xD2\xBB\xC6\xF0\xB3\xF6\n\xC8\xA5\xA3\xA1&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xB4\xF3\xB6\xF1\xC4\xA7\xA3\xBF\xCE\xD2\xD2\xD1\xBE\xAD\n\xC9\xB1\xCB\xC0\xC1\xCB\xD2\xBB\xB8\xF6\xC4\xA7\xCD\xF5\xA3\xA1&quot;,
+&quot;\xB9\xAB\xD6\xF7\xA3\xBA\xB4\xF3\xB6\xF1\xC4\xA7\xD4\xDA\xD5\xE2\xD7\xF9\xCB\xFE\n\xB5\xC4\xD7\xEE\xB6\xA5\xB2\xE3\xA3\xAC\xC4\xE3\xC9\xB1\xCB\xC0\xB5\xC4\xBF\xC9\n\xC4\xDC\xCA\xC7\xD2\xBB\xB8\xF6\xD0\xA1\xB6\xD3\xB3\xA4\xD6\xAE\xC0\xE0\xB5\xC4\n\xB6\xF1\xC4\xA7&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xBA\xC3\xA3\xAC\xC4\xC7\xC4\xE3\xB5\xC8\xD7\xC5\xA3\xAC\n\xB5\xC8\xCE\xD2\xC9\xB1\xC1\xCB\xC4\xC7\xB8\xF6\xB6\xF1\xC4\xA7\xD4\xD9\xC0\xB4\n\xD5\xE2\xC0\xEF\xD5\xD2\xC4\xE3\xA3\xA1&quot;,
+&quot;\xB9\xAB\xD6\xF7\xA3\xBA\xB4\xF3\xB6\xF1\xC4\xA7\xB1\xC8\xC4\xE3\xB8\xD5\xB2\xC5\n\xC9\xB1\xCB\xC0\xB5\xC4\xC4\xC7\xB8\xF6\xC0\xF7\xBA\xA6\xB6\xE0\xC1\xCB\xA1\xA3&quot;,
+&quot;\xB9\xAB\xD6\xF7\xA3\xBA\xB6\xF8\xC7\xD2\xCB\xFB\xBB\xB9\xBB\xE1\xB1\xE4\xC9\xED\n\xA3\xAC\xB1\xE4\xC9\xED\xBA\xF3\xB5\xC4\xC4\xA7\xCD\xF5\xCB\xFB\xB5\xC4\xB9\xA5\n\xBB\xF7\xC1\xA6\xBA\xCD\xB7\xC0\xD3\xF9\xC1\xA6\xB6\xBC\xBB\xE1\xCC\xE1\xC9\xFD\n\xD6\xC1\xC9\xD9\xD2\xBB\xB0\xEB\xD2\xD4\xC9\xCF\xA3\xAC\xC4\xE3\xB5\xC3\xD0\xA1\n\xD0\xC4\xA3\xA1&quot;,
+&quot;\xB9\xAB\xD6\xF7\xA3\xBA\xC7\xEB\xD2\xBB\xB6\xA8\xD2\xAA\xC9\xB1\xCB\xC0\xB4\xF3\n\xC4\xA7\xCD\xF5\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_boss2[4]=
+{
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xB4\xF3\xC4\xA7\xCD\xB7\xA3\xAC\xC4\xE3\xB5\xC4\xCB\xC0\n\xC6\xDA\xB5\xBD\xC1\xCB\xA3\xA1&quot;,
+&quot;\xDA\xA4\xC1\xE9\xC4\xA7\xCD\xF5\xA3\xBA\xB9\xFE\xB9\xFE\xB9\xFE\xA3\xAC\xC4\xE3\n\xD2\xB2\xD5\xE6\xCA\xC7\xD3\xD0\xD2\xE2\xCB\xBC\xA1\xA3&quot;,
+&quot;\xDA\xA4\xC1\xE9\xC4\xA7\xCD\xF5\xA3\xBA\xB1\xF0\xD2\xD4\xCE\xAA\xB5\xFB\xCF\xC9\n\xC4\xC7\xBC\xD2\xBB\xEF\xB8\xF8\xC1\xCB\xC4\xE3\xC1\xA6\xC1\xBF\xC4\xE3\xBE\xCD\n\xBF\xC9\xD2\xD4\xB4\xF2\xB0\xDC\xCE\xD2\xA3\xAC\xCF\xEB\xB4\xF2\xB0\xDC\xCE\xD2\n\xC4\xE3\xBB\xB9\xD4\xE7\xD7\xC5\xC4\xD8\xA3\xA1&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xB7\xCF\xBB\xB0\xC9\xD9\xCB\xB5\xA3\xAC\xC8\xA5\xCB\xC0\n\xB0\xC9\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_bossko2[1]=
+{
+&quot;\xDA\xA4\xC1\xE9\xC4\xA7\xCD\xF5\xA3\xBA\xBF\xB4\xB2\xBB\xB3\xF6\xC4\xE3\xBB\xB9\n\xD3\xD0\xC1\xBD\xCF\xC2\xD7\xD3\xA3\xAC\xD3\xD0\xB1\xBE\xC1\xEC\xB5\xC4\xBB\xB0\n\xC0\xB4 21\xC2\xA5\xA1\xA3\xD4\xDA\xC4\xC7\xC4\xE3\xA3\xAC\xC4\xE3\n\xBE\xCD\xBF\xC9\xD2\xD4\xBC\xFB\xCA\xB6\xB5\xBD\xCE\xD2\xD5\xE6\xD5\xFD\xB5\xC4\n\xCA\xB5\xC1\xA6\xC1\xCB\xA3\xA1&quot;
+};
+
+
+const unsigned char* dialog_fairy2[6]=
+{
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xCF\xC9\xD7\xD3\xA3\xAC\xCE\xD2\xD2\xD1\xBE\xAD\xBD\xAB\n\xC4\xC7\xB8\xF6\xCA\xAE\xD7\xD6\xBC\xDC\xD5\xD2\xB5\xBD\xC1\xCB\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xC4\xE3\xD7\xF6\xB5\xC3\xBA\xDC\xBA\xC3\xA1\xA3\xC4\xC7\n\xC3\xB4\xA3\xAC\xCF\xD6\xD4\xDA\xCE\xD2\xBE\xCD\xBF\xAA\xCA\xBC\xCA\xDA\xD3\xE8\n\xC4\xE3\xB8\xFC\xC7\xBF\xB5\xC4\xC1\xA6\xC1\xBF\xA3\xA1&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xDF\xE4\xC0\xB2\xB6\xDF\xDF\xE4\xBB\xA9\xA1\xA3\xA1\xA3\n\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xBA\xC3\xC1\xCB\xA3\xAC\xCE\xD2\xD2\xD1\xBE\xAD\xBD\xAB\n\xC4\xE3\xCF\xD6\xD4\xDA\xB5\xC4\xC1\xA6\xC1\xBF\xCC\xE1\xC9\xFD\xC1\xCB\xA3\xA1&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xBC\xC7\xD7\xA1\xA3\xBA\xC8\xE7\xB9\xFB\xC4\xE3\xC3\xBB\n\xD3\xD0\xD7\xE3\xB9\xBB\xB5\xC4\xCA\xB5\xC1\xA6\xB5\xC4\xBB\xB0\xA3\xAC\xB2\xBB\n\xD2\xAA\xC8\xA5\xB5\xDA\xB6\xFE\xCA\xAE\xD2\xBB\xB2\xE3\xA3\xA1\xD4\xDA\xC4\xC7\n\xD2\xBB\xB2\xE3\xC0\xEF\xA3\xAC\xC4\xE3\xCB\xF9\xD3\xD0\xB1\xA6\xCE\xEF\xB5\xC4\n\xB7\xA8\xC1\xA6\xB6\xBC\xBB\xE1\xCA\xA7\xC8\xA5\xD7\xF7\xD3\xC3\xA3\xA1&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xBF\xEC\xD7\xDF\xB0\xC9\xA1\xA3&quot;
+};
+
+
+const unsigned char* dialog_boss3[1]=
+{
+&quot;\xDA\xA4\xC1\xE9\xC4\xA7\xCD\xF5\xA3\xBA\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\n\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3&quot;
+};
+
+
+const unsigned char* dialog_bossko3[2]=
+{
+&quot;\xDA\xA4\xC1\xE9\xC4\xA7\xCD\xF5\xA3\xBA\xB0\xA1\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\n\xA1\xA3\xA1\xA3\xD4\xF5\xC3\xB4\xBF\xC9\xC4\xDC\xA3\xAC\xCE\xD2\xD4\xF5\xC3\xB4\n\xBF\xC9\xC4\xDC\xBB\xE1\xB1\xBB\xC4\xE3\xB4\xF2\xB0\xDC\xC4\xD8\xA3\xA1\xB2\xBB\n\xA3\xAC\xB2\xBB\xD2\xAA\xD5\xE2\xD1\xF9\xA1\xA3&quot;,
+&quot;\xDA\xA4\xC1\xE9\xC4\xA7\xCD\xF5\xA3\xBA\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\n\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3\xA1\xA3&quot;
+};
+
+
+const unsigned char* dialog_princess2[5]=
+{
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xC4\xA7\xCD\xF5\xD2\xD1\xBE\xAD\xCB\xC0\xC1\xCB\xA1\xA3&quot;,
+&quot;\xB9\xAB\xD6\xF7\xA3\xBA\xD5\xE6\xB5\xC4\xC2\xF0\xA3\xBF&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xCA\xC7\xB5\xC4\xA1\xA3&quot;,
+&quot;\xB9\xAB\xD6\xF7\xA3\xBA\xCC\xAB\xBA\xC3\xC1\xCB\xA3\xA1\xD5\xE2\xB8\xF6\xC4\xA7\n\xCD\xB7\xD2\xD1\xBE\xAD\xCE\xAA\xB7\xC7\xD7\xF7\xB4\xF5\xBA\xDC\xB3\xA4\xCA\xB1\n\xBC\xE4\xC1\xCB\xA1\xA3\xC4\xE3\xD5\xE6\xCA\xC7\xB8\xF6\xB4\xF3\xD3\xA2\xD0\xDB\n\xA3\xA1&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xC4\xC7\xC3\xB4\xCE\xD2\xC3\xC7\xBF\xEC\xC0\xEB\xBF\xAA\n\xD5\xE2\xB6\xF9\xB0\xC9\xA1\xA3&quot;
+};
+
+
+const unsigned char* dialog_fairy3[5]=
+{
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xC4\xA7\xCD\xF5\xD2\xD1\xBE\xAD\xB1\xBB\xCF\xFB\xC3\xF0\n\xC1\xCB\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xC4\xE3\xD7\xF6\xB5\xC4\xBA\xDC\xBA\xC3\xA3\xAC\xC8\xCB\n\xC3\xC7\xBB\xE1\xBA\xDC\xB8\xD0\xD0\xBB\xC4\xE3\xB5\xC4\xA1\xA3&quot;,
+&quot;\xD3\xC2\xCA\xBF\xA3\xBA\xB2\xBB\xB9\xFD\xA3\xAC\xC3\xBB\xD3\xD0\xC4\xE3\xB5\xC4\n\xB0\xEF\xD6\xFA\xA3\xAC\xCE\xD2\xD2\xB2\xD7\xF6\xB2\xBB\xB5\xBD\xD5\xE2\xD2\xBB\n\xB2\xBD\xA1\xA3\xD0\xBB\xD0\xBB\xA3\xA1&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xB2\xBB\xD3\xC3\xD0\xBB\xC0\xB2\xA1\xA3&quot;,
+&quot;\xCF\xC9\xD7\xD3\xA3\xBA\xC4\xE3\xC3\xC7\xBF\xEC\xD7\xDF\xB0\xC9\xA3\xAC\xCE\xD2\n\xBB\xB9\xD2\xAA\xB0\xD1\xD5\xE2\xD7\xF9\xCB\xFE\xD6\xD8\xD0\xC2\xCA\xD5\xCA\xB0\n\xCA\xD5\xCA\xB0\xD2\xBB\xCF\xC2\xA1\xA3&quot;
+};
+
+</pre></details><details><summary>originals/src/map.h</summary><pre>const unsigned char map0[22][11][11]={
+//0F
+{
+{	1,	13,	13,	13,	13,	3,	13,	13,	13,	13,	1},
+{	1,	13,	13,	13,	13,	0,	13,	13,	13,	13,	1},
+{	1,	13,	13,	13,	13,	0,	13,	13,	13,	13,	1},
+{	1,	13,	13,	13,	13,	0,	13,	13,	13,	13,	1},
+{	1,	13,	13,	13,	13,	0,	13,	13,	13,	13,	1},
+{	1,	13,	13,	13,	13,	0,	13,	13,	13,	13,	1},
+{	1,	13,	13,	13,	13,	0,	13,	13,	13,	13,	1},
+{	1,	1,	1,	1,	1,	5,	1,	1,	1,	1,	1},
+{	15,	1,	15,	1,	0,	56,	0,	1,	15,	1,	15},
+{	15,	15,	15,	15,	15,	0,	15,	15,	15,	15,	15},
+{	15,	15,	15,	15,	15,	0,	15,	15,	15,	15,	15}
+},
+//1F
+{
+{	3,	0,	112,	201,	200,	201,	0,	0,	0,	0,	0},
+{	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	0},
+{	115,	0,	207,	5,	0,	1,	115,	112,	115,	1,	0},
+{	112,	207,	110,	1,	0,	1,	115,	112,	115,	1,	0},
+{	1,	5,	1,	1,	0,	1,	1,	1,	202,	1,	0},
+{	112,	208,	0,	1,	0,	5,	212,	201,	204,	1,	0},
+{	111,	0,	113,	1,	0,	1,	1,	1,	1,	1,	0},
+{	1,	5,	1,	1,	0,	0,	0,	0,	0,	0,	0},
+{	0,	208,	0,	1,	1,	7,	1,	1,	1,	5,	1},
+{	115,	116,	112,	1,	114,	0,	0,	1,	112,	210,	113},
+{	115,	123,	112,	1,	0,	2,	0,	1,	112,	112,	112}
+},
+//2F
+{
+{	2,	1,	0,	220,	0,	1,	110,	111,	112,	114,	1},
+{	0,	1,	111,	1,	116,	1,	110,	111,	112,	113,	1},
+{	0,	1,	112,	1,	112,	1,	110,	111,	112,	219,	1},
+{	0,	1,	112,	1,	112,	1,	1,	1,	1,	5,	1},
+{	0,	1,	0,	1,	0,	0,	0,	5,	0,	0,	1},
+{	0,	1,	5,	1,	1,	5,	1,	1,	5,	1,	1},
+{	0,	8,	0,	0,	0,	0,	1,	0,	219,	0,	1},
+{	0,	1,	5,	1,	1,	6,	1,	4,	1,	4,	1},
+{	0,	1,	112,	1,	116,	115,	1,	0,	1,	0,	1},
+{	0,	1,	112,	1,	116,	115,	1,	0,	1,	0,	1},
+{	3,	1,	110,	1,	116,	115,	1,	55,	1,	54,	1}
+},
+//3F
+{
+{	105,	201,	112,	1,	9,	10,	12,	1,	1,	1,	1},
+{	201,	112,	0,	1,	0,	0,	0,	1,	0,	204,	0},
+{	112,	207,	0,	1,	1,	5,	1,	1,	0,	1,	0},
+{	1,	5,	1,	1,	0,	207,	0,	1,	112,	1,	201},
+{	0,	0,	0,	1,	1,	1,	0,	1,	112,	1,	204},
+{	200,	1,	0,	204,	201,	204,	0,	1,	112,	1,	201},
+{	200,	1,	1,	1,	1,	1,	0,	0,	0,	1,	0},
+{	0,	0,	0,	0,	0,	1,	1,	5,	1,	1,	0},
+{	1,	1,	1,	1,	204,	1,	201,	0,	201,	1,	0},
+{	1,	0,	0,	0,	0,	1,	111,	204,	112,	1,	0},
+{	2,	0,	1,	1,	1,	1,	110,	116,	112,	1,	3}
+},
+//4F
+{
+{	0,	202,	0,	1,	0,	58,	0,	1,	0,	202,	0},
+{	5,	1,	5,	1,	0,	0,	0,	1,	5,	1,	5},
+{	0,	1,	0,	1,	1,	4,	1,	1,	0,	1,	0},
+{	0,	1,	207,	1,	205,	206,	205,	1,	207,	1,	0},
+{	204,	1,	115,	1,	111,	205,	111,	1,	115,	1,	204},
+{	204,	1,	115,	1,	1,	7,	1,	1,	115,	1,	204},
+{	201,	1,	0,	1,	210,	214,	210,	1,	0,	1,	201},
+{	0,	1,	0,	1,	110,	210,	110,	1,	0,	1,	0},
+{	0,	1,	0,	1,	1,	6,	1,	1,	0,	1,	0},
+{	0,	1,	0,	1,	112,	0,	112,	1,	0,	1,	0},
+{	3,	1,	0,	202,	0,	0,	0,	202,	0,	1,	2}
+},
+//5F
+{
+{	124,	1,	115,	1,	116,	212,	0,	0,	212,	112,	113},
+{	0,	1,	110,	1,	212,	0,	0,	0,	0,	212,	112},
+{	205,	1,	0,	1,	208,	0,	1,	1,	5,	1,	1},
+{	0,	5,	212,	1,	100,	208,	1,	0,	210,	208,	54},
+{	205,	1,	0,	1,	1,	1,	1,	0,	0,	0,	208},
+{	110,	1,	0,	0,	0,	204,	207,	0,	0,	0,	0},
+{	111,	1,	1,	202,	1,	1,	1,	1,	0,	0,	0},
+{	0,	55,	1,	202,	1,	0,	0,	0,	210,	214,	0},
+{	1,	1,	1,	204,	1,	5,	1,	6,	1,	5,	1},
+{	0,	0,	1,	0,	1,	204,	1,	111,	5,	0,	1},
+{	2,	0,	204,	0,	0,	0,	1,	112,	1,	3,	1}
+},
+//6F
+{
+{	119,	209,	1,	111,	1,	112,	203,	120,	1,	116,	116},
+{	209,	112,	1,	110,	1,	0,	112,	203,	1,	228,	116},
+{	112,	206,	6,	0,	6,	206,	0,	112,	1,	0,	228},
+{	0,	0,	1,	214,	1,	0,	0,	0,	1,	211,	0},
+{	1,	1,	1,	7,	1,	1,	1,	1,	1,	5,	1},
+{	0,	0,	213,	0,	112,	112,	112,	0,	213,	0,	0},
+{	0,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1},
+{	0,	1,	205,	5,	205,	0,	0,	0,	0,	0,	1},
+{	0,	1,	5,	1,	5,	1,	1,	1,	1,	6,	1},
+{	0,	1,	205,	1,	0,	0,	1,	1,	0,	0,	1},
+{	0,	0,	0,	1,	3,	0,	5,	5,	0,	2,	1}
+},
+//7F
+{
+{	3,	0,	0,	0,	0,	0,	0,	0,	1,	1,	1},
+{	1,	1,	0,	206,	1,	6,	1,	209,	0,	1,	1},
+{	1,	0,	206,	111,	1,	225,	1,	110,	209,	0,	1},
+{	0,	0,	1,	1,	1,	4,	1,	1,	1,	0,	0},
+{	0,	0,	6,	225,	4,	122,	4,	225,	6,	0,	0},
+{	0,	1,	1,	1,	1,	4,	1,	1,	1,	1,	0},
+{	0,	1,	115,	110,	1,	225,	1,	111,	115,	1,	0},
+{	0,	1,	112,	115,	1,	6,	1,	115,	112,	1,	0},
+{	0,	1,	1,	113,	113,	116,	113,	113,	1,	1,	0},
+{	0,	0,	1,	1,	1,	7,	1,	1,	1,	0,	0},
+{	1,	0,	0,	5,	2,	0,	0,	5,	0,	0,	1}
+},
+//8F
+{
+{	2,	1,	0,	0,	0,	0,	1,	0,	112,	209,	0},
+{	0,	1,	0,	1,	1,	5,	1,	5,	1,	1,	0},
+{	0,	1,	0,	1,	0,	0,	6,	0,	0,	1,	110},
+{	0,	1,	0,	1,	217,	1,	1,	1,	205,	1,	202},
+{	205,	1,	0,	1,	115,	1,	3,	0,	0,	1,	202},
+{	206,	1,	111,	1,	115,	1,	1,	1,	1,	1,	0},
+{	205,	1,	202,	1,	0,	0,	0,	1,	0,	206,	0},
+{	0,	1,	202,	1,	1,	1,	214,	1,	5,	1,	1},
+{	0,	1,	0,	209,	0,	1,	209,	1,	0,	0,	0},
+{	0,	1,	1,	1,	5,	1,	0,	1,	1,	1,	0},
+{	0,	0,	217,	0,	0,	1,	0,	203,	225,	203,	0}
+},
+//9F
+{
+{	125,	112,	0,	1,	1,	1,	0,	0,	0,	1,	0},
+{	112,	0,	211,	5,	0,	0,	0,	1,	0,	5,	209},
+{	1,	5,	1,	1,	0,	1,	1,	1,	0,	1,	112},
+{	0,	0,	0,	1,	0,	1,	0,	0,	0,	1,	112},
+{	0,	0,	0,	7,	0,	1,	2,	1,	0,	1,	115},
+{	1,	6,	1,	1,	0,	1,	1,	1,	0,	1,	1},
+{	111,	218,	110,	1,	217,	1,	3,	1,	0,	1,	115},
+{	1,	5,	1,	1,	0,	0,	0,	5,	0,	1,	112},
+{	209,	115,	209,	1,	1,	6,	1,	1,	0,	1,	112},
+{	113,	209,	115,	1,	228,	217,	228,	1,	0,	5,	209},
+{	107,	113,	209,	5,	116,	228,	116,	1,	0,	1,	0}
+},
+//10F
+{
+{	0,	1,	1,	111,	211,	1,	211,	110,	1,	1,	0},
+{	0,	0,	1,	1,	5,	1,	5,	1,	1,	0,	228},
+{	0,	0,	0,	0,	0,	1,	0,	0,	0,	228,	116},
+{	0,	1,	0,	1,	1,	1,	1,	1,	0,	1,	1},
+{	205,	1,	0,	0,	112,	112,	112,	0,	0,	1,	112},
+{	206,	1,	0,	1,	1,	1,	1,	5,	1,	1,	112},
+{	205,	1,	0,	4,	0,	2,	1,	0,	5,	206,	0},
+{	0,	1,	1,	1,	1,	1,	1,	5,	1,	1,	0},
+{	0,	1,	115,	111,	110,	1,	0,	206,	0,	1,	112},
+{	0,	1,	115,	111,	110,	7,	217,	1,	217,	1,	112},
+{	3,	1,	115,	111,	110,	1,	113,	1,	113,	1,	115}
+},
+//11F
+{
+{	115,	1,	112,	1,	113,	1,	114,	1,	116,	102,	116},
+{	115,	1,	112,	1,	113,	1,	114,	1,	214,	214,	214},
+{	115,	1,	112,	1,	113,	1,	114,	1,	0,	214,	0},
+{	5,	1,	5,	1,	5,	1,	5,	1,	1,	6,	1},
+{	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0},
+{	5,	1,	1,	6,	1,	1,	1,	6,	1,	1,	5},
+{	111,	1,	0,	215,	116,	227,	116,	215,	0,	1,	110},
+{	111,	1,	211,	1,	1,	1,	1,	1,	211,	1,	110},
+{	111,	1,	211,	1,	9,	10,	12,	1,	211,	1,	110},
+{	1,	1,	7,	1,	115,	0,	115,	1,	7,	1,	1},
+{	2,	0,	0,	0,	0,	0,	0,	0,	0,	0,	3}
+},
+//12F
+{
+{	54,	111,	1,	0,	219,	220,	219,	0,	1,	116,	121},
+{	110,	0,	1,	0,	1,	5,	1,	0,	1,	0,	116},
+{	0,	0,	1,	0,	1,	220,	1,	0,	1,	0,	0},
+{	0,	227,	1,	0,	1,	112,	1,	0,	1,	224,	0},
+{	227,	221,	1,	0,	1,	112,	1,	0,	1,	223,	224},
+{	1,	6,	1,	0,	1,	115,	1,	0,	1,	6,	1},
+{	0,	0,	0,	0,	1,	115,	1,	0,	0,	0,	0},
+{	1,	1,	1,	0,	1,	1,	1,	0,	1,	1,	1},
+{	111,	227,	5,	215,	215,	216,	215,	215,	5,	227,	110},
+{	1,	1,	1,	1,	1,	6,	1,	1,	1,	1,	1},
+{	3,	0,	0,	0,	0,	0,	0,	0,	0,	0,	2}
+},
+//13F
+{
+{	0,	227,	0,	0,	0,	0,	0,	1,	0,	221,	0},
+{	0,	1,	1,	1,	1,	1,	5,	1,	0,	1,	0},
+{	0,	1,	0,	0,	215,	0,	0,	1,	0,	1,	0},
+{	116,	1,	7,	1,	1,	1,	0,	1,	0,	1,	0},
+{	219,	1,	0,	0,	221,	1,	215,	1,	110,	1,	0},
+{	220,	1,	0,	222,	4,	1,	216,	1,	110,	1,	0},
+{	219,	1,	221,	4,	55,	1,	215,	1,	110,	1,	111},
+{	0,	1,	1,	1,	1,	1,	0,	1,	0,	1,	111},
+{	0,	219,	0,	1,	0,	0,	0,	221,	0,	1,	111},
+{	1,	1,	0,	1,	116,	1,	1,	1,	1,	1,	0},
+{	2,	0,	0,	6,	0,	3,	1,	119,	222,	5,	0}
+},
+//14F
+{
+{	1,	0,	224,	124,	3,	0,	0,	0,	0,	0,	1},
+{	1,	0,	116,	1,	1,	1,	1,	1,	116,	0,	1},
+{	1,	0,	1,	1,	1,	1,	1,	1,	1,	0,	1},
+{	1,	0,	1,	1,	1,	117,	1,	1,	1,	0,	1},
+{	1,	0,	1,	1,	1,	4,	1,	1,	1,	0,	1},
+{	1,	0,	115,	1,	1,	221,	1,	1,	115,	0,	1},
+{	1,	0,	13,	13,	1,	222,	1,	13,	13,	0,	1},
+{	1,	0,	13,	13,	1,	221,	1,	13,	13,	0,	1},
+{	1,	0,	13,	13,	1,	6,	1,	13,	13,	0,	1},
+{	1,	215,	216,	215,	6,	0,	6,	215,	216,	215,	1},
+{	1,	1,	1,	1,	1,	2,	1,	1,	1,	1,	1}
+},
+//15F
+{
+{	0,	0,	0,	0,	2,	13,	3,	0,	0,	0,	0},
+{	0,	13,	13,	13,	13,	13,	13,	13,	13,	13,	0},
+{	0,	13,	13,	1,	1,	1,	1,	1,	13,	13,	0},
+{	0,	13,	1,	1,	55,	1,	54,	1,	1,	13,	0},
+{	0,	13,	1,	1,	111,	1,	111,	1,	1,	13,	0},
+{	0,	13,	1,	1,	110,	1,	110,	1,	1,	13,	0},
+{	0,	13,	13,	1,	0,	1,	0,	1,	13,	13,	0},
+{	0,	13,	13,	1,	5,	1,	5,	1,	13,	13,	0},
+{	0,	13,	13,	13,	0,	0,	0,	13,	13,	13,	0},
+{	0,	13,	13,	13,	13,	7,	13,	13,	13,	13,	0},
+{	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0}
+},
+//16F
+{
+{	13,	13,	13,	13,	13,	0,	2,	13,	13,	13,	13},
+{	13,	13,	13,	13,	13,	0,	13,	13,	13,	13,	13},
+{	13,	13,	13,	13,	13,	0,	13,	13,	13,	13,	13},
+{	13,	13,	13,	13,	1,	7,	1,	13,	13,	13,	13},
+{	13,	13,	13,	1,	1,	0,	1,	1,	13,	13,	13},
+{	13,	13,	13,	1,	1,	226,	1,	1,	13,	13,	13},
+{	13,	13,	13,	1,	1,	0,	1,	1,	13,	13,	13},
+{	13,	13,	13,	1,	1,	3,	1,	1,	13,	13,	13},
+{	13,	13,	13,	13,	1,	1,	1,	13,	13,	13,	13},
+{	13,	13,	13,	13,	13,	13,	13,	13,	13,	13,	13},
+{	13,	13,	13,	13,	13,	13,	13,	13,	13,	13,	13}
+},
+//17F
+{
+{	13,	224,	222,	0,	0,	0,	0,	0,	0,	0,	224},
+{	13,	222,	13,	13,	13,	13,	13,	13,	13,	13,	0},
+{	13,	0,	13,	224,	0,	0,	0,	0,	0,	0,	224},
+{	13,	0,	13,	0,	13,	13,	13,	13,	13,	13,	13},
+{	13,	0,	13,	0,	13,	224,	0,	0,	0,	224,	13},
+{	13,	0,	13,	224,	0,	0,	13,	13,	13,	0,	13},
+{	13,	0,	13,	13,	13,	13,	13,	224,	0,	224,	13},
+{	13,	222,	13,	13,	13,	2,	13,	0,	13,	13,	13},
+{	13,	224,	222,	0,	230,	0,	13,	224,	0,	0,	224},
+{	13,	13,	13,	13,	13,	13,	13,	13,	13,	13,	0},
+{	3,	0,	230,	0,	0,	0,	0,	0,	0,	0,	224}
+},
+//18F
+{
+{	13,	13,	13,	13,	13,	13,	13,	13,	13,	13,	13},
+{	13,	13,	13,	13,	13,	13,	13,	13,	13,	13,	13},
+{	13,	13,	13,	13,	13,	13,	13,	13,	13,	13,	13},
+{	13,	13,	13,	13,	1,	1,	1,	13,	13,	13,	13},
+{	13,	13,	13,	1,	1,	57,	1,	1,	13,	13,	13},
+{	13,	13,	13,	1,	1,	4,	1,	1,	13,	13,	13},
+{	13,	13,	13,	1,	1,	7,	1,	1,	13,	13,	13},
+{	13,	13,	13,	13,	1,	7,	1,	13,	13,	13,	13},
+{	13,	13,	13,	13,	13,	1,	13,	13,	13,	13,	13},
+{	13,	13,	13,	13,	13,	1,	13,	13,	13,	13,	13},
+{	2,	0,	0,	0,	0,	0,	0,	0,	0,	0,	3}
+},
+//19F
+{
+{	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
+{	0,	13,	0,	13,	13,	13,	13,	13,	0,	13,	0},
+{	0,	13,	0,	13,	13,	13,	13,	13,	0,	13,	0},
+{	0,	13,	0,	13,	13,	3,	13,	13,	0,	13,	0},
+{	0,	13,	0,	13,	13,	0,	13,	13,	0,	13,	0},
+{	0,	13,	226,	13,	13,	229,	13,	13,	226,	13,	0},
+{	0,	13,	4,	13,	13,	0,	13,	13,	4,	13,	0},
+{	0,	13,	109,	13,	13,	0,	13,	13,	104,	13,	54},
+{	0,	13,	13,	13,	13,	0,	13,	13,	13,	13,	0},
+{	0,	13,	13,	13,	13,	0,	13,	13,	13,	13,	13},
+{	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	2}
+},
+//20F
+{
+{	230,	110,	225,	115,	222,	114,	222,	115,	225,	110,	230},
+{	116,	13,	112,	13,	113,	13,	113,	13,	112,	13,	116},
+{	13,	111,	225,	0,	224,	0,	224,	0,	225,	111,	13},
+{	115,	13,	112,	13,	0,	2,	0,	13,	112,	13,	115},
+{	222,	113,	224,	0,	0,	0,	0,	0,	224,	113,	222},
+{	114,	13,	0,	13,	0,	13,	0,	13,	0,	13,	114},
+{	222,	113,	224,	0,	0,	0,	0,	0,	224,	113,	222},
+{	115,	13,	112,	13,	0,	0/*3*/,	0,	13,	112,	13,	115},
+{	13,	111,	225,	0,	224,	0,	224,	0,	225,	111,	13},
+{	116,	13,	112,	13,	113,	13,	113,	13,	112,	13,	116},
+{	230,	110,	225,	115,	222,	114,	222,	115,	225,	110,	230}
+},
+//21F
+{
+{	13,	13,	13,	13,	13,	13,	13,	13,	13,	13,	13},
+{	13,	13,	0,	0,	13,	229,	13,	0,	0,	13,	13},
+{	13,	0,	0,	13,	13,	223,	13,	13,	0,	0,	13},
+{	13,	13,	0,	0,	13,	223,	13,	0,	0,	13,	13},
+{	13,	13,	0,	0,	0,	0,	0,	0,	0,	13,	13},
+{	13,	13,	13,	0,	0,	0,	0,	0,	13,	13,	13},
+{	13,	13,	13,	13,	0,	13,	0,	13,	13,	13,	13},
+{	13,	13,	13,	13,	4,	0/*2*/,	4,	13,	13,	13,	13},
+{	13,	13,	13,	13,	13,	13,	13,	13,	13,	13,	13},
+{	13,	13,	13,	13,	13,	13,	13,	13,	13,	13,	13},
+{	13,	13,	13,	13,	13,	13,	13,	13,	13,	13,	13}
+}
+};</pre></details><details><summary>originals/src/monsters.h</summary><pre>typedef struct
+{
+	int hp,atk,dec,exp,gold;
+	char * name;
+}monster;
+const monster monsters0[]= 
+{
+{50  ,20  ,1  ,1 ,  1 ,   &quot;\xC2\xCC\xCD\xB7\xB9\xD6&quot;},    /* 绿头怪 */
+{70  ,15  ,2  ,2 ,  2 ,   &quot;\xBA\xEC\xCD\xB7\xB9\xD6&quot;},    /* 红头怪 */
+{200 ,35  ,10  ,5 ,  5 ,  &quot;\xC7\xE0\xCD\xB7\xB9\xD6&quot;},     /* 青头怪 */
+{700 ,250 ,125 ,32 ,  30 ,  &quot;\xB9\xD6\xCD\xF5&quot;},       /* 怪王 */
+{100 ,20  ,5  ,3 ,   3 ,   &quot;\xD0\xA1\xF2\xF9\xF2\xF0&quot;},    /* 小蝙蝠 */
+{150 ,65  ,30  ,10 ,  8 ,  &quot;\xB4\xF3\xF2\xF9\xF2\xF0&quot;},     /* 大蝙蝠 */
+{550 ,160 ,90  ,25 ,  20 ,  &quot;\xBA\xEC\xF2\xF9\xF2\xF0&quot;},    /* 红蝙蝠 */
+{110 ,25  ,5  ,5 ,   4 ,   &quot;\xF7\xBC\xF7\xC3\xC8\xCB&quot;},    /* 骷髅人 */
+{150 ,40  ,20  ,8 ,  6 ,  &quot;\xF7\xBC\xF7\xC3\xCA\xBF\xB1\xF8&quot;},  /* 骷髅士兵 */
+{400 ,90  ,50  ,15 ,  12 ,  &quot;\xF7\xBC\xF7\xC3\xB6\xD3\xB3\xA4&quot;},  /* 骷髅队长 */
+{300 ,75  ,45  ,13 ,  10 ,  &quot;\xCA\xDE\xC3\xE6\xC8\xCB&quot;},    /* 兽面人 */
+{900 ,450 ,330 ,50 ,  50 ,  &quot;\xCA\xDE\xC3\xE6\xCE\xE4\xCA\xBF&quot;},  /* 兽面武士 */
+{125 ,50  ,25  ,10 ,  7 ,  &quot;\xB3\xF5\xBC\xB6巫\xCA\xA6&quot;},  /* 初级巫师 */
+{100 ,200 ,110 ,30 ,  25 ,  &quot;\xB8\xDF\xBC\xB6巫\xCA\xA6&quot;},  /* 高级巫师 */
+{450 ,150 ,90  ,22 ,  19 ,  &quot;\xB3\xF5\xBC\xB6\xCE\xC0\xB1\xF8&quot;},  /* 初级卫兵 */
+{1250 ,500 ,400 ,55 ,  55 ,  &quot;中级\xCE\xC0\xB1\xF8&quot;},    /* 中级卫兵 */
+{1500 ,560 ,460 ,60 ,  60 ,  &quot;\xB8\xDF\xBC\xB6\xCE\xC0\xB1\xF8&quot;},  /* 高级卫兵 */
+{250 ,120 ,70  ,20 ,  17 ,  &quot;\xC2\xE9\xD2\xC2\xB7\xA8\xCA\xA6&quot;},  /* 麻衣法师 */
+{500 ,400 ,260 ,47 ,  45 ,  &quot;\xBA\xEC\xD2\xC2\xB7\xA8\xCA\xA6&quot;},  /* 红衣法师 */
+{850 ,350 ,200 ,45 ,  40 ,  &quot;\xBD\xF0\xCE\xC0\xCA\xBF&quot;},     /* 金卫士 */
+{900 ,750 ,650 ,77 ,  70 ,  &quot;\xBD\xF0\xB6\xD3\xB3\xA4&quot;},     /* 金队长 */
+{2000 ,680 ,590 ,70 ,  65 ,  &quot;\xDA\xA4\xD5\xBD\xCA\xBF&quot;},    /* 冥战士 */
+{2500 ,900 ,850 ,84 ,  75 ,  &quot;\xDA\xA4\xB6\xD3\xB3\xA4&quot;},     /* 冥队长 */
+{1500 ,830 ,730 ,80 ,  70 ,  &quot;\xC1\xE9\xB7\xA8\xCA\xA6&quot;},     /* 灵法师 */
+{1200, 980, 900, 88,  75, &quot;灵武士&quot;},
+{1300 ,300 ,150 ,40 ,  35 ,  &quot;\xB0\xD7\xD2\xC2\xC4\xA7\xCD\xF5&quot;},  /* 白衣魔王 */
+{15000 ,1000 ,1000 ,100, 100 ,  &quot;\xBA\xEC\xD2\xC2\xC4\xA7\xCD\xF5&quot;},  /* 红衣魔王 */
+{1200 ,620 ,520 ,65 ,  75 ,  &quot;\xCB\xAB\xCA\xD6\xBD\xA3\xCA\xBF&quot;},  /* 双手剑士 */
+{500 ,115 ,65  ,15 ,  15 ,  &quot;\xCA\xAF\xCD\xB7\xB9\xD6\xC8\xCB&quot;},  /* 石头怪人 */
+{30000 ,1700 ,1500 ,250, 220 ,  &quot;\xDA\xA4\xC1\xE9\xC4\xA7\xCD\xF5&quot;},  /* 冥灵魔王 */
+{3100 ,1150 ,1050 ,92 ,  80 ,  &quot;\xD3\xB0\xD7\xD3\xD5\xBD\xCA\xBF&quot;},  /* 影子战士 */
+{50000,2250,2250,500,500,&quot;\xDA\xA4\xC1\xE9\xC4\xA7\xCD\xF5&quot;},/* 冥灵魔王 */
+{99999 ,5000 ,4000 ,0 ,  0 ,  &quot;\xD1\xAA\xD3\xB0&quot;},       /* 血影 */
+{99999 ,9999 ,5000 ,0 ,  0 ,  &quot;\xC4\xA7\xC1\xFA&quot;},
+};
+const monsternumber=32;</pre></details><details><summary>originals/src/pictures.h</summary><pre>const unsigned char hud_left[]=
+{ 
+ 255, 255, 255, 255,
+ 159, 224, 33, 32,
+ 132, 129, 250, 42,
+ 159, 240, 36, 42,
+ 145, 16, 41, 52,
+ 159, 247, 255, 128,
+ 145, 16, 32, 0,
+ 159, 240, 254, 0,
+ 145, 1, 130, 0,
+ 191, 246, 254, 0,
+ 130, 16, 130, 0,
+ 140, 144, 254, 0,
+ 240, 96, 130, 0,
+ 148, 0, 0, 0,
+ 170, 0, 0, 0,
+ 162, 0, 0, 0,
+ 148, 0, 0, 0,
+ 148, 0, 0, 0,
+ 136, 0, 0, 0,
+ 128, 0, 0, 0,
+ 128, 0, 0, 0,
+ 136, 0, 0, 0,
+ 148, 0, 0, 0,
+ 148, 0, 0, 0,
+ 148, 0, 0, 0,
+ 148, 0, 0, 0,
+ 190, 0, 0, 0,
+ 136, 0, 0, 0,
+ 128, 0, 0, 0,
+ 156, 0, 0, 0,
+ 170, 0, 0, 0,
+ 190, 0, 0, 0,
+ 170, 0, 0, 0,
+ 170, 0, 0, 0,
+ 162, 0, 0, 0,
+ 156, 0, 0, 0,
+ 128, 0, 0, 0,
+ 156, 0, 0, 0,
+ 162, 0, 0, 0,
+ 160, 0, 0, 0,
+ 160, 0, 0, 0,
+ 174, 0, 0, 0,
+ 162, 0, 0, 0,
+ 158, 0, 0, 0,
+ 128, 0, 0, 0,
+ 144, 0, 0, 0,
+ 184, 0, 0, 0,
+ 144, 0, 0, 0,
+ 132, 0, 0, 0,
+ 142, 0, 0, 0,
+ 132, 0, 0, 0,
+ 160, 0, 0, 0,
+ 128, 0, 0, 0,
+ 130, 1, 0, 128,
+ 133, 242, 249, 124,
+ 130, 33, 40, 156,
+ 128, 0, 0, 0,
+ 128, 0, 0, 0,
+ 128, 0, 0, 0,
+ 128, 0, 0, 0,
+ 128, 0, 0, 0,
+ 128, 0, 0, 0,
+ 128, 0, 0, 0,
+ 255, 255, 255, 255
+};
+const unsigned char hud_book[]=
+{
+ 0, 0, 63, 255, 255, 255, 192, 0, 0, 3, 255, 255, 255, 252, 0, 0,
+ 7, 255, 192, 0, 0, 0, 63, 128, 1, 252, 0, 0, 0, 3, 255, 224,
+ 248, 0, 0, 0, 0, 0, 0, 120, 30, 0, 0, 0, 0, 0, 0, 31,
+ 128, 0, 0, 0, 0, 0, 0, 6, 96, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 130, 128, 0, 0, 0, 0, 0, 3, 193, 64, 0, 0, 0, 0, 0, 1,
+ 133, 64, 0, 0, 0, 0, 0, 3, 194, 160, 0, 0, 0, 0, 0, 1,
+ 132, 64, 0, 0, 0, 0, 0, 3, 194, 32, 0, 0, 0, 0, 0, 1,
+ 130, 128, 0, 0, 0, 0, 0, 3, 193, 64, 0, 0, 0, 0, 0, 1,
+ 130, 128, 0, 0, 0, 0, 0, 3, 193, 64, 0, 0, 0, 0, 0, 1,
+ 129, 0, 0, 0, 0, 0, 0, 3, 192, 128, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 129, 0, 0, 0, 0, 0, 0, 3, 192, 128, 0, 0, 0, 0, 0, 1,
+ 130, 128, 0, 0, 0, 0, 0, 3, 193, 64, 0, 0, 0, 0, 0, 1,
+ 130, 128, 0, 0, 0, 0, 0, 3, 193, 64, 0, 0, 0, 0, 0, 1,
+ 130, 128, 0, 0, 0, 0, 0, 3, 193, 64, 0, 0, 0, 0, 0, 1,
+ 130, 128, 0, 0, 0, 0, 0, 3, 193, 64, 0, 0, 0, 0, 0, 1,
+ 135, 192, 0, 0, 0, 0, 0, 3, 195, 224, 0, 0, 0, 0, 0, 1,
+ 129, 0, 0, 0, 0, 0, 0, 3, 192, 128, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 131, 128, 0, 0, 0, 0, 0, 3, 193, 192, 0, 0, 0, 0, 0, 1,
+ 133, 64, 0, 0, 0, 0, 0, 3, 194, 160, 0, 0, 0, 0, 0, 1,
+ 135, 192, 0, 0, 0, 0, 0, 3, 195, 224, 0, 0, 0, 0, 0, 1,
+ 133, 64, 0, 0, 0, 0, 0, 3, 194, 160, 0, 0, 0, 0, 0, 1,
+ 133, 64, 0, 0, 0, 0, 0, 3, 194, 160, 0, 0, 0, 0, 0, 1,
+ 132, 64, 0, 0, 0, 0, 0, 3, 194, 32, 0, 0, 0, 0, 0, 1,
+ 131, 128, 0, 0, 0, 0, 0, 3, 193, 192, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 131, 128, 0, 0, 0, 0, 0, 3, 193, 192, 0, 0, 0, 0, 0, 1,
+ 132, 64, 0, 0, 0, 0, 0, 3, 194, 32, 0, 0, 0, 0, 0, 1,
+ 132, 0, 0, 0, 0, 0, 0, 3, 194, 0, 0, 0, 0, 0, 0, 1,
+ 132, 0, 0, 0, 0, 0, 0, 3, 194, 0, 0, 0, 0, 0, 0, 1,
+ 133, 192, 0, 0, 0, 0, 0, 3, 194, 224, 0, 0, 0, 0, 0, 1,
+ 132, 64, 0, 0, 0, 0, 0, 3, 194, 32, 0, 0, 0, 0, 0, 1,
+ 131, 192, 0, 0, 0, 0, 0, 3, 193, 224, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 130, 0, 0, 0, 0, 0, 0, 3, 193, 0, 0, 0, 0, 0, 0, 1,
+ 135, 0, 0, 0, 0, 0, 0, 3, 195, 128, 0, 0, 0, 0, 0, 1,
+ 130, 0, 0, 0, 0, 0, 0, 3, 193, 0, 0, 0, 0, 0, 0, 1,
+ 128, 128, 0, 0, 0, 0, 0, 3, 192, 64, 0, 0, 0, 0, 0, 1,
+ 129, 192, 0, 0, 0, 0, 0, 3, 192, 224, 0, 0, 0, 0, 0, 1,
+ 128, 128, 0, 0, 0, 0, 0, 3, 192, 64, 0, 0, 0, 0, 0, 1,
+ 132, 0, 0, 0, 0, 0, 0, 3, 194, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1,
+ 128, 0, 63, 255, 255, 255, 192, 3, 192, 3, 255, 255, 255, 252, 0, 1,
+ 135, 255, 192, 0, 0, 0, 63, 131, 193, 252, 0, 0, 0, 3, 255, 225,
+ 248, 0, 0, 0, 0, 0, 0, 123, 222, 0, 0, 0, 0, 0, 0, 31,
+ 128, 0, 63, 255, 255, 255, 192, 7, 224, 3, 255, 255, 255, 252, 0, 1,
+ 255, 255, 192, 0, 0, 0, 63, 131, 193, 252, 0, 0, 0, 3, 255, 255
+};
+const unsigned char hud_fight[]=
+{
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 13, 128, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 240, 120, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 13, 128, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 1, 128, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 1, 128, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 1, 128, 96, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 192, 96, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 192, 96, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 192, 192, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 192, 192, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 192, 128, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 193, 128, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 99, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 98, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 102, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 56, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 56, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 48, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 49, 224, 0, 0, 0, 0, 0, 0, 0,
+ 5, 0, 0, 0, 0, 0, 0, 51, 240, 5, 0, 0, 0, 0, 0, 0,
+ 10, 128, 0, 0, 0, 0, 0, 6, 48, 10, 128, 0, 0, 0, 0, 0,
+ 8, 128, 0, 0, 0, 0, 0, 6, 0, 8, 128, 0, 0, 0, 0, 0,
+ 5, 0, 0, 0, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, 0, 0,
+ 5, 0, 0, 0, 0, 0, 0, 1, 128, 5, 0, 0, 0, 0, 0, 0,
+ 2, 0, 0, 0, 0, 0, 0, 1, 128, 2, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 192, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 192, 0, 0, 0, 0, 0, 0, 0,
+ 2, 0, 0, 0, 0, 0, 0, 15, 128, 2, 0, 0, 0, 0, 0, 0,
+ 5, 0, 0, 0, 0, 0, 0, 15, 0, 5, 0, 0, 0, 0, 0, 0,
+ 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0,
+ 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 64,
+ 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 64,
+ 15, 128, 0, 0, 0, 0, 0, 0, 0, 15, 128, 0, 0, 0, 0, 160,
+ 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 160,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 160,
+ 7, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 7, 28,
+ 10, 128, 0, 0, 0, 0, 0, 0, 4, 10, 128, 0, 0, 0, 24, 3,
+ 15, 128, 0, 0, 0, 0, 0, 0, 4, 15, 128, 0, 0, 0, 7, 28,
+ 10, 128, 0, 0, 0, 0, 0, 0, 4, 10, 128, 0, 0, 0, 0, 160,
+ 10, 128, 0, 0, 0, 0, 0, 0, 14, 10, 128, 0, 0, 0, 0, 160,
+ 8, 128, 0, 0, 0, 0, 0, 0, 17, 8, 128, 0, 0, 0, 0, 160,
+ 7, 0, 0, 0, 0, 0, 0, 0, 14, 7, 0, 0, 0, 0, 0, 64,
+ 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 64,
+ 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
+const unsigned char pictures[]=
+{
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x03,0xC0,
+0xC,0x30,
+0x10,0x08,
+0x26,0x64,
+0x24,0x24,
+0x26,0x64,
+0x20,0x04,
+0x11,0x88,
+0xC,0x30,
+0x03,0xC0,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x03,0xC0,
+0xF,0xF0,
+0x1F,0xF8,
+0x39,0x9C,
+0x3B,0xDC,
+0x39,0x9C,
+0x3F,0xFC,
+0x1E,0x78,
+0xF,0xF0,
+0x03,0xC0,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x07,0xE0,
+0x1F,0xF8,
+0x3F,0xFC,
+0x3F,0xFC,
+0x79,0x9E,
+0x75,0xAE,
+0x71,0x8E,
+0x7F,0xFC,
+0x3F,0xFC,
+0x1F,0xF8,
+0x07,0xE0,
+0x00,0x00,
+
+0xD,0xB0,
+0xA,0x50,
+0x07,0xE0,
+0x08,0x10,
+0x10,0x08,
+0x22,0x44,
+0x40,0x02,
+0x40,0x02,
+0x81,0x81,
+0x81,0x01,
+0x80,0x01,
+0x80,0x01,
+0x40,0x02,
+0x20,0x04,
+0x18,0x18,
+0x07,0xE0,
+
+0x00,0x00,
+0x10,0x08,
+0x12,0x48,
+0x2B,0xD4,
+0x24,0x24,
+0x20,0x04,
+0x00,0x94,
+0x28,0x14,
+0x28,0x14,
+0x00,0x58,
+0xA,0x50,
+0x05,0xA0,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x10,0x08,
+0x34,0x2C,
+0x57,0xEA,
+0x54,0x00,
+0x00,0x51,
+0x86,0x61,
+0x81,0x81,
+0x82,0x41,
+0x82,0x41,
+0x82,0x41,
+0x8D,0xB1,
+0x8D,0xB1,
+0x00,0x52,
+0x50,0xA,
+0x20,0x04,
+
+0x00,0x00,
+0x10,0x08,
+0x14,0x28,
+0x37,0xEC,
+0x36,0x6C,
+0x7B,0xDE,
+0x7D,0xBE,
+0x7F,0xFE,
+0xFF,0xFF,
+0xFF,0xFF,
+0xFF,0xFF,
+0xF1,0x8F,
+0xE3,0xC7,
+0xC7,0xE3,
+0x42,0x42,
+0x00,0x00,
+
+0x07,0xE0,
+0x08,0x10,
+0x16,0x68,
+0x16,0x68,
+0x16,0x68,
+0x09,0x90,
+0xB,0xD0,
+0x34,0x2E,
+0x33,0xC6,
+0x3F,0xF6,
+0x31,0x46,
+0x5F,0xF5,
+0x55,0x55,
+0x27,0xF2,
+0x01,0x40,
+0x07,0x70,
+
+0x07,0xE0,
+0x08,0x10,
+0x16,0x68,
+0x56,0x68,
+0x56,0x68,
+0xA9,0x90,
+0xAB,0xD0,
+0xA4,0x3E,
+0xA3,0xE9,
+0xAF,0xE9,
+0xB1,0x29,
+0xBF,0xE9,
+0x95,0x29,
+0x67,0xFE,
+0x01,0x40,
+0x07,0x70,
+
+0x07,0xE0,
+0xF,0xF0,
+0x19,0x98,
+0x59,0x98,
+0x59,0x98,
+0xAE,0x70,
+0xAC,0x30,
+0xA7,0xFE,
+0xA3,0xE9,
+0xAF,0xE9,
+0xB1,0x3F,
+0xBF,0xE9,
+0x95,0x29,
+0x67,0xFE,
+0x01,0x40,
+0x07,0x70,
+
+0x07,0xE0,
+0xC,0x30,
+0x18,0x18,
+0x36,0x6C,
+0x00,0x5C,
+0x35,0xAC,
+0x7C,0x3E,
+0x85,0xA1,
+0xB3,0xCD,
+0xA8,0x15,
+0xA6,0x65,
+0x94,0x29,
+0x66,0x66,
+0xC,0x30,
+0x11,0x88,
+0x1F,0xF8,
+
+0x07,0xE0,
+0xC,0x30,
+0x28,0x18,
+0x56,0x6C,
+0x00,0x5C,
+0x55,0xAC,
+0x5C,0x36,
+0x55,0x9E,
+0x53,0xE1,
+0x58,0x25,
+0x56,0x69,
+0x54,0x21,
+0x76,0x5E,
+0xC,0x30,
+0x11,0x88,
+0x1F,0xF8,
+
+0x07,0xE0,
+0x08,0x10,
+0x17,0xE8,
+0x15,0xA8,
+0x17,0xE8,
+0xB,0xD0,
+0x7C,0x3E,
+0xA3,0xC5,
+0xA0,0x05,
+0xAC,0x35,
+0xB2,0x4D,
+0x62,0x46,
+0x04,0x20,
+0x18,0x18,
+0x20,0x04,
+0x1F,0xF8,
+
+0x07,0xE0,
+0xF,0xF0,
+0xC,0x30,
+0xC,0x30,
+0xC,0x30,
+0xE,0x70,
+0x77,0xEE,
+0xBB,0xDD,
+0xBC,0x3D,
+0xBF,0xFD,
+0xB3,0xCD,
+0x63,0xC6,
+0x07,0xE0,
+0x1B,0xF8,
+0x37,0xFC,
+0x1F,0xF8,
+
+0xF,0xF0,
+0x10,0x08,
+0x12,0x28,
+0x16,0x68,
+0x10,0x08,
+0x70,0xE,
+0x8F,0xF1,
+0x89,0x91,
+0xFA,0x5F,
+0x51,0x00,
+0x58,0x00,
+0x44,0x22,
+0x44,0x22,
+0x3F,0xFC,
+0x41,0x84,
+0x7F,0xFC,
+
+0xF,0xF0,
+0x10,0x08,
+0x12,0x28,
+0x16,0x68,
+0x10,0x08,
+0x70,0xE,
+0xFF,0xFF,
+0xF9,0x9F,
+0xFA,0x5F,
+0x51,0x00,
+0x59,0x00,
+0x45,0xA2,
+0x44,0x22,
+0x3F,0xFC,
+0x79,0x9C,
+0x7F,0xFC,
+
+0x7F,0xFE,
+0x3F,0xFC,
+0x3D,0xDC,
+0x19,0x98,
+0x1F,0xF8,
+0x7F,0xFE,
+0xBF,0xF7,
+0xFA,0x7F,
+0x00,0x76,
+0x5F,0xF6,
+0x7D,0xBE,
+0x7F,0xFE,
+0x7F,0xFE,
+0x37,0xBC,
+0x37,0xBC,
+0x7F,0xFE,
+
+0x00,0x00,
+0x03,0x80,
+0x04,0x4C,
+0xC,0x6E,
+0x30,0x00,
+0x40,0x06,
+0xF8,0x7E,
+0x37,0x9C,
+0x48,0xF4,
+0x47,0x84,
+0x31,0x88,
+0x49,0x78,
+0x8E,0x04,
+0xB8,0x04,
+0x70,0x18,
+0x1F,0xE0,
+
+0x00,0x00,
+0x03,0x8E,
+0x67,0xC0,
+0xAF,0xE0,
+0xB7,0xD8,
+0xB8,0x3C,
+0xBF,0xFE,
+0x4F,0xFC,
+0x64,0x1C,
+0x72,0x3C,
+0x39,0xF8,
+0x22,0xDC,
+0x7F,0x1E,
+0x7F,0xCE,
+0x3F,0xEC,
+0xF,0xF0,
+
+0x19,0x98,
+0xF,0xF0,
+0x08,0x10,
+0x00,0xB0,
+0x00,0xB0,
+0x5E,0xBC,
+0x5B,0xDE,
+0x00,0x61,
+0x55,0xBF,
+0x54,0x21,
+0x55,0xA1,
+0x5E,0x61,
+0x74,0x32,
+0xB,0xDC,
+0x09,0x90,
+0xF,0xF0,
+
+0x19,0x98,
+0xF,0xF0,
+0x09,0xF0,
+0x2F,0xF0,
+0x5F,0xF0,
+0x53,0xCC,
+0x5C,0x36,
+0x5F,0xFF,
+0x5B,0xFF,
+0x5B,0xFB,
+0x5F,0xFB,
+0x5F,0xFF,
+0x7C,0xFE,
+0xF,0xFC,
+0xB,0xB0,
+0xF,0xF0,
+
+0x07,0xE0,
+0x09,0x10,
+0x09,0x10,
+0xF,0xF0,
+0x09,0x10,
+0x39,0x1C,
+0x49,0x12,
+0x45,0x22,
+0x33,0xCC,
+0x48,0x12,
+0x4F,0xFC,
+0x39,0x58,
+0x12,0x38,
+0xF,0xC8,
+0x12,0x78,
+0x1E,0x00,
+
+0x07,0xE0,
+0x08,0x10,
+0x16,0x68,
+0x16,0x68,
+0xE,0x70,
+0x39,0x9C,
+0x4B,0xD2,
+0x44,0x22,
+0x33,0xCC,
+0x28,0x14,
+0x2F,0xFA,
+0x45,0x5C,
+0x00,0x38,
+0xF,0xC8,
+0x12,0x78,
+0x1E,0x00,
+
+0x27,0xE0,
+0x54,0x20,
+0xDF,0xF0,
+0x56,0xA0,
+0x34,0x2C,
+0x2B,0xD2,
+0x29,0x1E,
+0x59,0x21,
+0x59,0x21,
+0x26,0xE1,
+0x28,0x21,
+0x29,0xD2,
+0x26,0x3C,
+0x29,0xC8,
+0xE,0x38,
+0x12,0x24,
+
+0x03,0xC0,
+0x05,0x20,
+0x17,0xE0,
+0x2D,0x20,
+0x2D,0x2C,
+0x6B,0xD2,
+0x69,0x1E,
+0x69,0x21,
+0x29,0x21,
+0x2E,0xE1,
+0x28,0x21,
+0x39,0xD2,
+0x16,0x3C,
+0x09,0xC8,
+0xE,0x38,
+0x12,0x24,
+
+0x03,0xC0,
+0x04,0x20,
+0xB,0xD0,
+0xB,0xD0,
+0x34,0x2C,
+0x42,0x42,
+0x85,0xA1,
+0x00,0x51,
+0x72,0x4E,
+0x42,0x42,
+0x42,0x42,
+0x42,0x42,
+0x42,0x42,
+0x3D,0xBC,
+0x11,0x88,
+0xE,0x70,
+
+0x09,0x90,
+0xF,0xF0,
+0xC,0x30,
+0x04,0x20,
+0x3F,0xFC,
+0x7F,0xFE,
+0xFD,0xBF,
+0xFB,0xDF,
+0x43,0xC2,
+0x6B,0xD6,
+0x6B,0xD6,
+0x6B,0xD6,
+0x7F,0xFE,
+0x3D,0xBC,
+0x11,0x88,
+0xE,0x70,
+
+0x07,0xE0,
+0xF,0xF0,
+0x4E,0xE2,
+0xAA,0x95,
+0xA8,0x15,
+0xB7,0xED,
+0xA0,0x05,
+0x97,0xE9,
+0x5C,0x00,
+0x54,0x00,
+0x53,0xCA,
+0x4D,0x32,
+0x71,0x1E,
+0xB,0xD0,
+0x1E,0x48,
+0x00,0x78,
+
+0x00,0x00,
+0x00,0x00,
+0x3F,0xFC,
+0x20,0x04,
+0xE0,0x07,
+0xBE,0x7D,
+0xA2,0x45,
+0xAE,0x75,
+0xA2,0x45,
+0xA2,0x45,
+0x94,0x29,
+0x97,0xE9,
+0xF0,0xF,
+0x20,0x04,
+0x3F,0xFC,
+0x00,0x00,
+
+0xF,0xC0,
+0x04,0x20,
+0x37,0xEC,
+0x3C,0x3C,
+0x3E,0xBC,
+0x1C,0x38,
+0x2B,0x54,
+0x5D,0xBA,
+0x7F,0x7E,
+0x77,0x7E,
+0x57,0x6E,
+0x77,0x6E,
+0x76,0x6E,
+0x00,0x6E,
+0x00,0x7C,
+0xE,0x60,
+
+0x07,0x80,
+0x08,0x40,
+0x08,0x40,
+0x08,0x40,
+0x04,0x80,
+0x1C,0xF0,
+0x20,0x08,
+0x4C,0xE4,
+0x94,0x92,
+0x8C,0x92,
+0x64,0xA4,
+0x1C,0xA8,
+0x08,0x50,
+0x19,0x20,
+0x22,0x90,
+0x3C,0x70,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x07,0xC0,
+0x08,0x20,
+0x10,0x10,
+0x26,0xC8,
+0x24,0x48,
+0x26,0xC8,
+0x20,0x08,
+0x21,0x08,
+0x10,0x10,
+0xF,0xE0,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x07,0xC0,
+0xF,0xE0,
+0x1F,0xF0,
+0x39,0x38,
+0x3B,0xB8,
+0x39,0x38,
+0x3F,0xF8,
+0x3E,0xF8,
+0x1F,0xF0,
+0xF,0xE0,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x07,0xC0,
+0x1F,0xF0,
+0x3F,0xF8,
+0x3F,0xF8,
+0x79,0x3C,
+0x75,0x5C,
+0x71,0x1C,
+0x7F,0xFC,
+0x7F,0xFC,
+0x3F,0xF8,
+0x1F,0xF0,
+0xF,0xE0,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0xD,0xB0,
+0xA,0x50,
+0x07,0xE0,
+0x18,0x18,
+0x20,0x04,
+0x42,0x42,
+0x80,0x01,
+0x80,0x01,
+0x81,0x81,
+0x80,0x81,
+0x80,0x01,
+0x40,0x02,
+0x30,0xC,
+0xF,0xF0,
+
+0x12,0x48,
+0x1B,0xD8,
+0x14,0x28,
+0x10,0x08,
+0x00,0x98,
+0x18,0x18,
+0x18,0x18,
+0x00,0x58,
+0xA,0x50,
+0x05,0xA0,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x10,0x08,
+0x34,0x2C,
+0x37,0xEC,
+0x34,0x2C,
+0x00,0x54,
+0x26,0x64,
+0x41,0x82,
+0x42,0x42,
+0x42,0x42,
+0x42,0x42,
+0x4D,0xB2,
+0x4D,0xB2,
+0x00,0x52,
+0x50,0xA,
+0x20,0x04,
+0x00,0x00,
+
+0x10,0x08,
+0x14,0x28,
+0x17,0xE8,
+0x16,0x68,
+0x3B,0xDC,
+0x3D,0xBC,
+0x3F,0xFC,
+0x7F,0xFE,
+0x7F,0xFE,
+0x7F,0xFE,
+0x71,0x8E,
+0x63,0xC6,
+0x47,0xE2,
+0x42,0x42,
+0x00,0x00,
+0x00,0x00,
+
+0xF,0xC0,
+0x10,0x20,
+0x2C,0xD0,
+0x2C,0xD0,
+0x2C,0xD0,
+0x13,0x20,
+0x17,0xA0,
+0x68,0x5C,
+0x67,0x8C,
+0x7F,0xEC,
+0x62,0x86,
+0xBF,0xE5,
+0xAA,0xA5,
+0x4F,0xE2,
+0x02,0x80,
+0x1C,0xE0,
+
+0x07,0xE0,
+0x48,0x10,
+0x56,0x68,
+0xB6,0x68,
+0xB6,0x68,
+0xA9,0x90,
+0xAB,0xD0,
+0xA4,0x7C,
+0xA3,0xD2,
+0xBF,0xD2,
+0xA1,0x52,
+0x7F,0xD2,
+0x05,0x52,
+0x07,0xFC,
+0x01,0x40,
+0x07,0x70,
+
+0x07,0xE0,
+0x4F,0xF0,
+0x59,0x98,
+0xB9,0x98,
+0xB9,0x98,
+0xAE,0x70,
+0xAC,0x30,
+0xA7,0xFC,
+0xA3,0xD2,
+0xBF,0xD2,
+0xA1,0x7E,
+0x7F,0xD2,
+0x05,0x52,
+0x07,0xFC,
+0x01,0x40,
+0x07,0x70,
+
+0x07,0xE0,
+0xC,0x30,
+0x18,0x18,
+0x36,0x6C,
+0x00,0x5C,
+0x75,0xAE,
+0xBC,0x3D,
+0x85,0xA1,
+0xB3,0xCD,
+0xA8,0x15,
+0x96,0x69,
+0x64,0x26,
+0x06,0x60,
+0xC,0x30,
+0x11,0x88,
+0x1F,0xF8,
+
+0x07,0xE0,
+0x2C,0x30,
+0x58,0x18,
+0x56,0x6C,
+0x00,0x5C,
+0x55,0xAE,
+0xDC,0x3D,
+0xD5,0x9E,
+0xD3,0xE1,
+0xD8,0x29,
+0xD6,0x65,
+0x74,0x21,
+0x06,0x5E,
+0xC,0x30,
+0x11,0x88,
+0x1F,0xF8,
+
+0x07,0xE0,
+0x08,0x10,
+0x17,0xE8,
+0x15,0xA8,
+0x17,0xE8,
+0x6B,0xD6,
+0xBC,0x3D,
+0xA3,0xC5,
+0xA0,0x05,
+0xBC,0x3D,
+0x62,0x46,
+0x02,0x40,
+0x04,0x20,
+0x18,0x18,
+0x20,0x04,
+0x1F,0xF8,
+
+0x07,0xE0,
+0xF,0xF0,
+0xC,0x30,
+0xC,0x30,
+0xC,0x30,
+0x6E,0x76,
+0xB7,0xED,
+0xBB,0xDD,
+0xBC,0x3D,
+0xBF,0xFD,
+0x63,0xC6,
+0x03,0xC0,
+0x07,0xE0,
+0x1B,0xF8,
+0x37,0xFC,
+0x1F,0xF8,
+
+0xF,0xF0,
+0x10,0x08,
+0x14,0x48,
+0x16,0x68,
+0x10,0x08,
+0x70,0xE,
+0x8F,0xF1,
+0x89,0x91,
+0xFA,0x5F,
+0x51,0x00,
+0x58,0x00,
+0x44,0x22,
+0x44,0x22,
+0x3F,0xFC,
+0x21,0x82,
+0x3F,0xFE,
+
+0xF,0xF0,
+0x10,0x08,
+0x14,0x48,
+0x16,0x68,
+0x10,0x08,
+0x70,0xE,
+0xFF,0xFF,
+0xF9,0x9F,
+0xFA,0x5F,
+0x51,0x00,
+0x59,0x00,
+0x45,0xA2,
+0x44,0x22,
+0x3F,0xFC,
+0x39,0x9E,
+0x3F,0xFE,
+
+0x7F,0xFE,
+0x3F,0xFC,
+0x3B,0xBC,
+0x19,0x98,
+0x1F,0xF8,
+0x7F,0xFE,
+0xBF,0xF7,
+0xFA,0x7F,
+0x00,0x76,
+0x5F,0xF6,
+0x7D,0xBE,
+0x7F,0xFE,
+0x7F,0xFE,
+0x37,0xBC,
+0x37,0xBC,
+0x7F,0xFE,
+
+0x00,0x00,
+0x03,0x80,
+0x04,0x4C,
+0xC,0x68,
+0x30,0x18,
+0x40,0x04,
+0xF8,0x7E,
+0x37,0x9C,
+0x48,0xF4,
+0x47,0x84,
+0x31,0x88,
+0x49,0x78,
+0x8E,0x04,
+0xB8,0x04,
+0x70,0x18,
+0x1F,0xE0,
+
+0x00,0x04,
+0x03,0x84,
+0x67,0xC4,
+0xAF,0xE0,
+0xB7,0xD8,
+0xB8,0x3C,
+0xBF,0xFE,
+0x4F,0xFC,
+0x64,0x1C,
+0x72,0x3C,
+0x39,0xF8,
+0x22,0xDC,
+0x7F,0x1E,
+0x7F,0xCE,
+0x3F,0xEC,
+0xF,0xF0,
+
+0x19,0x98,
+0xF,0xF0,
+0x08,0x10,
+0xCA,0xB0,
+0xAA,0xB0,
+0xBE,0xBC,
+0xAB,0xDE,
+0x00,0x61,
+0x95,0xBF,
+0x54,0x21,
+0x4D,0xA1,
+0x4E,0x61,
+0x34,0x32,
+0xB,0xDC,
+0x09,0x90,
+0xF,0xF0,
+
+0x19,0x98,
+0xF,0xF0,
+0x09,0xF0,
+0xCF,0xF0,
+0xAF,0xF0,
+0xB3,0xCC,
+0xBC,0x3E,
+0x9F,0xFF,
+0x9B,0xFF,
+0x5B,0xFB,
+0x4F,0xFB,
+0x4F,0xFF,
+0x3C,0xFE,
+0xF,0xFC,
+0xB,0xB0,
+0xF,0xF0,
+
+0x07,0xE0,
+0x08,0x90,
+0x08,0x90,
+0xF,0xF0,
+0x08,0x90,
+0x38,0x9C,
+0x48,0x92,
+0x44,0xA2,
+0x33,0xCC,
+0x48,0x12,
+0x3F,0xF2,
+0x00,0x9C,
+0x1C,0x48,
+0x13,0xF0,
+0x1E,0x48,
+0x00,0x78,
+
+0x07,0xE0,
+0x08,0x10,
+0x16,0x68,
+0x16,0x68,
+0xE,0x70,
+0x39,0x9C,
+0x4B,0xD2,
+0x44,0x22,
+0x33,0xCC,
+0x28,0x14,
+0x5F,0xF4,
+0x00,0xA2,
+0x1C,0x5C,
+0x13,0xF0,
+0x1E,0x48,
+0x00,0x78,
+
+0x07,0xE0,
+0x24,0x20,
+0x57,0xF0,
+0xDE,0xA0,
+0x54,0x2C,
+0x2B,0xD2,
+0x29,0x1E,
+0x29,0x21,
+0x59,0x21,
+0x56,0xE1,
+0x28,0x21,
+0x29,0xD2,
+0x26,0x3C,
+0x29,0xC8,
+0x2E,0x38,
+0x12,0x24,
+
+0x03,0xC0,
+0x05,0x20,
+0x07,0xE0,
+0x05,0x20,
+0x35,0x2C,
+0x4B,0xF2,
+0x7F,0x9E,
+0x4B,0x31,
+0x4C,0x61,
+0x71,0xE1,
+0x66,0x21,
+0x59,0xD2,
+0x26,0x3C,
+0x09,0xC8,
+0xE,0x38,
+0x12,0x24,
+
+0x03,0xC0,
+0x04,0x20,
+0x08,0x10,
+0x08,0x10,
+0x34,0x2C,
+0x42,0x42,
+0x85,0xA1,
+0x00,0x51,
+0x72,0x4E,
+0x42,0x42,
+0x42,0x42,
+0x42,0x42,
+0x42,0x42,
+0x7D,0xBE,
+0x11,0x88,
+0xE,0x70,
+
+0x09,0x90,
+0xF,0xF0,
+0xF,0xF0,
+0x07,0xE0,
+0x3F,0xFC,
+0x7F,0xFE,
+0xFD,0xBF,
+0xFB,0xDF,
+0x43,0xC2,
+0x6B,0xD6,
+0x6B,0xD6,
+0x6B,0xD6,
+0x7F,0xFE,
+0x3D,0xBC,
+0x11,0x88,
+0xE,0x70,
+
+0x07,0xE0,
+0xF,0xF0,
+0x47,0x72,
+0xA9,0x55,
+0xA8,0x15,
+0xB7,0xED,
+0xA0,0x05,
+0x97,0xE9,
+0x5C,0x00,
+0x54,0x00,
+0x53,0xCA,
+0x4C,0xB2,
+0x78,0x8E,
+0xB,0xD0,
+0x12,0x78,
+0x1E,0x00,
+
+0x00,0x00,
+0x3F,0xFC,
+0x20,0x04,
+0xE0,0x07,
+0xBE,0x7D,
+0xA2,0x45,
+0xAE,0x75,
+0xA2,0x45,
+0xA2,0x45,
+0x94,0x29,
+0x97,0xE9,
+0xF0,0xF,
+0x20,0x04,
+0x3F,0xFC,
+0x00,0x00,
+0x00,0x00,
+
+0xF,0xC0,
+0x04,0x20,
+0x37,0xEC,
+0x3C,0x3C,
+0x3E,0xBC,
+0x1C,0x38,
+0x2B,0x54,
+0x5D,0xBA,
+0x7F,0x7E,
+0x77,0x7E,
+0x57,0x6E,
+0x77,0x6E,
+0x76,0x6E,
+0x00,0x6E,
+0x00,0x7C,
+0xE,0x60,
+
+0x07,0x80,
+0xF,0xC0,
+0xF,0xC0,
+0xF,0xC0,
+0x07,0x80,
+0x1F,0xF0,
+0x3F,0xF8,
+0x7F,0xFC,
+0xF7,0x9E,
+0xFF,0x9E,
+0x7F,0xBC,
+0x1F,0xB8,
+0xF,0xD0,
+0x1F,0xE0,
+0x3E,0xF0,
+0x3C,0x70,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x07,0xC0,
+0x08,0x20,
+0x17,0xD0,
+0x29,0x28,
+0x29,0x28,
+0x00,0xA8,
+0x29,0x28,
+0x29,0x28,
+0x17,0xD0,
+0x08,0x20,
+0x07,0xC0,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0xF,0xE0,
+0x10,0x10,
+0x2F,0xE8,
+0x00,0xA8,
+0x00,0xA8,
+0x2B,0xA8,
+0x00,0xA8,
+0x2B,0xA8,
+0x00,0xA8,
+0x00,0xA8,
+0x00,0xA8,
+0x17,0xD0,
+0xF,0xE0,
+0x00,0x00,
+
+0x00,0x00,
+0xE0,0xE,
+0x98,0x32,
+0xA7,0xCA,
+0x4B,0xA4,
+0x35,0x58,
+0x29,0x28,
+0x31,0x18,
+0x3E,0xF8,
+0x31,0x18,
+0x29,0x28,
+0x35,0x58,
+0x2B,0xA8,
+0x55,0x54,
+0x4F,0xE4,
+0x78,0x3C,
+
+0xF,0xF0,
+0x10,0x08,
+0x2F,0xF4,
+0x55,0x00,
+0x55,0x00,
+0x55,0x00,
+0x55,0x00,
+0x55,0x00,
+0x55,0x00,
+0x55,0x00,
+0x2D,0x54,
+0x2D,0x54,
+0x15,0x68,
+0xB,0xD0,
+0x06,0x60,
+0x01,0x80,
+
+0x00,0x00,
+0x07,0xE0,
+0xEC,0x37,
+0xAA,0x55,
+0x99,0x99,
+0xF8,0x1F,
+0x89,0x91,
+0x00,0x52,
+0x00,0x00,
+0x29,0x94,
+0x2C,0x34,
+0xA,0x50,
+0x00,0x50,
+0x75,0xA0,
+0x22,0x40,
+0x01,0x80,
+
+0x00,0x00,
+0x00,0x00,
+0x01,0x80,
+0x01,0x80,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0xF,0xF0,
+0x08,0x10,
+0xF,0xF0,
+0x02,0x40,
+0x02,0x40,
+0x03,0xC0,
+
+0x01,0x80,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x12,0x48,
+0x00,0x58,
+0x17,0xE8,
+0x10,0x08,
+0xF,0xF0,
+0x02,0x40,
+0x04,0x20,
+0x07,0xE0,
+
+0x00,0x00,
+0x00,0x00,
+0x38,0x00,
+0x24,0x00,
+0x00,0x00,
+0x15,0x00,
+0xA,0x80,
+0x05,0x48,
+0x02,0xB4,
+0x01,0x54,
+0x00,0xA4,
+0x01,0xCC,
+0x02,0x12,
+0x01,0xF2,
+0x00,0xE,
+0x00,0x00,
+
+0x00,0x00,
+0x78,0x00,
+0x44,0x00,
+0x52,0x00,
+0x49,0x00,
+0x24,0x80,
+0x12,0x40,
+0x09,0x20,
+0x04,0x96,
+0x02,0x49,
+0x01,0x29,
+0x00,0x92,
+0x00,0x64,
+0x00,0x00,
+0x00,0x95,
+0x00,0x62,
+
+0x01,0x00,
+0x73,0x80,
+0x49,0x00,
+0x4C,0x00,
+0x00,0x18,
+0x1B,0x14,
+0xA,0x00,
+0x06,0xC9,
+0x12,0xAA,
+0x39,0xB4,
+0x10,0xAC,
+0xC,0x5C,
+0xB,0xA2,
+0x04,0x71,
+0x02,0x89,
+0x01,0x06,
+
+0x01,0x80,
+0x02,0x40,
+0x04,0x20,
+0x09,0x90,
+0x12,0x48,
+0x14,0x28,
+0x14,0x28,
+0x14,0x28,
+0x14,0x28,
+0x14,0x28,
+0x14,0x28,
+0x12,0x48,
+0x09,0x90,
+0x04,0x20,
+0x02,0x40,
+0x01,0x80,
+
+0x00,0x00,
+0x03,0xC0,
+0x04,0x20,
+0x09,0x90,
+0x12,0x48,
+0x24,0x24,
+0x28,0x14,
+0x28,0x14,
+0x28,0x14,
+0x28,0x14,
+0x24,0x24,
+0x12,0x48,
+0x09,0x90,
+0x04,0x20,
+0x03,0xC0,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x40,
+0x00,0xB8,
+0x02,0x48,
+0x05,0x88,
+0x03,0x10,
+0x02,0x20,
+0x1C,0x40,
+0x20,0x80,
+0x59,0xC,
+0xA5,0x12,
+0xA5,0x1E,
+0x00,0x12,
+0x24,0x12,
+0x18,0x00,
+
+0x00,0x30,
+0x00,0x5E,
+0x01,0x32,
+0x02,0xA2,
+0x01,0x44,
+0x00,0x88,
+0x01,0x10,
+0x1E,0x20,
+0x20,0x40,
+0x48,0x80,
+0x94,0x9C,
+0xA2,0x92,
+0x94,0x9C,
+0x49,0x12,
+0x22,0x1C,
+0x1C,0x00,
+
+0x00,0x70,
+0x00,0x9E,
+0x01,0x76,
+0x02,0xAA,
+0x01,0x54,
+0x00,0xA8,
+0x01,0x50,
+0x1E,0xA0,
+0x21,0x40,
+0x48,0x80,
+0x94,0x8E,
+0xA2,0x90,
+0x94,0x90,
+0x49,0x10,
+0x22,0xE,
+0x1C,0x00,
+
+0x03,0xC0,
+0x04,0x20,
+0x03,0xC0,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x04,0x20,
+0x08,0x10,
+0x1F,0xF8,
+0x18,0x18,
+0x17,0xE8,
+0x10,0x08,
+0x08,0x10,
+0x04,0x20,
+0x03,0xC0,
+
+0x03,0xC0,
+0x04,0x20,
+0x03,0xC0,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x04,0x20,
+0xB,0xD0,
+0xC,0x30,
+0x13,0xC8,
+0x20,0x04,
+0x20,0x04,
+0x20,0x04,
+0x1F,0xF8,
+
+0x03,0xC0,
+0x04,0x20,
+0x03,0xC0,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x00,0x5C,
+0x56,0x00,
+0x45,0xB2,
+0x69,0x96,
+0x57,0xEA,
+0x31,0x8C,
+0x11,0x88,
+0x11,0x88,
+0x09,0x90,
+0x07,0xE0,
+
+0x03,0xC0,
+0x05,0xA0,
+0x00,0x5E,
+0x84,0x21,
+0x74,0x2E,
+0x42,0x42,
+0x39,0x9C,
+0x12,0x48,
+0xE,0x70,
+0xA,0x50,
+0x06,0x60,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x02,0x40,
+0x01,0x80,
+
+0x03,0xFF,
+0x04,0x81,
+0x05,0x7E,
+0x09,0x04,
+0xA,0xF8,
+0x12,0x10,
+0x15,0xE0,
+0x24,0x40,
+0x2B,0x80,
+0x49,0x00,
+0x46,0x00,
+0xBA,0x00,
+0xAA,0x00,
+0xBA,0x00,
+0x44,0x00,
+0x38,0x00,
+
+0x00,0x00,
+0x07,0xE0,
+0xF,0xD0,
+0x18,0x28,
+0x32,0x94,
+0x67,0xCA,
+0x00,0x86,
+0x00,0x86,
+0x47,0xC6,
+0x42,0xA6,
+0x42,0xA6,
+0x27,0xCC,
+0x12,0x98,
+0x08,0x30,
+0x07,0xE0,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0xF,0xC0,
+0x1C,0x30,
+0x03,0x88,
+0x00,0x48,
+0x00,0xA4,
+0x01,0x54,
+0x02,0x94,
+0x05,0x14,
+0xA,0xC,
+0x14,0xC,
+0x28,0x08,
+0x30,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x02,0x80,
+0x05,0x40,
+0x02,0x80,
+0x02,0x80,
+0x23,0x88,
+0x5D,0xF4,
+0x26,0xC8,
+0x5F,0xF4,
+0x23,0x88,
+0x02,0x80,
+0x02,0x80,
+0x02,0x80,
+0x02,0x80,
+0x02,0x80,
+0x05,0x40,
+0x02,0x80,
+
+0x00,0x00,
+0x00,0x00,
+0x1C,0x38,
+0x63,0xC6,
+0x41,0x02,
+0x55,0x00,
+0x41,0x02,
+0x59,0x52,
+0x41,0x02,
+0x4D,0x72,
+0x41,0x02,
+0x5F,0x00,
+0x61,0x86,
+0x5C,0x00,
+0x63,0xC6,
+0x00,0x00,
+
+0x00,0x70,
+0x00,0x9E,
+0x01,0x36,
+0x02,0x00,
+0x01,0x54,
+0x00,0xA8,
+0x01,0x50,
+0x7E,0xA0,
+0x81,0x40,
+0x80,0x80,
+0x9C,0x82,
+0x94,0x92,
+0x9C,0xBA,
+0x40,0x92,
+0x20,0x82,
+0x1F,0x00,
+
+0x3F,0xF8,
+0x20,0xC,
+0x21,0xC,
+0x23,0x8C,
+0x27,0xCC,
+0x2F,0xEC,
+0x20,0xC,
+0x3F,0xFC,
+0x20,0xC,
+0x2F,0xEC,
+0x27,0xCC,
+0x23,0x8C,
+0x21,0xC,
+0x20,0xC,
+0x3F,0xFC,
+0x1F,0xFC,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x03,0xC0,
+0x07,0xE0,
+0xF,0xF0,
+0xC,0x70,
+0x76,0xA0,
+0x8C,0x3E,
+0x8B,0xE1,
+0x79,0x21,
+0x5E,0xDE,
+0x7D,0x00,
+0x57,0xEE,
+0x6D,0x00,
+0xF,0xE4,
+0xA,0x90,
+0x12,0xF0,
+0x1E,0x00,
+
+0x03,0xC0,
+0x07,0xE0,
+0xF,0xF0,
+0xC,0x70,
+0x06,0xAE,
+0x7C,0x31,
+0x87,0xD1,
+0x84,0x9E,
+0x7B,0x00,
+0x54,0xBE,
+0x77,0xEA,
+0x5C,0xB6,
+0x27,0xF0,
+0x09,0x50,
+0xF,0x48,
+0x00,0x78,
+
+0x03,0xC0,
+0x07,0xE0,
+0xF,0xF0,
+0xF,0xF0,
+0x77,0xA0,
+0x8C,0x3E,
+0xFB,0xE1,
+0x58,0x3F,
+0x5E,0x00,
+0x7D,0xEA,
+0x56,0x2E,
+0x6C,0x00,
+0xF,0xE4,
+0x05,0x90,
+0x09,0xF0,
+0xF,0x00,
+
+0x03,0xC0,
+0x07,0xE0,
+0xF,0xF0,
+0xF,0xF0,
+0x07,0xAE,
+0x7C,0x31,
+0x87,0xDF,
+0xFC,0x00,
+0x50,0x00,
+0x57,0xBE,
+0x74,0x00,
+0x5C,0x36,
+0x27,0xF0,
+0x09,0xA0,
+0xF,0x90,
+0x00,0xF0,
+
+0x07,0xE0,
+0xF,0xF0,
+0xF,0xF8,
+0x04,0x70,
+0xA,0x50,
+0x04,0x10,
+0x07,0xE0,
+0x08,0x18,
+0xF,0xF0,
+0x09,0x28,
+0xF,0x38,
+0x05,0x28,
+0xA,0x28,
+0xF,0xF8,
+0x02,0x20,
+0x07,0xE0,
+
+0x07,0xE0,
+0xF,0xF0,
+0xF,0xF8,
+0x04,0x70,
+0xA,0x50,
+0x04,0x10,
+0x07,0xE0,
+0x08,0x18,
+0xF,0xF0,
+0xA,0x48,
+0xF,0x38,
+0x04,0x98,
+0x09,0x78,
+0xF,0xF8,
+0x04,0x50,
+0xF,0xB8,
+
+0x07,0xE0,
+0xF,0xF0,
+0x1F,0xF0,
+0xE,0x20,
+0xA,0x50,
+0x08,0x20,
+0x07,0xE0,
+0x18,0x10,
+0xF,0xF0,
+0x14,0x90,
+0x1C,0xF0,
+0x14,0xA0,
+0x14,0x50,
+0x1F,0xF0,
+0x04,0x40,
+0x07,0xE0,
+
+0x07,0xE0,
+0xF,0xF0,
+0x1F,0xF0,
+0xE,0x20,
+0xA,0x50,
+0x08,0x20,
+0x07,0xE0,
+0x18,0x10,
+0xF,0xF0,
+0x12,0x50,
+0x1C,0xF0,
+0x19,0x20,
+0x1E,0x90,
+0x1F,0xF0,
+0xA,0x20,
+0x1D,0xF0,
+
+0x1F,0xF8,
+0x60,0x06,
+0x80,0x01,
+0xFF,0xFF,
+0xA0,0x05,
+0xBF,0xFD,
+0x6E,0x76,
+0x20,0x04,
+0x7F,0xFE,
+0x87,0xE1,
+0x85,0xA1,
+0x87,0xE1,
+0x85,0xA1,
+0x7B,0xDE,
+0x20,0x04,
+0x3F,0xFC,
+
+0x1F,0xF8,
+0x60,0x06,
+0x80,0x01,
+0xFF,0xFF,
+0xA0,0x05,
+0xBF,0xFD,
+0x6E,0x76,
+0x23,0xC4,
+0x7F,0xFE,
+0x85,0xA1,
+0x87,0xE1,
+0x85,0xA1,
+0x87,0xE1,
+0x78,0x1E,
+0x20,0x04,
+0x3F,0xFC,
+
+0x03,0xC0,
+0x04,0x20,
+0x08,0x10,
+0xA,0x50,
+0x1C,0x38,
+0x72,0x4E,
+0xA9,0x95,
+0xA4,0x25,
+0xA4,0x25,
+0xA2,0x45,
+0xB1,0x8D,
+0x48,0x12,
+0x08,0x10,
+0x10,0x08,
+0x20,0x04,
+0x3F,0xFC,
+
+0x03,0xC0,
+0x04,0x20,
+0x08,0x10,
+0xA,0x50,
+0x5C,0x00,
+0xB2,0x4D,
+0xA9,0x95,
+0xA4,0x25,
+0xA4,0x25,
+0xA2,0x45,
+0x71,0x8E,
+0x08,0x10,
+0x08,0x10,
+0x10,0x08,
+0x20,0x04,
+0x3F,0xFC,
+
+0x00,0x00,
+0x01,0x80,
+0x02,0x40,
+0x62,0x26,
+0x93,0xE9,
+0x00,0x51,
+0x66,0x66,
+0x11,0xC8,
+0x00,0x2E,
+0x82,0x21,
+0x9E,0x79,
+0x61,0x56,
+0x01,0x68,
+0x01,0x58,
+0x01,0x40,
+0x01,0xC0,
+
+0x01,0x80,
+0x02,0x40,
+0x02,0x20,
+0x03,0xE0,
+0x72,0x4E,
+0x8E,0x71,
+0x81,0xC1,
+0x72,0x2E,
+0x22,0x26,
+0x4E,0x71,
+0x91,0x59,
+0x91,0x55,
+0x61,0x00,
+0x01,0x58,
+0x01,0xC0,
+0x00,0x00,
+
+0xB,0xF0,
+0x14,0x28,
+0x08,0x10,
+0xA,0x18,
+0xF,0xF4,
+0xA,0xB4,
+0xC,0x34,
+0xF,0xF4,
+0x14,0x34,
+0x18,0x56,
+0x18,0x52,
+0x14,0x00,
+0xC,0x3E,
+0x08,0x10,
+0x11,0x08,
+0xE,0xF0,
+
+0xB,0xF0,
+0x14,0x28,
+0x08,0x10,
+0xA,0x18,
+0xF,0xF4,
+0xA,0xB4,
+0xC,0x34,
+0xF,0xF4,
+0x14,0x34,
+0x18,0x56,
+0x18,0x52,
+0x14,0x00,
+0xC,0x3E,
+0x08,0x10,
+0x11,0x08,
+0xE,0xF0,
+
+0x00,0xF8,
+0x07,0x04,
+0xF,0x88,
+0xF,0xE8,
+0x08,0x10,
+0xA,0x50,
+0x08,0x10,
+0x37,0xEC,
+0x48,0x32,
+0x7F,0x52,
+0x48,0xBE,
+0x3F,0xD2,
+0x07,0xEC,
+0x05,0x20,
+0x09,0xF0,
+0xF,0x00,
+
+0x00,0xE0,
+0x07,0x18,
+0xF,0x84,
+0xF,0xE8,
+0x08,0x10,
+0xA,0x50,
+0x08,0x10,
+0x37,0xEC,
+0x48,0x32,
+0x4F,0x5E,
+0x78,0xB2,
+0x4F,0xDC,
+0x37,0xE0,
+0x04,0xA0,
+0xF,0x90,
+0x00,0xF0,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0xFF,0xFF,
+0x82,0x05,
+0x82,0x03,
+0xFF,0xFF,
+0x81,0x21,
+0x82,0x21,
+0xFF,0xFF,
+0x88,0x09,
+0x88,0x05,
+0xFF,0xFF,
+0x80,0x21,
+0x80,0x21,
+0xFF,0xFF,
+0x82,0x01,
+0xC2,0x01,
+0xFF,0xFF,
+
+0xFF,0xFF,
+0x80,0x01,
+0xBF,0xFD,
+0xBF,0xE5,
+0xBF,0xE5,
+0xBF,0x25,
+0xBF,0x25,
+0xB9,0x25,
+0xB9,0x25,
+0xA9,0x25,
+0xA9,0x25,
+0xA9,0x25,
+0xA9,0x25,
+0xBF,0xFD,
+0x80,0x01,
+0xFF,0xFF,
+
+0x00,0x00,
+0x00,0x00,
+0x01,0xFE,
+0x01,0x06,
+0x01,0x06,
+0x07,0xFA,
+0x04,0xA,
+0x04,0xA,
+0x1F,0xFA,
+0x10,0x12,
+0x10,0x12,
+0x7F,0xF2,
+0x40,0x22,
+0x40,0x22,
+0x7F,0xFE,
+0x00,0x00,
+
+0x7F,0xFE,
+0x40,0x02,
+0x7F,0xFE,
+0x00,0x94,
+0x00,0x94,
+0x00,0xF4,
+0x00,0x94,
+0x00,0xF4,
+0x00,0x94,
+0x00,0xF4,
+0x00,0x94,
+0x00,0xF4,
+0x00,0x94,
+0x7F,0xFE,
+0x40,0x02,
+0x7F,0xFE,
+
+0x7E,0x7E,
+0x81,0x81,
+0xBD,0xBD,
+0xA5,0xA5,
+0xAC,0x35,
+0xA1,0x85,
+0xA2,0x45,
+0xA3,0xC5,
+0xA2,0x45,
+0xA2,0x45,
+0xA0,0x05,
+0xAD,0xB5,
+0xA5,0xA5,
+0xBD,0xBD,
+0x81,0x81,
+0x7E,0x7E,
+
+0x7E,0x7E,
+0x81,0x81,
+0xBD,0xBD,
+0xA5,0xA5,
+0xAC,0x35,
+0xA3,0x85,
+0xA2,0x45,
+0xAB,0x95,
+0xAA,0x55,
+0xA3,0x85,
+0xA0,0x05,
+0xAD,0xB5,
+0xA5,0xA5,
+0xBD,0xBD,
+0x81,0x81,
+0x7E,0x7E,
+
+0x7E,0x7E,
+0x81,0x81,
+0xBD,0xBD,
+0xA5,0xA5,
+0xAC,0x35,
+0xA1,0xC5,
+0xB2,0xD,
+0xAA,0x15,
+0xAA,0x15,
+0xB1,0xCD,
+0xA0,0x05,
+0xAD,0xB5,
+0xA5,0xA5,
+0xBD,0xBD,
+0x81,0x81,
+0x7E,0x7E,
+
+0x7E,0x7E,
+0x81,0x81,
+0xBD,0xBD,
+0xA5,0xA5,
+0xAD,0xB5,
+0xB9,0x9D,
+0x81,0x81,
+0x7E,0x7E,
+0x7E,0x7E,
+0x81,0x81,
+0xB9,0x9D,
+0xAD,0xB5,
+0xA5,0xA5,
+0xBD,0xBD,
+0x81,0x81,
+0x7E,0x7E,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0xF,
+0x00,0x09,
+0x00,0x09,
+0x7F,0xE9,
+0x80,0x99,
+0x40,0x49,
+0x20,0x25,
+0x10,0x13,
+0x08,0x09,
+0x1F,0xF9,
+0x20,0x05,
+0x22,0x25,
+0x22,0x26,
+0x3F,0xFD,
+
+0xF1,0xC7,
+0x00,0x29,
+0xC4,0x13,
+0x3F,0xFC,
+0x40,0x02,
+0xDE,0x00,
+0x4E,0x3B,
+0x40,0x02,
+0xCF,0xF2,
+0x47,0xE3,
+0x40,0x02,
+0x3F,0xFC,
+0x11,0x22,
+0xFF,0xFF,
+0x00,0x00,
+0xFF,0xFF,
+
+0xF1,0xC7,
+0x00,0x29,
+0xC4,0x13,
+0x3F,0xFC,
+0x40,0x02,
+0xDE,0x00,
+0x40,0x03,
+0x40,0x02,
+0xCF,0xF2,
+0x40,0x03,
+0x40,0x02,
+0x3F,0xFC,
+0x11,0x22,
+0xFF,0xFF,
+0x00,0x00,
+0xFF,0xFF,
+
+0x00,0x00,
+0x00,0x00,
+0xF0,0x00,
+0x90,0x00,
+0x90,0x00,
+0x97,0xFE,
+0x99,0x01,
+0x92,0x02,
+0xA4,0x04,
+0xC8,0x08,
+0x90,0x10,
+0x9F,0xF8,
+0xA0,0x04,
+0xA4,0x44,
+0xE4,0x44,
+0xBF,0xFC,
+
+0xFF,0xFF,
+0xEF,0xFF,
+0xEF,0xFF,
+0x83,0xFF,
+0xEF,0xFF,
+0xEF,0xF7,
+0xFF,0xE3,
+0xFF,0xF7,
+0xFD,0xFF,
+0xFD,0xFF,
+0xF8,0xFF,
+0xE0,0x3F,
+0xF8,0xFF,
+0xFD,0xFF,
+0xFD,0xFF,
+0xFF,0xFF,
+
+0xFF,0xFF,
+0xF7,0xFF,
+0xF7,0xFF,
+0xC1,0xFF,
+0xF7,0xFF,
+0xF7,0xEF,
+0xFF,0xC7,
+0xFF,0xEF,
+0xFF,0xFF,
+0xFD,0xFF,
+0xFD,0xFF,
+0xF8,0xFF,
+0xE0,0x3F,
+0xF8,0xFF,
+0xFD,0xFF,
+0xFD,0xFF,
+
+0xFF,0xFF,
+0xFF,0xE7,
+0xE7,0xDB,
+0xDB,0xFF,
+0xBC,0xFF,
+0xFF,0xF3,
+0xFF,0xED,
+0xEF,0xFF,
+0x94,0x7F,
+0xFB,0xBF,
+0xF7,0xCF,
+0xFF,0xFF,
+0xFE,0xE7,
+0xCD,0x5B,
+0xB7,0xDB,
+0xFF,0xFF,
+
+0xFF,0xFF,
+0xFF,0x9F,
+0xF3,0x6F,
+0xED,0xFF,
+0xDE,0x7F,
+0xFF,0xE7,
+0xFF,0xDB,
+0xDF,0xFF,
+0x2E,0x3F,
+0xFD,0xDF,
+0xFB,0xE7,
+0xFF,0xFF,
+0xFD,0xF3,
+0x00,0xED,
+0x6F,0xED,
+0xFF,0xFF,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+0x00,0x00,
+
+};</pre></details><details><summary>originals/tools/MapEdit.frm</summary><pre>VERSION 5.00
+Begin VB.Form Form1 
+   Caption         =   &quot;Form1&quot;
+   ClientHeight    =   9000
+   ClientLeft      =   120
+   ClientTop       =   450
+   ClientWidth     =   11400
+   LinkTopic       =   &quot;Form1&quot;
+   ScaleHeight     =   9000
+   ScaleWidth      =   11400
+   StartUpPosition =   3  &#x27;窗口缺省
+   Begin VB.CommandButton CmdClear 
+      Caption         =   &quot;Clear&quot;
+      Height          =   495
+      Left            =   8160
+      TabIndex        =   5
+      Top             =   2160
+      Width           =   1575
+   End
+   Begin VB.CommandButton OutputPicture 
+      Caption         =   &quot;OutputPicture&quot;
+      Height          =   615
+      Left            =   8160
+      TabIndex        =   4
+      Top             =   1440
+      Width           =   1575
+   End
+   Begin VB.Timer Timer1 
+      Interval        =   200
+      Left            =   10080
+      Top             =   240
+   End
+   Begin VB.CommandButton CmdOutputMap 
+      Caption         =   &quot;OutputMap&quot;
+      Height          =   735
+      Left            =   8160
+      TabIndex        =   2
+      Top             =   600
+      Width           =   1575
+   End
+   Begin VB.PictureBox Picture2 
+      AutoRedraw      =   -1  &#x27;True
+      Height          =   1455
+      Left            =   0
+      Picture         =   &quot;MapEdit.frx&quot;:0000
+      ScaleHeight     =   93
+      ScaleMode       =   3  &#x27;Pixel
+      ScaleWidth      =   533
+      TabIndex        =   1
+      Top             =   6840
+      Width           =   8055
+   End
+   Begin VB.PictureBox Picture1 
+      AutoRedraw      =   -1  &#x27;True
+      Height          =   6615
+      Left            =   0
+      ScaleHeight     =   437
+      ScaleMode       =   3  &#x27;Pixel
+      ScaleWidth      =   533
+      TabIndex        =   0
+      Top             =   0
+      Width           =   8055
+   End
+   Begin VB.Label Label1 
+      Caption         =   &quot;Label1&quot;
+      Height          =   375
+      Left            =   8160
+      TabIndex        =   3
+      Top             =   0
+      Width           =   1335
+   End
+End
+Attribute VB_Name = &quot;Form1&quot;
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Explicit
+Dim map(10, 10) As Byte
+Dim clock As Integer
+Dim brush As Integer
+
+Private Sub CmdClear_Click()
+    Dim i As Integer, j As Integer, fill As Byte
+    fill = InputBox(&quot;Which Title?&quot;)
+    For j = 0 To 10
+    For i = 0 To 10
+    map(i, j) = fill
+    Next i
+    Next j
+End Sub
+
+Private Sub CmdOutputMap_Click()
+    Dim i As Integer, j As Integer, s As String
+    
+    s = &quot;{&quot; &amp; vbCrLf
+    For j = 0 To 10
+        s = s &amp; &quot;{&quot;
+        For i = 0 To 10
+            s = s &amp; vbTab &amp; map(i, j)
+            If i &lt; 10 Then s = s &amp; &quot;,&quot;
+        Next i
+        s = s &amp; &quot;}&quot;
+        If j &lt; 10 Then s = s &amp; &quot;,&quot; &amp; vbCrLf
+    Next j
+    s = s &amp; vbCrLf &amp; &quot;}&quot;
+    Clipboard.Clear
+    Clipboard.SetText s
+End Sub
+
+Private Sub Form_Load()
+    Dim i As Integer, j As Integer, pid As Integer, b As Byte
+    For j = 0 To 10
+    For i = 0 To 10
+    map(i, j) = 0
+    Next i
+    Next j
+    brush = 0
+    Label1.Caption = brush
+    Draw
+End Sub
+Sub Draw()
+    Dim i As Integer, j As Integer, pid As Integer
+    Picture1.Cls
+
+    For j = 0 To 10
+        For i = 0 To 10
+            pid = MapToPid(map(i, j), clock)
+            Picture1.PaintPicture Picture2.Picture, 32 * i, 32 * j, 32, 32, (pid Mod 32) * 17 + 1, Int(pid / 32) * 17 + 1, 16, 16
+        Next i
+    Next j
+    For i = 0 To 10
+        Picture1.Line (0, 32 * i)-(32 * 11, 32 * i), vbBlue
+        Picture1.Line (0, 32 * i + 31)-(32 * 11, 32 * i + 31), vbBlue
+        Picture1.Line (32 * i, 0)-(32 * i, 32 * 11), vbBlue
+        Picture1.Line (32 * i + 31, 0)-(32 * i + 31, 32 * 11), vbBlue
+    Next i
+End Sub
+Function MapToPid(Index As Byte, clock As Integer) As Integer
+    If Index &gt;= 200 Then
+        MapToPid = Index - 200
+        If clock Then MapToPid = MapToPid + 32
+    ElseIf Index &gt;= 100 Then
+        MapToPid = Index - 100 + 64
+    ElseIf Index &gt;= 50 Then
+        MapToPid = (Index - 50) * 2 + 96
+        If clock Then MapToPid = MapToPid + 1
+    Else
+        MapToPid = Index + 128
+        If Index = 10 Or Index = 13 Or Index = 15 Then
+            If clock Then MapToPid = MapToPid + 1
+        End If
+    End If
+End Function
+
+Private Sub OutputPicture_Click()
+    Dim pid As Integer
+    Dim mat(5120) As Byte, b As Byte
+    Dim s As String
+    Dim i As Integer, x As Integer, y As Integer
+    s = &quot;&quot;
+    For pid = 0 To 159
+        For y = Int(pid / 32) * 17 + 1 To Int(pid / 32) * 17 + 16 Step 1
+            For x = 0 To 1
+                b = 0
+                For i = 0 To 7 Step 1
+                    b = b * 2
+                    If Picture2.Point((pid Mod 32) * 17 + 1 + 8 * x + i, y) = vbBlack Then b = b + 1
+                Next i
+                s = s &amp; &quot;0x&quot; &amp; Format(Hex(b), &quot;00&quot;)
+                If x &lt; 9 Then s = s &amp; &quot;,&quot;
+            Next x
+            s = s &amp; vbCrLf
+        Next y
+        s = s &amp; vbCrLf
+    Next pid
+    Clipboard.Clear
+    Clipboard.SetText s
+End Sub
+
+Private Sub Picture1_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
+    On Error Resume Next
+    map(Int(x / 32), Int(y / 32)) = brush
+    Draw
+End Sub
+
+Private Sub Picture2_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
+    Dim i As Integer, j As Integer
+    i = Int(x / 17): j = Int(y / 17)
+    Select Case j
+    Case 0, 1:
+        brush = 200 + i
+    Case 2:
+        brush = 100 + i
+    Case 3:
+        brush = 50 + i / 2
+    Case 4:
+        brush = i
+    End Select
+    Label1.Caption = brush
+End Sub
+
+Private Sub Timer1_Timer()
+    clock = Not clock
+    Draw
+End Sub
+</pre></details><h2>图</h2><div class="imgs"><figure><img src="../20120703%20%E9%AD%94%E5%A1%94/originals/material/hud%20-%20%E5%89%AF%E6%9C%AC%20%282%29.bmp" alt="originals/material/hud - 副本 (2).bmp" loading="lazy"><figcaption>originals/material/hud - 副本 (2).bmp</figcaption></figure><figure><img src="../20120703%20%E9%AD%94%E5%A1%94/originals/material/hud%20-%20%E5%89%AF%E6%9C%AC.bmp" alt="originals/material/hud - 副本.bmp" loading="lazy"><figcaption>originals/material/hud - 副本.bmp</figcaption></figure><figure><img src="../20120703%20%E9%AD%94%E5%A1%94/originals/material/hud_book.bmp" alt="originals/material/hud_book.bmp" loading="lazy"><figcaption>originals/material/hud_book.bmp</figcaption></figure><figure><img src="../20120703%20%E9%AD%94%E5%A1%94/originals/material/hud_fight.bmp" alt="originals/material/hud_fight.bmp" loading="lazy"><figcaption>originals/material/hud_fight.bmp</figcaption></figure><figure><img src="../20120703%20%E9%AD%94%E5%A1%94/originals/material/hud_left.bmp" alt="originals/material/hud_left.bmp" loading="lazy"><figcaption>originals/material/hud_left.bmp</figcaption></figure><figure><img src="../20120703%20%E9%AD%94%E5%A1%94/originals/material/%E9%AD%94%E5%A1%94%E9%BB%91%E7%99%BD%20-%20%E5%89%AF%E6%9C%AC.bmp" alt="originals/material/魔塔黑白 - 副本.bmp" loading="lazy"><figcaption>originals/material/魔塔黑白 - 副本.bmp</figcaption></figure><figure><img src="../20120703%20%E9%AD%94%E5%A1%94/originals/screenshots/ss7.bmp" alt="originals/screenshots/ss7.bmp" loading="lazy"><figcaption>originals/screenshots/ss7.bmp</figcaption></figure></div></main></body></html>

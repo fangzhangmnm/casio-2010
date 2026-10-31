@@ -1,0 +1,997 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>拼音输入法 · 化石</title><style>:root{--lcd:#c8ceba;--ink:#222620;--panel:#b9c0a9}html,body{margin:0;background:var(--lcd);color:var(--ink)}
+main{max-width:860px;margin:0 auto;padding:16px;font:15px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif}
+a{color:var(--ink)}h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:20px 0 6px;border-bottom:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:3px 6px;border-bottom:1px solid #9aa08c;text-align:left;vertical-align:top}
+td.n{text-align:right;white-space:nowrap}code,pre{font:13px/1.45 ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+pre{background:var(--panel);padding:10px;overflow:auto;white-space:pre;tab-size:4}details{margin:6px 0}summary{cursor:pointer;font-weight:600}
+.imgs{display:flex;flex-wrap:wrap;gap:12px}.imgs figure{margin:0}.imgs img{image-rendering:pixelated;max-width:100%;border:1px solid #9aa08c}
+.imgs figcaption{font-size:12px}.top a{margin-right:12px}.wrap{overflow-x:auto}</style></head><body><main><p class="top"><a href="../index.html">← GWHBOB的计算器程序</a></p><h1>拼音输入法 · 化石</h1><p>拼音输入法 Add-in，在 diameter 的 SimSpell v1.0 上改的。</p>
+<p>时间戳 = 作者自己的文件最早 2012-08-13（<code>pinyin.h</code> / <code>SDCard/pinyin.py</code> 是 2011-07 的，应来自 SimSpell，不算）。</p>
+<ul><li>第三方：SimSpell 的部分版权归 diameter；<code>SDCard/HZK12.df</code> 同魔塔那份字库。</li>
+<p>还没在网页里跑（要卡西欧的系统调用）。</p></ul><h2>原件</h2><p>当年的字节，一个没改；点文件名下载。时间是文件里存的原始修改时间（北京时间），「—」是论坛附件、看出处里的帖子日期。</p><div class="wrap"><table><tr><th>文件</th><th>字节</th><th>原始时间</th><th>sha256 前 16 位</th><th>出处</th></tr><tr><td><a href="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/AddinInfo.txt" download>originals/AddinInfo.txt</a></td><td class="n">469</td><td>2012-08-13 15:00</td><td><code>35e9b4dad2955563</code></td><td>拼音输入法 add-in（2012-08），在 diameter 的 SimSpell v1.0 上改的；pinyin.h / SDCard/pinyin.py 应来自 SimSpell</td></tr><tr><td><a href="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/CHINESEI.G1A" download>originals/CHINESEI.G1A</a></td><td class="n">29568</td><td>2012-08-13 16:25</td><td><code>fe4d10eb76171f00</code></td><td>拼音输入法 add-in（2012-08），在 diameter 的 SimSpell v1.0 上改的；pinyin.h / SDCard/pinyin.py 应来自 SimSpell</td></tr><tr><td><a href="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/ChineseI.g1w" download>originals/ChineseI.g1w</a></td><td class="n">344</td><td>2012-08-13 15:01</td><td><code>4fd9278a838006b8</code></td><td>拼音输入法 add-in（2012-08），在 diameter 的 SimSpell v1.0 上改的；pinyin.h / SDCard/pinyin.py 应来自 SimSpell</td></tr><tr><td><a href="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/FXSH_Build.bat" download>originals/FXSH_Build.bat</a></td><td class="n">592</td><td>2012-08-13 16:25</td><td><code>181687f54b8ba8bc</code></td><td>拼音输入法 add-in（2012-08），在 diameter 的 SimSpell v1.0 上改的；pinyin.h / SDCard/pinyin.py 应来自 SimSpell</td></tr><tr><td><a href="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/MainIcon.bmp" download>originals/MainIcon.bmp</a></td><td class="n">138</td><td>2012-08-13 15:00</td><td><code>c06ceb20f40ea392</code></td><td>拼音输入法 add-in（2012-08），在 diameter 的 SimSpell v1.0 上改的；pinyin.h / SDCard/pinyin.py 应来自 SimSpell</td></tr><tr><td><a href="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/SDCard/HZK12.df" download>originals/SDCard/HZK12.df</a></td><td class="n">196272</td><td>1996-09-25 12:02</td><td><code>d83b7f1603e87dd6</code></td><td>拼音输入法 add-in（2012-08），在 diameter 的 SimSpell v1.0 上改的；pinyin.h / SDCard/pinyin.py 应来自 SimSpell</td></tr><tr><td><a href="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/SDCard/pinyin.py" download>originals/SDCard/pinyin.py</a></td><td class="n">8775</td><td>2011-07-14 12:01</td><td><code>e12db8973ad7cf36</code></td><td>拼音输入法 add-in（2012-08），在 diameter 的 SimSpell v1.0 上改的；pinyin.h / SDCard/pinyin.py 应来自 SimSpell</td></tr><tr><td><a href="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/draw.c" download>originals/draw.c</a></td><td class="n">2158</td><td>2012-08-13 15:03</td><td><code>c30409aae612ccc3</code></td><td>拼音输入法 add-in（2012-08），在 diameter 的 SimSpell v1.0 上改的；pinyin.h / SDCard/pinyin.py 应来自 SimSpell</td></tr><tr><td><a href="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/main.c" download>originals/main.c</a></td><td class="n">2439</td><td>2012-08-13 16:32</td><td><code>7843c94a085be250</code></td><td>拼音输入法 add-in（2012-08），在 diameter 的 SimSpell v1.0 上改的；pinyin.h / SDCard/pinyin.py 应来自 SimSpell</td></tr><tr><td><a href="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/pinyin.h" download>originals/pinyin.h</a></td><td class="n">10389</td><td>2011-07-13 20:40</td><td><code>f8a321e5e944a47d</code></td><td>拼音输入法 add-in（2012-08），在 diameter 的 SimSpell v1.0 上改的；pinyin.h / SDCard/pinyin.py 应来自 SimSpell</td></tr><tr><td><a href="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/spellinput.c" download>originals/spellinput.c</a></td><td class="n">10009</td><td>2012-08-13 15:51</td><td><code>62e809a1b7196d7e</code></td><td>拼音输入法 add-in（2012-08），在 diameter 的 SimSpell v1.0 上改的；pinyin.h / SDCard/pinyin.py 应来自 SimSpell</td></tr><tr><td><a href="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/spellinput.h" download>originals/spellinput.h</a></td><td class="n">237</td><td>2012-08-13 15:03</td><td><code>d9f59792c72728c6</code></td><td>拼音输入法 add-in（2012-08），在 diameter 的 SimSpell v1.0 上改的；pinyin.h / SDCard/pinyin.py 应来自 SimSpell</td></tr></table></div><h2>代码</h2><p>当年是 GBK 编码，这里解出来显示。</p><details><summary>originals/AddinInfo.txt</summary><pre>//------------------------------------------------------------------
+// Addin-Application header control file, created with the CASIO SDK
+//------------------------------------------------------------------
+[OUTPUT]     : &quot;CHINESEI.G1A&quot;
+[BINDATA]    : &quot;FXADDINror.bin&quot;
+[DISPNAME]   : &quot;ChineseI&quot;
+[APPNAME]    : &quot;@CHINESE&quot;
+[VERSION]    : &quot;01.00.0000&quot;
+[APL_ICON]   : &quot;MainIcon.bmp&quot;
+[MODULE_NUM] : 0
+[MOD1_TITLE] : &quot;ChineseI&quot;
+[MOD1_ICON]  : &quot;eActivityIcon.bmp&quot;
+</pre></details><details><summary>originals/ChineseI.g1w</summary><pre>[DLSimProject]
+Name=ChineseI
+Version=1.00.0000
+Model=:fx-9860G.dlm
+SourcePath=SRC
+MemoryPath=INIT
+MemCardPath=SDCard
+
+[Program1]
+Program=CHINESEI.G1A
+Debug=Debug\FXADDINror.dbg
+LoadAddress=80000000:90100000
+
+[Files]
+SourceFile=:main.c
+SourceFile=:draw.c
+SourceFile=:spellinput.c
+HeaderFile=:spellinput.h
+HeaderFile=:pinyin.h
+</pre></details><details><summary>originals/FXSH_Build.bat</summary><pre>@echo off
+rem Do not edit! This batch file is created by CASIO fx-9860G SDK.
+
+if exist debug\*.obj  del debug\*.obj
+if exist CHINESEI.G1A  del CHINESEI.G1A
+
+cd debug
+if exist FXADDINror.bin  del FXADDINror.bin
+&quot;D:\Program Files\CASIO\fx-9860G SDK\OS\SH\Bin\Hmake.exe&quot; Addin.mak
+cd ..
+if not exist debug\FXADDINror.bin  goto error
+
+&quot;D:\Program Files\CASIO\fx-9860G SDK\Tools\MakeAddinHeader363.exe&quot; &quot;D:\Backup\我的文档\CASIO\fx-9860G SDK\ChineseInput&quot;
+if not exist CHINESEI.G1A  goto error
+echo Build has completed.
+goto end
+
+:error
+echo Build was not successful.
+
+:end
+
+</pre></details><details><summary>originals/SDCard/pinyin.py</summary><pre>a阿啊ai哎哀唉埃挨皑癌矮蔼艾爱隘碍an安氨鞍俺岸按案胺暗ang肮昂盎ao凹敖熬翱袄傲奥澳懊ba八巴叭扒吧芭疤捌笆拔跋把靶坝爸罢霸bai白百佰柏摆败拜稗ban扳班般颁斑搬板版办半伴扮拌绊瓣bang邦帮梆绑榜膀蚌傍棒谤磅镑bao包苞胞褒雹宝饱保堡报抱豹鲍暴爆剥薄瀑bei卑杯悲碑北贝狈备背钡倍被惫焙辈ben奔本苯笨夯beng崩绷甭泵迸蹦bi逼鼻比彼笔鄙币必毕闭庇毖陛毙敝痹蓖弊碧蔽壁避臂bian边编鞭贬扁卞便变遍辨辩辫biao彪标膘表bie憋鳖别瘪bin宾彬斌滨濒摈bing冰兵丙秉柄炳饼并病bo拨波玻钵脖菠播伯驳帛泊勃铂舶博渤搏箔膊卜bu补哺捕不布步怖部埠簿ca擦cai猜才材财裁采彩睬踩菜蔡can参餐残蚕惭惨灿cang仓沧苍舱藏cao操糙曹槽草ce册侧厕测策ceng层蹭曾cha叉插查茬茶搽察碴岔诧差刹chai拆柴豺chan掺搀谗馋缠蝉产铲阐颤chang昌猖肠尝偿常厂场敞畅倡唱chao抄钞超巢朝嘲潮吵炒绰che车扯彻掣撤澈chen郴尘臣忱沉辰陈晨衬趁cheng称撑成呈承诚城乘惩程澄橙逞骋秤chi吃痴弛池驰迟持尺侈齿耻斥赤炽翅chong充冲虫崇宠chou抽仇绸畴愁稠筹酬踌丑瞅臭chu出初除厨滁锄雏橱躇础储楚处搐触矗畜chuai揣chuan川穿传船椽喘串chuang闯疮窗床创chui吹炊垂捶锤chun春椿纯唇淳醇蠢chuo戳ci疵词茨瓷慈辞磁雌此次刺赐cong囱从匆葱聪丛cou凑cu粗促醋簇cuan蹿窜篡cui崔催摧脆淬瘁粹翠cun村存寸cuo搓磋撮挫措错da搭达答瘩打大dai呆歹傣代带待怠殆贷袋逮戴dan丹单担耽郸胆掸旦但诞弹惮淡蛋氮dang当挡党荡档dao刀导岛倒捣祷蹈到悼盗道稻de得德的deng灯登蹬等邓凳瞪di低堤滴狄迪敌涤笛嫡底抵地弟帝递第缔蒂dian掂滇颠典点碘电佃甸店垫惦淀奠殿靛diao刁叼凋碉雕吊钓掉die爹跌迭谍叠碟蝶ding丁叮盯钉顶鼎订定锭diu丢dong东冬董懂动冻侗恫栋洞dou都兜斗抖陡豆逗痘du督毒读犊独堵赌睹妒杜肚度渡镀duan端短段断缎锻dui堆队对兑dun吨敦墩蹲盾钝顿遁duo多哆夺掇朵垛躲剁堕舵惰跺e讹俄娥峨鹅蛾额厄扼恶饿鄂遏en恩er儿而尔耳洱饵二贰fa发乏伐罚阀筏法珐fan帆番翻藩凡矾钒烦樊繁反返犯泛饭范贩fang方坊芳防妨房肪仿访纺放fei飞非啡菲肥匪诽吠废沸肺费fen分吩纷芬氛酚坟汾焚粉份奋忿愤粪feng丰风枫封疯峰烽锋蜂冯逢缝讽凤奉fo佛fou否fu夫肤孵敷弗伏扶拂服俘氟浮涪符袱幅福辐抚甫府斧俯釜辅腑腐父讣付妇负附咐阜复赴副傅富赋缚腹覆ga嘎噶gai该改钙盖溉概gan干甘杆肝柑竿秆赶敢感赣gang冈刚岗纲肛缸钢港杠gao皋羔高膏篙糕搞稿镐告ge戈疙哥胳鸽割搁歌阁革格葛隔个各铬咯gei给gen根跟geng更庚耕羹埂耿梗gong工弓公功攻供宫恭躬龚巩汞拱共贡gou勾沟钩狗苟构购垢够gu估咕姑孤沽菇辜箍古谷股骨蛊鼓固故顾雇gua瓜刮剐寡挂褂guai乖拐怪guan关观官冠棺馆管贯惯灌罐guang光广逛gui归圭龟规闺硅瑰轨诡癸鬼刽柜贵桂跪gun辊滚棍guo郭锅国果裹过ha蛤哈hai孩骸海亥骇害氦han酣憨含邯函涵寒韩罕喊汉汗旱悍捍焊憾撼翰hang杭航行hao毫豪嚎壕好郝号浩耗he呵喝禾合何和河阂核荷涸盒菏贺褐赫鹤hei黑嘿hen痕很狠恨heng亨哼恒横衡hong轰哄烘弘红宏洪虹鸿hou侯喉猴吼后厚候hu乎呼忽弧狐胡壶湖葫瑚糊蝴虎唬互户护沪hua花华哗滑猾化划画话huai怀徊淮槐坏huan欢还环桓缓幻宦唤换涣患焕痪豢huang荒慌皇凰黄惶煌蝗磺簧恍晃谎幌hui灰恢挥辉徽回蛔悔卉汇会讳绘诲烩贿晦秽惠毁慧hun昏荤婚浑魂混huo豁活火伙或货获祸惑霍ji讥击饥圾机肌鸡迹姬积基绩缉畸箕稽激及吉汲级即极急疾棘集嫉辑籍几己挤脊计记伎纪妓忌技际剂季既济继寂寄悸祭蓟冀藉jia加夹佳枷家嘉荚颊甲贾钾价驾架假嫁稼挟jian奸尖坚歼间肩艰兼监笺缄煎拣俭柬茧捡减剪检硷简碱见件建饯剑荐贱健涧舰渐溅践鉴键箭jiang江姜将浆僵疆讲奖桨蒋匠降酱jiao交郊娇浇骄胶椒焦蕉礁角狡绞饺矫脚铰搅剿缴叫轿较教窖酵觉嚼jie阶皆接秸揭街节劫杰洁结捷睫截竭姐解介戒芥届界疥诫借jin巾今斤金津筋襟仅紧谨锦尽劲近进晋浸烬禁靳jing京经茎荆惊晶睛粳兢精鲸井颈景警净径痉竞竟敬靖境静镜jiong炯窘jiu纠究揪九久灸玖韭酒旧臼咎疚厩救就舅ju居拘狙驹疽鞠局桔菊咀沮举矩句巨拒具炬俱剧惧据距锯聚踞juan娟捐鹃卷倦绢眷jue撅决诀抉绝倔掘爵攫jun军君均钧菌俊郡峻浚骏竣ka咖喀卡kai开揩凯慨楷kan槛刊勘堪坎砍看kang康慷糠扛亢抗炕kao考拷烤靠ke坷苛柯科棵颗磕壳咳可渴克刻客课ken肯垦恳啃keng吭坑kong空孔恐控kou抠口扣寇ku枯哭窟苦库裤酷kua夸垮挎胯跨kuai块快侩筷kuan宽款kuang匡筐狂况旷矿框眶kui亏岿盔窥奎葵魁傀愧溃馈kun坤昆捆困kuo扩括阔廓la垃拉啦喇腊蜡辣lai来莱赖lan兰拦栏婪阑蓝谰澜篮览揽缆懒烂滥lang郎狼廊琅榔朗浪lao捞劳牢老佬姥涝烙酪le乐勒了lei雷镭垒磊蕾儡肋泪类累擂leng棱楞冷li厘梨狸离莉犁漓璃黎篱礼李里哩理鲤力历厉立吏丽利励沥例隶俐荔栗砾粒傈痢lian连帘怜涟莲联廉镰敛脸练炼恋链liang俩良凉梁粮粱两亮谅辆晾量liao潦辽疗聊僚寥廖撩燎镣料撂lie列劣烈猎裂lin邻林临淋琳霖磷鳞凛吝赁拎ling伶灵岭玲凌铃陵羚菱零龄领令另liu溜刘流留琉硫馏榴瘤柳六long龙咙笼聋隆窿陇垄拢lou娄楼搂篓陋漏lu露卢庐芦炉颅卤虏掳鲁陆录赂鹿禄碌路戮潞麓luan孪峦挛滦卵乱lue掠略lun抡仑伦沦纶轮论luo罗萝逻锣箩骡螺裸洛络骆落lv滤驴吕侣旅铝屡缕履律虑率绿氯ma妈麻马玛码蚂骂吗嘛mai埋买迈麦卖脉man蛮馒瞒满曼谩慢漫蔓mang忙芒盲茫莽氓mao猫毛矛茅锚卯铆茂冒贸帽貌me么mei没枚玫眉梅媒煤酶霉每美镁妹昧媚寐men门闷们meng萌盟檬猛蒙锰孟梦mi弥迷谜醚糜靡米眯泌觅秘密幂蜜mian眠绵棉免勉娩冕缅面miao苗描瞄秒渺藐妙庙mie灭蔑min民皿抿闽悯敏ming名明鸣铭螟命miu谬mo貉摸摹模膜摩磨蘑魔抹末沫陌莫寞漠墨默mou牟谋某mu母亩牡姆拇木目牧募墓幕睦慕暮穆na拿哪那纳娜钠呐nai乃奶氖奈耐nan男南难nang囊nao挠恼脑闹淖ne呢nei内馁nen嫩neng能ni妮尼泥倪霓你拟逆匿溺腻nian拈年捻撵碾念蔫niang娘酿niao鸟尿nie捏涅聂啮镊镍孽nin您ning宁拧狞柠凝泞niu牛扭纽钮nong农浓脓弄nu奴努怒nuan暖nue疟虐nuo挪诺懦糯nv女o哦ou欧殴鸥呕偶藕沤pa趴啪爬耙琶帕怕pai拍徘排牌派湃pan潘攀盘磐判叛盼畔pang乓庞旁耪胖pao抛刨咆炮袍跑泡pei呸胚陪培赔裴沛佩配pen喷盆peng抨砰烹朋彭棚硼蓬鹏澎篷膨捧碰pi辟批坯披砒劈霹皮毗疲啤琵脾匹痞屁僻譬pian片偏篇骗piao漂飘瓢票pie撇瞥pin拼贫频品聘ping乒平评凭坪苹屏瓶萍po坡泼颇婆迫破粕魄pou剖pu脯仆扑铺莆菩葡蒲朴圃埔浦普谱曝qi七沏妻柒凄栖戚期欺漆祁齐其奇歧祈脐崎畦骑棋旗乞企岂启起气讫迄弃汽泣契砌器qia掐恰洽qian千仟扦迁钎牵铅谦签前钱钳乾潜黔浅遣谴欠堑嵌歉qiang呛羌枪腔强墙蔷抢qiao悄敲锹橇乔侨桥瞧巧俏峭窍翘撬鞘qie切茄且怯窃qin亲侵钦芹秦琴禽勤擒寝沁qing青氢轻倾卿清情晴氰擎顷请庆qiong穷琼qiu丘邱秋囚求泅酋球qu区曲驱屈蛆躯趋渠取娶龋去趣quan圈全权泉拳痊醛颧犬劝券que炔缺瘸却雀确鹊榷qun裙群ran然燃冉染rang瓤嚷壤攘让rao饶扰绕re惹热ren人仁壬忍刃认任纫妊韧reng扔仍ri日rong戎绒茸荣容溶蓉熔融冗rou柔揉肉ru如茹儒孺蠕汝乳辱入褥ruan阮软rui蕊锐瑞run闰润ruo若弱sa撒洒萨sai塞腮鳃赛san三叁伞散sang桑嗓丧sao搔骚扫嫂se色涩瑟sen森seng僧sha杀沙纱砂莎傻啥煞厦shai筛晒shan山删杉衫珊煽闪陕汕苫扇善缮擅膳赡栅shang伤商墒裳晌赏上尚shao捎梢烧稍勺芍韶少邵绍哨she奢赊舌蛇舍设社射涉赦慑摄shen申伸身呻绅娠砷深神沈审婶肾甚渗慎什sheng升生声牲胜甥绳省圣盛剩shi匙尸失师虱诗施狮湿十石时识实拾蚀食史矢使始驶屎士氏世仕市示式事侍势视试饰室恃拭是柿适逝释嗜誓噬似shou收手守首寿受兽售授瘦shu书抒叔枢殊梳淑疏舒输蔬孰赎熟暑黍署鼠蜀薯曙术戍束述树竖恕庶数墅漱属shua刷耍shuai衰摔甩帅shuan拴栓shuang�霜爽shui谁水税睡shun吮顺舜瞬shuo说烁朔硕si丝司私思斯嘶撕死巳四寺伺饲嗣肆song松怂耸讼宋诵送颂sou嗽搜艘擞su苏酥俗诉肃素速粟塑溯僳suan酸蒜算sui虽绥隋随髓岁祟遂碎隧穗sun孙损笋suo唆梭蓑缩所索琐锁ta她他它塌塔獭挞踏蹋tai胎台抬苔太汰态泰酞tan坍贪摊滩瘫坛谈痰谭潭檀坦袒毯叹炭探碳tang汤唐堂棠塘搪膛糖倘淌躺烫趟tao涛绦掏滔逃桃陶淘萄讨套te特teng疼腾誊藤ti剔梯锑踢啼提题蹄体屉剃涕惕替嚏tian天添田恬甜填腆舔tiao调挑条迢眺跳tie贴铁帖ting厅汀听烃廷亭庭停挺艇tong通同彤桐铜童酮瞳统捅桶筒痛tou偷头投透tu凸秃突图徒涂途屠土吐兔tuan湍团tui推颓腿退蜕褪tun囤吞屯臀tuo托拖脱驮陀驼鸵妥椭拓唾wa哇娃挖洼蛙瓦袜wai歪外wan弯湾豌丸完玩顽烷宛挽晚婉惋皖碗万腕wang汪亡王网往枉妄忘旺望wei危威微巍为韦围违桅唯惟维潍伟伪尾纬苇委萎卫未位味畏胃尉谓喂渭蔚慰魏wen温瘟文纹闻蚊吻紊稳问weng翁嗡瓮wo挝涡窝蜗我沃卧握斡wu乌污呜巫屋诬钨无毋吴吾芜梧五午伍坞武侮捂舞勿务戊物误悟晤雾xi夕汐西吸希昔析矽息牺悉惜烯硒晰犀稀溪锡熄熙嘻膝习席袭媳檄洗喜戏系细隙xia虾瞎匣侠峡狭暇辖霞下吓夏xian铣仙先纤掀锨鲜闲弦贤咸涎舷衔嫌显险县现线限宪陷馅羡献腺xiang乡相香厢湘箱襄镶详祥翔享响想向巷项象像橡xiao宵消萧硝销霄嚣淆小晓孝肖哮效校笑啸xie些楔歇蝎协邪胁斜谐携鞋写泄泻卸屑械谢懈蟹xin心忻芯辛欣锌新薪信衅xing兴星惺猩腥刑邢形型醒杏姓幸性xiong凶兄匈汹胸雄熊xiu宿休修羞朽秀绣袖锈嗅xu戌须虚嘘需墟徐许旭序叙恤绪续酗婿絮蓄吁xuan轩宣喧玄悬旋选癣绚眩xue削靴薛穴学雪血xun勋熏寻巡旬驯询循训讯汛迅逊殉ya丫压呀押鸦鸭牙芽蚜崖涯衙哑雅亚讶yan咽烟淹焉阉延严言岩沿炎研盐阎蜒颜奄衍掩眼演厌彦砚唁宴艳验谚堰焰雁燕yang央殃秧鸯扬羊阳杨佯疡洋仰养氧痒样漾yao侥妖腰邀尧姚窑谣摇遥瑶咬舀药要耀钥ye椰噎爷耶也冶野业叶曳页夜掖液腋yi一伊衣医依铱壹揖仪夷沂宜姨胰移遗颐疑彝乙已以矣蚁倚椅义亿忆艺议亦屹异役抑译邑易绎诣疫益谊翌逸意溢肄裔毅翼臆yin因阴姻茵荫音殷吟寅淫银尹引饮隐印ying应英婴缨樱鹰迎盈荧莹萤营蝇赢颖影映硬yo哟yong佣拥痈庸雍臃永咏泳勇涌恿蛹踊用you优忧幽悠尤由犹邮油铀游友有酉又右幼佑诱釉yu迂淤渝于予余盂鱼俞娱渔隅愉逾愚榆虞舆与宇屿羽雨禹语玉驭芋育郁狱峪浴预域欲喻寓御裕遇愈誉豫yuan冤鸳渊元员园垣原圆袁援缘源猿辕远苑怨院愿yue曰约月岳悦阅跃粤越yun云匀郧耘允陨孕运晕酝韵蕴za匝杂砸咋zai灾哉栽宰载再在仔zan咱攒暂赞zang赃脏葬zao遭糟凿早枣蚤澡藻灶皂造噪燥躁ze则择泽责zei贼zen怎zeng增憎赠zha喳渣扎札轧闸铡眨乍诈炸榨柞zhai斋摘宅翟窄债寨zhan沾毡粘詹瞻斩展盏崭辗占战栈站绽湛蘸zhang长张章彰漳樟涨掌丈仗帐杖胀账障瘴zhao招昭找沼召兆赵照罩肇爪zhe遮折哲蛰辙者锗这浙蔗着zhen贞针侦珍真砧斟甄臻诊枕疹阵振镇震帧zheng争征怔挣狰睁蒸拯整正证郑政症zhi之支汁芝吱枝知织肢脂蜘执侄直值职植殖止只旨址纸指趾至志制帜治炙质峙挚秩致掷痔窒智滞稚置zhong中忠终盅钟衷肿种仲众重zhou州舟诌周洲粥轴肘帚咒宙昼皱骤zhu朱诛株珠诸猪蛛竹烛逐主拄煮嘱瞩住助注贮驻柱祝著蛀筑铸zhua抓zhuai拽zhuan专砖转撰篆zhuang妆庄桩装壮状幢撞zhui追椎锥坠缀赘zhun谆准zhuo卓拙捉桌灼茁浊酌啄琢zi孜兹咨姿资淄滋籽子紫滓字自渍zong宗综棕踪鬃总纵zou邹走奏揍zu租足卒族诅阻组祖zuan赚纂钻zui嘴最罪醉zun尊遵</pre></details><details open><summary>originals/draw.c</summary><pre>/**
+ *  The source is modified from SimSpell v1.0
+ *  special thanks to the author of SimSpell - diameter
+**/
+
+#include &quot;fxlib.h&quot;
+#define IS_CH(C) ((C) &amp; 0x80)
+
+int fh_HZK = 0;
+
+FONTCHARACTER * CharToFont(const char *cFileName,FONTCHARACTER *fFileName)
+{
+	int i,len = strlen(cFileName);
+	for(i=0; i&lt;len ;++i)
+		fFileName[i] = cFileName[i];
+	fFileName[i]=0;
+	return fFileName;
+}
+char * FontToChar(const FONTCHARACTER *fFileName,char *cFileName)
+{
+	int i = 0;
+	while((cFileName[i]=fFileName[i])!=0)++i;
+	return cFileName;
+}
+
+int OpenFont()
+{
+	FONTCHARACTER FileName[20];
+	CharToFont(&quot;\\\\fls0\\HZK12.df&quot;,FileName);
+	fh_HZK = Bfile_OpenFile(FileName,_OPENMODE_READ);
+	return fh_HZK;
+}
+
+int CloseFont()
+{
+	Bfile_CloseFile(fh_HZK);
+}
+
+void DrawClearBox (int left,int top,int right,int bottom,int sel)
+{
+	DISPBOX box;
+	box.left = left;box.top = top;box.right = right;box.bottom = bottom;
+	Bdisp_AreaClr_VRAM (&amp;box);
+	if(sel)
+	{
+		Bdisp_DrawLineVRAM (box.left,box.top,box.right,box.top);
+		Bdisp_DrawLineVRAM (box.left,box.bottom,box.right,box.bottom);
+		Bdisp_DrawLineVRAM (box.left,box.top,box.left,box.bottom);
+		Bdisp_DrawLineVRAM (box.right,box.top,box.right,box.bottom);
+	}
+}
+
+void DrawPicture (int x,int y,int width,int height,unsigned char * pGraph)
+{
+	DISPGRAPH dg;
+	dg.x = x;
+	dg.y = y;
+	dg.GraphData.width = width;
+	dg.GraphData.height = height;
+	dg.GraphData.pBitmap = pGraph;
+	dg.WriteModify = IMB_WRITEMODIFY_NORMAL;
+	dg.WriteKind = IMB_WRITEKIND_OVER;
+	Bdisp_WriteGraph_VRAM(&amp;dg);
+}
+
+void PrintChChar (unsigned char c1,unsigned char c2,int pX,int pY)
+{
+	unsigned char mat[12][2];
+	int i,j,k;
+	int sec,pot; 
+	sec = c1-0xa0;
+	pot = c2-0xa0;
+	Bfile_ReadFile(fh_HZK,mat,24,(94*(sec-1)+(pot-1))*24l);
+	DrawPicture (pX,pY,12,12,mat);
+}
+
+void PrintChStr (unsigned char *cStr,int pX,int pY)
+{
+	unsigned int key;
+	unsigned char c[]=&quot; &quot;;
+	while (*cStr)
+	{
+		if (IS_CH(*cStr))
+		{
+			unsigned char c1 = *cStr++,
+						  c2 = *cStr;
+			PrintChChar(c1,c2,pX,pY);
+			++cStr;
+			pX +=12;
+		}
+		else
+		{
+			c[0]=*(cStr++);
+			PrintXY(pX,pY+3,c,0);
+			pX +=6;
+		}
+	}
+}
+</pre></details><details><summary>originals/main.c</summary><pre>#include &quot;fxlib.h&quot;
+#include &lt;stdio.h&gt;
+#include &quot;spellinput.h&quot;
+
+const int SysCallWrapper[] = { 0xD201422B, 0x60F20000, 0x80010070 };
+const int (*SysCallFuncPtr)( int R4, int R5, int R6, int R7, int FNo ) = (void*)&amp;SysCallWrapper;
+#define App_RUN_MAT() (void)(*SysCallFuncPtr)( 0, 0, 0, 0, 0x0AAE)
+#define PutKey(key) (void)(*SysCallFuncPtr)( key, key&lt;256, 0, 0, 0x0910)
+
+int getAlpha( char var );
+void clearAlpha( char var );
+
+void timer( void )
+{
+	if( IsKeyDown(KEY_CTRL_F6) )
+	{
+		short code;
+		unsigned char buf[16];
+		unsigned char *p;
+
+		SaveDisp( 1 );
+		code = SpellInputAChar();
+		sprintf( buf, &quot;%d&quot;, code );
+		RestoreDisp( 1 );
+		Bdisp_PutDisp_DD();
+		if( buf[0] == &#x27;-&#x27; )
+			buf[0] = KEY_CHAR_PMINUS;
+		for( p = buf; *p; p++ )
+			PutKey( *p );
+	}
+	if( getAlpha( &#x27;B&#x27; ) == 12 )
+	{
+		char buf[4] = {0};
+		int x = getAlpha( &#x27;X&#x27; );
+		int y = getAlpha( &#x27;Y&#x27; );
+		short code = getAlpha( &#x27;A&#x27;);
+
+		clearAlpha( &#x27;B&#x27; );
+
+		memcpy( buf, &amp;code, 2 );
+		PrintChStr( buf, x, y );
+		GetKey( &amp;x );
+	}
+}
+
+int AddIn_main(int isAppli, unsigned short OptionNum)
+{
+    unsigned int key;
+
+    Bdisp_AllClr_DDVRAM();
+
+	if( OpenFont() &lt; 0 )
+	{
+		locate(1,1);Print(&quot;Font not find&quot;);
+		GetKey(&amp;key);return 0;
+	}
+
+	PrintChStr(&quot;载入中，稍候...&quot;,20,24);
+	Bdisp_PutDisp_DD ();
+
+	if( LoadSpellTable() &lt; 0 )
+	{
+		Bdisp_AllClr_DDVRAM();
+		PrintChStr( &quot;拼音库无法找到&quot;, 0, 0 );
+		GetKey( &amp;key );return 0;
+	}
+
+	clearAlpha( &#x27;B&#x27; );
+	SetTimer( 1, 250, timer );
+	App_RUN_MAT();
+
+    return 1;
+}
+
+
+
+#define Alpha_GetData(VarName,Dest) (void)(*SysCallFuncPtr)( VarName,(int)Dest, 0, 0, 0x04DF)
+#define NUM_DataToStr(data,str) (void*)(*SysCallFuncPtr)( (int)data, (int)str, 0, 0, 0x4F0 )
+int getAlpha( char var )
+{
+	char data[24] = {0};
+	unsigned char str[50];
+	int value = 0;
+
+	Alpha_GetData( var, data );
+	NUM_DataToStr( data, str );
+
+	if( str[0] == 0x87 ) // 0x87 == &#x27;-&#x27;
+		str[0] = &#x27;-&#x27;;
+	
+	sscanf( str, &quot;%d&quot;, &amp;value );
+
+	return value;
+}
+
+#define Alpha_SetData(VarName,Dest) (void)(*SysCallFuncPtr)( VarName,(int)Dest, 0, 0, 0x04E0)
+void clearAlpha( char var )
+{
+	char data[24] = {0};
+	char str[50];
+
+	Alpha_SetData( var, data );
+}
+
+
+
+#pragma section _BR_Size
+unsigned long BR_Size;
+#pragma section
+#pragma section _TOP
+int InitializeSystem(int isAppli, unsigned short OptionNum)
+{
+    return INIT_ADDIN_APPLICATION(isAppli, OptionNum);
+}
+#pragma section
+
+
+
+</pre></details><details><summary>originals/pinyin.h</summary><pre>extern char PY_mb_a[];
+extern char PY_mb_ai[];
+extern char PY_mb_an[];
+extern char PY_mb_ang[];
+extern char PY_mb_ao[];
+extern char PY_mb_ba[];
+extern char PY_mb_bai[];
+extern char PY_mb_ban[];
+extern char PY_mb_bang[];
+extern char PY_mb_bao[];
+extern char PY_mb_bei[];
+extern char PY_mb_ben[];
+extern char PY_mb_beng[];
+extern char PY_mb_bi[];
+extern char PY_mb_bian[];
+extern char PY_mb_biao[];
+extern char PY_mb_bie[];
+extern char PY_mb_bin[];
+extern char PY_mb_bing[];
+extern char PY_mb_bo[];
+extern char PY_mb_bu[];
+extern char PY_mb_ca[];
+extern char PY_mb_cai[];
+extern char PY_mb_can[];
+extern char PY_mb_cang[];
+extern char PY_mb_cao[];
+extern char PY_mb_ce[];
+extern char PY_mb_ceng[];
+extern char PY_mb_cha[];
+extern char PY_mb_chai[];
+extern char PY_mb_chan[];
+extern char PY_mb_chang[];
+extern char PY_mb_chao[];
+extern char PY_mb_che[];
+extern char PY_mb_chen[];
+extern char PY_mb_cheng[];
+extern char PY_mb_chi[];
+extern char PY_mb_chong[];
+extern char PY_mb_chou[];
+extern char PY_mb_chu[];
+extern char PY_mb_chuai[];
+extern char PY_mb_chuan[];
+extern char PY_mb_chuang[];
+extern char PY_mb_chui[];
+extern char PY_mb_chun[];
+extern char PY_mb_chuo[];
+extern char PY_mb_ci[];
+extern char PY_mb_cong[];
+extern char PY_mb_cou[];
+extern char PY_mb_cu[];
+extern char PY_mb_cuan[];
+extern char PY_mb_cui[];
+extern char PY_mb_cun[];
+extern char PY_mb_cuo[];
+extern char PY_mb_da[];
+extern char PY_mb_dai[];
+extern char PY_mb_dan[];
+extern char PY_mb_dang[];
+extern char PY_mb_dao[];
+extern char PY_mb_de[];
+extern char PY_mb_deng[];
+extern char PY_mb_di[];
+extern char PY_mb_dian[];
+extern char PY_mb_diao[];
+extern char PY_mb_die[];
+extern char PY_mb_ding[];
+extern char PY_mb_diu[];
+extern char PY_mb_dong[];
+extern char PY_mb_dou[];
+extern char PY_mb_du[];
+extern char PY_mb_duan[];
+extern char PY_mb_dui[];
+extern char PY_mb_dun[];
+extern char PY_mb_duo[];
+extern char PY_mb_e[];
+extern char PY_mb_en[];
+extern char PY_mb_er[];
+extern char PY_mb_fa[];
+extern char PY_mb_fan[];
+extern char PY_mb_fang[];
+extern char PY_mb_fei[];
+extern char PY_mb_fen[];
+extern char PY_mb_feng[];
+extern char PY_mb_fo[];
+extern char PY_mb_fou[];
+extern char PY_mb_fu[];
+extern char PY_mb_ga[];
+extern char PY_mb_gai[];
+extern char PY_mb_gan[];
+extern char PY_mb_gang[];
+extern char PY_mb_gao[];
+extern char PY_mb_ge[];
+extern char PY_mb_gei[];
+extern char PY_mb_gen[];
+extern char PY_mb_geng[];
+extern char PY_mb_gong[];
+extern char PY_mb_gou[];
+extern char PY_mb_gu[];
+extern char PY_mb_gua[];
+extern char PY_mb_guai[];
+extern char PY_mb_guan[];
+extern char PY_mb_guang[];
+extern char PY_mb_gui[];
+extern char PY_mb_gun[];
+extern char PY_mb_guo[];
+extern char PY_mb_ha[];
+extern char PY_mb_hai[];
+extern char PY_mb_han[];
+extern char PY_mb_hang[];
+extern char PY_mb_hao[];
+extern char PY_mb_he[];
+extern char PY_mb_hei[];
+extern char PY_mb_hen[];
+extern char PY_mb_heng[];
+extern char PY_mb_hong[];
+extern char PY_mb_hou[];
+extern char PY_mb_hu[];
+extern char PY_mb_hua[];
+extern char PY_mb_huai[];
+extern char PY_mb_huan[];
+extern char PY_mb_huang[];
+extern char PY_mb_hui[];
+extern char PY_mb_hun[];
+extern char PY_mb_huo[];
+extern char PY_mb_ji[];
+extern char PY_mb_jia[];
+extern char PY_mb_jian[];
+extern char PY_mb_jiang[];
+extern char PY_mb_jiao[];
+extern char PY_mb_jie[];
+extern char PY_mb_jin[];
+extern char PY_mb_jing[];
+extern char PY_mb_jiong[];
+extern char PY_mb_jiu[];
+extern char PY_mb_ju[];
+extern char PY_mb_juan[];
+extern char PY_mb_jue[];
+extern char PY_mb_jun[];
+extern char PY_mb_ka[];
+extern char PY_mb_kai[];
+extern char PY_mb_kan[];
+extern char PY_mb_kang[];
+extern char PY_mb_kao[];
+extern char PY_mb_ke[];
+extern char PY_mb_ken[];
+extern char PY_mb_keng[];
+extern char PY_mb_kong[];
+extern char PY_mb_kou[];
+extern char PY_mb_ku[];
+extern char PY_mb_kua[];
+extern char PY_mb_kuai[];
+extern char PY_mb_kuan[];
+extern char PY_mb_kuang[];
+extern char PY_mb_kui[];
+extern char PY_mb_kun[];
+extern char PY_mb_kuo[];
+extern char PY_mb_la[];
+extern char PY_mb_lai[];
+extern char PY_mb_lan[];
+extern char PY_mb_lang[];
+extern char PY_mb_lao[];
+extern char PY_mb_le[];
+extern char PY_mb_lei[];
+extern char PY_mb_leng[];
+extern char PY_mb_li[];
+extern char PY_mb_lian[];
+extern char PY_mb_liang[];
+extern char PY_mb_liao[];
+extern char PY_mb_lie[];
+extern char PY_mb_lin[];
+extern char PY_mb_ling[];
+extern char PY_mb_liu[];
+extern char PY_mb_long[];
+extern char PY_mb_lou[];
+extern char PY_mb_lu[];
+extern char PY_mb_luan[];
+extern char PY_mb_lue[];
+extern char PY_mb_lun[];
+extern char PY_mb_luo[];
+extern char PY_mb_lv[];
+extern char PY_mb_ma[];
+extern char PY_mb_mai[];
+extern char PY_mb_man[];
+extern char PY_mb_mang[];
+extern char PY_mb_mao[];
+extern char PY_mb_me[];
+extern char PY_mb_mei[];
+extern char PY_mb_men[];
+extern char PY_mb_meng[];
+extern char PY_mb_mi[];
+extern char PY_mb_mian[];
+extern char PY_mb_miao[];
+extern char PY_mb_mie[];
+extern char PY_mb_min[];
+extern char PY_mb_ming[];
+extern char PY_mb_miu[];
+extern char PY_mb_mo[];
+extern char PY_mb_mou[];
+extern char PY_mb_mu[];
+extern char PY_mb_na[];
+extern char PY_mb_nai[];
+extern char PY_mb_nan[];
+extern char PY_mb_nang[];
+extern char PY_mb_nao[];
+extern char PY_mb_ne[];
+extern char PY_mb_nei[];
+extern char PY_mb_nen[];
+extern char PY_mb_neng[];
+extern char PY_mb_ni[];
+extern char PY_mb_nian[];
+extern char PY_mb_niang[];
+extern char PY_mb_niao[];
+extern char PY_mb_nie[];
+extern char PY_mb_nin[];
+extern char PY_mb_ning[];
+extern char PY_mb_niu[];
+extern char PY_mb_nong[];
+extern char PY_mb_nu[];
+extern char PY_mb_nuan[];
+extern char PY_mb_nue[];
+extern char PY_mb_nuo[];
+extern char PY_mb_nv[];
+extern char PY_mb_o[];
+extern char PY_mb_ou[];
+extern char PY_mb_pa[];
+extern char PY_mb_pai[];
+extern char PY_mb_pan[];
+extern char PY_mb_pang[];
+extern char PY_mb_pao[];
+extern char PY_mb_pei[];
+extern char PY_mb_pen[];
+extern char PY_mb_peng[];
+extern char PY_mb_pi[];
+extern char PY_mb_pian[];
+extern char PY_mb_piao[];
+extern char PY_mb_pie[];
+extern char PY_mb_pin[];
+extern char PY_mb_ping[];
+extern char PY_mb_po[];
+extern char PY_mb_pou[];
+extern char PY_mb_pu[];
+extern char PY_mb_qi[];
+extern char PY_mb_qia[];
+extern char PY_mb_qian[];
+extern char PY_mb_qiang[];
+extern char PY_mb_qiao[];
+extern char PY_mb_qie[];
+extern char PY_mb_qin[];
+extern char PY_mb_qing[];
+extern char PY_mb_qiong[];
+extern char PY_mb_qiu[];
+extern char PY_mb_qu[];
+extern char PY_mb_quan[];
+extern char PY_mb_que[];
+extern char PY_mb_qun[];
+extern char PY_mb_ran[];
+extern char PY_mb_rang[];
+extern char PY_mb_rao[];
+extern char PY_mb_re[];
+extern char PY_mb_ren[];
+extern char PY_mb_reng[];
+extern char PY_mb_ri[];
+extern char PY_mb_rong[];
+extern char PY_mb_rou[];
+extern char PY_mb_ru[];
+extern char PY_mb_ruan[];
+extern char PY_mb_rui[];
+extern char PY_mb_run[];
+extern char PY_mb_ruo[];
+extern char PY_mb_sa[];
+extern char PY_mb_sai[];
+extern char PY_mb_san[];
+extern char PY_mb_sang[];
+extern char PY_mb_sao[];
+extern char PY_mb_se[];
+extern char PY_mb_sen[];
+extern char PY_mb_seng[];
+extern char PY_mb_sha[];
+extern char PY_mb_shai[];
+extern char PY_mb_shan[];
+extern char PY_mb_shang[];
+extern char PY_mb_shao[];
+extern char PY_mb_she[];
+extern char PY_mb_shen[];
+extern char PY_mb_sheng[];
+extern char PY_mb_shi[];
+extern char PY_mb_shou[];
+extern char PY_mb_shu[];
+extern char PY_mb_shua[];
+extern char PY_mb_shuai[];
+extern char PY_mb_shuan[];
+extern char PY_mb_shuang[];
+extern char PY_mb_shui[];
+extern char PY_mb_shun[];
+extern char PY_mb_shuo[];
+extern char PY_mb_si[];
+extern char PY_mb_song[];
+extern char PY_mb_sou[];
+extern char PY_mb_su[];
+extern char PY_mb_suan[];
+extern char PY_mb_sui[];
+extern char PY_mb_sun[];
+extern char PY_mb_suo[];
+extern char PY_mb_ta[];
+extern char PY_mb_tai[];
+extern char PY_mb_tan[];
+extern char PY_mb_tang[];
+extern char PY_mb_tao[];
+extern char PY_mb_te[];
+extern char PY_mb_teng[];
+extern char PY_mb_ti[];
+extern char PY_mb_tian[];
+extern char PY_mb_tiao[];
+extern char PY_mb_tie[];
+extern char PY_mb_ting[];
+extern char PY_mb_tong[];
+extern char PY_mb_tou[];
+extern char PY_mb_tu[];
+extern char PY_mb_tuan[];
+extern char PY_mb_tui[];
+extern char PY_mb_tun[];
+extern char PY_mb_tuo[];
+extern char PY_mb_wa[];
+extern char PY_mb_wai[];
+extern char PY_mb_wan[];
+extern char PY_mb_wang[];
+extern char PY_mb_wei[];
+extern char PY_mb_wen[];
+extern char PY_mb_weng[];
+extern char PY_mb_wo[];
+extern char PY_mb_wu[];
+extern char PY_mb_xi[];
+extern char PY_mb_xia[];
+extern char PY_mb_xian[];
+extern char PY_mb_xiang[];
+extern char PY_mb_xiao[];
+extern char PY_mb_xie[];
+extern char PY_mb_xin[];
+extern char PY_mb_xing[];
+extern char PY_mb_xiong[];
+extern char PY_mb_xiu[];
+extern char PY_mb_xu[];
+extern char PY_mb_xuan[];
+extern char PY_mb_xue[];
+extern char PY_mb_xun[];
+extern char PY_mb_ya[];
+extern char PY_mb_yan[];
+extern char PY_mb_yang[];
+extern char PY_mb_yao[];
+extern char PY_mb_ye[];
+extern char PY_mb_yi[];
+extern char PY_mb_yin[];
+extern char PY_mb_ying[];
+extern char PY_mb_yo[];
+extern char PY_mb_yong[];
+extern char PY_mb_you[];
+extern char PY_mb_yu[];
+extern char PY_mb_yuan[];
+extern char PY_mb_yue[];
+extern char PY_mb_yun[];
+extern char PY_mb_za[];
+extern char PY_mb_zai[];
+extern char PY_mb_zan[];
+extern char PY_mb_zang[];
+extern char PY_mb_zao[];
+extern char PY_mb_ze[];
+extern char PY_mb_zei[];
+extern char PY_mb_zen[];
+extern char PY_mb_zeng[];
+extern char PY_mb_zha[];
+extern char PY_mb_zhai[];
+extern char PY_mb_zhan[];
+extern char PY_mb_zhang[];
+extern char PY_mb_zhao[];
+extern char PY_mb_zhe[];
+extern char PY_mb_zhen[];
+extern char PY_mb_zheng[];
+extern char PY_mb_zhi[];
+extern char PY_mb_zhong[];
+extern char PY_mb_zhou[];
+extern char PY_mb_zhu[];
+extern char PY_mb_zhua[];
+extern char PY_mb_zhuai[];
+extern char PY_mb_zhuan[];
+extern char PY_mb_zhuang[];
+extern char PY_mb_zhui[];
+extern char PY_mb_zhun[];
+extern char PY_mb_zhuo[];
+extern char PY_mb_zi[];
+extern char PY_mb_zong[];
+extern char PY_mb_zou[];
+extern char PY_mb_zu[];
+extern char PY_mb_zuan[];
+extern char PY_mb_zui[];
+extern char PY_mb_zun[];
+extern char PY_mb_zuo[];</pre></details><details><summary>originals/spellinput.c</summary><pre>/**
+ *  The source is modified from SimSpell v1.0
+ *  special thanks to the author of SimSpell - diameter
+**/
+
+#include &quot;fxlib.h&quot;
+#include &lt;string.h&gt;
+#include &quot;pinyin.h&quot;
+
+void PrintChStr (unsigned char *cStr,int pX,int pY);
+
+int GetPressCharSp (int key)
+{
+	switch(key)
+	{
+		case KEY_CTRL_XTT:
+		case KEY_CHAR_A:	return &#x27;a&#x27;;
+		case KEY_CHAR_LOG:
+		case KEY_CHAR_B:	return &#x27;b&#x27;;
+		case KEY_CHAR_LN:
+		case KEY_CHAR_C:	return &#x27;c&#x27;;
+		case KEY_CHAR_SIN:
+		case KEY_CHAR_D:	return &#x27;d&#x27;;
+		case KEY_CHAR_COS:
+		case KEY_CHAR_E:	return &#x27;e&#x27;;
+		case KEY_CHAR_TAN:
+		case KEY_CHAR_F:	return &#x27;f&#x27;;
+		case KEY_CHAR_FRAC:
+		case KEY_CHAR_G:	return &#x27;g&#x27;;
+		case KEY_CTRL_FD:
+		case KEY_CHAR_H:	return &#x27;h&#x27;; 
+		case KEY_CHAR_LPAR:
+		case KEY_CHAR_I:	return &#x27;i&#x27;;
+		case KEY_CHAR_RPAR:
+		case KEY_CHAR_J:	return &#x27;j&#x27;;
+		case KEY_CHAR_COMMA:
+		case KEY_CHAR_K:	return &#x27;k&#x27;;
+		case KEY_CHAR_STORE:
+		case KEY_CHAR_L:	return &#x27;l&#x27;;
+		case KEY_CHAR_7:
+		case KEY_CHAR_M:	return &#x27;m&#x27;;
+		case KEY_CHAR_8:
+		case KEY_CHAR_N:	return &#x27;n&#x27;;
+		case KEY_CHAR_9:
+		case KEY_CHAR_O:	return &#x27;o&#x27;;
+		case KEY_CHAR_4:
+		case KEY_CHAR_P:	return &#x27;p&#x27;;
+		case KEY_CHAR_5:
+		case KEY_CHAR_Q:	return &#x27;q&#x27;;
+		case KEY_CHAR_6:
+		case KEY_CHAR_R:	return &#x27;r&#x27;;
+		case KEY_CHAR_MULT:
+		case KEY_CHAR_S:	return &#x27;s&#x27;;
+		case KEY_CHAR_DIV:
+		case KEY_CHAR_T:	return &#x27;t&#x27;;
+		case KEY_CHAR_1:
+		case KEY_CHAR_U:	return &#x27;u&#x27;;
+		case KEY_CHAR_2:
+		case KEY_CHAR_V:	return &#x27;v&#x27;;
+		case KEY_CHAR_3:
+		case KEY_CHAR_W:	return &#x27;w&#x27;;
+		case KEY_CHAR_PLUS:
+		case KEY_CHAR_X:	return &#x27;x&#x27;;
+		case KEY_CHAR_MINUS:
+		case KEY_CHAR_Y:	return &#x27;y&#x27;;
+		case KEY_CHAR_0:
+		case KEY_CHAR_Z:	return &#x27;z&#x27;;
+		default:			return 0;
+	}
+}
+
+int InputString(int x,int y,char *c)
+{
+	// fix len = 8
+	unsigned int key;
+	char ch;
+	int len = 8;
+	int i = strlen(c);
+	c[i] = ch = 0;
+	PrintXY(x,y,&quot;        &quot;,1);
+	PrintXY(x,y,c,1);
+	while (1)
+	{
+		GetKey (&amp;key);
+		if (ch=GetPressCharSp(key))
+		{
+			if (i&lt;len)
+			{
+				c[i++] = ch;
+			}
+		}
+		else
+		{
+			if (key==KEY_CTRL_AC)
+				i = 0;
+			else if (key==KEY_CTRL_DEL) {if(i&gt;0)c[i--] = 0;}
+			else if (key==KEY_CTRL_EXE || key==KEY_CTRL_EXIT)
+			{
+				PrintXY(x,y,&quot;        &quot;,0);
+				PrintXY(x,y,c,0);				
+				return key==KEY_CTRL_EXE ? 1:0;
+			}
+		}
+		c[i] = ch = 0;
+		PrintXY(x,y,&quot;        &quot;,1);
+		PrintXY(x,y,c,1);
+	}
+}
+
+typedef struct
+{
+	char *key;
+	char *table;
+}FIND_INDEX;
+
+typedef struct
+{
+	short py_size;
+	short table_size;
+}TABLE_INFO;
+
+TABLE_INFO table_info[]={
+	{  1,	  4},	{  2,	 26},	{  2,	 18},	{  3,	  6},	{  2,	 18},	{  2,	 34},
+	{  3,	 16},	{  3,	 30},	{  4,	 24},	{  3,	 36},	{  3,	 30},	{  3,	 10},
+	{  4,	 12},	{  2,	 46},	{  4,	 24},	{  4,	  8},	{  3,	  8},	{  3,	 12},
+	{  4,	 18},	{  2,	 40},	{  2,	 20},	{  2,	  2},	{  3,	 22},	{  3,	 14},
+	{  4,	 10},	{  3,	 10},	{  2,	 10},	{  4,	  6},	{  3,	 24},	{  4,	  6},
+	{  4,	 20},	{  5,	 24},	{  4,	 20},	{  3,	 12},	{  4,	 20},	{  5,	 30},
+	{  3,	 30},	{  5,	 10},	{  4,	 24},	{  3,	 34},	{  5,	  2},	{  5,	 14},
+	{  6,	 10},	{  4,	 10},	{  4,	 14},	{  4,	  2},	{  2,	 24},	{  4,	 12},
+	{  3,	  2},	{  2,	  8},	{  4,	  6},	{  3,	 16},	{  3,	  6},	{  3,	 12},
+	{  2,	 12},	{  3,	 24},	{  3,	 30},	{  4,	 10},	{  3,	 24},	{  2,	  6},
+	{  4,	 14},	{  2,	 36},	{  4,	 32},	{  4,	 16},	{  3,	 14},	{  4,	 18},
+	{  3,	  2},	{  4,	 20},	{  3,	 16},	{  2,	 28},	{  4,	 12},	{  3,	  8},
+	{  3,	 16},	{  3,	 24},	{  1,	 26},	{  2,	  2},	{  2,	 16},	{  2,	 16},
+	{  3,	 34},	{  4,	 22},	{  3,	 24},	{  3,	 30},	{  4,	 30},	{  2,	  2},
+	{  3,	  2},	{  2,	 88},	{  2,	  4},	{  3,	 12},	{  3,	 22},	{  4,	 18},
+	{  3,	 20},	{  2,	 34},	{  3,	  2},	{  3,	  4},	{  4,	 14},	{  4,	 30},
+	{  3,	 18},	{  2,	 36},	{  3,	 12},	{  4,	  6},	{  4,	 22},	{  5,	  6},
+	{  3,	 32},	{  3,	  6},	{  3,	 12},	{  2,	  4},	{  3,	 14},	{  3,	 38},
+	{  4,	  6},	{  3,	 18},	{  2,	 34},	{  3,	  4},	{  3,	  8},	{  4,	 10},
+	{  4,	 18},	{  3,	 14},	{  2,	 36},	{  3,	 18},	{  4,	 10},	{  4,	 28},
+	{  5,	 28},	{  3,	 42},	{  3,	 12},	{  3,	 20},	{  2,	108},	{  3,	 36},
+	{  4,	 78},	{  5,	 26},	{  4,	 56},	{  3,	 50},	{  3,	 40},	{  4,	 50},
+	{  5,	  4},	{  3,	 34},	{  2,	 52},	{  4,	 14},	{  3,	 18},	{  3,	 22},
+	{  2,	  6},	{  3,	 10},	{  3,	 14},	{  4,	 14},	{  3,	  8},	{  2,	 30},
+	{  3,	  8},	{  4,	  4},	{  4,	  8},	{  3,	  8},	{  2,	 14},	{  3,	 10},
+	{  4,	  8},	{  4,	  4},	{  5,	 16},	{  3,	 22},	{  3,	  8},	{  3,	  8},
+	{  2,	 14},	{  3,	  6},	{  3,	 30},	{  4,	 14},	{  3,	 18},	{  2,	  6},
+	{  3,	 22},	{  4,	  6},	{  2,	 68},	{  4,	 28},	{  5,	 24},	{  4,	 24},
+	{  3,	 10},	{  3,	 24},	{  4,	 28},	{  3,	 22},	{  4,	 18},	{  3,	 12},
+	{  2,	 40},	{  4,	 12},	{  3,	  4},	{  3,	 14},	{  3,	 24},	{  2,	 28},
+	{  2,	 18},	{  3,	 12},	{  3,	 18},	{  4,	 12},	{  3,	 24},	{  2,	  2},
+	{  3,	 32},	{  3,	  6},	{  4,	 16},	{  2,	 28},	{  4,	 18},	{  4,	 16},
+	{  3,	  4},	{  3,	 12},	{  4,	 12},	{  3,	  2},	{  2,	 36},	{  3,	  6},
+	{  2,	 30},	{  2,	 14},	{  3,	 10},	{  3,	  6},	{  4,	  2},	{  3,	 10},
+	{  2,	  2},	{  3,	  4},	{  3,	  2},	{  4,	  2},	{  2,	 22},	{  4,	 14},
+	{  5,	  4},	{  4,	  4},	{  3,	 14},	{  3,	  2},	{  4,	 12},	{  3,	  8},
+	{  4,	  8},	{  2,	  6},	{  4,	  2},	{  3,	  4},	{  3,	  8},	{  2,	  2},
+	{  1,	  2},	{  2,	 14},	{  2,	 14},	{  3,	 12},	{  3,	 16},	{  4,	 10},
+	{  3,	 14},	{  3,	 18},	{  3,	  4},	{  4,	 28},	{  2,	 36},	{  4,	  8},
+	{  4,	  8},	{  3,	  4},	{  3,	 10},	{  4,	 18},	{  2,	 16},	{  3,	  2},
+	{  2,	 30},	{  2,	 72},	{  3,	  6},	{  4,	 44},	{  5,	 16},	{  4,	 30},
+	{  3,	 10},	{  3,	 22},	{  4,	 26},	{  5,	  4},	{  3,	 16},	{  2,	 26},
+	{  4,	 22},	{  3,	 16},	{  3,	  4},	{  3,	  8},	{  4,	 10},	{  3,	  6},
+	{  2,	  4},	{  3,	 20},	{  4,	  4},	{  2,	  2},	{  4,	 20},	{  3,	  6},
+	{  2,	 20},	{  4,	  4},	{  3,	  6},	{  3,	  4},	{  3,	  4},	{  2,	  6},
+	{  3,	  8},	{  3,	  8},	{  4,	  6},	{  3,	  8},	{  2,	  6},	{  3,	  2},
+	{  4,	  2},	{  3,	 18},	{  4,	  4},	{  4,	 34},	{  5,	 16},	{  4,	 22},
+	{  3,	 24},	{  4,	 34},	{  5,	 22},	{  3,	 96},	{  4,	 20},	{  3,	 66},
+	{  4,	  4},	{  5,	  8},	{  5,	  4},	{  6,	  5},	{  4,	  8},	{  4,	  8},
+	{  4,	  8},	{  2,	 30},	{  4,	 16},	{  3,	  8},	{  2,	 22},	{  4,	  6},
+	{  3,	 22},	{  3,	  6},	{  3,	 16},	{  2,	 18},	{  3,	 18},	{  3,	 36},
+	{  4,	 26},	{  3,	 22},	{  2,	  2},	{  4,	  8},	{  2,	 30},	{  4,	 16},
+	{  4,	 12},	{  3,	  6},	{  4,	 20},	{  4,	 26},	{  3,	  8},	{  2,	 22},
+	{  4,	  4},	{  3,	 12},	{  3,	  8},	{  3,	 22},	{  2,	 14},	{  3,	  4},
+	{  3,	 34},	{  4,	 20},	{  3,	 66},	{  3,	 20},	{  4,	  6},	{  2,	 18},
+	{  2,	 58},	{  2,	 68},	{  3,	 24},	{  4,	 54},	{  5,	 40},	{  4,	 34},
+	{  3,	 40},	{  3,	 20},	{  4,	 28},	{  5,	 14},	{  3,	 20},	{  2,	 38},
+	{  4,	 20},	{  3,	 14},	{  3,	 28},	{  2,	 32},	{  3,	 66},	{  4,	 34},
+	{  3,	 34},	{  2,	 30},	{  2,	106},	{  3,	 32},	{  4,	 36},	{  2,	  2},
+	{  4,	 30},	{  3,	 40},	{  2,	 88},	{  4,	 40},	{  3,	 18},	{  3,	 24},
+	{  2,	  8},	{  3,	 16},	{  3,	  8},	{  4,	  6},	{  3,	 28},	{  2,	  8},
+	{  3,	  2},	{  3,	  2},	{  4,	  6},	{  3,	 26},	{  4,	 14},	{  4,	 34},
+	{  5,	 32},	{  4,	 22},	{  3,	 22},	{  4,	 34},	{  5,	 28},	{  3,	 86},
+	{  5,	 22},	{  4,	 28},	{  3,	 52},	{  4,	  2},	{  5,	  2},	{  5,	 10},
+	{  6,	 16},	{  4,	 12},	{  4,	  4},	{  4,	 20},	{  2,	 28},	{  4,	 14},
+	{  3,	  8},	{  2,	 16},	{  4,	  6},	{  3,	  8},	{  3,	  4}			   };
+
+const int table_size = sizeof(table_info)/sizeof(TABLE_INFO);
+
+FIND_INDEX *find_index[sizeof(table_info)/sizeof(TABLE_INFO)];
+
+extern FONTCHARACTER * CharToFont(const char *cFileName,FONTCHARACTER *fFileName);
+extern char * FontToChar(const FONTCHARACTER *fFileName,char *cFileName);
+
+int LoadSpellTable ()
+{
+	int fh_lib;
+	int i,pos;
+	FONTCHARACTER FileName[20];
+	CharToFont(&quot;\\\\fls0\\PINYIN.py&quot;,FileName);
+	fh_lib = Bfile_OpenFile(FileName,_OPENMODE_READ);
+	
+	if (fh_lib&lt;0) return -1;
+
+	pos = 0;
+	for (i=0;i&lt;table_size;++i)
+	{
+		find_index[i]  =  (FIND_INDEX*)calloc(sizeof(FIND_INDEX),1);
+		find_index[i]-&gt;key   =  (char*)calloc(sizeof(char),table_info[i].py_size+1);
+		Bfile_ReadFile(	fh_lib,
+						find_index[i]-&gt;key,
+						table_info[i].py_size,
+						pos);
+		pos+=table_info[i].py_size;
+		find_index[i]-&gt;table =  (char*)calloc(sizeof(char),table_info[i].table_size+1);
+		Bfile_ReadFile(	fh_lib,
+						find_index[i]-&gt;table,
+						table_info[i].table_size,
+						pos);
+		pos+=table_info[i].table_size;
+	}
+	Bfile_CloseFile(fh_lib);
+}
+
+int MatchSpellTable (char *mc)
+{
+	int i,j=-1,t=0,k;
+	for (i=0;i&lt;table_size;++i)
+	{
+		if (*(find_index[i]-&gt;key)==*mc)
+		{
+			if(j&lt;0)j = i;
+			++t;
+		}
+		else if(t) break;
+	}
+	if (j&lt;0) return -1;
+	for (t=j;t&lt;i;++t)
+	{
+		if (strcmp(find_index[t]-&gt;key,mc)==0)
+			return t;
+	}
+	return -1;
+}
+
+short SpellInputAChar()
+{
+	char buf[16]=&quot;&quot;;
+	int size,p,d,r,k;
+	unsigned int key;
+	while(1)
+	{
+		DrawClearBox (0,48,127,63,1);
+		DrawClearBox (0,39,6*8+1,48,1);
+		r = InputString(1,40,buf);
+		if (r)
+		{
+			d = MatchSpellTable(buf);
+			if (d&gt;=0)
+			{
+				size = strlen(find_index[d]-&gt;table)/2;
+				r = 1;
+				p = 0;
+				while(1)
+				{
+					if (r)
+					{
+						int i;
+						char id[]=&quot;0&quot;,chs[]=&quot;  &quot;;
+						DrawClearBox (0,48,127,63,1);
+						for (i=0;i&lt;5 &amp;&amp; p+i&lt;size;++i)
+						{
+							(*id)++;
+							PrintMini(i*25+1,54,id,MINI_OVER);
+							memcpy(chs,&amp;(find_index[d]-&gt;table[(i+p)*2]),2);
+							PrintChStr(chs,i*25+6,50);
+						}
+						r = 0;
+					}					
+					GetKey(&amp;key);
+					if (key==KEY_CTRL_EXIT) break;
+					else if (key==KEY_CTRL_RIGHT || key== KEY_CTRL_F6)
+					{
+						p+=5;if (p&gt;=size) p -= 5;r=1;
+					}
+					else if (key==KEY_CTRL_LEFT)
+					{
+						p-=5;if (p&lt;0) p =0;r =1;
+					}
+					for (k=0;k&lt;5;++k)
+					{
+						if (key==&#x27;1&#x27;+k)
+						{
+							if (p+k&lt;size)
+							{
+								short ch;
+								memcpy(&amp;ch,&amp;(find_index[d]-&gt;table[(k+p)*2]),2);
+								return ch;
+							}
+						}
+					}
+				}
+			}
+		}
+		else
+			return 0;
+	}
+}
+</pre></details><details><summary>originals/spellinput.h</summary><pre>/**
+ *  The source is modified from SimSpell v1.0
+ *  special thanks to the author of SimSpell - diameter
+**/
+
+#ifndef _SPELLINPUT_H_
+#define _SPELLINPUT_H_
+
+int LoadSpellTable( void );
+short SpellInputAChar( void );
+
+#endif
+</pre></details><h2>图</h2><div class="imgs"><figure><img src="../20120813%20%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/originals/MainIcon.bmp" alt="originals/MainIcon.bmp" loading="lazy"><figcaption>originals/MainIcon.bmp</figcaption></figure></div></main></body></html>

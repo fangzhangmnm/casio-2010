@@ -1,0 +1,622 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Doodle Jump · 化石</title><style>:root{--lcd:#c8ceba;--ink:#222620;--panel:#b9c0a9}html,body{margin:0;background:var(--lcd);color:var(--ink)}
+main{max-width:860px;margin:0 auto;padding:16px;font:15px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif}
+a{color:var(--ink)}h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:20px 0 6px;border-bottom:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:3px 6px;border-bottom:1px solid #9aa08c;text-align:left;vertical-align:top}
+td.n{text-align:right;white-space:nowrap}code,pre{font:13px/1.45 ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+pre{background:var(--panel);padding:10px;overflow:auto;white-space:pre;tab-size:4}details{margin:6px 0}summary{cursor:pointer;font-weight:600}
+.imgs{display:flex;flex-wrap:wrap;gap:12px}.imgs figure{margin:0}.imgs img{image-rendering:pixelated;max-width:100%;border:1px solid #9aa08c}
+.imgs figcaption{font-size:12px}.top a{margin-right:12px}.wrap{overflow-x:auto}</style></head><body><main><p class="top"><a href="../index.html">← GWHBOB的计算器程序</a><a href="../play/doodle.html">▶ 玩 Doodle Jump</a><a href="../play/doodle.html?calc">计算器</a></p><h1>Doodle Jump · 化石</h1><p>Doodle Jump，C 写的 Add-in（G1A）：2011 年论坛上的 V0.9（只有 G1A）和 2013-07-23 的工程（源码 + G1A）。</p>
+<p>时间戳 = V0.9 发帖的日子 2011-04-15（cnCalc 5894 帖，最早有据可查）。</p><h2>原件</h2><p>当年的字节，一个没改；点文件名下载。时间是文件里存的原始修改时间（北京时间），「—」是论坛附件、看出处里的帖子日期。</p><div class="wrap"><table><tr><th>文件</th><th>字节</th><th>原始时间</th><th>sha256 前 16 位</th><th>出处</th></tr><tr><td><a href="../20110415%20Doodle%20Jump/originals/2011-forum-v0.9/DOODLE.G1A" download>originals/2011-forum-v0.9/DOODLE.G1A</a></td><td class="n">9660</td><td>—</td><td><code>232f62f9392126f9</code></td><td>cnCalc 5894 帖附件，2011-04-15（V0.9，没有源码）</td></tr><tr><td><a href="../20110415%20Doodle%20Jump/originals/2011-forum-v0.9/rr5.JPG" download>originals/2011-forum-v0.9/rr5.JPG</a></td><td class="n">219207</td><td>—</td><td><code>96a44618cf5deea4</code></td><td>cnCalc 5894 帖照片</td></tr><tr><td><a href="../20110415%20Doodle%20Jump/originals/2013/AddinInfo.txt" download>originals/2013/AddinInfo.txt</a></td><td class="n">462</td><td>2013-07-23 11:45</td><td><code>f7cc6251738fa423</code></td><td>作者电脑里的工程文件夹，2013-07（带「伪随机必死空隙」修正）</td></tr><tr><td><a href="../20110415%20Doodle%20Jump/originals/2013/DOODLE.G1A" download>originals/2013/DOODLE.G1A</a></td><td class="n">8540</td><td>2013-07-23 13:27</td><td><code>9218f99241bc566a</code></td><td>作者电脑里的工程文件夹，2013-07（带「伪随机必死空隙」修正）</td></tr><tr><td><a href="../20110415%20Doodle%20Jump/originals/2013/Doodle%20-%20%E5%89%AF%E6%9C%AC.c" download>originals/2013/Doodle - 副本.c</a></td><td class="n">7314</td><td>2013-07-23 11:46</td><td><code>c655115a7d1c4f0f</code></td><td>作者电脑里的工程文件夹，2013-07（带「伪随机必死空隙」修正）</td></tr><tr><td><a href="../20110415%20Doodle%20Jump/originals/2013/Doodle.c" download>originals/2013/Doodle.c</a></td><td class="n">7777</td><td>2013-07-23 13:27</td><td><code>04301a870931908d</code></td><td>作者电脑里的工程文件夹，2013-07（带「伪随机必死空隙」修正）</td></tr><tr><td><a href="../20110415%20Doodle%20Jump/originals/2013/Doodle.g1w" download>originals/2013/Doodle.g1w</a></td><td class="n">248</td><td>2013-07-23 11:45</td><td><code>87149d8036135c38</code></td><td>作者电脑里的工程文件夹，2013-07（带「伪随机必死空隙」修正）</td></tr><tr><td><a href="../20110415%20Doodle%20Jump/originals/2013/FXSH_Build.bat" download>originals/2013/FXSH_Build.bat</a></td><td class="n">500</td><td>2013-07-23 13:27</td><td><code>073ee60f5b24b843</code></td><td>作者电脑里的工程文件夹，2013-07（带「伪随机必死空隙」修正）</td></tr><tr><td><a href="../20110415%20Doodle%20Jump/originals/2013/MainIcon.bmp" download>originals/2013/MainIcon.bmp</a></td><td class="n">138</td><td>2006-12-04 11:47</td><td><code>2713890e097911ef</code></td><td>作者电脑里的工程文件夹，2013-07（带「伪随机必死空隙」修正）</td></tr><tr><td><a href="../20110415%20Doodle%20Jump/originals/2013/eActivityIcon.bmp" download>originals/2013/eActivityIcon.bmp</a></td><td class="n">106</td><td>2006-12-04 11:47</td><td><code>50d41bc4438e94ee</code></td><td>作者电脑里的工程文件夹，2013-07（带「伪随机必死空隙」修正）</td></tr></table></div><h2>代码</h2><p>当年是 GBK 编码，这里解出来显示。</p><details><summary>originals/2013/AddinInfo.txt</summary><pre>//------------------------------------------------------------------
+// Addin-Application header control file, created with the CASIO SDK
+//------------------------------------------------------------------
+[OUTPUT]     : &quot;DOODLE.G1A&quot;
+[BINDATA]    : &quot;FXADDINror.bin&quot;
+[DISPNAME]   : &quot;Doodle&quot;
+[APPNAME]    : &quot;@DOODLE&quot;
+[VERSION]    : &quot;01.00.0000&quot;
+[APL_ICON]   : &quot;MainIcon.bmp&quot;
+[MODULE_NUM] : 0
+[MOD1_TITLE] : &quot;Doodle&quot;
+[MOD1_ICON]  : &quot;eActivityIcon.bmp&quot;
+</pre></details><details open><summary>originals/2013/Doodle - 副本.c</summary><pre>/*****************************************************************/
+/*                                                               */
+/*   CASIO fx-9860G SDK Library                                  */
+/*                                                               */
+/*   File name : Doodle.c                                        */
+/*                                                               */
+/*   Copywrong (c) 2006 CASIO COMPUTER CO., LTD.                 */
+/*                                                               */
+/*****************************************************************/
+#include &quot;fxlib.h&quot;
+#include &quot;stdlib.h&quot;
+#include &quot;timer.h&quot;
+#include &quot;revolution.h&quot;
+
+const char pict_doodle[12][12]={
+{5,5,5,5,5,5,1,1,1,1,5,5},
+{5,5,5,5,5,1,0,0,0,0,1,5},
+{1,5,5,5,1,0,0,0,0,0,0,1},
+{1,1,1,1,0,1,0,1,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,1},
+{1,1,1,1,0,0,0,0,0,0,0,1},
+{1,5,5,1,0,0,0,0,0,0,0,1},
+{5,5,5,1,1,1,1,1,1,1,1,1},
+{5,5,5,1,0,0,0,0,0,0,0,1},
+{5,5,5,1,1,1,1,1,1,1,1,1},
+{5,5,5,5,1,5,5,1,5,5,1,5},
+{5,5,5,1,1,5,1,1,5,1,1,5}};
+const char pict_number[8][50]={
+{5,1,1,1,5,5,5,1,1,5,5,1,1,1,1,5,1,1,1,5,5,5,5,1,1,1,1,1,1,1,5,5,5,1,1,1,1,1,1,1,5,1,1,1,5,5,1,1,1,5},
+{1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1,1,5,5,1,1,1,1,1,1,1,1,5,5,1,1,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{1,1,0,1,1,1,1,1,1,5,1,1,5,5,1,1,5,5,1,1,5,1,1,1,1,1,1,5,5,5,5,1,1,5,5,5,5,5,1,1,1,1,0,1,1,1,1,0,1,1},
+{1,1,0,1,1,5,5,1,1,5,5,5,5,1,1,5,5,1,1,5,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,1,1,5,1,1,1,5,1,1,1,1,1},
+{1,1,0,1,1,5,5,1,1,5,5,1,1,1,5,5,5,5,1,1,1,1,1,1,1,5,5,5,1,1,1,1,1,1,1,5,5,1,1,5,1,1,0,1,1,5,1,1,1,1},
+{1,1,0,1,1,5,5,1,1,5,1,1,5,5,5,1,5,5,1,1,1,1,1,1,1,1,5,5,1,1,1,1,0,1,1,5,5,1,1,5,1,1,0,1,1,5,5,1,1,1},
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,5,1,1,1,1,1,5,5,1,1,5},
+{5,1,1,1,5,1,1,1,1,1,1,1,1,1,1,5,1,1,1,5,5,5,5,1,1,5,1,1,1,5,5,1,1,1,5,5,1,1,5,5,5,1,1,1,5,5,1,1,5,5}};
+
+float PlatX[50];
+int PlatY[50],PlatT[50];
+int PlatS,PlatN;
+float DoodleX,DoodleY,DoodleVX,DoodleVY,TmpY;
+float PlatV;
+int NextPlat,TotalY;
+int FreqFake,FreqMove;
+int DoodleTurn;
+long Score;
+void DispScore()
+{
+	long tmp;
+	int x,m,i,j,t;
+	tmp=Score;
+	x=55;
+	while(tmp&gt;0){
+		m=(tmp%10)*5;
+		for(i=0;i&lt;5;i++){
+			for(j=0;j&lt;7;j++){
+				t=pict_number[j][i+m];
+				if(t!=5)Bdisp_SetPoint_VRAM(126-j,x+i,t);
+			}
+		}	
+		tmp=(int)(tmp/10);
+		x-=6;
+	}
+}
+void DispDoodle(int X,int Y,int Turn)
+{
+	int i,j,m,n;char t;
+	for(j=0;j&lt;=11;j++){
+		n=Y+11-j;
+		if((n&gt;=0)&amp;&amp;(n&lt;=127))
+		for(i=0;i&lt;=11;i++){
+			if(Turn==1)m=X-7+i;else m=X-i+7;
+			t=pict_doodle[j][i];
+			if((m&gt;=0)&amp;&amp;(m&lt;=63)&amp;&amp;(t!=5))Bdisp_SetPoint_VRAM(n,m,t);
+		}
+	}		
+	//Bdisp_SetPoint_VRAM(Y,X,0);
+}	
+void DispPlat()
+{
+	int i,m,px,py;
+	m=PlatS;
+	for(i=1;i&lt;=PlatN;i++){
+		px=PlatX[m];py=PlatY[m];
+		switch(PlatT[m]){
+			case -1:
+				Bdisp_DrawLineVRAM(py,px-6,py,px+1);
+				Bdisp_DrawLineVRAM(py,px+3,py,px+6);
+				if(py&gt;0){Bdisp_SetPoint_VRAM(py-1,px-7,1);
+				Bdisp_SetPoint_VRAM(py-1,px+7,1);
+				Bdisp_SetPoint_VRAM(py-1,px,1);
+				Bdisp_SetPoint_VRAM(py-1,px+2,1);}
+				if(py&gt;1){Bdisp_SetPoint_VRAM(py-2,px-7,1);
+				Bdisp_SetPoint_VRAM(py-2,px+7,1);
+				Bdisp_SetPoint_VRAM(py-2,px-1,1);
+				Bdisp_SetPoint_VRAM(py-2,px+1,1);}
+				if(py&gt;2){Bdisp_DrawLineVRAM(py-3,px-6,py-3,px-2);
+				Bdisp_DrawLineVRAM(py-3,px,py-3,px+6);}
+			break;
+			case 1:
+				Bdisp_DrawLineVRAM(py,px-6,py,px+6);
+				if(py&gt;0){Bdisp_SetPoint_VRAM(py-1,px-7,1);
+				Bdisp_SetPoint_VRAM(py-1,px+7,1);}
+				if(py&gt;1){Bdisp_SetPoint_VRAM(py-2,px-7,1);
+				Bdisp_SetPoint_VRAM(py-2,px+7,1);}
+				if(py&gt;2)Bdisp_DrawLineVRAM(py-3,px-6,py-3,px+6);
+			break;
+			case 2:
+			case 3:
+				Bdisp_DrawLineVRAM(py,px-6,py,px+6);
+				if(py&gt;0){Bdisp_SetPoint_VRAM(py-1,px-7,1);
+				Bdisp_SetPoint_VRAM(py-1,px+7,1);}
+				if(py&gt;1){Bdisp_SetPoint_VRAM(py-2,px-7,1);
+				Bdisp_SetPoint_VRAM(py-2,px+7,1);
+				Bdisp_DrawLineVRAM(py-2,px-4,py-2,px+4);}
+				if(py&gt;2)Bdisp_DrawLineVRAM(py-3,px-6,py-3,px+6);
+			break;
+		}
+		m=(m+1)%50;
+	}
+}
+void Map()
+{
+	NextPlat=20;PlatV=0;FreqFake=101;FreqMove=101;
+	if(Score&gt;1500){NextPlat=20;PlatV=0.3;FreqFake=70;FreqMove=80;}
+	if(Score&gt;3000){NextPlat=15;PlatV=0.3;FreqFake=50;FreqMove=70;}
+	if(Score&gt;4500){NextPlat=15;PlatV=0.6;FreqFake=30;FreqMove=50;}
+	if(Score&gt;6000){NextPlat=20;PlatV=0.9;FreqFake=30;FreqMove=50;}
+	if(Score&gt;9000){NextPlat=20;PlatV=1.2;FreqFake=10;FreqMove=40;}
+	if(Score&gt;12000){NextPlat=20;PlatV=1.5;FreqFake=0;FreqMove=40;}
+}
+void Move2()
+{
+	int deltaY,i,m,Tmp_PlatN,d;
+	deltaY=DoodleY-63;
+	if(deltaY&lt;=0)return;
+
+	DoodleY=DoodleY-deltaY;
+	Score=Score+deltaY;
+
+	m=PlatS;Tmp_PlatN=PlatN;
+	for(i=1;i&lt;=PlatN;i++){
+		PlatY[m]-=deltaY;
+		if(PlatY[m]&lt;0){
+			PlatT[m]=0;
+			PlatS=(PlatS+1)%50;
+			Tmp_PlatN--;
+		}
+		m=(m+1)%50;
+	}
+	PlatN=Tmp_PlatN;
+	if(PlatN&lt;0)PlatN=0;
+	
+	TotalY=TotalY+deltaY;
+	while((TotalY&gt;=NextPlat)&amp;&amp;(PlatN&lt;50)){
+		TotalY-=NextPlat;
+		PlatN++;
+		PlatX[m]=rand()%49+7;
+		PlatY[m]=130-TotalY;
+		d=rand()%100+1;
+		PlatT[m]=1;
+		if(d&gt;=FreqFake){PlatT[m]=-1;}
+		if(d&gt;=FreqMove){PlatT[m]=2;}
+		m=(m+1)%50;
+	}
+}
+void Check1()
+{
+	int i,m,px,py,pt,ans;
+	if(DoodleVY&gt;=0)return;
+	m=PlatS;ans=-1;
+	for(i=1;i&lt;=PlatN;i++){
+		px=PlatX[m];py=PlatY[m];pt=PlatT[m];
+		if((pt&gt;0)&amp;&amp;(abs(px-DoodleX)&lt;=11)&amp;&amp;(TmpY&gt;=py)&amp;&amp;(DoodleY&lt;=py)) ans=m;
+		m=(m+1)%50;
+	}
+	if(ans!=-1){
+		DoodleY=PlatY[ans];
+		DoodleVY=5.5;
+		DoodleVX=0;
+	}
+}
+void Move1()
+{
+	if(IsKeyDown(KEY_CTRL_UP)){
+		if(DoodleVX-0.5&gt;=-2)DoodleVX=DoodleVX-.5;
+	}else{if(DoodleVX&lt;0)DoodleVX=0;}
+	if(IsKeyDown(KEY_CTRL_DOWN)){
+		if(DoodleVX+0.5&lt;=2)DoodleVX=DoodleVX+.5;
+	}else{if(DoodleVX&gt;0)DoodleVX=0;}
+
+	DoodleX=DoodleX+DoodleVX;
+	if(DoodleVX&lt;0)DoodleTurn=1;
+	if(DoodleVX&gt;0)DoodleTurn=2;
+	if(DoodleX&lt;-4)DoodleX=DoodleX+71;
+	if(DoodleX&gt;=67)DoodleX=DoodleX-71;
+
+	TmpY=DoodleY;
+	DoodleVY=DoodleVY-0.2;
+	DoodleY=DoodleY+DoodleVY;
+}
+void Move0()
+{
+	int i,m;
+	m=PlatS;
+	for(i=1;i&lt;=PlatN;i++){
+		if(PlatT[m]==2){
+			if(PlatX[m]-PlatV&gt;=7)PlatX[m]=PlatX[m]-PlatV;
+			else{PlatX[m]=7;PlatT[m]=3;}
+		}else if(PlatT[m]==3){
+			if(PlatX[m]+PlatV&lt;=56)PlatX[m]=PlatX[m]+PlatV;
+			else{PlatX[m]=56;PlatT[m]=2;}
+		}
+		m=(m+1)%50;
+	}
+}
+void MainLoop()
+{
+    unsigned int key;
+	
+    Bdisp_AllClr_VRAM();
+	Move0();
+	Move1();
+	Check1();
+	Move2();
+	Map();
+	DispPlat();
+    DispDoodle(DoodleX,DoodleY,DoodleTurn);
+	DispScore();
+	Bdisp_PutDisp_DD();
+	if((DoodleY&lt;-12)||(IsKeyDown(KEY_CTRL_EXIT))){
+		KillTimer(ID_USER_TIMER1);
+		Change_Contrast(167);
+		Sleep(1000);
+		GetKey(&amp;key);
+		Reset_Calc();
+	}
+}
+
+int AddIn_main(int isAppli, unsigned short OptionNum)
+{
+    unsigned int key;
+	int i;
+	
+	Change_Contrast(216);
+	
+	//BEGIN INIT
+	for(i=0;i&lt;24;i++){PlatX[i]=rand()%49+7;PlatY[i]=i*5;PlatT[i]=1;}
+	PlatS=0;PlatN=24;
+	DoodleX=PlatX[0];DoodleY=2;DoodleVX=0;DoodleVY=0;
+	TotalY=0;
+	Score=0;
+	DoodleTurn=1;
+	Map();
+	//END INIT
+	
+	SetTimer(ID_USER_TIMER1,25,&amp;MainLoop);
+    while(1){
+        GetKey(&amp;key);
+    }
+
+    return 1;    
+}
+#pragma section _BR_Size
+unsigned long BR_Size;
+#pragma section
+#pragma section _TOP
+int InitializeSystem(int isAppli, unsigned short OptionNum)
+{
+    return INIT_ADDIN_APPLICATION(isAppli, OptionNum);
+}
+#pragma section
+
+</pre></details><details><summary>originals/2013/Doodle.c</summary><pre>/*****************************************************************/
+/*                                                               */
+/*   CASIO fx-9860G SDK Library                                  */
+/*                                                               */
+/*   File name : Doodle.c                                        */
+/*                                                               */
+/*   Copywrong (c) 2006 CASIO COMPUTER CO., LTD.                 */
+/*                                                               */
+/*****************************************************************/
+#include &quot;fxlib.h&quot;
+#include &quot;stdlib.h&quot;
+#include &quot;timer.h&quot;
+#include &quot;revolution.h&quot;
+
+const char pict_doodle[12][12]={
+{5,5,5,5,5,5,1,1,1,1,5,5},
+{5,5,5,5,5,1,0,0,0,0,1,5},
+{1,5,5,5,1,0,0,0,0,0,0,1},
+{1,1,1,1,0,1,0,1,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,1},
+{1,1,1,1,0,0,0,0,0,0,0,1},
+{1,5,5,1,0,0,0,0,0,0,0,1},
+{5,5,5,1,1,1,1,1,1,1,1,1},
+{5,5,5,1,0,0,0,0,0,0,0,1},
+{5,5,5,1,1,1,1,1,1,1,1,1},
+{5,5,5,5,1,5,5,1,5,5,1,5},
+{5,5,5,1,1,5,1,1,5,1,1,5}};
+const char pict_number[8][50]={
+{5,1,1,1,5,5,5,1,1,5,5,1,1,1,1,5,1,1,1,5,5,5,5,1,1,1,1,1,1,1,5,5,5,1,1,1,1,1,1,1,5,1,1,1,5,5,1,1,1,5},
+{1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1,1,5,5,1,1,1,1,1,1,1,1,5,5,1,1,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{1,1,0,1,1,1,1,1,1,5,1,1,5,5,1,1,5,5,1,1,5,1,1,1,1,1,1,5,5,5,5,1,1,5,5,5,5,5,1,1,1,1,0,1,1,1,1,0,1,1},
+{1,1,0,1,1,5,5,1,1,5,5,5,5,1,1,5,5,1,1,5,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,1,1,5,1,1,1,5,1,1,1,1,1},
+{1,1,0,1,1,5,5,1,1,5,5,1,1,1,5,5,5,5,1,1,1,1,1,1,1,5,5,5,1,1,1,1,1,1,1,5,5,1,1,5,1,1,0,1,1,5,1,1,1,1},
+{1,1,0,1,1,5,5,1,1,5,1,1,5,5,5,1,5,5,1,1,1,1,1,1,1,1,5,5,1,1,1,1,0,1,1,5,5,1,1,5,1,1,0,1,1,5,5,1,1,1},
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,5,1,1,1,1,1,5,5,1,1,5},
+{5,1,1,1,5,1,1,1,1,1,1,1,1,1,1,5,1,1,1,5,5,5,5,1,1,5,1,1,1,5,5,1,1,1,5,5,1,1,5,5,5,1,1,1,5,5,1,1,5,5}};
+
+const float VELO=5.5;
+const float VELO2=0;
+const float VELO3=0;
+const float ACC=.5;
+const float G=0.2;
+float MAXHEIGHT;
+
+float PlatX[50];
+int PlatY[50],PlatT[50];
+int PlatS,PlatN;
+float DoodleX,DoodleY,DoodleVX,DoodleVY,TmpY;
+float PlatV;
+int NextPlat,TotalY;
+int FreqFake,FreqMove;
+int DoodleTurn;
+long Score;
+float BlankTotal=0;
+
+void DispScore()
+{
+	long tmp;
+	int x,m,i,j,t;
+	tmp=Score;
+	x=55;
+	while(tmp&gt;0){
+		m=(tmp%10)*5;
+		for(i=0;i&lt;5;i++){
+			for(j=0;j&lt;7;j++){
+				t=pict_number[j][i+m];
+				if(t!=5)Bdisp_SetPoint_VRAM(126-j,x+i,t);
+			}
+		}	
+		tmp=(int)(tmp/10);
+		x-=6;
+	}
+}
+void DispDoodle(int X,int Y,int Turn)
+{
+	int i,j,m,n;char t;
+	for(j=0;j&lt;=11;j++){
+		n=Y+11-j;
+		if((n&gt;=0)&amp;&amp;(n&lt;=127))
+		for(i=0;i&lt;=11;i++){
+			if(Turn==1)m=X-7+i;else m=X-i+7;
+			t=pict_doodle[j][i];
+			if((m&gt;=0)&amp;&amp;(m&lt;=63)&amp;&amp;(t!=5))Bdisp_SetPoint_VRAM(n,m,t);
+		}
+	}		
+	//Bdisp_SetPoint_VRAM(Y,X,0);
+}	
+void DispPlat()
+{
+	int i,m,px,py;
+	m=PlatS;
+	for(i=1;i&lt;=PlatN;i++){
+		px=PlatX[m];py=PlatY[m];
+		switch(PlatT[m]){
+			case -1:
+				Bdisp_DrawLineVRAM(py,px-6,py,px+1);
+				Bdisp_DrawLineVRAM(py,px+3,py,px+6);
+				if(py&gt;0){Bdisp_SetPoint_VRAM(py-1,px-7,1);
+				Bdisp_SetPoint_VRAM(py-1,px+7,1);
+				Bdisp_SetPoint_VRAM(py-1,px,1);
+				Bdisp_SetPoint_VRAM(py-1,px+2,1);}
+				if(py&gt;1){Bdisp_SetPoint_VRAM(py-2,px-7,1);
+				Bdisp_SetPoint_VRAM(py-2,px+7,1);
+				Bdisp_SetPoint_VRAM(py-2,px-1,1);
+				Bdisp_SetPoint_VRAM(py-2,px+1,1);}
+				if(py&gt;2){Bdisp_DrawLineVRAM(py-3,px-6,py-3,px-2);
+				Bdisp_DrawLineVRAM(py-3,px,py-3,px+6);}
+			break;
+			case 1:
+				Bdisp_DrawLineVRAM(py,px-6,py,px+6);
+				if(py&gt;0){Bdisp_SetPoint_VRAM(py-1,px-7,1);
+				Bdisp_SetPoint_VRAM(py-1,px+7,1);}
+				if(py&gt;1){Bdisp_SetPoint_VRAM(py-2,px-7,1);
+				Bdisp_SetPoint_VRAM(py-2,px+7,1);}
+				if(py&gt;2)Bdisp_DrawLineVRAM(py-3,px-6,py-3,px+6);
+			break;
+			case 2:
+			case 3:
+				Bdisp_DrawLineVRAM(py,px-6,py,px+6);
+				if(py&gt;0){Bdisp_SetPoint_VRAM(py-1,px-7,1);
+				Bdisp_SetPoint_VRAM(py-1,px+7,1);}
+				if(py&gt;1){Bdisp_SetPoint_VRAM(py-2,px-7,1);
+				Bdisp_SetPoint_VRAM(py-2,px+7,1);
+				Bdisp_DrawLineVRAM(py-2,px-4,py-2,px+4);}
+				if(py&gt;2)Bdisp_DrawLineVRAM(py-3,px-6,py-3,px+6);
+			break;
+		}
+		m=(m+1)%50;
+	}
+}
+void LevelSet()
+{
+	NextPlat=20;PlatV=0;FreqFake=100;FreqMove=100;
+	if(Score&gt;1500){NextPlat=20;PlatV=0.3;FreqFake=70;FreqMove=80;}
+	if(Score&gt;3000){NextPlat=15;PlatV=0.3;FreqFake=50;FreqMove=70;}
+	if(Score&gt;4500){NextPlat=15;PlatV=0.6;FreqFake=30;FreqMove=50;}
+	if(Score&gt;6000){NextPlat=20;PlatV=0.9;FreqFake=30;FreqMove=50;}
+	if(Score&gt;9000){NextPlat=20;PlatV=1.2;FreqFake=10;FreqMove=40;}
+	if(Score&gt;12000){NextPlat=20;PlatV=1.5;FreqFake=0;FreqMove=40;}
+}
+void NewPlate()
+{
+	int deltaY,i,m,Tmp_PlatN,d;
+	deltaY=DoodleY-63;
+	if(deltaY&lt;=0)return;
+
+	DoodleY=DoodleY-deltaY;
+	Score=Score+deltaY;
+
+	m=PlatS;Tmp_PlatN=PlatN;
+	for(i=1;i&lt;=PlatN;i++){
+		PlatY[m]-=deltaY;
+		if(PlatY[m]&lt;0){
+			PlatT[m]=0;
+			PlatS=(PlatS+1)%50;
+			Tmp_PlatN--;
+		}
+		m=(m+1)%50;
+	}
+	PlatN=Tmp_PlatN;
+	if(PlatN&lt;0)PlatN=0;
+	
+	TotalY=TotalY+deltaY;
+	while((TotalY&gt;=NextPlat)&amp;&amp;(PlatN&lt;50)){
+		TotalY-=NextPlat;
+		PlatN++;
+		PlatX[m]=rand()%49+7;
+		PlatY[m]=130-TotalY;
+		d=rand()%100+1;
+		PlatT[m]=1;
+		if(d&gt;=FreqFake &amp;&amp; d&lt;FreqMove)
+			if(BlankTotal+2*NextPlat&lt;MAXHEIGHT)
+				PlatT[m]=-1;
+		if(d&gt;=FreqMove)PlatT[m]=2;
+		if(PlatT[m]&gt;0)BlankTotal=0;
+		else BlankTotal+=NextPlat;
+		m=(m+1)%50;
+	}
+}
+void CheckPlate()
+{
+	int i,m,px,py,pt,ans;
+	if(DoodleVY&gt;=0)return;
+	m=PlatS;ans=-1;
+	for(i=1;i&lt;=PlatN;i++){
+		px=PlatX[m];py=PlatY[m];pt=PlatT[m];
+		if((pt&lt;0)&amp;&amp;(abs(px-DoodleX)&lt;=11)&amp;&amp;(TmpY&gt;=py)&amp;&amp;(DoodleY&lt;=py)) PlatT[m]=0;
+		if((pt&gt;0)&amp;&amp;(abs(px-DoodleX)&lt;=11)&amp;&amp;(TmpY&gt;=py)&amp;&amp;(DoodleY&lt;=py)) ans=m;
+		m=(m+1)%50;
+	}
+	if(ans!=-1){
+		DoodleY=PlatY[ans];
+		DoodleVY=VELO;
+		//DoodleVX=0;
+	}
+}
+void MoveDoodle()
+{
+	if(IsKeyDown(KEY_CTRL_UP)){
+		if(DoodleVX-ACC&gt;=-2)DoodleVX=DoodleVX-ACC;
+	}else{if(DoodleVX&lt;0)DoodleVX=0;}
+	if(IsKeyDown(KEY_CTRL_DOWN)){
+		if(DoodleVX+ACC&lt;=2)DoodleVX=DoodleVX+ACC;
+	}else{if(DoodleVX&gt;0)DoodleVX=0;}
+
+	DoodleX=DoodleX+DoodleVX;
+	if(DoodleVX&lt;0)DoodleTurn=1;
+	if(DoodleVX&gt;0)DoodleTurn=2;
+	if(DoodleX&lt;-4)DoodleX=DoodleX+71;
+	if(DoodleX&gt;=67)DoodleX=DoodleX-71;
+
+	TmpY=DoodleY;
+	DoodleY=DoodleY+DoodleVY;
+	DoodleVY=DoodleVY-G;
+}
+void MovePlate()
+{
+	int i,m;
+	m=PlatS;
+	for(i=1;i&lt;=PlatN;i++){
+		if(PlatT[m]==2){
+			if(PlatX[m]-PlatV&gt;=7)PlatX[m]=PlatX[m]-PlatV;
+			else{PlatX[m]=7;PlatT[m]=3;}
+		}else if(PlatT[m]==3){
+			if(PlatX[m]+PlatV&lt;=56)PlatX[m]=PlatX[m]+PlatV;
+			else{PlatX[m]=56;PlatT[m]=2;}
+		}
+		m=(m+1)%50;
+	}
+}
+void MainLoop()
+{
+    unsigned int key;
+	
+    Bdisp_AllClr_VRAM();
+	MovePlate();
+	MoveDoodle();
+	CheckPlate();
+	NewPlate();
+	LevelSet();
+	DispPlat();
+    DispDoodle(DoodleX,DoodleY,DoodleTurn);
+	DispScore();
+	Bdisp_PutDisp_DD();
+	if((DoodleY&lt;-12)||(IsKeyDown(KEY_CTRL_EXIT))){
+		KillTimer(ID_USER_TIMER1);
+		Change_Contrast(167);
+		Sleep(1000);
+		GetKey(&amp;key);
+		Reset_Calc();
+	}
+}
+int Init()
+{
+	int i;
+	float f=VELO;
+	MAXHEIGHT=0;
+	while(f&gt;0){MAXHEIGHT+=f;f-=G;}
+	for(i=0;i&lt;24;i++){PlatX[i]=rand()%49+7;PlatY[i]=i*5;PlatT[i]=1;}
+	PlatS=0;PlatN=24;
+	DoodleX=PlatX[0];DoodleY=2;DoodleVX=0;DoodleVY=0;
+	TotalY=0;
+	Score=0;
+	DoodleTurn=1;
+	LevelSet();
+}
+int AddIn_main(int isAppli, unsigned short OptionNum)
+{
+    unsigned int key;
+	int i;
+	
+	Change_Contrast(216);
+	
+	Init();
+	
+	SetTimer(ID_USER_TIMER1,25,&amp;MainLoop);
+    while(1){
+        GetKey(&amp;key);
+    }
+
+    return 1;    
+}
+#pragma section _BR_Size
+unsigned long BR_Size;
+#pragma section
+#pragma section _TOP
+int InitializeSystem(int isAppli, unsigned short OptionNum)
+{
+    return INIT_ADDIN_APPLICATION(isAppli, OptionNum);
+}
+#pragma section
+</pre></details><details><summary>originals/2013/Doodle.g1w</summary><pre>[DLSimProject]
+Name=Doodle
+Version=1.00.0000
+Model=:fx-9860G.dlm
+SourcePath=SRC
+MemoryPath=INIT
+MemCardPath=SDCard
+
+[Program1]
+Program=DOODLE.G1A
+Debug=Debug\FXADDINror.dbg
+LoadAddress=80000000:90100000
+
+[Files]
+SourceFile=:Doodle.c
+</pre></details><details><summary>originals/2013/FXSH_Build.bat</summary><pre>@echo off
+rem Do not edit! This batch file is created by CASIO fx-9860G SDK.
+
+
+if exist DOODLE.G1A  del DOODLE.G1A
+
+cd debug
+if exist FXADDINror.bin  del FXADDINror.bin
+&quot;D:\CASIO\fx-9860G SDK\OS\SH\Bin\Hmake.exe&quot; Addin.mak
+cd ..
+if not exist debug\FXADDINror.bin  goto error
+
+&quot;D:\CASIO\fx-9860G SDK\Tools\MakeAddinHeader363.exe&quot; &quot;F:\编程\CASIO\projects\doodle&quot;
+if not exist DOODLE.G1A  goto error
+echo Build has completed.
+goto end
+
+:error
+echo Build was not successful.
+
+:end
+
+</pre></details><h2>图</h2><div class="imgs"><figure><img src="../20110415%20Doodle%20Jump/originals/2011-forum-v0.9/rr5.JPG" alt="originals/2011-forum-v0.9/rr5.JPG" loading="lazy"><figcaption>originals/2011-forum-v0.9/rr5.JPG</figcaption></figure><figure><img src="../20110415%20Doodle%20Jump/originals/2013/MainIcon.bmp" alt="originals/2013/MainIcon.bmp" loading="lazy"><figcaption>originals/2013/MainIcon.bmp</figcaption></figure><figure><img src="../20110415%20Doodle%20Jump/originals/2013/eActivityIcon.bmp" alt="originals/2013/eActivityIcon.bmp" loading="lazy"><figcaption>originals/2013/eActivityIcon.bmp</figcaption></figure></div></main></body></html>

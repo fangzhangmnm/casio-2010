@@ -6,12 +6,12 @@
 <title>GWHBOB的计算器程序</title>
 <!-- created 20261031 by Claude Opus 5.5 — 合集页：1-bit 液晶风格（作者 10-31「你要是觉得无聊的话可以把合集页做成计算器1bit液晶风格的」）。
      英文数字用卡西欧 5×7 点阵字，中文用魔塔那份 HZK12 12×12 字库（build.py 只带页面上用到的字）；排版照魔塔 printf12：中文宽 12、英文宽 6 往下 3 行、中文后接英文多空 1 列。
-     每个展位三样：游戏（点名字，第一位）、源码、介绍（作者「一个能玩的游戏，一个源码，一个你写的啰啰嗦嗦的介绍，每个展位三个东西就行了，游戏能玩是第一位的」）。 -->
+     每个展位：游戏（点名字，全屏软键盘，第一位）、计算器（?calc）、化石（历史作品的原件；2026 版不放）、介绍（作者「一个能玩的游戏，一个源码，一个你写的啰啰嗦嗦的介绍，每个展位三个东西就行了，游戏能玩是第一位的」）。 -->
 <style>
   :root { --lcd: #c8ceba; --ink: #222620; --s: 2; }
   @media (min-width: 700px) { :root { --s: 3; } }
   html, body { margin: 0; background: var(--lcd); color: var(--ink); }
-  main { max-width: 680px; margin: 0 auto; padding: 16px; }
+  main { max-width: 820px; margin: 0 auto; padding: 16px; }
   canvas { display: block; height: calc(12px * var(--s)); image-rendering: pixelated; image-rendering: crisp-edges; }
   .head canvas { height: calc(12px * var(--s) * 1.5); margin-bottom: 4px; }
   .sec { margin: calc(8px * var(--s)) 0 calc(3px * var(--s)); opacity: .75; }
@@ -56,12 +56,13 @@ m.append(el("div", "head", [lcd(D.title)]), el("div", "", [lcd(D.sub)]));
 for (const sec of D.sections) {
   m.append(el("div", "sec", [lcd(sec.name)]));
   for (const r of sec.rows) {
-    const kids = r.play ? [link(r.play, r.date + " " + r.name, "play"), el("span", "more", [link(r.src, "源码"), link(r.play + "#info", "介绍")])] : [el("span", "play", [lcd(r.date + " " + r.name)]), el("span", "more", [link(r.src, "源码")])];
+    const more = []; if (r.play) more.push(link(r.play + "?calc", "计算器")); if (r.src) more.push(link(r.src, "化石")); if (r.play) more.push(link(r.play + "#info", "介绍"));
+    const kids = [r.play ? link(r.play, r.date + " " + r.name, "play") : el("span", "play", [lcd(r.date + " " + r.name)]), el("span", "more", more)];
     m.append(el("div", "row", kids));
   }
 }
 const f = document.createElement("div"); f.className = "foot";
-f.innerHTML = '程序当年发在 cnCalc 计算器论坛。源码、原件和出处在 <a href="' + D.repo + '">GitHub</a>，别人的东西和许可见其中的 THIRD_PARTY.md。网页壳和模拟器由 Claude（Anthropic）在 2026 年写。';
+f.innerHTML = '程序当年发在 cnCalc 计算器论坛。点名字全屏玩；「计算器」用整台计算器的样子打开；「化石」是当年的原件，一个字节没改。整个展馆在 <a href="' + D.repo + '">GitHub</a>，别人的东西和许可见其中的 THIRD_PARTY.md。网页壳和模拟器由 Claude（Anthropic）在 2026 年写。';
 m.append(f);
 </script>
 </body>

@@ -21,4 +21,5 @@ for h in halls:
 shutil.copy2(os.path.join(FAM, EMU, 'site', 'index.html'), os.path.join(HERE, 'index.html'))   # 合集页（1-bit 液晶风格）
 shutil.copy2(os.path.join(FAM, EMU, 'THIRD_PARTY.md'), os.path.join(HERE, 'THIRD_PARTY.md'))
 shutil.copytree(os.path.join(FAM, EMU, 'play'), os.path.join(HERE, 'play'))                    # 每个游戏一页，打开就玩
+shutil.copytree(os.path.join(FAM, EMU, 'site', 'src'), os.path.join(HERE, 'src'))             # 历史作品的化石页（作者「historical的用化石就行了」）
 print(len(halls), '个展厅')

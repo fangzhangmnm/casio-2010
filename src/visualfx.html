@@ -1,0 +1,851 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>VisualFX · 化石</title><style>:root{--lcd:#c8ceba;--ink:#222620;--panel:#b9c0a9}html,body{margin:0;background:var(--lcd);color:var(--ink)}
+main{max-width:860px;margin:0 auto;padding:16px;font:15px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif}
+a{color:var(--ink)}h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:20px 0 6px;border-bottom:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:3px 6px;border-bottom:1px solid #9aa08c;text-align:left;vertical-align:top}
+td.n{text-align:right;white-space:nowrap}code,pre{font:13px/1.45 ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+pre{background:var(--panel);padding:10px;overflow:auto;white-space:pre;tab-size:4}details{margin:6px 0}summary{cursor:pointer;font-weight:600}
+.imgs{display:flex;flex-wrap:wrap;gap:12px}.imgs figure{margin:0}.imgs img{image-rendering:pixelated;max-width:100%;border:1px solid #9aa08c}
+.imgs figcaption{font-size:12px}.top a{margin-right:12px}.wrap{overflow-x:auto}</style></head><body><main><p class="top"><a href="../index.html">← GWHBOB的计算器程序</a></p><h1>VisualFX · 化石</h1><p>VisualFX 界面库 + 测试程序（2013-02），用了 diameter 的 fxChsLib 中文库。</p>
+<p>时间戳 = 作者自己的文件最早 2013-02-14（<code>fxchslib.c/.h</code> 和 <code>SDCard/chs*.hzk</code> 是 diameter 2012-08-19 的，不算）。</p>
+<ul><li>第三方：fxChsLib（文件头署名 Anderain Lovelace）版权归原作者。</li>
+<p>还没在网页里跑。</p></ul><h2>原件</h2><p>当年的字节，一个没改；点文件名下载。时间是文件里存的原始修改时间（北京时间），「—」是论坛附件、看出处里的帖子日期。</p><div class="wrap"><table><tr><th>文件</th><th>字节</th><th>原始时间</th><th>sha256 前 16 位</th><th>出处</th></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/AddinInfo.txt" download>originals/VisualFX/AddinInfo.txt</a></td><td class="n">462</td><td>2013-02-14 20:19</td><td><code>c8ae401a683081c0</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/FXSH_Build.bat" download>originals/VisualFX/FXSH_Build.bat</a></td><td class="n">506</td><td>2013-02-14 21:26</td><td><code>509433c546d86ebc</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/MainIcon.bmp" download>originals/VisualFX/MainIcon.bmp</a></td><td class="n">138</td><td>2006-12-04 11:47</td><td><code>2713890e097911ef</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/SDCard/chs12.hzk" download>originals/VisualFX/SDCard/chs12.hzk</a></td><td class="n">202448</td><td>2012-08-19 12:34</td><td><code>e4965f1267c0225c</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/SDCard/chs16.hzk" download>originals/VisualFX/SDCard/chs16.hzk</a></td><td class="n">269920</td><td>2012-08-19 13:42</td><td><code>77e911dcdcbb0648</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/SDCard/chs8.hzk" download>originals/VisualFX/SDCard/chs8.hzk</a></td><td class="n">67504</td><td>2012-08-19 17:53</td><td><code>fab2428e2ef95416</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/VFTEST.G1A" download>originals/VisualFX/VFTEST.G1A</a></td><td class="n">5296</td><td>2013-02-14 21:26</td><td><code>adffd115becae7a1</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/VisualFX.c" download>originals/VisualFX/VisualFX.c</a></td><td class="n">1656</td><td>2013-02-14 21:26</td><td><code>614e91628c8a3dc7</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/VisualFX.h" download>originals/VisualFX/VisualFX.h</a></td><td class="n">567</td><td>2013-02-14 21:23</td><td><code>8195e8d3f63c5447</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/eActivityIcon.bmp" download>originals/VisualFX/eActivityIcon.bmp</a></td><td class="n">106</td><td>2006-12-04 11:47</td><td><code>50d41bc4438e94ee</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/fxchslib.c" download>originals/VisualFX/fxchslib.c</a></td><td class="n">3010</td><td>2012-08-19 18:03</td><td><code>817fb5363fc14e8a</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/fxchslib.h" download>originals/VisualFX/fxchslib.h</a></td><td class="n">795</td><td>2012-08-19 17:59</td><td><code>00a3e72cadf83d73</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/vfTest.c" download>originals/VisualFX/vfTest.c</a></td><td class="n">2619</td><td>2013-02-14 20:56</td><td><code>880adcf06fba72bd</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX/vfTest.g1w" download>originals/VisualFX/vfTest.g1w</a></td><td class="n">344</td><td>2013-02-14 20:19</td><td><code>3702b104dd774b2a</code></td><td>VisualFX 界面库 + 测试程序（2013-02）；fxchslib.c/.h 和 SDCard/chs*.hzk 是 diameter 的 fxChsLib（2012-08-19）</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX1/AddinInfo.txt" download>originals/VisualFX1/AddinInfo.txt</a></td><td class="n">469</td><td>2013-02-14 17:49</td><td><code>a3736cab8b7e512f</code></td><td>VisualFX 另一版（2013-02）；fxchslib.c/.h 是 diameter 的</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX1/FXSH_Build.bat" download>originals/VisualFX1/FXSH_Build.bat</a></td><td class="n">512</td><td>2013-02-14 18:12</td><td><code>45dd8ca56c95c0cd</code></td><td>VisualFX 另一版（2013-02）；fxchslib.c/.h 是 diameter 的</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX1/MainIcon.bmp" download>originals/VisualFX1/MainIcon.bmp</a></td><td class="n">138</td><td>2006-12-04 11:47</td><td><code>2713890e097911ef</code></td><td>VisualFX 另一版（2013-02）；fxchslib.c/.h 是 diameter 的</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX1/VisualFX.c" download>originals/VisualFX1/VisualFX.c</a></td><td class="n">2924</td><td>2013-02-14 18:11</td><td><code>feee9843462eddf0</code></td><td>VisualFX 另一版（2013-02）；fxchslib.c/.h 是 diameter 的</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX1/VisualFX.g1w" download>originals/VisualFX1/VisualFX.g1w</a></td><td class="n">278</td><td>2013-02-14 17:49</td><td><code>95d45ef94399f217</code></td><td>VisualFX 另一版（2013-02）；fxchslib.c/.h 是 diameter 的</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX1/VisualFX.h" download>originals/VisualFX1/VisualFX.h</a></td><td class="n">2090</td><td>2013-02-14 18:15</td><td><code>f86995ff72304a3a</code></td><td>VisualFX 另一版（2013-02）；fxchslib.c/.h 是 diameter 的</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX1/eActivityIcon.bmp" download>originals/VisualFX1/eActivityIcon.bmp</a></td><td class="n">106</td><td>2006-12-04 11:47</td><td><code>50d41bc4438e94ee</code></td><td>VisualFX 另一版（2013-02）；fxchslib.c/.h 是 diameter 的</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX1/fxchslib.c" download>originals/VisualFX1/fxchslib.c</a></td><td class="n">3010</td><td>2012-08-19 18:03</td><td><code>817fb5363fc14e8a</code></td><td>VisualFX 另一版（2013-02）；fxchslib.c/.h 是 diameter 的</td></tr><tr><td><a href="../20130214%20VisualFX/originals/VisualFX1/fxchslib.h" download>originals/VisualFX1/fxchslib.h</a></td><td class="n">795</td><td>2012-08-19 17:59</td><td><code>00a3e72cadf83d73</code></td><td>VisualFX 另一版（2013-02）；fxchslib.c/.h 是 diameter 的</td></tr></table></div><h2>代码</h2><p>当年是 GBK 编码，这里解出来显示。</p><details><summary>originals/VisualFX/AddinInfo.txt</summary><pre>//------------------------------------------------------------------
+// Addin-Application header control file, created with the CASIO SDK
+//------------------------------------------------------------------
+[OUTPUT]     : &quot;VFTEST.G1A&quot;
+[BINDATA]    : &quot;FXADDINror.bin&quot;
+[DISPNAME]   : &quot;vfTest&quot;
+[APPNAME]    : &quot;@VFTEST&quot;
+[VERSION]    : &quot;01.00.0000&quot;
+[APL_ICON]   : &quot;MainIcon.bmp&quot;
+[MODULE_NUM] : 0
+[MOD1_TITLE] : &quot;vfTest&quot;
+[MOD1_ICON]  : &quot;eActivityIcon.bmp&quot;
+</pre></details><details><summary>originals/VisualFX/FXSH_Build.bat</summary><pre>@echo off
+rem Do not edit! This batch file is created by CASIO fx-9860G SDK.
+
+
+if exist VFTEST.G1A  del VFTEST.G1A
+
+cd debug
+if exist FXADDINror.bin  del FXADDINror.bin
+&quot;D:\CASIO\fx-9860G SDK\OS\SH\Bin\Hmake.exe&quot; Addin.mak
+cd ..
+if not exist debug\FXADDINror.bin  goto error
+
+&quot;D:\CASIO\fx-9860G SDK\Tools\MakeAddinHeader363.exe&quot; &quot;F:\CASIO\projects\VisualFX\VisualFX&quot;
+if not exist VFTEST.G1A  goto error
+echo Build has completed.
+goto end
+
+:error
+echo Build was not successful.
+
+:end
+
+</pre></details><details open><summary>originals/VisualFX/VisualFX.c</summary><pre>#include &quot;fxlib.h&quot;
+#include &quot;stddef.h&quot;
+#include &quot;VisualFX.h&quot;
+/////////////////////////////font
+vf_FONT* vf_addfont(int width,int height,int multi,vf_PUTSTRING putstring)
+{
+	vf_FONT* ptr;
+	ptr=(vf_FONT*)malloc(sizeof(vf_FONT));
+	if(ptr==NULL) return NULL;
+	ptr-&gt;width=width;
+	ptr-&gt;height=height;
+	ptr-&gt;multi=multi;
+	ptr-&gt;putstring=putstring;
+	return ptr;
+}
+void vf_freefont(vf_FONT* font)
+{
+	free(font);
+	font=NULL;
+}
+static is_multichar(char c)
+{
+	return c&amp;0x80;
+}
+static void puttext(int x,int y,vf_FONT* font,int width,int height,int sel,char* text)
+{
+	int pt,pb,c,lim,yr;
+	char printbuff[255];
+
+	lim=(width+1)/(font-&gt;width+1);
+	pt=0;yr=0;
+	while(text[pt] &amp;&amp; yr+font-&gt;height&lt;=height){
+		pb=0;c=0;
+		while(text[pt] &amp;&amp; c&lt;lim){
+			if(text[pt]==&#x27;\n&#x27;){pt++;break;}
+			if(is_multichar(printbuff[pb++]=text[pt++])) printbuff[pb++]=text[pt++];
+			c++;
+		}
+		printbuff[pb]=0;
+		font-&gt;putstring(x,y+yr,sel,printbuff);
+		yr+=font-&gt;height+1;
+	}
+}
+static void printxy(int x,int y,int sel,char* text){PrintXY(x,y,text,sel);}
+static void printmini(int x,int y,int sel,char* text){PrintMini(x,y,text,sel);}
+vf_FONT* vf_adddefaultfont()
+{
+	return vf_addfont(5,7,0,printxy);
+}
+vf_FONT* vf_addminifont()
+{
+	return vf_addfont(4,5,0,printmini);
+}
+/////////////////////////////default control
+/*
+typedef struct{
+	c
+static void textbox_fresh(vf_DRAWBOX drawbox,TEXTBOX textbox)
+{
+	
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int t()
+{
+	vf_FONT *b,*s;
+	b=vf_adddefaultfont();
+	s=vf_addminifont();
+	puttext(0,0,b,128,64,0,&quot;static void printmini(int x,int y,int sel,char* text)\n{\nPrintMini(x,y,text,sel);\n}&quot;);
+}
+</pre></details><details><summary>originals/VisualFX/VisualFX.h</summary><pre>/////////////////////////////font
+typedef void (*vf_PUTSTRING)(int,int,int,char*);
+typedef struct {
+	int width;int height;
+	int multi;
+	vf_PUTSTRING putstring;
+}vf_FONT;
+
+vf_FONT*	vf_addfont(int width,int height,int multi,vf_PUTSTRING putstring);
+void		vf_freefont(vf_FONT* font);
+vf_FONT*	vf_adddefaultfont();
+vf_FONT*	vf_addminifont();
+/////////////////////////////control
+typedef struct{
+	int x;int y;int width;int height;
+}vf_DRAWBOX;
+/*
+typedef struct{
+	int x;int y;int width;int height;
+	void (*fresh)();
+	void (*focus)();
+	*/
+
+int t();
+</pre></details><details><summary>originals/VisualFX/fxchslib.c</summary><pre>/*
+    Chinese Display Library
+
+        by Anderain Lovelace 2012.8.19
+*/
+
+#include &lt;stdio.h&gt;
+#include &lt;fxlib.h&gt;
+
+#include &quot;fxchslib.h&quot;
+
+#define is_chschar(c) ((c) &amp; 0x80)
+
+
+typedef FONTCHARACTER fontc;
+
+FONTFILE * def_font = 0;
+
+static void draw_picture (int x,int y,int width,int height,int mode,unsigned char * pGraph)
+{
+	DISPGRAPH dg;
+
+	dg.x					= x;
+	dg.y					= y;
+	dg.GraphData.width		= width;
+	dg.GraphData.height		= height;
+	dg.GraphData.pBitmap	= pGraph;
+	dg.WriteModify			= mode+1;
+	dg.WriteKind			= IMB_WRITEKIND_OVER;
+
+	Bdisp_WriteGraph_VRAM(&amp;dg);
+}
+
+static unsigned int x86_dword_to_sh (unsigned int d)
+{
+	unsigned char c1,c2,c3,c4;
+	unsigned int  r;
+
+	c1 = d&gt;&gt;24	;
+	c2 = (d &amp; 0xFF0000)		&gt;&gt;16;
+	c3 = (d &amp; 0xFF00)		&gt;&gt;8	;
+	c4 = (d &amp; 0xFF)				;
+	
+	r = c1 + (c2&lt;&lt;8) + (c3&lt;&lt;16) + (c4&lt;&lt;24);
+
+	return r;
+}
+
+static fontc * char_to_font(const char *cfname,fontc *ffname)
+{
+	int i,len = strlen(cfname);
+
+	for(i=0; i&lt;len ;++i)
+		ffname[i] = cfname[i];
+
+	ffname[i]=0;
+	return ffname;
+}
+
+FONTFILE * open_font(const char * cfname)
+{
+	int			fh,r;
+	FONTFILE	*ff;
+	fontc		ffname[32];
+
+	char_to_font(cfname,ffname);
+
+	fh = Bfile_OpenFile(ffname,_OPENMODE_READ_SHARE);
+
+	if (fh&lt;=0) return NULL;
+
+	ff			 		= (FONTFILE*)malloc(sizeof(FONTFILE));
+	Bfile_ReadFile (fh,ff,sizeof(FONTFILE)-2*sizeof(int),0);
+
+	ff-&gt;file_handle		= fh;
+
+	ff-&gt;width			= x86_dword_to_sh(ff-&gt;width);
+	ff-&gt;height			= x86_dword_to_sh(ff-&gt;height);	
+	ff-&gt;asc_offset		= x86_dword_to_sh(ff-&gt;asc_offset);
+	ff-&gt;chs_offset		= x86_dword_to_sh(ff-&gt;chs_offset);
+
+	r					=ff-&gt;width/8 + (ff-&gt;width % 8 ? 1 : 0);
+
+	ff-&gt;font_size		= r*ff-&gt;height;
+
+	return ff;
+}
+
+void close_font (FONTFILE * ff)
+{
+	Bfile_CloseFile(ff-&gt;file_handle);
+	free(ff);
+}
+
+
+void select_font (const FONTFILE * font)
+{
+	def_font = font;
+}
+
+void print_chs_char (int x,int y,int sel,unsigned char c1,unsigned char c2)
+{
+	unsigned char mat[128];
+	int sec,pot;
+
+	if (def_font==NULL) return;
+
+ 
+	sec = c1-0xa1;
+	pot = c2-0xa1;
+
+	Bfile_ReadFile( def_font-&gt;file_handle,
+					mat,
+					def_font-&gt;font_size,
+					(94*sec+pot)*def_font-&gt;font_size + def_font-&gt;chs_offset);
+
+	draw_picture(x,y,def_font-&gt;width,def_font-&gt;height,sel,mat);
+}
+
+void print_asc_char (int x,int y,int sel,unsigned char c)
+{
+	unsigned char mat[128];
+
+	if (def_font==NULL) return;
+
+
+	Bfile_ReadFile( def_font-&gt;file_handle,
+					mat,
+					def_font-&gt;font_size,
+					c*def_font-&gt;font_size + def_font-&gt;asc_offset);
+
+	draw_picture(x,y,def_font-&gt;width,def_font-&gt;height,sel,mat);
+}
+
+void print_chs_str (int x,int y,int sel,const unsigned char * str)
+{
+	int		i;
+	int		l = 0;
+	int		cx;
+
+	if (! def_font) return ;
+
+	for (i=0;str[i];l++)
+	{
+		cx = x+l*def_font-&gt;width;
+
+		if (is_chschar(str[i]))
+		{
+			
+			print_chs_char (cx,y,sel,str[i],str[i+1]);
+			++i,++i;
+		}
+		else
+		{
+			++i;
+			if (! def_font-&gt;asc_offset) continue;
+			print_asc_char (cx,y,sel,str[i-1]);
+		}
+		
+	}
+}
+
+</pre></details><details><summary>originals/VisualFX/fxchslib.h</summary><pre>/*
+   header of font file
+*/
+
+typedef struct
+{
+	char			author[16]		;
+	unsigned int	width,height	;
+	unsigned int	asc_offset		;
+	unsigned int	chs_offset		;
+	int				file_handle		;
+	int				font_size		;
+}
+FONTFILE;
+
+
+FONTFILE *	open_font(const char * cfname);
+void		close_font (FONTFILE * ff);
+void		select_font (const FONTFILE * font);
+void		print_chs_char (int x,int y,int sel,unsigned char c1,unsigned char c2);
+void		print_asc_char (int x,int y,int sel,unsigned char c);
+void		print_chs_str (int x,int y,int sel,const unsigned char * str);
+
+
+
+#define Chs_OpenFont		open_font
+#define Chs_CloseFont		close_font
+#define Chs_SelectFont		select_font
+#define Chs_Print			print_chs_str
+#define Chs_PrintChsChar	print_chs_char
+#define Chs_PrintAscChar	print_asc_char
+
+
+
+</pre></details><details><summary>originals/VisualFX/vfTest.c</summary><pre>/*****************************************************************/
+/*                                                               */
+/*   CASIO fx-9860G SDK Library                                  */
+/*                                                               */
+/*   File name : [ProjectName].c                                 */
+/*                                                               */
+/*   Copyright (c) 2006 CASIO COMPUTER CO., LTD.                 */
+/*                                                               */
+/*****************************************************************/
+#include &quot;fxlib.h&quot;
+#include &quot;VIsualFX.h&quot;
+#include &quot;fxchslib.h&quot;
+
+
+//****************************************************************************
+//  AddIn_main (Sample program main function)
+//
+//  param   :   isAppli   : 1 = This application is launched by MAIN MENU.
+//                        : 0 = This application is launched by a strip in eACT application.
+//
+//              OptionNum : Strip number (0~3)
+//                         (This parameter is only used when isAppli parameter is 0.)
+//
+//  retval  :   1 = No error / 0 = Error
+//
+//****************************************************************************
+int AddIn_main(int isAppli, unsigned short OptionNum)
+{
+    unsigned int key;
+
+    Bdisp_AllClr_DDVRAM();
+
+    t();
+
+    while(1){
+        GetKey(&amp;key);
+    }
+
+    return 1;
+}
+
+
+
+
+//****************************************************************************
+//**************                                              ****************
+//**************                 Notice!                      ****************
+//**************                                              ****************
+//**************  Please do not change the following source.  ****************
+//**************                                              ****************
+//****************************************************************************
+
+
+#pragma section _BR_Size
+unsigned long BR_Size;
+#pragma section
+
+
+#pragma section _TOP
+
+//****************************************************************************
+//  InitializeSystem
+//
+//  param   :   isAppli   : 1 = Application / 0 = eActivity
+//              OptionNum : Option Number (only eActivity)
+//
+//  retval  :   1 = No error / 0 = Error
+//
+//****************************************************************************
+int InitializeSystem(int isAppli, unsigned short OptionNum)
+{
+    return INIT_ADDIN_APPLICATION(isAppli, OptionNum);
+}
+
+#pragma section
+
+</pre></details><details><summary>originals/VisualFX/vfTest.g1w</summary><pre>[DLSimProject]
+Name=vfTest
+Version=1.00.0000
+Model=:fx-9860G.dlm
+SourcePath=SRC
+MemoryPath=INIT
+MemCardPath=SDCard
+
+[Program1]
+Program=VFTEST.G1A
+Debug=Debug\FXADDINror.dbg
+LoadAddress=80000000:90100000
+
+[Files]
+SourceFile=:vfTest.c
+SourceFile=:fxchslib.c
+SourceFile=:VisualFX.c
+HeaderFile=:fxchslib.h
+HeaderFile=:VisualFX.h
+</pre></details><details><summary>originals/VisualFX1/AddinInfo.txt</summary><pre>//------------------------------------------------------------------
+// Addin-Application header control file, created with the CASIO SDK
+//------------------------------------------------------------------
+[OUTPUT]     : &quot;VISUALFX.G1A&quot;
+[BINDATA]    : &quot;FXADDINror.bin&quot;
+[DISPNAME]   : &quot;VisualFX&quot;
+[APPNAME]    : &quot;@VISUALF&quot;
+[VERSION]    : &quot;01.00.0000&quot;
+[APL_ICON]   : &quot;MainIcon.bmp&quot;
+[MODULE_NUM] : 0
+[MOD1_TITLE] : &quot;VisualFX&quot;
+[MOD1_ICON]  : &quot;eActivityIcon.bmp&quot;
+</pre></details><details><summary>originals/VisualFX1/FXSH_Build.bat</summary><pre>@echo off
+rem Do not edit! This batch file is created by CASIO fx-9860G SDK.
+
+
+if exist VISUALFX.G1A  del VISUALFX.G1A
+
+cd debug
+if exist FXADDINror.bin  del FXADDINror.bin
+&quot;D:\CASIO\fx-9860G SDK\OS\SH\Bin\Hmake.exe&quot; Addin.mak
+cd ..
+if not exist debug\FXADDINror.bin  goto error
+
+&quot;D:\CASIO\fx-9860G SDK\Tools\MakeAddinHeader363.exe&quot; &quot;F:\CASIO\projects\VisualFX\VisualFX&quot;
+if not exist VISUALFX.G1A  goto error
+echo Build has completed.
+goto end
+
+:error
+echo Build was not successful.
+
+:end
+
+</pre></details><details><summary>originals/VisualFX1/VisualFX.c</summary><pre>/*****************************************************************/
+/*                                                               */
+/*   CASIO fx-9860G SDK Library                                  */
+/*                                                               */
+/*   File name : [ProjectName].c                                 */
+/*                                                               */
+/*   Copyright (c) 2006 CASIO COMPUTER CO., LTD.                 */
+/*                                                               */
+/*****************************************************************/
+#include &quot;fxlib.h&quot;
+#include &quot;string.h&quot;
+
+#include &quot;VisualFX.h&quot;
+
+
+//****************************************************************************
+//  AddIn_main (Sample program main function)
+//
+//  param   :   isAppli   : 1 = This application is launched by MAIN MENU.
+//                        : 0 = This application is launched by a strip in eACT application.
+//
+//              OptionNum : Strip number (0~3)
+//                         (This parameter is only used when isAppli parameter is 0.)
+//
+//  retval  :   1 = No error / 0 = Error
+//
+//****************************************************************************
+int AddIn_main(int isAppli, unsigned short OptionNum)
+{
+    unsigned int key;
+
+    vf_addcaption(0,0,128,&quot;Hello,World!&quot;);
+    vf_addpassage(0,0,32,32,&quot;int vf_addcaption(int x,int y,int width,char *text){int i;if((i=vf_create())==-1) return -1;vf_control[i].type=CAPTION;vf_control[i].x=x;vf_control[i].y=y;vf_control[i].width=width;vf_control[i].text=text;vf_control[i].height=BIG_HEIGHT;return i;}&quot;);
+
+   vf_refresh();
+
+    while(1){
+        GetKey(&amp;key);
+    }
+
+    return 1;
+}
+
+
+
+
+//****************************************************************************
+//**************                                              ****************
+//**************                 Notice!                      ****************
+//**************                                              ****************
+//**************  Please do not change the following source.  ****************
+//**************                                              ****************
+//****************************************************************************
+
+
+#pragma section _BR_Size
+unsigned long BR_Size;
+#pragma section
+
+
+#pragma section _TOP
+
+//****************************************************************************
+//  InitializeSystem
+//
+//  param   :   isAppli   : 1 = Application / 0 = eActivity
+//              OptionNum : Option Number (only eActivity)
+//
+//  retval  :   1 = No error / 0 = Error
+//
+//****************************************************************************
+int InitializeSystem(int isAppli, unsigned short OptionNum)
+{
+    return INIT_ADDIN_APPLICATION(isAppli, OptionNum);
+}
+
+#pragma section
+
+</pre></details><details><summary>originals/VisualFX1/VisualFX.g1w</summary><pre>[DLSimProject]
+Name=VisualFX
+Version=1.00.0000
+Model=:fx-9860G.dlm
+SourcePath=SRC
+MemoryPath=INIT
+MemCardPath=SDCard
+
+[Program1]
+Program=VISUALFX.G1A
+Debug=Debug\FXADDINror.dbg
+LoadAddress=80000000:90100000
+
+[Files]
+SourceFile=:VisualFX.c
+HeaderFile=:VisualFX.h
+</pre></details><details><summary>originals/VisualFX1/VisualFX.h</summary><pre>#define MAX_CONTROL_NUMBER 50
+#define MINI_WIDTH 3
+#define MINI_HEIGHT 5
+#define BIG_WIDTH 5
+#define BIG_HEIGHT 7
+#define MAX_WIDTH 128
+#define MAX_PRINT_BUFFER 33
+//MAX_WIDTH/(MINI_WIDTH+1)+1
+
+typedef enum{NULL_TYPE,CAPTION,PASSAGE} vf_CONTROLTYPE;
+typedef struct{
+	int width;
+	int height;
+	void (*printptr)(int x,int y,char* str); 
+} vf_FONT;
+typedef struct{
+	vf_CONTROLTYPE type;
+	int x;int y;int width;int height;
+	int font;
+	char *text;
+} vf_CONTROL;
+
+vf_CONTROL vf_control[MAX_CONTROL_NUMBER];
+
+void vf_refresh()
+{
+	int i,j,k,l,x,y,yr,w,h;
+	char printbuff[MAX_PRINT_BUFFER];
+
+	Bdisp_AllClr_VRAM();
+	for(i=0;i&lt;MAX_CONTROL_NUMBER;i+=1){
+		x=vf_control[i].x;y=vf_control[i].y;
+		w=vf_control[i].width;h=vf_control[i].height;
+		switch(vf_control[i].type){
+			case CAPTION:
+				l=(vf_control[i].width+1)/(BIG_WIDTH+1);
+				j=0;
+				while(vf_control[i].text[j] &amp;&amp; j&lt;l){printbuff[j]=vf_control[i].text[j];j++;}
+				printbuff[j]=0;
+				PrintXY(x,y,printbuff,0);
+			break;
+			case PASSAGE:
+				l=(vf_control[i].width+1)/(MINI_WIDTH+1);
+				j=0;yr=0;
+				while(vf_control[i].text[j] &amp;&amp; yr+MINI_HEIGHT&lt;=vf_control[i].height){
+					k=0;
+					while(vf_control[i].text[j] &amp;&amp; k&lt;l){printbuff[k]=vf_control[i].text[j];j++;k++;}
+					printbuff[k]=0;
+					PrintMini(x,y+yr,printbuff,0);
+					yr+=MINI_HEIGHT+1;
+				}
+			break;
+		}//switch
+	}//for
+	Bdisp_PutDisp_DD();
+}
+int vf_create()
+{
+	int i;
+	for(i=0;i&lt;MAX_CONTROL_NUMBER;i+=1)
+		if(vf_control[i].type==NULL_TYPE) return i;
+	return -1;
+}
+int vf_addcaption(int x,int y,int width,char *text)
+{
+	int i;
+	if((i=vf_create())==-1) return -1;
+	vf_control[i].type=CAPTION;
+	vf_control[i].x=x;vf_control[i].y=y;vf_control[i].width=width;vf_control[i].text=text;
+	vf_control[i].height=BIG_HEIGHT;
+	return i;
+}
+int vf_addpassage(int x,int y,int width,int height,char *text)
+{
+	int i;
+	if((i=vf_create())==-1) return -1;
+	vf_control[i].type=PASSAGE;
+	vf_control[i].x=x;vf_control[i].y=y;vf_control[i].width=width;vf_control[i].height=height;vf_control[i].text=text;
+	return i;
+}
+
+</pre></details><details><summary>originals/VisualFX1/fxchslib.c</summary><pre>/*
+    Chinese Display Library
+
+        by Anderain Lovelace 2012.8.19
+*/
+
+#include &lt;stdio.h&gt;
+#include &lt;fxlib.h&gt;
+
+#include &quot;fxchslib.h&quot;
+
+#define is_chschar(c) ((c) &amp; 0x80)
+
+
+typedef FONTCHARACTER fontc;
+
+FONTFILE * def_font = 0;
+
+static void draw_picture (int x,int y,int width,int height,int mode,unsigned char * pGraph)
+{
+	DISPGRAPH dg;
+
+	dg.x					= x;
+	dg.y					= y;
+	dg.GraphData.width		= width;
+	dg.GraphData.height		= height;
+	dg.GraphData.pBitmap	= pGraph;
+	dg.WriteModify			= mode+1;
+	dg.WriteKind			= IMB_WRITEKIND_OVER;
+
+	Bdisp_WriteGraph_VRAM(&amp;dg);
+}
+
+static unsigned int x86_dword_to_sh (unsigned int d)
+{
+	unsigned char c1,c2,c3,c4;
+	unsigned int  r;
+
+	c1 = d&gt;&gt;24	;
+	c2 = (d &amp; 0xFF0000)		&gt;&gt;16;
+	c3 = (d &amp; 0xFF00)		&gt;&gt;8	;
+	c4 = (d &amp; 0xFF)				;
+	
+	r = c1 + (c2&lt;&lt;8) + (c3&lt;&lt;16) + (c4&lt;&lt;24);
+
+	return r;
+}
+
+static fontc * char_to_font(const char *cfname,fontc *ffname)
+{
+	int i,len = strlen(cfname);
+
+	for(i=0; i&lt;len ;++i)
+		ffname[i] = cfname[i];
+
+	ffname[i]=0;
+	return ffname;
+}
+
+FONTFILE * open_font(const char * cfname)
+{
+	int			fh,r;
+	FONTFILE	*ff;
+	fontc		ffname[32];
+
+	char_to_font(cfname,ffname);
+
+	fh = Bfile_OpenFile(ffname,_OPENMODE_READ_SHARE);
+
+	if (fh&lt;=0) return NULL;
+
+	ff			 		= (FONTFILE*)malloc(sizeof(FONTFILE));
+	Bfile_ReadFile (fh,ff,sizeof(FONTFILE)-2*sizeof(int),0);
+
+	ff-&gt;file_handle		= fh;
+
+	ff-&gt;width			= x86_dword_to_sh(ff-&gt;width);
+	ff-&gt;height			= x86_dword_to_sh(ff-&gt;height);	
+	ff-&gt;asc_offset		= x86_dword_to_sh(ff-&gt;asc_offset);
+	ff-&gt;chs_offset		= x86_dword_to_sh(ff-&gt;chs_offset);
+
+	r					=ff-&gt;width/8 + (ff-&gt;width % 8 ? 1 : 0);
+
+	ff-&gt;font_size		= r*ff-&gt;height;
+
+	return ff;
+}
+
+void close_font (FONTFILE * ff)
+{
+	Bfile_CloseFile(ff-&gt;file_handle);
+	free(ff);
+}
+
+
+void select_font (const FONTFILE * font)
+{
+	def_font = font;
+}
+
+void print_chs_char (int x,int y,int sel,unsigned char c1,unsigned char c2)
+{
+	unsigned char mat[128];
+	int sec,pot;
+
+	if (def_font==NULL) return;
+
+ 
+	sec = c1-0xa1;
+	pot = c2-0xa1;
+
+	Bfile_ReadFile( def_font-&gt;file_handle,
+					mat,
+					def_font-&gt;font_size,
+					(94*sec+pot)*def_font-&gt;font_size + def_font-&gt;chs_offset);
+
+	draw_picture(x,y,def_font-&gt;width,def_font-&gt;height,sel,mat);
+}
+
+void print_asc_char (int x,int y,int sel,unsigned char c)
+{
+	unsigned char mat[128];
+
+	if (def_font==NULL) return;
+
+
+	Bfile_ReadFile( def_font-&gt;file_handle,
+					mat,
+					def_font-&gt;font_size,
+					c*def_font-&gt;font_size + def_font-&gt;asc_offset);
+
+	draw_picture(x,y,def_font-&gt;width,def_font-&gt;height,sel,mat);
+}
+
+void print_chs_str (int x,int y,int sel,const unsigned char * str)
+{
+	int		i;
+	int		l = 0;
+	int		cx;
+
+	if (! def_font) return ;
+
+	for (i=0;str[i];l++)
+	{
+		cx = x+l*def_font-&gt;width;
+
+		if (is_chschar(str[i]))
+		{
+			
+			print_chs_char (cx,y,sel,str[i],str[i+1]);
+			++i,++i;
+		}
+		else
+		{
+			++i;
+			if (! def_font-&gt;asc_offset) continue;
+			print_asc_char (cx,y,sel,str[i-1]);
+		}
+		
+	}
+}
+
+</pre></details><details><summary>originals/VisualFX1/fxchslib.h</summary><pre>/*
+   header of font file
+*/
+
+typedef struct
+{
+	char			author[16]		;
+	unsigned int	width,height	;
+	unsigned int	asc_offset		;
+	unsigned int	chs_offset		;
+	int				file_handle		;
+	int				font_size		;
+}
+FONTFILE;
+
+
+FONTFILE *	open_font(const char * cfname);
+void		close_font (FONTFILE * ff);
+void		select_font (const FONTFILE * font);
+void		print_chs_char (int x,int y,int sel,unsigned char c1,unsigned char c2);
+void		print_asc_char (int x,int y,int sel,unsigned char c);
+void		print_chs_str (int x,int y,int sel,const unsigned char * str);
+
+
+
+#define Chs_OpenFont		open_font
+#define Chs_CloseFont		close_font
+#define Chs_SelectFont		select_font
+#define Chs_Print			print_chs_str
+#define Chs_PrintChsChar	print_chs_char
+#define Chs_PrintAscChar	print_asc_char
+
+
+
+</pre></details><h2>图</h2><div class="imgs"><figure><img src="../20130214%20VisualFX/originals/VisualFX/MainIcon.bmp" alt="originals/VisualFX/MainIcon.bmp" loading="lazy"><figcaption>originals/VisualFX/MainIcon.bmp</figcaption></figure><figure><img src="../20130214%20VisualFX/originals/VisualFX/eActivityIcon.bmp" alt="originals/VisualFX/eActivityIcon.bmp" loading="lazy"><figcaption>originals/VisualFX/eActivityIcon.bmp</figcaption></figure><figure><img src="../20130214%20VisualFX/originals/VisualFX1/MainIcon.bmp" alt="originals/VisualFX1/MainIcon.bmp" loading="lazy"><figcaption>originals/VisualFX1/MainIcon.bmp</figcaption></figure><figure><img src="../20130214%20VisualFX/originals/VisualFX1/eActivityIcon.bmp" alt="originals/VisualFX1/eActivityIcon.bmp" loading="lazy"><figcaption>originals/VisualFX1/eActivityIcon.bmp</figcaption></figure></div></main></body></html>

@@ -1,0 +1,699 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ogame · 化石</title><style>:root{--lcd:#c8ceba;--ink:#222620;--panel:#b9c0a9}html,body{margin:0;background:var(--lcd);color:var(--ink)}
+main{max-width:860px;margin:0 auto;padding:16px;font:15px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif}
+a{color:var(--ink)}h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:20px 0 6px;border-bottom:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:3px 6px;border-bottom:1px solid #9aa08c;text-align:left;vertical-align:top}
+td.n{text-align:right;white-space:nowrap}code,pre{font:13px/1.45 ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+pre{background:var(--panel);padding:10px;overflow:auto;white-space:pre;tab-size:4}details{margin:6px 0}summary{cursor:pointer;font-weight:600}
+.imgs{display:flex;flex-wrap:wrap;gap:12px}.imgs figure{margin:0}.imgs img{image-rendering:pixelated;max-width:100%;border:1px solid #9aa08c}
+.imgs figcaption{font-size:12px}.top a{margin-right:12px}.wrap{overflow-x:auto}</style></head><body><main><p class="top"><a href="../index.html">← GWHBOB的计算器程序</a></p><h1>Ogame · 化石</h1><p>Ogame，C 写的 Add-in（2013-02）。</p>
+<p>时间戳 = 最早的文件 2013-02-12。</p>
+<p>还没在网页里跑。</p><h2>原件</h2><p>当年的字节，一个没改；点文件名下载。时间是文件里存的原始修改时间（北京时间），「—」是论坛附件、看出处里的帖子日期。</p><div class="wrap"><table><tr><th>文件</th><th>字节</th><th>原始时间</th><th>sha256 前 16 位</th><th>出处</th></tr><tr><td><a href="../20130212%20Ogame/originals/AddinInfo.txt" download>originals/AddinInfo.txt</a></td><td class="n">458</td><td>2013-02-12 15:01</td><td><code>53bf921ed763f84d</code></td><td>Ogame（2013-02），作者电脑里的工程文件夹</td></tr><tr><td><a href="../20130212%20Ogame/originals/Database.h" download>originals/Database.h</a></td><td class="n">4429</td><td>2013-02-14 22:50</td><td><code>6cfca4407473a341</code></td><td>Ogame（2013-02），作者电脑里的工程文件夹</td></tr><tr><td><a href="../20130212%20Ogame/originals/FXSH_Build.bat" download>originals/FXSH_Build.bat</a></td><td class="n">497</td><td>2013-02-14 22:50</td><td><code>187bb788e5b82fbc</code></td><td>Ogame（2013-02），作者电脑里的工程文件夹</td></tr><tr><td><a href="../20130212%20Ogame/originals/MainIcon.bmp" download>originals/MainIcon.bmp</a></td><td class="n">138</td><td>2006-12-04 11:47</td><td><code>2713890e097911ef</code></td><td>Ogame（2013-02），作者电脑里的工程文件夹</td></tr><tr><td><a href="../20130212%20Ogame/originals/OGAME.G1A" download>originals/OGAME.G1A</a></td><td class="n">28466</td><td>2013-02-14 22:50</td><td><code>27749b2e72225f56</code></td><td>Ogame（2013-02），作者电脑里的工程文件夹</td></tr><tr><td><a href="../20130212%20Ogame/originals/Ogame.c" download>originals/Ogame.c</a></td><td class="n">915</td><td>2013-02-14 22:50</td><td><code>3eecd0a09d0486f6</code></td><td>Ogame（2013-02），作者电脑里的工程文件夹</td></tr><tr><td><a href="../20130212%20Ogame/originals/Ogame.g1w" download>originals/Ogame.g1w</a></td><td class="n">328</td><td>2013-02-12 15:01</td><td><code>3328344d35362c6a</code></td><td>Ogame（2013-02），作者电脑里的工程文件夹</td></tr><tr><td><a href="../20130212%20Ogame/originals/Rules.h" download>originals/Rules.h</a></td><td class="n">236</td><td>2013-02-14 22:48</td><td><code>da2d75740d061300</code></td><td>Ogame（2013-02），作者电脑里的工程文件夹</td></tr><tr><td><a href="../20130212%20Ogame/originals/Time.h" download>originals/Time.h</a></td><td class="n">3467</td><td>2013-02-12 17:41</td><td><code>7336929b98fad189</code></td><td>Ogame（2013-02），作者电脑里的工程文件夹</td></tr><tr><td><a href="../20130212%20Ogame/originals/UI.h" download>originals/UI.h</a></td><td class="n">4987</td><td>2013-02-14 22:48</td><td><code>bffc6dcbb8029b47</code></td><td>Ogame（2013-02），作者电脑里的工程文件夹</td></tr><tr><td><a href="../20130212%20Ogame/originals/eActivityIcon.bmp" download>originals/eActivityIcon.bmp</a></td><td class="n">106</td><td>2006-12-04 11:47</td><td><code>50d41bc4438e94ee</code></td><td>Ogame（2013-02），作者电脑里的工程文件夹</td></tr></table></div><h2>代码</h2><p>当年是 GBK 编码，这里解出来显示。</p><details><summary>originals/AddinInfo.txt</summary><pre>//------------------------------------------------------------------
+// Addin-Application header control file, created with the CASIO SDK
+//------------------------------------------------------------------
+[OUTPUT]     : &quot;OGAME.G1A&quot;
+[BINDATA]    : &quot;FXADDINror.bin&quot;
+[DISPNAME]   : &quot;Ogame&quot;
+[APPNAME]    : &quot;@OGAME&quot;
+[VERSION]    : &quot;01.00.0000&quot;
+[APL_ICON]   : &quot;MainIcon.bmp&quot;
+[MODULE_NUM] : 0
+[MOD1_TITLE] : &quot;Ogame&quot;
+[MOD1_ICON]  : &quot;eActivityIcon.bmp&quot;
+</pre></details><details><summary>originals/Database.h</summary><pre>//define
+#define MAX_STRING_LENGTH 17
+
+#define MAX_BUILDING_TYPE 19
+#define MAX_RESEARCH_TYPE 19
+#define MAX_FLEET_TYPE 19
+#define MAX_DEFENCE_TYPE 13
+
+#define MAX_GALAXY 5
+#define MAX_SOLAR 10
+#define MAX_ORBIT 15
+
+#define MAX_PLANET_OWN 9
+#define MAX_FLEET_OWN 20
+
+#define MAX_PLAYER 50
+#define MAX_PLANET 500
+#define MAX_FLEET 1000
+
+//player
+
+typedef struct{
+
+	short int id;
+	short int avilable;
+
+	//account
+
+	short int picture;
+	char username[MAX_STRING_LENGTH+1];
+	char nickname[MAX_STRING_LENGTH+1];
+	char password[MAX_STRING_LENGTH+1];
+
+	//setting
+
+	//management
+
+	char operator;
+	char banned;
+	char vacation;
+
+	//vip
+
+	long int darkmatter;
+
+	//message
+
+	//game
+
+	short int planetid[MAX_PLANET_OWN];
+	short int research[MAX_RESEARCH_TYPE];
+	short int fleetid[MAX_FLEET_OWN];
+
+} PLAYER;
+typedef struct{
+	short int id;
+	char username[MAX_STRING_LENGTH+1];
+
+	short int position;
+} PLAYERKEY;
+PLAYERKEY playerkey[MAX_PLAYER];
+
+//planet
+
+typedef struct{
+
+	short int id;
+	short int avilable;
+
+	//basic property
+
+	short int owner;
+	short int picture;
+	char name[MAX_STRING_LENGTH+1];
+	short int coord[3];
+	short int space;
+	short int radius;
+
+	//resource
+
+	long int metal;
+	long int crystal;
+	long int heavyhydrogen;
+
+	//building
+
+	short int building[MAX_BUILDING_TYPE];
+
+	//fleet
+
+	long int fleet[MAX_FLEET_TYPE];
+
+	//defence
+
+	long int defence[MAX_DEFENCE_TYPE];
+
+} PLANET;
+
+//fleet
+
+typedef struct{
+
+	short int id;
+	short int avilable;
+
+
+} FLEET;
+
+//global
+
+typedef struct{
+
+	//system
+
+	int version;
+
+	//memory
+
+	int playernum;
+	int planetnum;
+	int fleetnum;
+	int nextplayerid;
+	int nextplanetid;
+	int nextfleetid;
+
+	//game
+
+	time refreshtime;
+} GLOBAL;
+GLOBAL global;
+
+//search
+
+
+
+//file
+
+int db_reset_game()
+{
+	int fp;
+	int error;
+	PLAYER tmpplayer;
+	PLANET tmpplanet;
+
+	global.version=VERSION;
+	global.nextplayerid=1;
+	global.nextplanetid=1;
+	global.nextfleetid=0;
+	global.playernum=1;
+	global.planetnum=1;
+	global.fleetnum=0;
+	readtime(&amp;global.refreshtime);
+	tmpplayer.id=0;
+	tmpplayer.avilable=1;
+	strcpy(tmpplayer.username,&quot;ADMIN&quot;);
+	strcpy(tmpplayer.password,&quot;ADMIN&quot;);
+
+
+	Bfile_DeleteMainMemory(&quot;GLOBAL&quot;); if(Bfile_CreateMainMemory(&quot;GLOBAL&quot;)) return 1;
+	Bfile_DeleteMainMemory(&quot;PLAYER&quot;); if(Bfile_CreateMainMemory(&quot;PLAYER&quot;)) return 1;
+	Bfile_DeleteMainMemory(&quot;PLANET&quot;); if(Bfile_CreateMainMemory(&quot;PLANET&quot;)) return 1;
+	Bfile_DeleteMainMemory(&quot;FLEET&quot;); if(Bfile_CreateMainMemory(&quot;FLEET&quot;)) return 1;
+
+	if((fp=Bfile_OpenMainMemory(&quot;GLOBAL&quot;))&lt;0) return 1;
+	if(Bfile_WriteFile(fp,&amp;global,sizeof(global))&lt;0) error=1;
+	Bfile_CloseFile(fp);
+	if(error) return 1;
+	if((fp=Bfile_OpenMainMemory(&quot;PLAYER&quot;))&lt;0) return 1;
+	if(Bfile_WriteFile(fp,&amp;tmpplayer,sizeof(tmpplayer))&lt;0) error=1;
+	Bfile_CloseFile(fp);
+	if(error) return 1;
+	if((fp=Bfile_OpenMainMemory(&quot;PLANET&quot;))&lt;0) return 1;
+	if(Bfile_WriteFile(fp,&amp;tmpplanet,sizeof(tmpplanet))&lt;0) error=1;
+	Bfile_CloseFile(fp);
+	if(error) return 1;
+	
+	return error;
+}
+int db_init_player()
+{
+	int fp;
+	PLAYER player;
+	int i,p,n;
+
+	if((fp=Bfile_OpenMainMemory(&quot;PLAYER&quot;))&lt;0) return 1;
+	i=0;p=0;n=0;
+	while(Bfile_ReadFile(fp,&amp;player,sizeof(PLAYER),-1)&gt;=0 &amp;&amp; i&lt;MAX_PLAYER){
+		if(player.avilable){
+			playerkey[i].id=player.id;
+			strcpy(playerkey[i].username,player.username);
+			playerkey[i].position=p;
+			n++;
+		}
+		p++;
+	}
+	Bfile_CloseFile(fp);
+	if(global.playernum!=n) return 1;//alert
+	return 0;
+}
+int db_search_player(char* username)
+{
+	int i;
+	for(i=0;i&lt;global.playernum;i++)
+		if(strcmp(username,playerkey[i].username)) return playerkey[i].id;
+	return -1;
+}
+int db_load_player(int id,PLAYER* buff)
+{
+	int i,p;
+	int fp;
+	p=-1;
+	for(i=0;i&lt;global.playernum;i++)
+		if(playerkey[i].id==id) p=i;
+	if(p==-1) return 1;
+	if((fp=Bfile_OpenMainMemory(&quot;PLAYER&quot;))&lt;0) return 1;
+	Bfile_SeekFile(fp,p*sizeof(PLAYER));
+	if(Bfile_ReadFile(fp,buff,sizeof(PLAYER),-1)&lt;0) return 1;
+	return 0;
+}
+int db_init_game()
+{
+	int fp;
+	int error;
+
+	//load global
+	if((fp=Bfile_OpenMainMemory(&quot;GLOBAL&quot;))&lt;0) return 1;
+	if(Bfile_ReadFile(fp,&amp;global,sizeof(GLOBAL),-1)&lt;0) error=1;
+	Bfile_CloseFile(fp);
+	if(error) return 1;
+
+	if(global.version!=VERSION) return 1;
+
+	if(db_init_player()) return 1;
+
+	return error;
+}
+int db_backup_game()
+{
+
+}
+int db_restore_game()
+{
+
+}
+
+
+
+
+
+
+</pre></details><details><summary>originals/FXSH_Build.bat</summary><pre>@echo off
+rem Do not edit! This batch file is created by CASIO fx-9860G SDK.
+
+
+if exist OGAME.G1A  del OGAME.G1A
+
+cd debug
+if exist FXADDINror.bin  del FXADDINror.bin
+&quot;D:\CASIO\fx-9860G SDK\OS\SH\Bin\Hmake.exe&quot; Addin.mak
+cd ..
+if not exist debug\FXADDINror.bin  goto error
+
+&quot;D:\CASIO\fx-9860G SDK\Tools\MakeAddinHeader363.exe&quot; &quot;F:\CASIO\projects\Ogame\Ogame&quot;
+if not exist OGAME.G1A  goto error
+echo Build has completed.
+goto end
+
+:error
+echo Build was not successful.
+
+:end
+
+</pre></details><details open><summary>originals/Ogame.c</summary><pre>//
+const VERSION=1000;
+//
+
+#include &quot;fxlib.h&quot;
+#include &quot;stdarg.h&quot;
+#include &quot;stdlib.h&quot;
+#include &quot;dispbios.h&quot;
+#include &quot;filebios.h&quot;
+#include &quot;timer.h&quot;
+#include &quot;string.h&quot;
+#include &quot;revolution.h&quot;
+
+void strprintf(char *cpBuffer,char *cpFormat, ...)
+{
+va_list pArgList;
+va_start(pArgList, cpFormat);
+  vsprintf(cpBuffer, cpFormat, pArgList);
+va_end(pArgList);
+}
+
+#include &quot;Time.h&quot;
+#include &quot;Database.h&quot;
+#include &quot;Rules.h&quot;
+#include &quot;UI.h&quot;
+
+
+
+
+int AddIn_main(int isAppli, unsigned short OptionNum)
+{
+	unsigned int key;
+	time t;int n;
+	char buff[512];
+	if(db_init_game()) ui_init();
+	ui_index();
+	while(1){
+		GetKey(&amp;key);
+	}
+
+	return 1;
+}
+
+
+
+
+
+
+#pragma section _BR_Size
+unsigned long BR_Size;
+#pragma section
+#pragma section _TOP
+int InitializeSystem(int isAppli, unsigned short OptionNum)
+{
+    return INIT_ADDIN_APPLICATION(isAppli, OptionNum);
+}
+#pragma section
+</pre></details><details><summary>originals/Ogame.g1w</summary><pre>[DLSimProject]
+Name=Ogame
+Version=1.00.0000
+Model=:fx-9860G.dlm
+SourcePath=SRC
+MemoryPath=INIT
+MemCardPath=SDCard
+
+[Program1]
+Program=OGAME.G1A
+Debug=Debug\FXADDINror.dbg
+LoadAddress=80000000:90100000
+
+[Files]
+SourceFile=:Ogame.c
+HeaderFile=:Database.h
+HeaderFile=:Rules.h
+HeaderFile=:UI.h
+HeaderFile=:Time.h
+</pre></details><details><summary>originals/Rules.h</summary><pre> int ru_login(char* username,char* password)
+{
+	int id;
+	PLAYER player;
+	if((id=db_search_player(username))==-1) return 0;
+	if(db_load_player(id,&amp;player)) return 0;
+	if(strcmp(player.password,password)!=0) return 0;
+	return 1;
+}</pre></details><details><summary>originals/Time.h</summary><pre>#define INIT_YEAR 2012
+
+#define nSecondsInJan 2678400L
+#define nSecondsInApril 2592000L
+#define nSecondsInLeapFeb 2505600L
+#define nSecondsInNonLeapFeb 2419200L
+const nSecondsInNonLeapYear=31536000L;
+const nSecondsInLeapYear=31622400L;
+const long int nSecondsInMonths_NonLeap[] ={
+	0,nSecondsInJan, nSecondsInNonLeapFeb, nSecondsInJan, nSecondsInApril,nSecondsInJan, nSecondsInApril, nSecondsInJan, nSecondsInJan,nSecondsInApril, nSecondsInJan, nSecondsInApril, nSecondsInJan};
+const long int nSecondsInMonths_Leap[] ={
+	0,nSecondsInJan, nSecondsInLeapFeb, nSecondsInJan, nSecondsInApril,nSecondsInJan, nSecondsInApril, nSecondsInJan, nSecondsInJan,nSecondsInApril, nSecondsInJan, nSecondsInApril, nSecondsInJan};
+
+typedef struct{
+	short int year;//INIT_YEAR-INIT_YEAR+67
+	short int month;//1-12
+	short int day;//1-31
+	short int hour;
+	short int minute;
+	short int second;
+} time;
+typedef enum{
+	DATE_AND_TIME,TIME,COUNTDOWN
+} TIMEFORMAT;
+
+int isleapyear(int n)
+{
+	if(n%100==0) return (n%400==0); else return (n%4==0);
+}
+long int getsecond(time t)
+{
+	int year,month;
+	long int n = 0;
+	for (year = INIT_YEAR; year &lt; t.year; year++){
+		if (isleapyear(year)) n+=nSecondsInLeapYear;
+		else n+=nSecondsInNonLeapYear;
+	}
+	for (month = 1; month &lt; t.month; month++){
+		if (isleapyear(t.year)) n += nSecondsInMonths_Leap[month];
+		else n += nSecondsInMonths_NonLeap[month];
+	}
+	n += (t.day - 1) * 86400;
+	n+= t.hour * 3600;
+	n += t.minute * 60;
+	n += t.second;
+	return n;
+}
+void gettime(time *buff,long int s)
+{
+	int year,month,n;
+	year=INIT_YEAR;
+	n=isleapyear(year)?nSecondsInLeapYear:nSecondsInNonLeapYear;
+	while(s&gt;=n){
+		s-=n;
+		year++;
+		n=isleapyear(year)?nSecondsInLeapYear:nSecondsInNonLeapYear;
+	}
+	month=1;
+	n=isleapyear(year)?nSecondsInMonths_Leap[month]:nSecondsInMonths_NonLeap[month];
+	while(s&gt;=n){
+		s-=n;
+		month++;
+		n=isleapyear(year)?nSecondsInMonths_Leap[month]:nSecondsInMonths_NonLeap[month];
+	}
+	buff-&gt;year=year;
+	buff-&gt;month=month;
+	buff-&gt;day=s/86400+1;s=s%86400;
+	buff-&gt;hour=s/3600;s=s%3600;
+	buff-&gt;minute=s/60;s=s%60;
+	buff-&gt;second=s;
+}
+void getcountdown(time *buff,long int s)
+{
+	buff-&gt;year=s/nSecondsInNonLeapYear;s=s%nSecondsInNonLeapYear;
+	buff-&gt;month=s/nSecondsInApril;s=s%nSecondsInApril;
+	buff-&gt;day=s/86400+1;s=s%86400;
+	buff-&gt;hour=s/3600;s=s%3600;
+	buff-&gt;minute=s/60;s=s%60;
+	buff-&gt;second=s;
+}
+int writetime(char *buff,time t,TIMEFORMAT f)
+{
+	switch(f){
+	case DATE_AND_TIME:
+		strprintf(buff,&quot;%04d.%02d.%02d %02d:%02d:%02d&quot;,t.year,t.month,t.day,t.hour,t.minute,t.second);
+	return 19;
+	case TIME:
+		strprintf(buff,&quot;%02d:%02d:%02d&quot;,t.hour,t.minute,t.second);
+	return 8;
+	case COUNTDOWN:
+		if(t.year&gt;0){strprintf(buff,&quot;%04dy%02dm%02dd %02d:%02d:%02d&quot;,t.year,t.month,t.day,t.hour,t.minute,t.second);return 20;}
+		if(t.month&gt;0){strprintf(buff,&quot;%02dm%02dd %02d:%02d:%02d&quot;,t.month,t.day,t.hour,t.minute,t.second);return 15;}
+		if(t.day&gt;0){strprintf(buff,&quot;%02dd %02d:%02d:%02d&quot;,t.day,t.hour,t.minute,t.second);return 12;}
+		if(t.hour&gt;0){strprintf(buff,&quot;%02d:%02d:%02d&quot;,t.hour,t.minute,t.second);return 8;}
+		if(t.minute&gt;0 || t.second&gt;0){strprintf(buff,&quot;%02d:%02d&quot;,t.minute,t.second);return 5;}
+		strprintf(buff,&quot;--:--&quot;);return 5;
+	}
+}
+void readtime(time *buff)
+{
+	buff-&gt;year=RTCReadYear();
+	buff-&gt;month=RTCReadMonth();
+	buff-&gt;day=RTCReadDayOfMonth();
+	buff-&gt;hour=RTCReadHour();
+	buff-&gt;minute=RTCReadMinute();
+	buff-&gt;second=RTCReadSecond();
+}
+</pre></details><details><summary>originals/UI.h</summary><pre>//function
+
+#define FONT_BIG_HEIGHT 7
+#define FONT_BIG_WIDTH 5
+#define FONT_SMALL_HEIGHT 5
+
+typedef enum {BIG,SMALL} FONT;
+
+#define MAX_CLOCK_NUMBER 5
+
+typedef struct{
+	int x;
+	int y;
+	FONT font;
+	TIMEFORMAT format;
+	long int countdown;
+} clock;
+clock clockarray[MAX_CLOCK_NUMBER];
+int nclock;
+int alarm;
+void clockevent()
+{
+	char buff[30];
+	time t;
+	int i,j,x;
+
+	for(i=0;i&lt;nclock;i++){
+		switch(clockarray[i].format){
+		case DATE_AND_TIME:
+		case TIME:
+			readtime(&amp;t);
+			writetime(buff,t,clockarray[i].format);
+			x=clockarray[i].x;
+		break;
+		case COUNTDOWN:
+			j=clockarray[i].countdown;
+			if(j==0)alarm=1;
+			getcountdown(&amp;t,j);
+			writetime(buff,t,clockarray[i].format);
+			clockarray[i].countdown--;
+		break;
+		}
+		if(clockarray[i].font==BIG)PrintXY(x,clockarray[i].y,buff,0);
+		else PrintMini(x,clockarray[i].y,buff,0);
+	}
+	Bdisp_PutDisp_DD();
+}
+int addclock(int x,int y,FONT f,TIMEFORMAT tf,long int countdown)
+{
+	if(nclock&gt;=MAX_CLOCK_NUMBER) return 1;
+	clockarray[nclock].x=x;
+	clockarray[nclock].y=y;
+	clockarray[nclock].font=f;
+	clockarray[nclock].format=tf;
+	clockarray[nclock].countdown=countdown;
+	nclock++;
+	return 0;
+}
+void clearclock()
+{
+	nclock=0;
+}
+void enableclock()
+{
+	alarm=0;
+	clockevent();
+	SetTimer(ID_USER_TIMER1,1000,&amp;clockevent);
+}
+void disableclock()
+{
+	KillTimer(ID_USER_TIMER1);
+}
+int ui_box(int x1,int y1,int x2,int y2)
+{
+	Bdisp_DrawLineVRAM(x1,y1,x1,y2);
+	Bdisp_DrawLineVRAM(x1,y2,x2,y2);
+	Bdisp_DrawLineVRAM(x2,y2,x2,y1);
+	Bdisp_DrawLineVRAM(x2,y1,x1,y1);
+}
+int ui_button(int x1,int y1,int x2,int y2)
+{
+	unsigned int key;
+
+	while(1){
+		Bdisp_AreaReverseVRAM(x1,y1,x2,y2);
+		GetKey(&amp;key);
+		Bdisp_AreaReverseVRAM(x1,y1,x2,y2);
+		switch(key){
+			case KEY_CTRL_EXE: return 0;
+			case KEY_CTRL_UP: case KEY_CTRL_LEFT: return -1;
+			case KEY_CTRL_DOWN: case KEY_CTRL_RIGHT: return 1;
+		}
+	}
+}
+int ui_textbox(char *buffer,int *init_length,int max_length,int x,int y,FONT font,int width,int password)
+{
+	unsigned int key;
+	int i,ischar,height,length;
+	char buff[30],puff[30];
+	char *outbuff;
+	DISPBOX area;
+
+	if(width==0 &amp;&amp; font==BIG) width=max_length*(FONT_BIG_WIDTH+1);
+	if(font==BIG) height=FONT_BIG_HEIGHT; else height=FONT_SMALL_HEIGHT;
+	area.left=x;area.top=y;area.right=x+width-1;area.bottom=y+height-1;
+	if(password) outbuff=puff; else outbuff=buff;
+	length=*init_length;
+	for(i=0;i&lt;length;i++){
+		buff[i]=buffer[i];puff[i]=&#x27;*&#x27;;
+	}
+	buff[length]=0;puff[length]=0;
+	key=ischar=0;
+	while(key!=KEY_CTRL_EXE &amp;&amp; key!=KEY_CTRL_EXIT &amp;&amp; key!=KEY_CTRL_UP &amp;&amp; key!= KEY_CTRL_DOWN){
+		if(length&lt;max_length){
+			buff[length]=&#x27;_&#x27;;puff[length]=&#x27;_&#x27;;
+			buff[length+1]=0;puff[length+1]=0;
+		}else{
+			buff[length]=0;puff[length]=0;
+		}
+		if(font==BIG)PrintXY(x,y,outbuff,0);
+		else PrintMini(x,y,outbuff,MINI_OVER);
+		ischar=GetKey(&amp;key);
+		Bdisp_AreaClr_DDVRAM(&amp;area);
+
+		if(key==KEY_CTRL_AC) length=0;
+		if(key==KEY_CTRL_DEL &amp;&amp; length&gt;0) length--;
+		if(ischar &amp;&amp; isalnum(key) &amp;&amp; length&lt;max_length){
+			buff[length]=key;puff[length]=&#x27;*&#x27;;length++;
+		}
+	}
+
+	if(key!=KEY_CTRL_EXIT){
+		for(i=0;i&lt;length;i++) buffer[i]=buff[i];
+		buffer[length]=0;buff[length]=0;puff[length]=0;
+		*init_length=length;
+	}else{
+		length=*init_length;
+		for(i=0;i&lt;length;i++){
+			buff[i]=buffer[i];puff[i]=&#x27;*&#x27;;
+		}
+		buff[length]=0;puff[length]=0;
+	}
+	if(font==BIG)PrintXY(x,y,outbuff,0);
+	else PrintMini(x,y,outbuff,MINI_OVER);
+	switch(key){
+		case KEY_CTRL_EXIT:
+			return 4;
+		case KEY_CTRL_UP:
+			return -1;
+		case KEY_CTRL_EXE:
+		case KEY_CTRL_DOWN:
+			return 1;
+	}
+}
+
+//ui 
+typedef enum {INDEX,REGISTER1,REGISTER2} UI_NOW;
+UI_NOW ui_now;
+void ui_init()
+{
+	db_reset_game();
+}
+void ui_index()
+{
+	unsigned int key;
+	char username[MAX_STRING_LENGTH+1],password[MAX_STRING_LENGTH+1];
+	int usernamel=0,passwordl=0;
+	int index=0,move;
+
+	Bdisp_AllClr_DDVRAM();
+	PrintXY(1,1,&quot;OGAME&quot;,0);PrintMini(31,2,&quot; - Conquer the universe&quot;,0);
+	Bdisp_DrawLineVRAM(0,9,52,9);
+	PrintXY(3,11,&quot;Username&quot;,0);
+	ui_box(1,19,126,29);//PrintXY(3,21,&quot;Username&quot;,0);
+	PrintXY(3,31,&quot;Password&quot;,0);
+	ui_box(1,39,126,49);//PrintXY(3,41,&quot;********&quot;,0);
+	ui_box(6,51,57,61);PrintXY(8,53,&quot;Login&quot;,0);
+	ui_box(70,51,121,61);PrintXY(72,53,&quot;Register&quot;,0);
+
+	clearclock();
+	addclock(54,9,SMALL,DATE_AND_TIME,0);
+	enableclock();
+
+	move=1;
+	while(move){
+		switch(index){
+		case 0:
+			move=ui_textbox(username,&amp;usernamel,MAX_STRING_LENGTH,3,21,BIG,122,0);
+		break;case 1:
+			move=ui_textbox(password,&amp;passwordl,MAX_STRING_LENGTH,3,41,BIG,122,0);
+		break;case 2:
+			move=ui_button(6,51,57,61);
+		break;case 3:
+			move=ui_button(70,51,121,61);
+		break;
+		}
+		index=(index+move+4)%4;
+	}
+	disableclock();
+	clearclock();
+
+	switch(index){
+	case 2:
+		if(ru_login(username,password)) PrintXY(0,0,&quot;Logging Success&quot;,0);
+		else PrintXY(0,0,&quot;Logging Fail&quot;,0);
+	break;
+	case 3:
+		ui_now=REGISTER1;
+	break;
+	}
+}
+void ui_preview()
+{
+	
+}</pre></details><h2>图</h2><div class="imgs"><figure><img src="../20130212%20Ogame/originals/MainIcon.bmp" alt="originals/MainIcon.bmp" loading="lazy"><figcaption>originals/MainIcon.bmp</figcaption></figure><figure><img src="../20130212%20Ogame/originals/eActivityIcon.bmp" alt="originals/eActivityIcon.bmp" loading="lazy"><figcaption>originals/eActivityIcon.bmp</figcaption></figure></div></main></body></html>

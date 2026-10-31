@@ -1,0 +1,340 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>21点 · 化石</title><style>:root{--lcd:#c8ceba;--ink:#222620;--panel:#b9c0a9}html,body{margin:0;background:var(--lcd);color:var(--ink)}
+main{max-width:860px;margin:0 auto;padding:16px;font:15px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif}
+a{color:var(--ink)}h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:20px 0 6px;border-bottom:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:3px 6px;border-bottom:1px solid #9aa08c;text-align:left;vertical-align:top}
+td.n{text-align:right;white-space:nowrap}code,pre{font:13px/1.45 ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+pre{background:var(--panel);padding:10px;overflow:auto;white-space:pre;tab-size:4}details{margin:6px 0}summary{cursor:pointer;font-weight:600}
+.imgs{display:flex;flex-wrap:wrap;gap:12px}.imgs figure{margin:0}.imgs img{image-rendering:pixelated;max-width:100%;border:1px solid #9aa08c}
+.imgs figcaption{font-size:12px}.top a{margin-right:12px}.wrap{overflow-x:auto}</style></head><body><main><p class="top"><a href="../index.html">← GWHBOB的计算器程序</a><a href="../play/21.html">▶ 玩 21 点</a><a href="../play/21.html?calc">计算器</a></p><h1>21点 · 化石</h1><p>21 点，卡西欧 BASIC。</p>
+<p>时间戳 = G1M 文件时间 2010-08-29 21:05。</p><h2>原件</h2><p>当年的字节，一个没改；点文件名下载。时间是文件里存的原始修改时间（北京时间），「—」是论坛附件、看出处里的帖子日期。</p><div class="wrap"><table><tr><th>文件</th><th>字节</th><th>原始时间</th><th>sha256 前 16 位</th><th>出处</th></tr><tr><td><a href="../20100829%2021%E7%82%B9/listings/21.txt" download>listings/21.txt</a></td><td class="n">5811</td><td>—</td><td><code></code></td><td>2026 年写的</td></tr><tr><td><a href="../20100829%2021%E7%82%B9/originals/21.G1M" download>originals/21.G1M</a></td><td class="n">5044</td><td>2010-08-29 21:05</td><td><code>2560b23c55905c96</code></td><td>cnCalc 4574 帖附件，2010-08-29</td></tr></table></div><h2>代码</h2><p>当年是 GBK 编码，这里解出来显示。</p><details open><summary>listings/21.txt</summary><pre>&#x27; 21.G1M：从 G1M 原件解码成文字（指令名照卡西欧的写法；◢ = 显示后暂停，→ = 赋值，⇒ = 条件成立就做；卡西欧自己的特殊字符换成了长得像的 Unicode：▤◀▶ = 反白的 = &lt; &gt;，※ = 花纹块，⏨ = 10 的乘方）
+&#x27; 共 4 个程序：21., 21.MORE, 21.S, GETKEY
+
+&#x27;==== Prog &quot;21.&quot; ====
+&#x27;21Points Card Game 
+&#x27;    designer GWHBOB
+&#x27;1=T,0=F
+&#x27;MONEY=-100→DEAD
+&#x27;NAME=CASIO→AI
+&#x27;Dim I ID
+&#x27;Dim J ID2
+&#x27;Dim N NO.
+&#x27;Dim Z KEY
+&#x27;Dim T TEMP1{
+&#x27;Dim K DECK
+&#x27;=====INIT==========
+&quot;◀▤▶◀▤▶◀▤▶◀▤▶◀▤▶◀▤▶◀▤▶◀※※M▤ade▶by※◀GWH▤BOB▶◀※▶◀▤※◀※▶※▤▶◀▤※◀▤※◀※▶◀※▶◀▤※※※▶※※※◀▤※◀▤※◀※▶◀C▶◀▤※◀a▶◀▤n◀▤i◀▤o◀※▶◀※CA▤R◀D▶21.◀Gam▤e※※▶&quot;
+Locate 1,7,&quot;◀▤▶◀▤▶◀▤▶◀▤▶◀▤▶◀▤▶◀▤▶&quot;
+Prog &quot;GETKEY&quot;
+&quot;&quot;→Str 4
+&quot;&quot;→Str 2
+&#x27;PLAYER DATA
+&#x27;0+ID→MONEY
+&#x27;6+ID→NAME P
+&#x27;12+ID→NAME LEN
+&#x27;12+6NO.+ID→CARD N
+&#x27;96+6ID→BOOM
+&#x27;102+6ID→21
+&#x27;108+6ID→EMPTY
+&#x27;114+6ID→DIE
+120→Dim List 2
+Fill(0,List 2)
+&#x27;MAIN DATA
+14→Dim List 1
+Fill(8,List 1)
+&#x27;NO.→CARD N
+&#x27;14→&quot;1→K&quot; P
+For 1→I To 6
+&#x27;Dim I ID
+ClrText
+&quot;&quot;
+Locate 1,1,&quot;PLAYER :&quot;
+Locate 7,1,I
+0→Z
+&#x27;Dim Z KEY{1,2,3}
+While (Z≠1) And (Z≠2) And (Z≠3)
+&quot;1→HUMAN
+2→CALC
+3→NOONE&quot;?→Z
+WhileEnd
+If Z=1
+Then 
+&quot;YOUR NAME&quot;?→Str 1
+100→List 2[I]
+IfEnd
+If Z=2
+Then 
+&quot;CASIO&quot;→Str 1
+150→List 2[I]
+IfEnd
+If Z=3
+Then 
+&quot;&quot;→Str 1
+0→List 2[I]
+IfEnd
+StrLen(Str 4)+1→List 2[6+I]
+StrLen(Str 1)→List 2[12+I]
+StrJoin(Str 4,Str 1)→Str 4
+Next
+
+StrLen(Str 4)→List 1[14]
+StrJoin(Str 4,&quot;123456789⏨JQK&quot;)→Str 4
+&#x27;=====MAIN LOOP=====
+While 1
+For 1→I To 6
+&#x27;     CLEAR INFO
+&#x27;Dim T  Step 
+For 0→T To 3
+0→List 2[96+6T+I]
+Next
+If List 2[I]&gt;0
+Then 
+&#x27;=====ROUND=========
+ClrText
+StrMid(Str 4,List 2[6+I],List 2[12+I])→Str 1
+Locate 1,1,Str 1
+If StrCmp(Str 1,&quot;CASIO&quot;)=0
+Then 
+&#x27;=====AI============
+Prog &quot;21.MORE&quot;
+Prog &quot;21.S&quot;
+Else 
+&#x27;=====PLAYER========
+&#x27;  ===BEGIN===      
+&#x27;Dim T  Step 
+For 2→T To 7
+Locate 1,T,&quot;■■■■■■■■■■■■■■■■■■■■■&quot;
+Next
+Locate 1,2,&quot;→→→&quot;
+Locate 1,3,&quot;→→→&quot;
+Locate 1,4,&quot;→→→&quot;
+Locate 1,5,&quot;→→→&quot;
+Locate 1,6,&quot;→→→&quot;
+Locate 1,7,&quot;→→→&quot;
+For 1→T To 6
+While GetKey≠89-10T
+WhileEnd
+Locate 3T+1,2,&quot;   &quot;
+Locate 3T+1,3,&quot;   &quot;
+Locate 3T+1,4,&quot;   &quot;
+Locate 3T+1,5,&quot;   &quot;
+Locate 3T+1,6,&quot;   &quot;
+Locate 3T+1,7,&quot;   &quot;
+Next
+&#x27;Dim Z KEY{79→MORE,69→INFO,59→SORT,49→END}
+0→Z
+&#x27;=====OS LOOP=======
+While Z≠49
+&#x27;  ===DISPLAY===    
+ClrText
+&quot;==DATA==+====MENU====Cash:   ‖F1→MoreCard $       ‖F2→Message  Alive:  ‖F3→Players  Deck:   ‖F4→EndTurn  ========+============&quot;
+&#x27;     NAME          
+StrMid(Str 4,List 2[6+I],List 2[12+I])→Str 1
+Locate 2,6,Str 1
+&#x27;     MONEY         
+Locate 2,3,List 2[I]
+&#x27;     ALIVE         
+&#x27;Dim T ALIVE
+0→T
+&#x27;Dim J ID2
+For 1→J To 6
+List 2[J]&gt;0⇒T+1→T
+Next
+Locate 7,4,T
+&#x27;  ===CARD DISP===  
+&quot;&quot;→Str 1
+&#x27;Dim N NO.
+&#x27;Dim T  Step 
+For 1→N To 13
+For 1→T To List 2[12+6N+I]
+StrJoin(Str 1,StrMid(Str 4,List 1[14]+N,1))→Str 1
+Next
+Next
+Locate 1,7,Str 1
+&#x27;     DECK          
+&#x27;Dim N NO.
+&#x27;Dim K DECK
+0→K
+For 1→N To 13
+K+List 1[N]→K
+Next
+Locate 6,5,K
+&#x27;=====COMMAND=======
+&#x27;Dim Z KEY{79→MORE,69→INFO,59→SORT,49→END}
+0→Z
+While (Z≠79) And (Z≠69) And (Z≠59) And (Z≠49)
+GetKey→Z
+WhileEnd
+Z=79⇒Prog &quot;21.MORE&quot;
+If Z=69
+Then 
+&#x27;=====INFO DISP=====
+&#x27;Dim S  Step 
+&#x27;Dim J ID2
+For 0→S To 4
+MOD(I+S,6)+1→J
+If StrCmp(StrMid(Str 4,List 2[6+J],List 2[12+J]),&quot;&quot;)≠0
+Then 
+ClrText
+Locate 1,1,&quot;PLAYER&quot;
+Locate 7,1,J
+Locate 1,2,StrMid(Str 4,List 2[6+J],List 2[12+J])
+&#x27;Dim T TEXTY
+3→T
+If List 2[96+J]&gt;0
+Then 
+Locate 1,T,&quot;Boom ×&quot;
+Locate 7,T,List 2[96+J]
+T+1→T
+IfEnd
+If List 2[102+J]&gt;0
+Then 
+Locate 1,T,&quot;Get 21 ×&quot;
+Locate 9,T,List 2[102+J]
+T+1→T
+IfEnd
+If List 2[108+J]&gt;0
+Then 
+Locate 1,T,&quot;Empty the deck ×&quot;
+Locate 17,T,List 2[108+J]
+T+1→T
+IfEnd
+If List 2[114+J]&gt;0
+Then 
+Locate 1,T,&quot;DIE!&quot;
+T+1→T
+IfEnd
+If List 2[J]=-100
+Then 
+Locate 1,T,&quot;Has been dead long ag&quot;
+Locate 1,T,&quot;o!&quot;
+IfEnd
+Prog &quot;GETKEY&quot;
+IfEnd
+Next
+IfEnd
+&#x27;=====SORT==========
+If Z=59
+Then 
+ClrText
+&#x27;Dim J ID2,T TEXTY
+1→T
+For 1→J To 6
+If List 2[J]≥0
+Then 
+Locate 1,T,StrMid(Str 4,List 2[6+J],List 2[12+J])
+Locate 17,T,&quot;$   &quot;
+Locate 18,T,List 2[J]
+T+1→T
+IfEnd
+Next
+Prog &quot;GETKEY&quot;
+IfEnd
+Prog &quot;21.S&quot;
+&#x27;=====END OS LOOP===
+WhileEnd
+&#x27;PLAYER
+IfEnd
+&#x27;ALIVE
+IfEnd
+&#x27;EACH
+Next
+&#x27;=====END MAIN LOOP=
+WhileEnd
+
+&#x27;==== Prog &quot;21.MORE&quot; ====
+&#x27;Receive(BV I ID,BV K DECK)
+&#x27;Dim N NO.
+If K&gt;1
+Then 
+RanInt#(1,K)→K
+IfEnd
+&#x27;Dim K CARD P
+1→N
+While (K&gt;List 1[N]) And (N&lt;13)
+K-List 1[N]→K
+N+1→N
+WhileEnd
+List 2[12+6N+I]+1→List 2[12+6N+I]
+List 1[N]-1→List 1[N]
+&#x27;=====DISPLAY=======
+If StrCmp(Str 1,&quot;CASIO&quot;)≠0
+Then 
+Locate 7,7,&quot;‖You get a [ ]‖&quot;
+Locate 19,7,StrMid(Str 4,List 1[14]+N,1)
+Prog &quot;GETKEY&quot;
+IfEnd
+
+&#x27;Dim K DECK
+&#x27;Dim N NO.
+0→K
+For 1→N To 13
+K+List 1[N]→K
+Next
+&#x27;=====EMPTY=========
+If K&lt;1
+Then 
+For 1→N To 13
+8→List 1[N]
+Next
+104→K
+List 2[108+I]+1→List 2[108+I]
+IfEnd
+
+&#x27;==== Prog &quot;21.S&quot; ====
+&#x27;Receive(BV I ID)
+&#x27;Dim S SUM
+&#x27;Dim N NO.
+&#x27;Dim T TEMP
+&#x27;Dim J ID2
+&#x27;Dim M MONEY
+&#x27;=====CALC==========
+0→S
+For 1→N To 13
+S+N×List 2[12+6N+I]→S
+Next
+&#x27;=====WORK==========
+If S≥21
+Then 
+If S&gt;21
+Then 
+List 2[96+I]+1→List 2[96+I]
+-1→M
+Else 
+List 2[102+I]+1→List 2[102+I]
+5→M
+IfEnd
+&#x27;=====MONEY OP======
+For 1→J To 6
+If List 2[J]&gt;0
+Then 
+List 2[J]-M→List 2[J]
+List 2[I]+M→List 2[I]
+IfEnd
+Next
+&#x27;=====CLEAR CARD====
+For 1→J To 6
+For 1→N To 13
+0→List 2[12+6N+J]
+Next
+Next
+&#x27;=====DEATH=========
+For 1→J To 6
+If (List 2[J]≤0) And (List 2[J]≠-100)
+Then 
+List 2[114+J]+1→List 2[114+J]
+-100→List 2[J]
+IfEnd
+Next
+IfEnd
+
+&#x27;==== Prog &quot;GETKEY&quot; ====
+1→Z
+While Z≠0
+GetKey→Z
+WhileEnd
+0→Z
+While Z=0
+GetKey→Z
+WhileEnd
+
+</pre></details></main></body></html>

@@ -361,9 +361,9 @@ key = lambda p: p.get('addin') or p['file']
 def page(members, autorun, title):  # 一页只带这几个程序和它们的 wasm
     sub = [p for p in progs if key(p) in members]
     js = [j for a, j in zip(ADDINS, addin_js) if a['addin'] in members]
-    h = shell.replace('%%ADDINS_JS%%', '\n'.join(js)).replace('%%FONT_SMALL%%', small).replace('%%AUTORUN%%', str(autorun))
+    h = shell.replace('%%ADDINS_JS%%', '\n'.join(js)).replace('%%FONT_SMALL%%', small).replace('%%AUTORUN%%', str(autorun)).replace('%%START_FS%%', 'false')
     h = h.replace('%%FONT%%', font_js).replace('%%PROGRAMS%%', json.dumps(sub, ensure_ascii=False))
-    return h.replace('<title>GWHBOB</title>', f'<title>{title}</title>') if title else h
+    return h.replace('<title>GWHBOB的计算器程序</title>', f'<title>{title}</title>') if title else h
 html = page({key(p) for p in progs}, -1, None)
 open(os.path.join(here, 'index.html'), 'w', encoding='utf-8').write(html)
 print('index.html', len(html.encode()), 'bytes,', len(progs), 'files')
@@ -380,15 +380,22 @@ for slug, title, k in PAGES:
     p = dict(by_key[k])
     if k == 'MAGTOWER2026': p['fls0'] = by_key['MAGTOWER']['fls0']   # 合集页里字库是原样版带进存储内存的；单独一页要自己带
     js = [j for a, j in zip(ADDINS, addin_js) if a['addin'] == k]
-    h = shell.replace('%%ADDINS_JS%%', '\n'.join(js)).replace('%%FONT_SMALL%%', small).replace('%%AUTORUN%%', '0')
-    h = h.replace('%%FONT%%', font_js).replace('%%PROGRAMS%%', json.dumps([p], ensure_ascii=False)).replace('<title>GWHBOB</title>', f'<title>{title}</title>')
+    h = shell.replace('%%ADDINS_JS%%', '\n'.join(js)).replace('%%FONT_SMALL%%', small).replace('%%AUTORUN%%', '0').replace('%%START_FS%%', 'true')
+    h = h.replace('%%FONT%%', font_js).replace('%%PROGRAMS%%', json.dumps([p], ensure_ascii=False)).replace('<title>GWHBOB的计算器程序</title>', f'<title>{title}</title>')
     open(os.path.join(here, 'play', slug + '.html'), 'w', encoding='utf-8').write(h)
     print(f'play/{slug}.html', len(h.encode()), 'bytes')
 
 # 合集页（home.html → 宣发仓的 index.html）：1-bit 液晶风格，每个展位 = 游戏 + 源码 + 介绍。中文只带页面上用到的字（HZK12 子集）。
 REPO = 'https://github.com/fangzhangmnm/casio-2010'
 from urllib.parse import quote
-tree = lambda hall: f"{REPO}/tree/main/{quote(hall)}"
+# 每个展厅（子仓）一页「源码化石」：站内的 src/<短名>.html（作者 10-31「源码为什么跳转github，不是github源码，而是策展式的源码化石」）
+HALLS = [('snake', '20100829 贪吃蛇', '贪吃蛇'), ('21', '20100829 21点', '21点'), ('sanguosha', '20100918 三国杀简版', '三国杀简版'),
+         ('td', '20101022 塔防', '塔防'), ('doodle', '20110415 Doodle Jump', 'Doodle Jump'), ('3d', '20111111 3D 引擎', '3D 引擎'),
+         ('mine', '20120629 扫雷', '扫雷'), ('magtower', '20120703 魔塔', '魔塔'), ('pinyin', '20120813 拼音输入法', '拼音输入法'),
+         ('ogame', '20130212 Ogame', 'Ogame'), ('visualfx', '20130214 VisualFX', 'VisualFX'), ('danmaku', '20130411 弹幕骨架', '弹幕骨架'),
+]
+HALL_SRC = {h: slug for slug, h, _ in HALLS}
+tree = lambda hall: f"src/{HALL_SRC[hall]}.html" if hall in HALL_SRC else None   # 历史作品 = 化石页；2026 版不放
 SECTIONS = [
     ('能玩的', [('2010-08-29', '贪吃蛇', 'snake', '20100829 贪吃蛇'), ('2010-08-29', '21点', '21', '20100829 21点'),
                ('2010-09-18', '三国杀简版', 'sanguosha', '20100918 三国杀简版'), ('2010-10-22', '塔防 1.0', 'td-1.0', '20101022 塔防'),
@@ -396,13 +403,13 @@ SECTIONS = [
                ('2012-06-29', '扫雷 9860版', 'mine', '20120629 扫雷'), ('2012-06-29', '扫雷 9750版', 'mine-9750', '20120629 扫雷'),
                ('2012-08-07', '魔塔', 'magtower', '20120703 魔塔'), ('2013-07-23', 'Doodle Jump', 'doodle', '20110415 Doodle Jump')]),
     ('2026 修复版', [('2026-10-31', '魔塔 2026版', 'magtower-2026', '20261031 魔塔 2026'), ('2026-10-31', 'Doodle Jump 2026版', 'doodle-2026', '20261031 Doodle Jump 2026')]),
-    ('还没复活（只有源码）', [('2012-08-13', '拼音输入法', None, '20120813 拼音输入法'), ('2013-02-12', 'Ogame', None, '20130212 Ogame'),
+    ('还没复活（只有化石）', [('2012-08-13', '拼音输入法', None, '20120813 拼音输入法'), ('2013-02-12', 'Ogame', None, '20130212 Ogame'),
                      ('2013-02-14', 'VisualFX', None, '20130214 VisualFX'), ('2013-04-11', '弹幕骨架', None, '20130411 弹幕骨架')]),
 ]
 assert all(slug in {p[0] for p in PAGES} for _, rows in SECTIONS for _, _, slug, _ in rows if slug)
 home = {'title': 'GWHBOB 的计算器程序', 'sub': 'fx-9750GII  2010-2013', 'repo': REPO,
         'sections': [{'name': n, 'rows': [{'date': d, 'name': t, 'play': (f'play/{slug}.html' if slug else None), 'src': tree(h)} for d, t, slug, h in rows]} for n, rows in SECTIONS]}
-texts = [home['title'], home['sub'], '源码', '介绍'] + [s['name'] for s in home['sections']] + [r['date'] + ' ' + r['name'] for s in home['sections'] for r in s['rows']]
+texts = [home['title'], home['sub'], '化石', '介绍', '计算器'] + [s['name'] for s in home['sections']] + [r['date'] + ' ' + r['name'] for s in home['sections'] for r in s['rows']]
 hzk = open(os.path.join(root, '20120703 魔塔', 'originals', 'HZK12.df'), 'rb').read()
 cjk = {}
 for ch in sorted({c for t in texts for c in t if ord(c) > 127}):
@@ -416,4 +423,62 @@ h = open(os.path.join(here, 'home.html'), encoding='utf-8').read().replace('%%HO
 os.makedirs(os.path.join(here, 'site'), exist_ok=True)
 open(os.path.join(here, 'site', 'index.html'), 'w', encoding='utf-8').write(h)
 print('site/index.html', len(h.encode()), 'bytes;', len(cjk), '个中文字（HZK12 子集）')
+
+# ---- 源码化石页：site/src/<短名>.html。原件的下载链接指向宣发仓里的展厅（../<子仓>/…），所以要和宣发仓的布局一起看 ----
+import html as H, re, subprocess
+TEXT = {'c', 'h', 'txt', 'frm', 'bat', 'g1w', 'py', 'json'}
+IMG = {'bmp', 'jpg', 'jpeg', 'png', 'gif'}
+PLAY_OF = {}
+for slug, title, k in PAGES:
+    for d, t, ps, hall in [r for _, rows in SECTIONS for r in rows]:
+        if ps == slug: PLAY_OF.setdefault(hall, []).append((slug, title))
+def manifest(hall):
+    out = {}
+    for line in open(os.path.join(root, hall, 'MANIFEST.md'), encoding='utf-8') if os.path.exists(os.path.join(root, hall, 'MANIFEST.md')) else []:
+        m = re.match(r'\| `([^`]+)` \| ([^|]*)\| ([^|]*)\| `?([^|`]*)`? \| (.*) \|\s*$', line)
+        if m: out[m.group(1)] = [x.strip() for x in m.groups()[1:]]
+    return out
+def md_inline(t): return re.sub(r'`([^`]+)`', r'<code>\1</code>', H.escape(t))
+def label(hall):                                     # 子仓的 README 当展品标签（极简 markdown）
+    out = []
+    for line in open(os.path.join(root, hall, 'README.md'), encoding='utf-8').read().split('\n'):
+        if line.startswith('# ') or not line.strip(): continue
+        if line.startswith('> '): continue                      # 署名、来源这些给 agent 看的，不上标签
+        if '../' in line or 'MANIFEST' in line: continue       # 给开发看的路径、和下面原件表重复的，不上展品标签
+        out.append(f'<li>{md_inline(line[2:])}</li>' if line.startswith('- ') else f'<p>{md_inline(line)}</p>')
+    return '\n'.join(out).replace('</li>\n<li>', '</li><li>').replace('<li>', '<ul><li>', 1) + ('</ul>' if '<li>' in ''.join(out) else '')
+def text_of(path):
+    b = open(path, 'rb').read()
+    try: return b.decode('utf-8')
+    except UnicodeDecodeError: return b.decode('gbk', errors='replace')
+SRC_CSS = """:root{--lcd:#c8ceba;--ink:#222620;--panel:#b9c0a9}html,body{margin:0;background:var(--lcd);color:var(--ink)}
+main{max-width:860px;margin:0 auto;padding:16px;font:15px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif}
+a{color:var(--ink)}h1{font-size:22px;margin:8px 0}h2{font-size:17px;margin:20px 0 6px;border-bottom:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:3px 6px;border-bottom:1px solid #9aa08c;text-align:left;vertical-align:top}
+td.n{text-align:right;white-space:nowrap}code,pre{font:13px/1.45 ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+pre{background:var(--panel);padding:10px;overflow:auto;white-space:pre;tab-size:4}details{margin:6px 0}summary{cursor:pointer;font-weight:600}
+.imgs{display:flex;flex-wrap:wrap;gap:12px}.imgs figure{margin:0}.imgs img{image-rendering:pixelated;max-width:100%;border:1px solid #9aa08c}
+.imgs figcaption{font-size:12px}.top a{margin-right:12px}.wrap{overflow-x:auto}"""
+os.makedirs(os.path.join(here, 'site', 'src'), exist_ok=True)
+for slug, hall, name in HALLS:
+    files = [f for f in subprocess.run(['git', '-c', 'core.quotePath=false', '-C', os.path.join(root, hall), 'ls-files', '-z'], capture_output=True, text=True, check=True).stdout.split('\0')
+             if f and os.path.basename(f) not in ('.gitignore', 'README.md', 'MANIFEST.md')]
+    man = manifest(hall); url = lambda f: '../' + quote(hall) + '/' + quote(f)
+    ext = lambda f: f.rsplit('.', 1)[-1].lower() if '.' in f else ''
+    rows = ''.join(f'<tr><td><a href="{url(f)}" download>{H.escape(f)}</a></td><td class="n">{H.escape(man.get(f, ["", "", "", ""])[0]) or os.path.getsize(os.path.join(root, hall, f))}</td>'
+                   f'<td>{H.escape(man.get(f, ["", "—"])[1])}</td><td><code>{H.escape(man.get(f, ["", "", ""])[2])}</code></td><td>{md_inline(man.get(f, ["", "", "", "2026 年写的"])[3])}</td></tr>' for f in files)
+    texts = [f for f in files if ext(f) in TEXT]
+    main_src = next((f for f in texts if ext(f) == 'c'), None) or next((f for f in texts if f.startswith('listings/')), texts[0] if texts else None)
+    codes = ''.join(f'<details{" open" if f == main_src else ""}><summary>{H.escape(f)}</summary><pre>{H.escape(text_of(os.path.join(root, hall, f)))}</pre></details>' for f in texts)
+    imgs = ''.join(f'<figure><img src="{url(f)}" alt="{H.escape(f)}" loading="lazy"><figcaption>{H.escape(f)}</figcaption></figure>' for f in files if ext(f) in IMG)
+    plays = ''.join(f'<a href="../play/{ps}.html">▶ 玩 {H.escape(t)}</a><a href="../play/{ps}.html?calc">计算器</a>' for ps, t in PLAY_OF.get(hall, []))
+    page_html = (f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
+                 f'<title>{H.escape(name)} · 化石</title><style>{SRC_CSS}</style></head><body><main>'
+                 f'<p class="top"><a href="../index.html">← GWHBOB的计算器程序</a>{plays}</p><h1>{H.escape(name)} · 化石</h1>{label(hall)}'
+                 f'<h2>原件</h2><p>当年的字节，一个没改；点文件名下载。时间是文件里存的原始修改时间（北京时间），「—」是论坛附件、看出处里的帖子日期。</p>'
+                 f'<div class="wrap"><table><tr><th>文件</th><th>字节</th><th>原始时间</th><th>sha256 前 16 位</th><th>出处</th></tr>{rows}</table></div>'
+                 + (f'<h2>代码</h2><p>当年是 GBK 编码，这里解出来显示。</p>{codes}' if codes else '')
+                 + (f'<h2>图</h2><div class="imgs">{imgs}</div>' if imgs else '') + '</main></body></html>')
+    open(os.path.join(here, 'site', 'src', slug + '.html'), 'w', encoding='utf-8').write(page_html)
+print('site/src/', len(HALLS), '页化石')
 
