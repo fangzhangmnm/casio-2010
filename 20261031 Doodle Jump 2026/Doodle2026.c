@@ -31,6 +31,7 @@
 #define P_DEADZONE  5   /* 倾角死区，0.01°（这个角度以内算不倾） */
 #define P_FOLLOW_ACC  8 /* 跟手的加速度，像素/秒²（默认 800，和键盘一样，但分开调） */
 #define P_FOLLOW_VMAX 9 /* 跟手的最快速度，像素/秒（默认 80 = 原版最快） */
+#define P_FOLLOW_BRAKE 10 /* 跟手提前收：1 开（默认）/ 0 = 纯二值（会在手指两边晃） */
 
 const char pict_doodle[12][12]={
 {5,5,5,5,5,5,1,1,1,1,5,5},
@@ -228,11 +229,20 @@ void MoveDoodle(float dt, int follow, int tx)
 		if(DoodleVX>VxMax*cap/100.0f)DoodleVX=VxMax*cap/100.0f;
 		if(DoodleVX<-VxMax*cap/100.0f)DoodleVX=-VxMax*cap/100.0f;
 	}else if(follow && !IsKeyDown(KEY_CTRL_UP) && !IsKeyDown(KEY_CTRL_DOWN)){
-		/* 二值控制：速度是状态（有惯性），控制量是加速度，只取两个值——手指在右 = 全力往右加速，在左 = 全力往左。
-		 * 没有阻尼，所以会在手指两边来回晃，最多晃 ±(最快速度² / 2 / 加速度)，默认 ±4 像素、一个来回约 0.4 秒。下一步试比例 / PID。
-		 * 手指一抬就回到下面原版的规矩：没按键 = 立刻停。 */
-		float a=Param_Get(P_FOLLOW_ACC,800), vmax=Param_Get(P_FOLLOW_VMAX,80);
-		DoodleVX += (tx>=DoodleX ? a : -a)*dt;
+		/* 二值控制：速度是状态（有惯性），控制量是加速度，只取全力的两档。
+		 * 纯二值（手指在右就全力往右，在左就全力往左）没有阻尼，会在手指两边一直晃，默认 ±4 像素。
+		 * 提前收（user 10-31「我希望几乎还是二值的手感，要不还差4像素的时候开始收。震荡收的住吗」）：剩下的距离不够全力刹车滑行了
+		 * （v² / 2a，再加这一帧要走的），就全力刹；全速 80 时刹车距离 = 80² / (2×800) = 4 像素，慢的时候刹车点自动更近。
+		 * 到了（差不到半像素、速度小于一帧能改的量）就定住。60 帧模拟：冲过头 ≤ 0.44 像素，30 像素外 0.43 秒停稳；追着挪动的手指时落后 ≤ 1.8 像素。
+		 * 手指一抬就回到下面原版的规矩：没按键 = 立刻停。下一步试比例 / PID。 */
+		float a=Param_Get(P_FOLLOW_ACC,800), vmax=Param_Get(P_FOLLOW_VMAX,80), e=tx-DoodleX, dv, ae, av;
+		if(a<1)a=1;
+		dv=a*dt; ae=e<0?-e:e; av=DoodleVX<0?-DoodleVX:DoodleVX;
+		if(!Param_Get(P_FOLLOW_BRAKE,1)) DoodleVX += (tx>=DoodleX ? a : -a)*dt;
+		else if(ae<=0.5f && av<=dv) DoodleVX=0;                                       /* 到了：定住 */
+		else if(DoodleVX*e>0 && DoodleVX*DoodleVX/(2*a)+av*dt>=ae)                   /* 刹车距离够不着了：全力收 */
+			DoodleVX = av<=dv ? 0 : DoodleVX-(DoodleVX>0?dv:-dv);
+		else DoodleVX += e>0 ? dv : -dv;                                                /* 全力往手指那边 */
 		if(DoodleVX>vmax)DoodleVX=vmax;
 		if(DoodleVX<-vmax)DoodleVX=-vmax;
 	}else{
